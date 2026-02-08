@@ -54,20 +54,20 @@ static inline uint16_t i2c_scl_to_ccr(uint32_t freq_scl) {
 //------------------------------------------------------------------------------
 
 static inline void i2c_enable(void) {
-  I2C1->CTLR1 |= I2C_CTLR1_PE; }
+  I2C1->CTLR1 |= CTLR1_PE_SET; }
 
 static inline void i2c_disable(void) {
-  I2C1->CTLR1 &= ~I2C_CTLR1_PE; }
+  I2C1->CTLR1 &= CTLR1_PE_RESET; }
 
 static inline void i2c_power_on(void) {
-  RCC->APB1PCENR |= RCC_APB1PERIPH_I2C1; }
+  RCC->APB1PCENR |= RCC_I2C1EN; }
 
 static inline void i2c_power_off(void) {
-  RCC->APB1PCENR &= ~RCC_APB1PERIPH_I2C1; }
+  RCC->APB1PCENR &= ~RCC_I2C1EN; }
 
 static inline void i2c_reset(void) {
-  RCC->APB1PRSTR |= RCC_APB1PERIPH_I2C1;
-  RCC->APB1PRSTR &= ~RCC_APB1PERIPH_I2C1; }
+  RCC->APB1PRSTR |= RCC_I2C2RST;
+  RCC->APB1PRSTR &= ~RCC_I2C2RST; }
 
 static inline void i2c_remap(uint32_t pcfr) {
   AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_I2C1_HIGH_BIT_REMAP |

@@ -1,24 +1,14 @@
-// User-configurable macros (see wchsdk_cfg.h):
-//  IFACE_UART_RX_RING_OVERWRITE  0/1
-//   1: Incomming data will overwrite older data in the buffer.
-//   0: Incomming data will not be added to the buffer until space is free.
-
-#if IFACE_UART
+#if IO_DMA
 
 #pragma once
 
-#include <stdbool.h>
-#include <stdint.h>
+//#include <stdbool.h>
+//#include <stdint.h>
 
-#include "wch/hw/afio.h"
-#include "wch/hw/uart.h"
-#include "wch/hw/rcc.h"
-#include "wch/mcu/def.h"
-
-//------------------------------------------------------------------------------
-// Baud
-
-#define UART_BAUD_TO_BRR(b)  ((MCU_SYS_FREQ + ((b) / 2)) / (b))
+//#include "wch/hw/afio.h"
+//#include "wch/hw/uart.h"
+//#include "wch/hw/rcc.h"
+//#include "wch/mcu/def.h"
 
 //------------------------------------------------------------------------------
 
@@ -29,6 +19,12 @@ typedef struct {
   uint8_t *tx_buf;
   uint32_t tx_size;
 } uart_config_t;
+
+//------------------------------------------------------------------------------
+// CTLR3 options
+//  USART_CTLR3_CTSE
+//  USART_CTLR3_RTSE
+//  (USART_CTLR3_CTSE | USART_CTLR3_RTSE)
 
 //------------------------------------------------------------------------------
 // Initiliase the UART peripheral with the passed configuratiion.
@@ -88,4 +84,4 @@ static inline void usart_remap(uint32_t pcfr) {
 
 //------------------------------------------------------------------------------
 
-#endif  /* IFACE_UART */
+#endif  /* IO_DMA */

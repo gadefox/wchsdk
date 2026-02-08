@@ -79,9 +79,11 @@ void uart_init(uart_config_t* c) {
   // Enable the UART RXNE Interrupt
   pfic_enable_irq(IRQ_USART1);
 
-  // Set CTLR1 Register (Enable RX & TX, set Word Length and Parity)
-  USART1->CTLR1 = USART_MODE_TX | USART_MODE_RX | USART_CTLR1_RXNEIE |
-                  USART_CTLR1_UE;
+  // Set CTLR registers
+  USART1->CTLR1 = USART_WORDLENGTH_8B | USART_PARITY_NO | USART_MODE_TX |
+                  USART_MODE_RX;
+  USART1->CTLR2 = USART_STOPBITS_1;
+  USART1->CTLR3 = USART_DMAREQ_TX | USART_DMAREQ_RX;
 }
 
 //------------------------------------------------------------------------------

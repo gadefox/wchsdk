@@ -54,7 +54,7 @@ typedef struct {
 #define CTLR_HSITRIM_MASK ((uint32_t)0xFFFFFF07)
 
 #define CFGR0_PLL_MASK          ((uint32_t)0xFFC0FFFF)
-#define CFGR0_PLLMull_MASK      ((uint32_t)0x003C0000)
+#define CFGR0_PLLMULL_MASK      ((uint32_t)0x003C0000)
 #define CFGR0_PLLSRC_MASK       ((uint32_t)0x00010000)
 #define CFGR0_PLLXTPRE_MASK     ((uint32_t)0x00020000)
 #define CFGR0_SWS_MASK          ((uint32_t)0x0000000C)

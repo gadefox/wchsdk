@@ -24,6 +24,19 @@
 
 //------------------------------------------------------------------------------
 
+/* EXTI mode enumeration */
+typedef enum {
+  EXTI_MODE_INTERRUPT   = 0x00,
+  EXTI_MODE_EVENT       = 0x04
+} exti_mode_t;
+
+/* EXTI Trigger enumeration */
+typedef enum {
+  EXTI_TRIGGER_RISING           = 0x08,
+  EXTI_TRIGGER_FALLING          = 0x0C,
+  EXTI_TRIGGER_RISING_FALLING   = 0x10
+} exti_trigger_t;
+
 typedef struct {
   __IO uint32_t INTENR; /* Interrupt Enable Register            */
   __IO uint32_t EVENR;  /* Event Capture Register               */
@@ -113,23 +126,6 @@ typedef struct {
 #define EXTI_INTF_INTF7 ((uint32_t)0x00000080) /* Pending bit for line 7 */
 #define EXTI_INTF_INTF8 ((uint32_t)0x00000100) /* Pending bit for line 8 */
 #define EXTI_INTF_INTF9 ((uint32_t)0x00000200) /* Pending bit for line 9 */
-
-#ifndef __ASSEMBLER__
-
-/* EXTI mode enumeration */
-typedef enum {
-  EXTI_Mode_Interrupt   = 0x00,
-  EXTI_Mode_Event       = 0x04
-} exti_mode_t;
-
-/* EXTI Trigger enumeration */
-typedef enum {
-  EXTI_Trigger_Rising           = 0x08,
-  EXTI_Trigger_Falling          = 0x0C,
-  EXTI_Trigger_Rising_Falling   = 0x10
-} exti_trigger_t;
-
-#endif /* __ASSEMBLER__ */
 
 /* EXTI_Lines */
 #define EXTI_LINE0 ((uint32_t)0x00001) /* External interrupt line 0 */

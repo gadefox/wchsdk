@@ -11,16 +11,16 @@
 //------------------------------------------------------------------------------
 
 static inline void pin_init_all(void) {
-  RCC->APB2PCENR |= RCC_APB2PERIPH_AFIO | RCC_APB2PERIPH_GPIOA | RCC_APB2PERIPH_GPIOC | RCC_APB2PERIPH_GPIOD; }
+  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPAEN | RCC_IOPCEN | RCC_IOPDEN; }
 
 static inline void pin_init_bank_a(void) {
-  RCC->APB2PCENR |= RCC_APB2PERIPH_AFIO | RCC_APB2PERIPH_GPIOA; }
+  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPAEN; }
 
 static inline void pin_init_bank_c(void) {
-  RCC->APB2PCENR |= RCC_APB2PERIPH_AFIO | RCC_APB2PERIPH_GPIOC; }
+  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPCEN; }
 
 static inline void pin_init_bank_d(void) {
-  RCC->APB2PCENR |= RCC_APB2PERIPH_AFIO | RCC_APB2PERIPH_GPIOD; }
+  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPDEN; }
 
 //------------------------------------------------------------------------------
 

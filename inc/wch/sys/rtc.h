@@ -57,14 +57,14 @@ static inline void rtc_disable(void) {
   TIM2->CTLR1 &= ~TIM_CEN; }
 
 static inline void rtc_power_on(void) {
-  RCC->APB1PCENR |= RCC_APB1PERIPH_TIM2; }
+  RCC->APB1PCENR |= RCC_TIM2EN; }
 
 static inline void rtc_power_off(void) {
-  RCC->APB1PCENR &= ~RCC_APB1PERIPH_TIM2; }
+  RCC->APB1PCENR &= ~RCC_TIM2EN; }
 
 static inline void rtc_reset(void) {
-  RCC->APB1PRSTR |= RCC_APB1PERIPH_TIM2;
-  RCC->APB1PRSTR &= ~RCC_APB1PERIPH_TIM2; }
+  RCC->APB1PRSTR |= RCC_TIM2RST;
+  RCC->APB1PRSTR &= ~RCC_TIM2RST; }
 
 //------------------------------------------------------------------------------
 

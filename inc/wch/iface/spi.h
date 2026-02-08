@@ -58,20 +58,20 @@ static inline void spi_begin_word(void) {
 //------------------------------------------------------------------------------
 
 static inline void spi_enable(void) {
-  SPI1->CTLR1 |= SPI_CTLR1_SPE; }
+  SPI1->CTLR1 |= CTLR1_CRCEN_SET; }
 
 static inline void spi_disable(void) {
-  SPI1->CTLR1 &= ~SPI_CTLR1_SPE; }
+  SPI1->CTLR1 &= CTLR1_CRCEN_RESET; }
 
 static inline void spi_power_on(void) {
-  RCC->APB2PCENR |= RCC_APB2PERIPH_SPI1; }
+  RCC->APB2PCENR |= RCC_SPI1EN; }
 
 static inline void spi_power_off(void) {
-  RCC->APB2PCENR &= ~RCC_APB2PERIPH_SPI1; }
+  RCC->APB2PCENR &= ~RCC_SPI1EN; }
 
 static inline void spi_reset(void) {
-  RCC->APB2PRSTR |= RCC_APB2PERIPH_SPI1;
-  RCC->APB2PRSTR &= ~RCC_APB2PERIPH_SPI1; }
+  RCC->APB2PRSTR |= RCC_SPI1RST;
+  RCC->APB2PRSTR &= ~RCC_SPI1RST; }
 
 static inline void spi_remap(uint32_t pcfr) {
   AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_SPI1_REMAP);
