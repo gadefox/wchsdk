@@ -56,32 +56,6 @@ static void start_tx_dma(void) {
   tx_active = 1;                                        // mark active
 }
 
-// called when UART RX IDLE line interrupt fires indicating new data ready
-__attribute__((interrupt)) void USART1_IRQHandler(void) {
-  if (USART1->STATR & USART_STATR_IDLE) { // idle line detected, DMA1_Channel5->CNTR might be 0 here if a reset has occured
-    (void)USART1->STATR;                  // clear flags
-    (void)USART1->DATAR;
-    rx_write_pos = (UART_BUFFER_SIZE - DMA1_Channel5->CNTR) % UART_BUFFER_SIZE; // compute write pos
-    if (rx_write_pos != rx_read_pos) {                                          // new data?
-      uint16_t len;
-      uint8_t *src = &rx_buffer[rx_read_pos];
-      if (rx_write_pos > rx_read_pos) {
-        len = rx_write_pos - rx_read_pos;        // contiguous block
-        memcpy((void *)usb_tx_buffer, src, len); // copy block
-      } else {
-        uint16_t first = UART_BUFFER_SIZE - rx_read_pos;
-        memcpy((void *)usb_tx_buffer, src, first); // copy to end
-        memcpy((void *)(usb_tx_buffer + first),
-               rx_buffer, rx_write_pos); // wrap copy
-        len = first + rx_write_pos;      // total length
-      }
-      rx_read_pos = rx_write_pos; // advance read pos
-      size_to_send = len;         // set send size
-      send_index = 0;             // reset index
-    }
-  }
-}
-
 // called when UART TX DMA transfer complete interrupt fires
 __attribute__((interrupt)) void DMA1_Channel4_IRQHandler(void) {
   DMA1->INTFCR |= DMA_CTCIF4;                           // clear TC flag
@@ -90,46 +64,36 @@ __attribute__((interrupt)) void DMA1_Channel4_IRQHandler(void) {
   start_tx_dma();                                       // queue next chunk
 }
 
+//------------------------------------------------------------------------------
 // called when USB endpoint 2 receives OUT data from host
-void usb_handle_user_data(struct usb_endpoint *e, int ep, uint8_t *data, int len, struct rv003usb_internal *ist) {
+
+void usb_handle_user_data(usb_ep *usb_ep, uint8_t ep, uint8_t *data,
+                          uint32_t len, usb_t *usb) {
   if (ep != 2 || len == 0)
     return; // only EP2 data
-  for (int i = 0; i < len; i++)
-    tx_buffer[tx_head = (tx_head + 1) % UART_BUFFER_SIZE] = data[i]; // enqueue
-  start_tx_dma();                                                    // start if idle
+  for (uint32_t i = 0; i < len; i++)
+    tx_buf[tx_head = (tx_head + 1) % UART_BUFFER_SIZE] = data[i];  // enqueue
+  start_tx_dma();                                                  // start if idle
 }
 
-// called when host requests IN data on USB endpoint 3
-void usb_handle_user_in_request(struct usb_endpoint *e, uint8_t *scratchpad, int ep, uint32_t tok, struct rv003usb_internal *ist) {
-  if (ep == 3) {
-    if (send_index < size_to_send) {
-      int chunk = (size_to_send - send_index > 8)
-                      ? 8
-                      : size_to_send - send_index; // chunk size
-      usb_send_data((uint8_t *)(usb_tx_buffer + send_index),
-                    chunk, 0, tok); // send chunk
-      send_index += chunk;          // advance index
-    } else {
-      usb_send_empty(tok); // no more data
-    }
-  } else {
+//------------------------------------------------------------------------------
+// Called when host requests IN data on USB endpoint 3
+
+void usb_handle_user_in_request(usb_ep_t *usb_ep, uint8_t *scratchpad,
+                                uint8_t ep, uint32_t tok, usb_t *usb) {
+  int chunk = size_to_send - send_index;
+  if (chunk <= 0 || ep != 3) {
     usb_send_empty(tok); // wrong EP
+    return;
   }
+
+  if (chunk > 8)
+    chunk = 8;
+
+  usb_send_data((uint8_t *)(usb_tx_buf + send_index), chunk, 0, tok);  // send chunk
+  send_index += chunk;          // advance index
 }
 
-// called on any other USB control message not handled by CDC
-void usb_handle_other_control_message(struct usb_endpoint *e, struct usb_urb *s, struct rv003usb_internal *ist) {
-  e->opaque = 0;
-}
-
-int main(void) {
-  SystemInit();
-  uart_setup();
-  usb_setup();
-  while (1) {
-    uint32_t *ue = GetUEvent(); // poll USB events
-    (void)ue;                   // ignore events
-  }
-}
+//------------------------------------------------------------------------------
 
 #endif  /* IFACE_USB_CDC */

@@ -27,7 +27,7 @@
 
 #if !MCU_STK_HCLK
 #error "USB bit-bang requires MCU_STK_HCLK = 1"
-#endif  /* USE_SYSTICK_HCLK */
+#endif  /* MCU_STK_HCLK */
 
 //------------------------------------------------------------------------------
 // Reboot:

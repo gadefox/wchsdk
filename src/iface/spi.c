@@ -9,7 +9,7 @@
 
 #if !MCU_PFIC
 #error "SPI requires MCU_PFIC = 1"
-#endif  /* MCU_RING */
+#endif  /* MCU_PFIC */
 
 #if !CORE_RING
 #error "SPI requires CORE_RING = 1"

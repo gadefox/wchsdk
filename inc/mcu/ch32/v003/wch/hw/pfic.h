@@ -166,6 +166,8 @@ typedef struct {
 #define PFIC_VTFADDRR1_VTF1EN ((uint32_t)0x00000001) /* Bit 0 : Enable VTF1 interrupt */
 
 /*******************  Bit definition for PFIC_IENR1 register  ***************/
+#define PFIC_IENR1_INTEN12 ((uint32_t)0x00001000) /* Bit 12 : Enable IRQ12 */
+#define PFIC_IENR1_INTEN14 ((uint32_t)0x00004000) /* Bit 14 : Enable IRQ14 */
 #define PFIC_IENR1_INTEN16 ((uint32_t)0x00010000) /* Bit 16 : Enable IRQ16 */
 #define PFIC_IENR1_INTEN17 ((uint32_t)0x00020000)
 #define PFIC_IENR1_INTEN18 ((uint32_t)0x00040000)
@@ -195,6 +197,8 @@ typedef struct {
 #define PFIC_IENR2_INTEN38 ((uint32_t)0x00000040)
 
 /*******************  Bit definition for PFIC_IRER1 register  ***************/
+#define PFIC_IRER1_INTRSET12 ((uint32_t)0x00001000) /* Bit 12 : Disable IRQ12 */
+#define PFIC_IRER1_INTRSET14 ((uint32_t)0x00004000) /* Bit 14 : Disable IRQ14 */
 #define PFIC_IRER1_INTRSET16 ((uint32_t)0x00010000) /* Bit 16 : Disable IRQ16 */
 #define PFIC_IRER1_INTRSET17 ((uint32_t)0x00020000)
 #define PFIC_IRER1_INTRSET18 ((uint32_t)0x00040000)

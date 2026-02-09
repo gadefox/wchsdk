@@ -6,81 +6,90 @@
 //#include <stdint.h>
 
 //#include "wch/hw/afio.h"
-//#include "wch/hw/uart.h"
-//#include "wch/hw/rcc.h"
+#include "wch/hw/dma.h"
+#include "wch/hw/rcc.h"
 //#include "wch/mcu/def.h"
 
 //------------------------------------------------------------------------------
 
-typedef struct {
-  uint32_t baud;
-  uint8_t *rx_buf;
-  uint32_t rx_size;
-  uint8_t *tx_buf;
-  uint32_t tx_size;
-} uart_config_t;
+void dma_init_mem2periph(dma_channel_t* ch, uint8_t irq, void* periph);
+void dma_init_periph2mem(dma_channel_t* ch, void* periph, void* mem, uint16_t len);
+
+void dma_reload(dma_channel_t* ch, void* mem, uint16_t len);
 
 //------------------------------------------------------------------------------
-// CTLR3 options
-//  USART_CTLR3_CTSE
-//  USART_CTLR3_RTSE
-//  (USART_CTLR3_CTSE | USART_CTLR3_RTSE)
+// All configuration functions require channel disabled (EN=0)
 
-//------------------------------------------------------------------------------
-// Initiliase the UART peripheral with the passed configuratiion.
+static inline void dma_enable(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_EN; }
 
-void uart_init(uart_config_t* c);
+static inline void dma_disable(dma_channel_t* ch) {
+  ch->CFGR &= ~DMA_CFGR1_EN; }
 
-//------------------------------------------------------------------------------
-// Prints one byte to the UART
+static inline void dma_power_on(void) {
+  RCC->APBPCENR |= RCC_DMA1EN; }
 
-bool uart_put(uint8_t byte);
-
-//------------------------------------------------------------------------------
-// Reads one bytes from the RX Ring Buffer.
-
-bool uart_get(uint8_t *out);
-
-//------------------------------------------------------------------------------
-// Prints a string to the UART, without any added ternination
-
-void uart_print(const char *s);
-
-//------------------------------------------------------------------------------
-// Write the terminating characters
-
-static inline void uart_printnl(const char *s) {
-  uart_print(s);
-  uart_put('\r');
-  uart_put('\n'); }
+static inline void dma_power_off(void) {
+  RCC->APBPCENR &= ~RCC_DMA1EN; }
 
 //------------------------------------------------------------------------------
 
-static inline bool uart_is_rx_empty(void) {
-  return USART1->STATR & USART_STATR_RXNE; }
+static inline void dma_set_count(dma_channel_t* ch, uint16_t count) {
+  ch->CNTR = count; }
+
+static inline uint16_t dma_get_count(dma_channel_t* ch) {
+  return ch->CNTR; }
+
+ static inline void dma_circular(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_CIRC; }
+
+ static inline void dma_normal(dma_channel_t* ch) {
+  ch->CFGR &= ~DMA_CFGR1_CIRC; }
 
 //------------------------------------------------------------------------------
 
-static inline void uart_enable(void) {
-  USART1->CTLR1 |= CTLR1_UE_SET; }
+static inline void dma_clear_tc(uint32_t clear_mask) {
+  DMA1->INTFCR = clear_mask; }
 
-static inline void uart_disable(void) {
-  USART1->CTLR1 &= CTLR1_UE_RESET; }
+ static inline void dma_irq_tc(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_TCIE;
+}
 
-static inline void uart_power_on(void) {
-  RCC->APB2PCENR |= RCC_USART1EN; }
+ static inline void dma_set_irq_ht(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_HTIE;
+}
 
-static inline void uart_power_off(void) {
-  RCC->APB2PCENR &= ~RCC_USART1EN; }
+ static inline void dma_irq_te(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_TEIE;
+}
 
-static inline void uart_reset(void) {
-  RCC->APB2PRSTR |= RCC_USART1RST;
-  RCC->APB2PRSTR &= ~RCC_USART1RST; }
+//------------------------------------------------------------------------------
 
-static inline void usart_remap(uint32_t pcfr) {
-  AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_USART1_REMAP |
-      AFIO_PCFR1_USART1_REMAP_1);
-  AFIO->PCFR1 |= pcfr; }
+static inline void dma_set_mem_addr(dma_channel_t* ch, void* addr) {
+  ch->MADDR = (uint32_t)addr; }
+
+ static inline void dma_set_mem_inc(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_MINC; }
+
+ static inline void dma_set_mem_fixed(dma_channel_t* ch) {
+  ch->CFGR &= ~DMA_CFGR1_MINC; }
+
+ static inline void dma_set_mem2periph(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_DIR; }
+
+//------------------------------------------------------------------------------
+
+static inline void dma_set_periph_addr(dma_channel_t* ch, void* addr) {
+  ch->PADDR = (uint32_t)addr; }
+
+ static inline void dma_set_periph_inc(dma_channel_t* ch) {
+  ch->CFGR |= DMA_CFGR1_PINC; }
+
+ static inline void dma_set_periph_fixed(dma_channel_t* ch) {
+  ch->CFGR &= ~DMA_CFGR1_PINC; }
+
+ static inline void dma_set_periph2mem(dma_channel_t* ch) {
+  ch->CFGR &= ~DMA_CFGR1_DIR; }
 
 //------------------------------------------------------------------------------
 

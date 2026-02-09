@@ -30,8 +30,8 @@ bool ring_get(ring_t *ring, uint8_t *data) {
   if (ring_is_empty(ring))
     return false; // Empty
   
-  *data = ring->buf[ring->tail];
-  ring->tail = ring->tail % ring->size;
+  *data = ring_peek(ring);
+  ring->tail = ring_next_tail(ring);
   return true;
 }
 
