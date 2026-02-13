@@ -47,30 +47,17 @@ void irq_tim2(void) {
 //------------------------------------------------------------------------------
 
 void rtc_init(uint8_t ms) {
-  // Enable clock for TIM2
-  rtc_power_on();
-
-  // Reset TIM2
-  rtc_reset();
-
-  // Prescaler: 48 MHz / 48000 = 1 kHz
-  TIM2->PSC = (MCU_SYS_FREQ / 1000) - 1;
-
-  // Auto-reload: 1000 ticks = 1 s
-  TIM2->ATRLR = ms - 1;
   interval = ms;
 
-  // Reset counter
-  TIM2->CNT = 0;
+  tim2_power_on();                          // Enable clock for TIM2
+  tim2_reset();                             // Reset TIM2
+  tim_set_prescaler(TIM2, (MCU_SYS_FREQ / 1000) - 1); // Prescaler: 48 MHz / 48000 = 1 kHz
+  tim_set_auto_reload(TIM2, ms - 1);        // Auto-reload: 1000 ticks = 1 s
+  tim_set_count(TIM2, 0);                   // Reset counter
+  tim_irq_enable_update(TIM2);              // Enable update interrupt
 
-  // Enable update interrupt
-  TIM2->DMAINTENR |= TIM_UIE;
-
-  // Enable IRQ in PFIC
-  pfic_enable_irq(IRQ_TIM2);
-
-  // Start timer
-  rtc_enable();
+  pfic_enable_irq(IRQ_TIM2);                // Enable IRQ in PFIC
+  tim_enable(TIM2);                         // Start timer
 }
 
 //------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "wch/hw/base.h"
-#include "wch/hw/edf.h"
+#include "wch/hw/def.h"
 
 /******************************************************************************/
 /*                             DMA Controller                                 */

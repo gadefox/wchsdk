@@ -50,22 +50,4 @@ static inline uint8_t rtc_leap_days(uint16_t year) {
 
 //------------------------------------------------------------------------------
 
-static inline void rtc_enable(void) {
-  TIM2->CTLR1 = TIM_CEN; }
-
-static inline void rtc_disable(void) {
-  TIM2->CTLR1 &= ~TIM_CEN; }
-
-static inline void rtc_power_on(void) {
-  RCC->APB1PCENR |= RCC_TIM2EN; }
-
-static inline void rtc_power_off(void) {
-  RCC->APB1PCENR &= ~RCC_TIM2EN; }
-
-static inline void rtc_reset(void) {
-  RCC->APB1PRSTR |= RCC_TIM2RST;
-  RCC->APB1PRSTR &= ~RCC_TIM2RST; }
-
-//------------------------------------------------------------------------------
-
 #endif // SYS_RTC

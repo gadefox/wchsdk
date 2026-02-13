@@ -14,9 +14,8 @@ int main(void) {
   uart_config_t c;
   c.baud = 9600;
   c.rx_buf = ring_rx;
-  c.rx_size = sizeof(ring_rx);
   c.tx_buf = ring_tx;
-  c.tx_size = sizeof(ring_tx);
+  c.buf_size = sizeof(ring_tx);
   uart_init(&c);
 
   // Simple string printing example - all return uart_err_t error codes
