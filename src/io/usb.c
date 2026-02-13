@@ -4,7 +4,7 @@
 #include "wch/hw/gpio.h"
 #include "wch/hw/rcc.h"
 #include "wch/hw/tim.h"
-#include "wch/usb/usb.h"
+#include "wch/io/usb.h"
 
 //------------------------------------------------------------------------------
 

@@ -4,8 +4,8 @@
 #if SYS_UTIL
 
 #include "wch/hw/stk.h"
-#include "wch/mcu/def.h"
-#include "wch/mcu/util.h"
+#include "wch/sys/def.h"
+#include "wch/sys/util.h"
 
 //==============================================================================
 // Register functions

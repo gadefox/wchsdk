@@ -2,7 +2,7 @@
 
 #if UTIL_RING
 
-#include "wch/core/ring.h"
+#include "wch/util/ring.h"
 
 //------------------------------------------------------------------------------
 

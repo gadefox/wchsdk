@@ -14,17 +14,17 @@
 #include "wch/hw/afio.h"
 #include "wch/hw/rcc.h"
 #include "wch/hw/spi.h"
-#include "wch/mcu/util.h"
+#include "wch/sys/util.h"
 
-#if !MCU_UTIL
-#error "SPI requires MCU_UTIL = 1"
-#endif  /* MCU_UTIL */
+#if !SYS_UTIL
+#error "SPI requires SYS_UTIL = 1"
+#endif  /* SYS_UTIL */
 
 //------------------------------------------------------------------------------
 
-#if !IFACE_SPI_TIMEOUT
-#define IFACE_SPI_TIMEOUT  500
-#endif  /* IFACE_SPI_TIMEOUT */
+#if !IO_SPI_TIMEOUT
+#define IO_SPI_TIMEOUT  500
+#endif  /* IO_SPI_TIMEOUT */
 
 //------------------------------------------------------------------------------
 
@@ -85,13 +85,13 @@ static inline bool spi_is_rx_empty(void) {
 //------------------------------------------------------------------------------
 
 static inline bool spi_wait_tx_complete(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_TXE, true, IFACE_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_TXE, true, IO_SPI_TIMEOUT); }
 
 static inline bool spi_wait_rx_available(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_RXNE, true, IFACE_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_RXNE, true, IO_SPI_TIMEOUT); }
 
 static inline bool spi_wait_not_busy(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_BSY, false, IFACE_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_BSY, false, IO_SPI_TIMEOUT); }
 
 //------------------------------------------------------------------------------
 

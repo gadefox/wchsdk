@@ -48,7 +48,7 @@ static inline void tim_set_auto_reload(tim_t* tim, uint16_t arr) {
   tim->ATRLR = arr; }
 
 static inline void tim_set_count(tim_t *tim, uint16_t count) {
-  tim->CNT = cnt; }
+  tim->CNT = count; }
 
 static inline uint16_t tim_get_count(tim_t *tim) {
   return tim->CNT; }

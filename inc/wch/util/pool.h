@@ -5,16 +5,16 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "wch/core/ll.h"
-#include "wch/core/slot.h"
+#include "wch/util/ll.h"
+#include "wch/util/slot.h"
 
-#if !CORE_LL
-#error "pool requires CORE_LL = 1"
-#endif  /* CORE_LL */
+#if !UTIL_LL
+#error "pool requires UTIL_LL = 1"
+#endif  /* UTIL_LL */
 
-#if !CORE_SLOT
-#error "pool requires CORE_SLOT = 1"
-#endif  /* CORE_SLOT */
+#if !UTIL_SLOT
+#error "pool requires UTIL_SLOT = 1"
+#endif  /* UTIL_SLOT */
 
 //------------------------------------------------------------------------------
 

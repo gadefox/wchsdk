@@ -2,7 +2,7 @@
 
 #if SYS_PFIC
 
-#include "wch/mcu/pfic.h"
+#include "wch/sys/pfic.h"
 
 //------------------------------------------------------------------------------
 // Set VTF Interrupt: addr - VTF interrupt service function base address.

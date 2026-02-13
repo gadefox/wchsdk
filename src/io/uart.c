@@ -4,21 +4,21 @@
 
 #include "wch/hw/dma.h"
 #include "wch/hw/uart.h"
-#include "wch/mcu/pfic.h"
 #include "wch/util/mem.h"
-#include "wch/core/ring.h"
+#include "wch/util/ring.h"
+#include "wch/sys/pfic.h"
 #include "wch/io/dma.h"
 #include "wch/io/uart.h"
 
 //------------------------------------------------------------------------------
 
-#if !MCU_PFIC
-#error "UART requires MCU_PFIC = 1"
-#endif  /* MCU_PFIC */
+#if !SYS_PFIC
+#error "UART requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
-#if !CORE_RING
-#error "UART requires CORE_RING = 1"
-#endif  /* CORE_RING */
+#if !UTIL_RING
+#error "UART requires UTIL_RING = 1"
+#endif  /* UTIL_RING */
 
 //------------------------------------------------------------------------------
 // rx_ring: `head` is just a snapshot of the current position.
@@ -176,7 +176,7 @@ void uart_init(uart_config_t* c) {
 
 void uart_print(const char *s) {
   while (*s) {
-    uart_put(*s);
+    uart_tx_put(*s);
     s++;
   }
 }
@@ -185,8 +185,8 @@ void uart_print(const char *s) {
 
 void uart_printnl(const char *s) {
   uart_print(s);
-  uart_put('\r');
-  uart_put('\n');
+  uart_tx_put('\r');
+  uart_tx_put('\n');
 }
 
 //------------------------------------------------------------------------------

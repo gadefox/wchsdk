@@ -2,18 +2,18 @@
 
 #if IO_I2C
 
-#include "wch/mcu/pfic.h"
-#include "wch/core/ring.h"
+#include "wch/util/ring.h"
+#include "wch/sys/pfic.h"
 #include "wch/io/i2c.h"
 #include "wch/io/util.h"
 
-#if !MCU_PFIC
-#error "I2C requires MCU_PFIC = 1"
-#endif  /* MCU_PFIC */
+#if !SYS_PFIC
+#error "I2C requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
-#if !CORE_RING
-#error "I2C requires CORE_RING = 1"
-#endif  /* CORE_RING */
+#if !UTIL_RING
+#error "I2C requires UTIL_RING = 1"
+#endif  /* UTIL_RING */
 
 #if !IO_UTIL
 #error "I2C requires IO_UTIL = 1"

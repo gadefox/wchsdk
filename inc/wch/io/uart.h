@@ -13,12 +13,12 @@
 #include "wch/hw/afio.h"
 #include "wch/hw/rcc.h"
 #include "wch/hw/uart.h"
-#include "wch/mcu/def.h"
+#include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
 // Baud
 
-#define UART_BAUD_TO_BRR(b)  ((MCU_SYS_FREQ + ((b) / 2)) / (b))
+#define UART_BAUD_TO_BRR(b)  ((SYS_FREQ + ((b) / 2)) / (b))
 
 //------------------------------------------------------------------------------
 

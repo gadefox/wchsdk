@@ -1,5 +1,5 @@
 #include "wchsdk_cfg.h"
-#include "wch/core/pool.h"
+#include "wch/util/pool.h"
 #include "wch/sys/init.h"
 
 typedef struct {

@@ -3,11 +3,11 @@
 #pragma once
 
 #include <stdint.h>
-#include "wch/mcu/def.h"
+#include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
 
-#if HPE_ENABLE
+#if SYS_HPE_ENABLE
 #define IRQ_DECORATOR __attribute__((interrupt("WCH-Interrupt-fast")))
 #else
 #define IRQ_DECORATOR __attribute__((interrupt))

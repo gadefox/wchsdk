@@ -2,21 +2,21 @@
 
 #if IO_SPI
 
-#include "wch/mcu/pfic.h"
-#include "wch/core/ring.h"
+#include "wch/util/ring.h"
+#include "wch/sys/pfic.h"
 #include "wch/io/spi.h"
 #include "wch/io/util.h"
 
-#if !MCU_PFIC
-#error "SPI requires MCU_PFIC = 1"
-#endif  /* MCU_PFIC */
+#if !SYS_PFIC
+#error "SPI requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
-#if !CORE_RING
-#error "SPI requires CORE_RING = 1"
-#endif  /* CORE_RING */
+#if !UTIL_RING
+#error "SPI requires UTIL_RING = 1"
+#endif  /* UTIL_RING */
 
 #if !IO_UTIL
-#error "SPI requires IFACE_UTIL = 1"
+#error "SPI requires IO_UTIL = 1"
 #endif  /* IO_UTIL */
 
 //------------------------------------------------------------------------------

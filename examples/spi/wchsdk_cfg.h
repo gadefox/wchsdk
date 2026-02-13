@@ -1,13 +1,13 @@
 #pragma once
 
 // Basic
-#define MCU_IRQ      1
 #define SYS_INIT     1
+#define SYS_IRQ      1
 #define SYS_STARTUP  1
 
 // SPI
-#define MCU_PFIC    1
-#define MCU_UTIL    1
-#define CORE_RING   1
-#define IFACE_SPI   1
-#define IFACE_UTIL  1
+#define UTIL_RING  1
+#define SYS_PFIC   1
+#define SYS_UTIL   1
+#define IO_SPI     1
+#define IO_UTIL    1

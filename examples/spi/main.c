@@ -2,7 +2,7 @@
 
 #include "wchsdk_cfg.h"
 #include "wch/sys/init.h"
-#include "wch/iface/spi.h"
+#include "wch/io/spi.h"
 
 uint8_t ring_tx[32];
 uint8_t ring_rx[32];

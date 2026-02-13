@@ -39,16 +39,16 @@
 #define SYS_PLL_MUL  2
 #endif  /* SYS_PLL_MUL */
 
-#define SYS_SYS_FREQ  (SYS_BASE_FREQ * SYS_PLL_MUL)
+#define SYS_FREQ  (SYS_BASE_FREQ * SYS_PLL_MUL)
 
 //------------------------------------------------------------------------------
 
 #if SYS_STK_HCLK
-#define SYS_TICKS_PER_US  (SYS_SYS_FREQ / 1000000)
-#define SYS_TICKS_PER_MS  (SYS_SYS_FREQ / 1000)
+#define SYS_TICKS_PER_US  (SYS_FREQ / 1000000)
+#define SYS_TICKS_PER_MS  (SYS_FREQ / 1000)
 #else
-#define SYS_TICKS_PER_US  (SYS_SYS_FREQ / 8000000)
-#define SYS_TICKS_PER_MS  (SYS_SYS_FREQ / 8000)
+#define SYS_TICKS_PER_US  (SYS_FREQ / 8000000)
+#define SYS_TICKS_PER_MS  (SYS_FREQ / 8000)
 #endif  /* SYS_STK_HCLK */
 
 //------------------------------------------------------------------------------

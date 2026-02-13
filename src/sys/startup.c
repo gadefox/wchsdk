@@ -8,17 +8,17 @@
 
 //------------------------------------------------------------------------------
 
-#if !MCU_IRQ
-#error "startup requires MCU_IRQ = 1"
-#endif  /* MCU_IRQ */
+#if !SYS_IRQ
+#error "startup requires SYS_IRQ = 1"
+#endif  /* SYS_IRQ */
 
 //------------------------------------------------------------------------------
 
-#if USE_ISR_IN_RAM
+#if SYS_ISR_IN_RAM
 #define IRQ_SECTION  ".data.irq_entry"
 #else
 #define IRQ_SECTION  ".text.irq_entry"
-#endif  /* USE_ISR_IN_RAM */
+#endif  /* SYS_ISR_IN_RAM */
 
 //------------------------------------------------------------------------------
 

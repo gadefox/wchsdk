@@ -2,7 +2,7 @@
 
 #include "wchsdk_cfg.h"
 #include "wch/sys/init.h"
-#include "wch/iface/i2c.h"
+#include "wch/io/i2c.h"
 
 uint8_t ring_tx[32];
 uint8_t ring_rx[32];

@@ -4,7 +4,7 @@
 
 #include "wch/hw/dbg.h"
 #include "wch/hw/stk.h"
-#include "wch/mcu/def.h"
+#include "wch/sys/def.h"
 #include "wch/io/dbg.h"
 
 //------------------------------------------------------------------------------

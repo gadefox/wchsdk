@@ -2,7 +2,7 @@
 
 #if UTIL_POOL
 
-#include "wch/core/pool.h"
+#include "wch/util/pool.h"
 
 //------------------------------------------------------------------------------
 

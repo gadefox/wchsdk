@@ -1,8 +1,8 @@
-#include <stdint.h>
+#include <stdbool.h>
 
 #include "wchsdk_cfg.h"
 #include "wch/sys/init.h"
-#include "wch/iface/uart.h"
+#include "wch/io/uart.h"
 
 uint8_t ring_tx[32];
 uint8_t ring_rx[32];
@@ -26,8 +26,8 @@ int main(void) {
   // Loop forever, echoing UART data back to the sender
   while (true) {
     uint8_t byte;
-    if (uart_get(&byte))
-      uart_put(byte);
+    if (uart_rx_get(&byte))
+      uart_tx_put(byte);
   }
 
   return 0;

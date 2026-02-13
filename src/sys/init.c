@@ -2,12 +2,12 @@
 
 #if SYS_INIT
 
-#include "wch/mcu/def.h"
-#include "wch/sys/init.h"
 #include "wch/hw/flash.h"
 #include "wch/hw/rcc.h"
-#include "wch/iface/dbg.h"
-#include "wch/iface/uart.h"
+#include "wch/sys/def.h"
+#include "wch/sys/init.h"
+#include "wch/io/dbg.h"
+#include "wch/io/uart.h"
 
 //------------------------------------------------------------------------------
 
@@ -17,11 +17,11 @@
 #define BYPASS  0
 #endif  /* XTAL_BYPASS */
 
-#if MCU_CLK_SEC
+#if SYS_CLK_SEC
 #define CLKSEC  RCC_CSSON  // Enable clock security system
 #else
 #define CLKSEC  0
-#endif  /* MCU_CLK_SEC */
+#endif  /* SYS_CLK_SEC */
 
 //------------------------------------------------------------------------------
 
@@ -41,50 +41,50 @@ void call_constructors(void) {
 
 void sys_init(void) {
   // Flash latency settings.
-#if MCU_SYS_FREQ > 25000000
+#if SYS_FREQ > 25000000
   FLASH->ACTLR = FLASH_ACTLR_LATENCY_1; // +1 Cycle Latency
 #else
   FLASH->ACTLR = FLASH_ACTLR_LATENCY_0; // +0 Cycle Latency
-#endif  /* MCU_SYS_FREQ */
+#endif  /* SYS_FREQ */
 
 // External crystal
-#if MCU_XTAL_FREQ
+#if SYS_XTAL_FREQ
 
-#if MCU_PLL
+#if SYS_PLL
   RCC->CFGR0 = RCC_SW_HSE | RCC_PLLSRC_HSE_MUL2;
   RCC->CTLR = CLKSEC | BYPASS | RCC_HSEON | RCC_PLLON;
 #else
   RCC->CFGR0 = RCC_SW_HSE;
   RCC->CTLR = CLKSEC | BYPASS | RCC_HSEON;
-#endif  /* MCU_PLL */
+#endif  /* SYS_PLL */
 
 // Internal clock
-#else  /* MCU_HSI_FREQ */
+#else  /* SYS_HSI_FREQ */
 
-#if MCU_PLL
+#if SYS_PLL
   RCC->CFGR0 = RCC_HPRE_DIV1 | RCC_PLLSRC_HSI_MUL2;
-  RCC->CTLR = CLKSEC | RCC_HSION | RCC_PLLON | (MCU_HSI_TRIM << 3);
+  RCC->CTLR = CLKSEC | RCC_HSION | RCC_PLLON | (SYS_HSI_TRIM << 3);
 #else
   RCC->CFGR0 = RCC_HPRE_DIV1;                     // PLLCLK = HCLK = SYSCLK = APB1
-  RCC->CTLR = CLKSEC | RCC_HSION | (MCU_HSI_TRIM << 3);
-#endif  /* MCU_PLL */
+  RCC->CTLR = CLKSEC | RCC_HSION | (SYS_HSI_TRIM << 3);
+#endif  /* SYS_PLL */
 
-#endif  /* MCU_HSI_FREQ || MCU_XTAL_FREQ */
+#endif  /* SYS_HSI_FREQ || SYS_XTAL_FREQ */
 
   // PLL
-#if MCU_PLL
+#if SYS_PLL
   while (!(RCC->CTLR & RCC_PLLRDY));              // Wait till PLL is ready
   RCC->CFGR0 &= ~RCC_SW;
   RCC->CFGR0 |= RCC_SW_PLL;                       // Select PLL as system clock source
   while ((RCC->CFGR0 & RCC_SWS) != RCC_SWS_PLL);  // Wait till PLL is used as system clock source
-#endif  /* MCU_PLL */
+#endif  /* SYS_PLL */
 
 #if USE_UART
   // FIXME:
 //  uart_setup(UART_BRR);
 #endif
 
-#if IFACE_DBG
+#if IO_DBG
   debug_setup();
 #endif
 

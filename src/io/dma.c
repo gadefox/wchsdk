@@ -4,14 +4,14 @@
 
 #include <stddef.h>
 
-#include "wch/mcu/pfic.h"
+#include "wch/sys/pfic.h"
 #include "wch/io/dma.h"
 
 //------------------------------------------------------------------------------
 
-#if !MCU_PFIC
-#error "UART requires MCU_PFIC = 1"
-#endif  /* MCU_PFIC */
+#if !SYS_PFIC
+#error "UART requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
 //------------------------------------------------------------------------------
 

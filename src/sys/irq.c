@@ -4,7 +4,7 @@
 
 #include "wch/hw/dbg.h"
 #include "wch/hw/irq.h"
-#include "wch/mcu/irq.h"
+#include "wch/sys/irq.h"
 
 //------------------------------------------------------------------------------
 

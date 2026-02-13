@@ -3,7 +3,7 @@
 #pragma once
 
 #include <stdint.h>
-#include "wch/mcu/def.h"
+#include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
 

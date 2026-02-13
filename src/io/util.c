@@ -2,13 +2,13 @@
 
 #if IO_UTIL
 
-#include "wch/mcu/def.h"
-#include "wch/iface/util.h"
+#include "wch/sys/def.h"
+#include "wch/io/util.h"
 
 //------------------------------------------------------------------------------
 
 uint8_t freq_to_prescaler(uint32_t freq, uint8_t maxprescaler) {
-  uint32_t ratio = MCU_SYS_FREQ / freq;
+  uint32_t ratio = SYS_FREQ / freq;
   uint32_t power2 = 1;
   uint8_t prescaler = 0;
 

@@ -13,15 +13,15 @@
 
 void pin_set_all(bool set) {
   if (set) {
-    pin_set_d(PIND_1);
-    pin_set_d(PIND_K);
-    pin_set_d(PIND_BOB);
-    pin_set_c(PINC_KEVIN);
+    pin_d_set(PIND_1);
+    pin_d_set(PIND_K);
+    pin_d_set(PIND_BOB);
+    pin_c_set(PINC_KEVIN);
   } else {
-    pin_reset_d(PIND_1);
-    pin_reset_d(PIND_K);
-    pin_reset_d(PIND_BOB);
-    pin_reset_c(PINC_KEVIN);
+    pin_d_reset(PIND_1);
+    pin_d_reset(PIND_K);
+    pin_d_reset(PIND_BOB);
+    pin_c_reset(PINC_KEVIN);
   }
 
   delay_ms(250);
@@ -32,10 +32,10 @@ int main(void) {
   pin_init_all(); // Enable GPIOs
 
   // Set pins to output mode
-  pin_set_mode_d(PIND_1, GPIO_CFGLR_OUT_10_PP);
-  pin_set_mode_d(PIND_K, GPIO_CFGLR_OUT_10_PP);
-  pin_set_mode_d(PIND_BOB, GPIO_CFGLR_OUT_10_PP);
-  pin_set_mode_c(PINC_KEVIN, GPIO_CFGLR_OUT_10_PP);
+  pin_d_mode(PIND_1, GPIO_CFGLR_OUT_10_PP);
+  pin_d_mode(PIND_K, GPIO_CFGLR_OUT_10_PP);
+  pin_d_mode(PIND_BOB, GPIO_CFGLR_OUT_10_PP);
+  pin_c_mode(PINC_KEVIN, GPIO_CFGLR_OUT_10_PP);
 
   while (true) {
     pin_set_all(true);
