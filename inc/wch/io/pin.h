@@ -16,33 +16,29 @@
 #define PIN_MASK(pin)      PIN_CFG(pin, 0xF)
 
 // Input modes
-#define PIN_IA(p)  PIN_CFG(p, GPIO_CFGLR_IN_ANALOG)
-#define PIN_IF(p)  PIN_CFG(p, GPIO_CFGLR_IN_FLOAT)
-#define PIN_IP(p)  PIN_CFG(p, GPIO_CFGLR_IN_PUPD)
+#define PIN_IA(p)  PIN_CFG(p, GPIO_CFGI_ANALOG)
+#define PIN_IF(p)  PIN_CFG(p, GPIO_CFGI_FLOAT)
+#define PIN_IP(p)  PIN_CFG(p, GPIO_CFGI_PUPD)
 
 // Output push-pull
-#define PIN_OP2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_PP)
-#define PIN_OP10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_PP)
-#define PIN_OP30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_PP)
-#define PIN_OP50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_PP)
+#define PIN_PP2(p)   PIN_CFG(p, GPIO_CFGO_PP_2)
+#define PIN_PP10(p)  PIN_CFG(p, GPIO_CFGO_PP_10)
+#define PIN_PP30(p)  PIN_CFG(p, GPIO_CFGO_PP_30)
 
 // Output open-drain
-#define PIN_OD2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_OD)
-#define PIN_OD10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_OD)
-#define PIN_OD30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_OD)
-#define PIN_OD50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_OD)
+#define PIN_OD2(p)   PIN_CFG(p, GPIO_CFGO_OD_2)
+#define PIN_OD10(p)  PIN_CFG(p, GPIO_CFGO_OD_10)
+#define PIN_OD30(p)  PIN_CFG(p, GPIO_CFGO_OD_30)
 
 // Alternate function push-pull
-#define PIN_AP2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_AF_PP)
-#define PIN_AP10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_AF_PP)
-#define PIN_AP30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_AF_PP)
-#define PIN_AP50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_AF_PP)
+#define PIN_MP2(p)   PIN_CFG(p, GPIO_CFGO_MP_2)
+#define PIN_MP10(p)  PIN_CFG(p, GPIO_CFGO_MP_10)
+#define PIN_MP30(p)  PIN_CFG(p, GPIO_CFGO_MP_30)
 
 // Alternate function open-drain
-#define PIN_AD2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_AF_OD)
-#define PIN_AD10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_AF_OD)
-#define PIN_AD30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_AF_OD)
-#define PIN_AD50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_AF_OD)
+#define PIN_MD2(p)   PIN_CFG(p, GPIO_CFGO_MD_2)
+#define PIN_MD10(p)  PIN_CFG(p, GPIO_CFGO_MD_10)
+#define PIN_MD30(p)  PIN_CFG(p, GPIO_CFGO_MD_30)
 
 //------------------------------------------------------------------------------
 // Power

@@ -26,8 +26,8 @@ int main(void) {
   port_power_on(PORTC | PORTD);
 
   // Set pins to output mode
-  port_cfg(GPIOC, PIN_OP10(PIN_R), PIN_MASK(PIN_R));
-  port_cfg(GPIOD, PIN_OP10(PIN_G) | PIN_OP10(PIN_B), PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
+  port_cfg(GPIOC, PIN_PP10(PIN_R), PIN_MASK(PIN_R));
+  port_cfg(GPIOD, PIN_PP10(PIN_G) | PIN_PP10(PIN_B), PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
 
   while (true) {
     set_pins(true);

@@ -56,12 +56,12 @@ static inline void exti_clear(uint32_t mask) {
 //------------------------------------------------------------------------------
 // Port mapping
 
-#define EXTIA  GPIO_PORTSOURCE_GPIOA
-#define EXTIC  GPIO_PORTSOURCE_GPIOC
-#define EXTID  GPIO_PORTSOURCE_GPIOD
-
 #define EXTI_CFG(line, port)  ((port) << ((line) << 1))
-#define EXTI_MASK(line)       EXTI_CFG(line, 0b11)
+#define EXTI_MASK(l)  EXTI_CFG(l, 0b11)
+
+#define EXTI_PORTA(l)  EXTI_CFG(l, EXTI_GPIOA)
+#define EXTI_PORTC(l)  EXTI_CFG(l, EXTI_GPIOC)
+#define EXTI_PORTD(l)  EXTI_CFG(l, EXTI_GPIOD)
 
 static inline void exti_clear_map(uint32_t mask) {
   AFIO->EXTICR &= ~mask; }

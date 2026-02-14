@@ -52,6 +52,11 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
+/* GPIO_Port */
+#define EXTI_GPIOA  ((uint8_t)0x00)
+#define EXTI_GPIOC  ((uint8_t)0x02)
+#define EXTI_GPIOD  ((uint8_t)0x03)
+
 /* No interrupt selected */
 #define EXTI_LINENONE ((uint32_t)0x00000)
 

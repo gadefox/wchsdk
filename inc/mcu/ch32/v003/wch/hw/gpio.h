@@ -29,20 +29,6 @@
 
 //------------------------------------------------------------------------------
 
-/* Configuration Mode enumeration */
-typedef enum {
-  GPIO_MODE_AIN         = 0x0,
-  GPIO_MODE_IN_FLOATING = 0x04,
-  GPIO_MODE_IPD         = 0x28,
-  GPIO_MODE_IPU         = 0x48,
-  GPIO_MODE_OUT_OD      = 0x14,
-  GPIO_MODE_OUT_PP      = 0x10,
-  GPIO_MODE_AF_OD       = 0x1C,
-  GPIO_MODE_AF_PP       = 0x18
-} gpio_mode_t;
-
-//------------------------------------------------------------------------------
-
 typedef struct {
   __IO uint32_t CFGLR; /* Port Configuration Register Low  */
   __IO uint32_t CFGHR; /* Port Configuration Register High */
@@ -58,52 +44,73 @@ typedef struct {
 #define GPIOD  ((gpio_t *)GPIOD_BASE)
 
 //------------------------------------------------------------------------------
+// Configuration Mode enumeration
 
 typedef enum {
-  GPIO_CFGLR_IN_ANALOG    = 0,
-  GPIO_CFGLR_IN_FLOAT     = 4,
-  GPIO_CFGLR_IN_PUPD      = 8,
+  GPIO_MODE_IN     = 0b00,
+  GPIO_MODE_OUT_2  = 0b10,  // 2 MHz
+  GPIO_MODE_OUT_10 = 0b01,  // 10 MHz
+  GPIO_MODE_OUT_30 = 0b11   // 30 MHz
+} gpio_mode_t;
 
-  GPIO_CFGLR_OUT_10_PP    = 1,
-  GPIO_CFGLR_OUT_2_PP     = 2,
-  GPIO_CFGLR_OUT_50_PP    = 3,
-  GPIO_CFGLR_OUT_30_PP    = 3,
+typedef enum {
+  GPIO_CNFI_ANALOG = 0b00 << 2,
+  GPIO_CNFI_FLOAT  = 0b01 << 2,
+  GPIO_CNFI_PUPD   = 0b10 << 2      // With pull-up and pull-down mode
+} gpio_cnfi_t;
 
-  GPIO_CFGLR_OUT_10_OD    = 5,
-  GPIO_CFGLR_OUT_2_OD     = 6,
-  GPIO_CFGLR_OUT_50_OD    = 7,
-  GPIO_CFGLR_OUT_30_OD    = 7,
+#define GPIO_CNFO_PP   0            // Universal push-pull output mode
+#define GPIO_CNFO_OD   (1 << 2)     // Universal open-drain output mode
+#define GPIO_CNFO_MUX  (1 << 3)     // Multiplexed function
 
-  GPIO_CFGLR_OUT_10_AF_PP = 9,
-  GPIO_CFGLR_OUT_2_AF_PP  = 10,
-  GPIO_CFGLR_OUT_50_AF_PP = 11,
-  GPIO_CFGLR_OUT_30_AF_PP = 11,
+//------------------------------------------------------------------------------
+
+typedef enum {
+  // Input mode
+  GPIO_CFGI_ANALOG = GPIO_MODE_IN | GPIO_CNFI_ANALOG,
+  GPIO_CFGI_FLOAT  = GPIO_MODE_IN | GPIO_CNFI_FLOAT,
+  GPIO_CFGI_PUPD   = GPIO_MODE_IN | GPIO_CNFI_PUPD,
+
+  // Output mode: push-pull
+  GPIO_CFGO_PP_2  = GPIO_MODE_OUT_2 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_PP,
+
+  // Output mode: open-drain
+  GPIO_CFGO_OD_2  = GPIO_MODE_OUT_2 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_OD,
+
+  // Output mode: multiplexed function push-pull
+  GPIO_CFGO_MP_2  = GPIO_MODE_OUT_2 |  GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
   
-  GPIO_CFGLR_OUT_10_AF_OD = 13,
-  GPIO_CFGLR_OUT_2_AF_OD  = 14,
-  GPIO_CFGLR_OUT_50_AF_OD = 15,
-  GPIO_CFGLR_OUT_30_AF_OD = 15
-} gpio_cfglr_mode_t;
+  // Output mode: multiplexed function open-drain
+  GPIO_CFGO_MD_2  = GPIO_MODE_OUT_2 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
+  GPIO_CFGO_MD_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
+  GPIO_CFGO_MD_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_OD | GPIO_CNFO_MUX
+} gpio_mode_cnf_t;
 
 //------------------------------------------------------------------------------
 
 typedef union {
   uint32_t __FULL;
   struct {
-    gpio_cfglr_mode_t PIN0 : 4;
-    gpio_cfglr_mode_t PIN1 : 4;
-    gpio_cfglr_mode_t PIN2 : 4;
-    gpio_cfglr_mode_t PIN3 : 4;
-    gpio_cfglr_mode_t PIN4 : 4;
-    gpio_cfglr_mode_t PIN5 : 4;
-    gpio_cfglr_mode_t PIN6 : 4;
-    gpio_cfglr_mode_t PIN7 : 4;
+    gpio_mode_cnf_t PIN0 : 4;
+    gpio_mode_cnf_t PIN1 : 4;
+    gpio_mode_cnf_t PIN2 : 4;
+    gpio_mode_cnf_t PIN3 : 4;
+    gpio_mode_cnf_t PIN4 : 4;
+    gpio_mode_cnf_t PIN5 : 4;
+    gpio_mode_cnf_t PIN6 : 4;
+    gpio_mode_cnf_t PIN7 : 4;
   };
-} gpio_cfglr_t;
+} gpio_cfg_t;
 
-#define GPIOA_CFG  ((__IO gpio_cfglr_t *)&GPIOA->CFGLR)
-#define GPIOC_CFG  ((__IO gpio_cfglr_t *)&GPIOC->CFGLR)
-#define GPIOD_CFG  ((__IO gpio_cfglr_t *)&GPIOD->CFGLR)
+#define GPIOA_CFG  ((__IO gpio_cfg_t *)&GPIOA->CFGLR)
+#define GPIOC_CFG  ((__IO gpio_cfg_t *)&GPIOC->CFGLR)
+#define GPIOD_CFG  ((__IO gpio_cfg_t *)&GPIOD->CFGLR)
 
 //------------------------------------------------------------------------------
 
@@ -120,11 +127,11 @@ typedef union {
     uint32_t IDR7 : 1;
     uint32_t : 24;
   };
-} gpio_indr_t;
+} gpio_in_t;
 
-#define GPIOA_I  ((__I gpio_indr_t *)&GPIOA->INDR)
-#define GPIOC_I  ((__I gpio_indr_t *)&GPIOC->INDR)
-#define GPIOD_I  ((__I gpio_indr_t *)&GPIOD->INDR)
+#define GPIOA_I  ((__I gpio_in_t *)&GPIOA->INDR)
+#define GPIOC_I  ((__I gpio_in_t *)&GPIOC->INDR)
+#define GPIOD_I  ((__I gpio_in_t *)&GPIOD->INDR)
 
 //------------------------------------------------------------------------------
 
@@ -141,11 +148,11 @@ typedef union {
     uint32_t ODR7 : 1;
     uint32_t : 24;
   };
-} gpio_outdr_t;
+} gpio_out_t;
 
-#define GPIOA_O  ((__IO gpio_outdr_t *)&GPIOA->OUTDR)
-#define GPIOC_O  ((__IO gpio_outdr_t *)&GPIOC->OUTDR)
-#define GPIOD_O  ((__IO gpio_outdr_t *)&GPIOD->OUTDR)
+#define GPIOA_O  ((__IO gpio_out_t *)&GPIOA->OUTDR)
+#define GPIOC_O  ((__IO gpio_out_t *)&GPIOC->OUTDR)
+#define GPIOD_O  ((__IO gpio_out_t *)&GPIOD->OUTDR)
 
 //------------------------------------------------------------------------------
 
@@ -171,11 +178,11 @@ typedef union {
     uint32_t BR7 : 1;
     uint32_t : 8;
   };
-} gpio_bshr_t;
+} gpio_set_t;
 
-#define GPIOA_SET  ((__IO gpio_bshr_t *)&GPIOA->BSHR)
-#define GPIOC_SET  ((__IO gpio_bshr_t *)&GPIOC->BSHR)
-#define GPIOD_SET  ((__IO gpio_bshr_t *)&GPIOD->BSHR)
+#define GPIOA_SET  ((__IO gpio_set_t *)&GPIOA->BSHR)
+#define GPIOC_SET  ((__IO gpio_set_t *)&GPIOC->BSHR)
+#define GPIOD_SET  ((__IO gpio_set_t *)&GPIOD->BSHR)
 
 //------------------------------------------------------------------------------
 
@@ -192,11 +199,11 @@ typedef union {
     uint32_t BR7 : 1;
     uint32_t : 24;
   };
-} gpio_bcr_t;
+} gpio_clr_t;
 
-#define GPIOA_CLR  ((__IO gpio_bcr_t *)&GPIOA->BCR)
-#define GPIOC_CLR  ((__IO gpio_bcr_t *)&GPIOC->BCR)
-#define GPIOD_CLR  ((__IO gpio_bcr_t *)&GPIOD->BCR)
+#define GPIOA_CLR  ((__IO gpio_clr_t *)&GPIOA->BCR)
+#define GPIOC_CLR  ((__IO gpio_clr_t *)&GPIOC->BCR)
+#define GPIOD_CLR  ((__IO gpio_clr_t *)&GPIOD->BCR)
 
 //------------------------------------------------------------------------------
 
@@ -214,11 +221,11 @@ typedef union {
     uint32_t LCKK : 1;
     uint32_t : 23;
   };
-} gpio_lckr_t;
+} gpio_lck_t;
 
-#define GPIOA_LCK  ((__IO gpio_lckr_t *)&GPIOA->LCKR)
-#define GPIOC_LCK  ((__IO gpio_lckr_t *)&GPIOC->LCKR)
-#define GPIOD_LCK  ((__IO gpio_lckr_t *)&GPIOD->LCKR)
+#define GPIOA_LCK  ((__IO gpio_lck_t *)&GPIOA->LCKR)
+#define GPIOC_LCK  ((__IO gpio_lck_t *)&GPIOC->LCKR)
+#define GPIOD_LCK  ((__IO gpio_lck_t *)&GPIOD->LCKR)
 
 #endif  /* __ASSEMBLER__ */
 
@@ -372,7 +379,6 @@ typedef union {
 #define GPIO_PIN_ALL ((uint16_t)0xFFFF) /* All pins selected */
 
 /* GPIO_Remap_define */
-
 #define GPIO_REMAP_SPI1           ((uint32_t)0x00000001) /* SPI1 Alternate Function mapping */
 #define GPIO_PARTIALREMAP_I2C1    ((uint32_t)0x10000002) /* I2C1 Partial Alternate Function mapping */
 #define GPIO_FULLREMAP_I2C1       ((uint32_t)0x10400002) /* I2C1 Full Alternate Function mapping */
@@ -390,11 +396,6 @@ typedef union {
 #define GPIO_REMAP_ADC1_ETRGREG   ((uint32_t)0x00200004) /* ADC1 External Trigger Regular Conversion remapping */
 #define GPIO_REMAP_LSI_CAL        ((uint32_t)0x00200080) /* LSI calibration Alternate Function mapping */
 #define GPIO_REMAP_SDI_DISABLE    ((uint32_t)0x00300400) /* SDI Disabled */
-
-/* GPIO_Port_Sources */
-#define GPIO_PORTSOURCE_GPIOA ((uint8_t)0x00)
-#define GPIO_PORTSOURCE_GPIOC ((uint8_t)0x02)
-#define GPIO_PORTSOURCE_GPIOD ((uint8_t)0x03)
 
 /* GPIO_Pin_sources */
 #define GPIO_PINSOURCE0 ((uint8_t)0x00)
