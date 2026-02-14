@@ -67,7 +67,7 @@ void rtc_init(uint8_t ms) {
   tim_set_count(TIM2, 0);                   // Reset counter
   tim_irq_enable_update(TIM2);              // Enable update interrupt
 
-  pfic_enable_irq(IRQ_TIM2);                // Enable IRQ in PFIC
+  tim2_enable_irq();                        // Enable IRQ in PFIC
   tim_enable(TIM2);                         // Start timer
 }
 

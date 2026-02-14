@@ -3,15 +3,15 @@
 #if IO_ENCODER
 
 #include "wch/hw/stk.h"
-#include "wch/sys/pfic.h"
+#include "wch/sys/exti.h"
 #include "wch/sys/stk.h"
 #include "wch/io/enc.h"
 
 //------------------------------------------------------------------------------
 
-#if !SYS_PFIC
-#error "Encoder requires SYS_PFIC = 1"
-#endif  /* SYS_PFIC */
+#if !SYS_EXTI
+#error "Encoder requires SYS_EXTI = 1"
+#endif  /* SYS_EXTI */
 
 #if !SYS_STK
 #error "Encoder requires SYS_STK = 1"
@@ -28,7 +28,7 @@ void encoder_init(encoder_t* e, bool level_a, bool level_b) {
   e->timestamp = 0;
 
   // Enable the EXTI interrupt
-  pfic_enable_irq(IRQ_EXTI7_0);
+  exti_enable_irq();
 }
 
 //------------------------------------------------------------------------------

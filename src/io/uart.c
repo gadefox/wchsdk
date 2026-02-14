@@ -6,7 +6,6 @@
 #include "wch/hw/uart.h"
 #include "wch/util/mem.h"
 #include "wch/util/ring.h"
-#include "wch/sys/pfic.h"
 #include "wch/io/dma.h"
 #include "wch/io/uart.h"
 
@@ -169,7 +168,7 @@ void uart_init(uart_config_t* c) {
 #endif  /* IO_UART_USB_CDC */
 
   // Enable the UART interrupt
-  pfic_enable_irq(IRQ_USART1);
+  uart_enable_irq();
 }
 
 //------------------------------------------------------------------------------

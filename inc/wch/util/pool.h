@@ -8,6 +8,8 @@
 #include "wch/util/ll.h"
 #include "wch/util/slot.h"
 
+//------------------------------------------------------------------------------
+
 #if !UTIL_LL
 #error "pool requires UTIL_LL = 1"
 #endif  /* UTIL_LL */

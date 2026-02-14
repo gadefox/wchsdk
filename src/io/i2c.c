@@ -3,13 +3,10 @@
 #if IO_I2C
 
 #include "wch/util/ring.h"
-#include "wch/sys/pfic.h"
 #include "wch/io/i2c.h"
 #include "wch/io/util.h"
 
-#if !SYS_PFIC
-#error "I2C requires SYS_PFIC = 1"
-#endif  /* SYS_PFIC */
+//------------------------------------------------------------------------------
 
 #if !UTIL_RING
 #error "I2C requires UTIL_RING = 1"
@@ -73,7 +70,7 @@ void i2c_init(i2c_config_t* c) {
 
 //  I2C1->CTLR1 = freq_to_prescaler(c->freq_hz) | c->direction;
 
-  pfic_enable_irq(IRQ_I2C1_EV);
+  i2c_enable_event_irq();
 }
 
 //------------------------------------------------------------------------------

@@ -75,15 +75,4 @@ static inline void pin_d_reset(uint8_t pin) {
 
 //------------------------------------------------------------------------------
 
-#define pin_a_exti_cfg(pin)  pin_exti_cfg(GPIO_PORTSOURCE_GPIOA, pin)
-#define pin_c_exti_cfg(pin)  pin_exti_cfg(GPIO_PORTSOURCE_GPIOC, pin)
-#define pin_d_exti_cfg(pin)  pin_exti_cfg(GPIO_PORTSOURCE_GPIOD, pin)
-
-static inline void pin_exti_cfg(uint8_t source, uint8_t pin) {
-  uint8_t mask = pin << 1;
-  AFIO->EXTICR &= ~(0b11 << mask);
-  AFIO->EXTICR |= source << mask; }
-
-//------------------------------------------------------------------------------
-
 #endif  /* IO_PIN */

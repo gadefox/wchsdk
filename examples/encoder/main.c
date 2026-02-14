@@ -1,7 +1,7 @@
 #include <stdbool.h>
 
 #include "wchsdk_cfg.h"
-#include "wch/hw/exti.h"
+#include "wch/sys/exti.h"
 #include "wch/sys/init.h"
 #include "wch/io/enc.h"
 #include "wch/io/pin.h"
@@ -24,10 +24,10 @@ int main(void) {
   pin_a_init();
 
   pin_a_mode(0, GPIO_CFGLR_IN_PUPD);
-  pin_a_exti_cfg(0);
+  exti_map_port(0, EXTI_PORTA);
 
   pin_a_mode(1, GPIO_CFGLR_IN_PUPD);
-  pin_a_exti_cfg(1);
+  exti_map_port(1, EXTI_PORTA);
 
   // Initialize exti
   EXTI->INTENR |= EXTI_INTENR_MR0 | EXTI_INTENR_MR1;

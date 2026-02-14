@@ -96,5 +96,46 @@ static inline void tim_pwm_ch1_set_duty(tim_t *tim, uint16_t duty) {
   tim->CH1CVR = duty; }
 
 //------------------------------------------------------------------------------
+// PFIC
+
+static inline void tim1_enable_break_irq(void) {
+  pfic_enable_irq(IRQ_TIM1_BRK); }
+
+static inline void tim1_disable_break_irq(void) {
+  pfic_disable_irq(IRQ_TIM1_BRK); }
+
+//------------------------------------------------------------------------------
+  
+static inline void tim1_enable_update_irq(void) {
+  pfic_enable_irq(IRQ_TIM1_UP); }
+
+static inline void tim1_disable_update_irq(void) {
+  pfic_disable_irq(IRQ_TIM1_UP); }
+
+//------------------------------------------------------------------------------
+
+static inline void tim1_enable_trigger_irq(void) {
+  pfic_enable_irq(IRQ_TIM1_TRG); }
+
+static inline void tim1_disable_trigger_irq(void) {
+  pfic_disable_irq(IRQ_TIM1_TRG); }
+
+//------------------------------------------------------------------------------
+
+static inline void tim1_enable_cc_irq(void) {
+  pfic_enable_irq(IRQ_TIM1_CC); }
+
+static inline void tim1_disable_cc_irq(void) {
+  pfic_disable_irq(IRQ_TIM1_CC); }
+
+//------------------------------------------------------------------------------
+
+static inline void tim2_enable_irq(void) {
+  pfic_enable_irq(IRQ_TIM2); }
+
+static inline void tim2_disable_irq(void) {
+  pfic_disable_irq(IRQ_TIM2); }
+
+//------------------------------------------------------------------------------
 
 #endif  /* SYS_TIMER */

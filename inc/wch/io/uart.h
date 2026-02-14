@@ -14,6 +14,13 @@
 #include "wch/hw/rcc.h"
 #include "wch/hw/uart.h"
 #include "wch/sys/def.h"
+#include "wch/sys/pfic.h"
+
+//------------------------------------------------------------------------------
+
+#if !SYS_PFIC
+#error "UART requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
 //------------------------------------------------------------------------------
 // Baud
@@ -97,6 +104,15 @@ static inline void usart_remap(uint32_t pcfr) {
   AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_USART1_REMAP |
       AFIO_PCFR1_USART1_REMAP_1);
   AFIO->PCFR1 |= pcfr; }
+
+//------------------------------------------------------------------------------
+// PFIC
+
+static inline void uart_enable_irq(void) {
+  pfic_enable_irq(IRQ_USART1); }
+
+static inline void uart_disable_irq(void) {
+  pfic_disable_irq(IRQ_USART1); }
 
 //------------------------------------------------------------------------------
 

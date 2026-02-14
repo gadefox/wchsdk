@@ -14,7 +14,14 @@
 #include "wch/hw/afio.h"
 #include "wch/hw/rcc.h"
 #include "wch/hw/spi.h"
+#include "wch/sys/pfic.h"
 #include "wch/sys/util.h"
+
+//------------------------------------------------------------------------------
+
+#if !SYS_PFIC
+#error "SPI requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
 #if !SYS_UTIL
 #error "SPI requires SYS_UTIL = 1"
@@ -92,6 +99,15 @@ static inline bool spi_wait_rx_available(void) {
 
 static inline bool spi_wait_not_busy(void) {
   return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_BSY, false, IO_SPI_TIMEOUT); }
+
+//------------------------------------------------------------------------------
+// PFIC
+
+static inline void spi_enable_irq(void) {
+  pfic_enable_irq(IRQ_SPI1); }
+
+static inline void spi_disable_irq(void) {
+  pfic_disable_irq(IRQ_SPI1); }
 
 //------------------------------------------------------------------------------
 

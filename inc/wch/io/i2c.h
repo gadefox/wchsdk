@@ -15,7 +15,14 @@
 #include "wch/hw/i2c.h"
 #include "wch/hw/rcc.h"
 #include "wch/sys/def.h"
+#include "wch/sys/pfic.h"
 #include "wch/sys/util.h"
+
+//------------------------------------------------------------------------------
+
+#if !SYS_PFIC
+#error "I2C requires SYS_PFIC = 1"
+#endif  /* SYS_PFIC */
 
 #if !SYS_UTIL
 #error "I2C requires SYS_UTIL = 1"
@@ -134,6 +141,23 @@ static inline bool i2c_start(void) {
 
 static inline void i2c_stop(void) {
   I2C1->CTLR1 |= I2C_CTLR1_STOP; }
+
+//------------------------------------------------------------------------------
+// PFIC
+
+static inline void i2c_enable_event_irq(void) {
+  pfic_enable_irq(IRQ_I2C1_EV); }
+
+static inline void i2c_disable_event_irq(void) {
+  pfic_disable_irq(IRQ_I2C1_EV); }
+
+//------------------------------------------------------------------------------
+
+static inline void i2c_enable_error_irq(void) {
+  pfic_enable_irq(IRQ_I2C1_ER); }
+
+static inline void i2c_disable_error_irq(void) {
+  pfic_disable_irq(IRQ_I2C1_ER); }
 
 //------------------------------------------------------------------------------
 

@@ -101,8 +101,10 @@ void usb_ini(void) {
 #endif  /* USB_PIN_DPU */
 
   // enable interrupt
-  pfic_enable_irq(IRQ_EXTI7_0);
+  exti_enable_irq();
 }
+
+//------------------------------------------------------------------------------
 
 void usb_pid_handle_in(uint32_t addr, uint8_t *data, uint32_t endp, uint32_t unused, usb_t *ist) {
   usb_endpoint_t *e = &ist->eps[endp];

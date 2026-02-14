@@ -3,13 +3,10 @@
 #if IO_SPI
 
 #include "wch/util/ring.h"
-#include "wch/sys/pfic.h"
 #include "wch/io/spi.h"
 #include "wch/io/util.h"
 
-#if !SYS_PFIC
-#error "SPI requires SYS_PFIC = 1"
-#endif  /* SYS_PFIC */
+//------------------------------------------------------------------------------
 
 #if !UTIL_RING
 #error "SPI requires UTIL_RING = 1"
@@ -88,7 +85,7 @@ void spi_init(spi_config_t* c) {
   SPI1->CTLR1 |= c->direction;
 
   // Enable the SPI RXNE Interrupt
-  pfic_enable_irq(IRQ_SPI1);
+  spi_enable_irq();
 }
 
 //------------------------------------------------------------------------------
