@@ -2,9 +2,9 @@
 
 #if SYS_STARTUP
 
-#include "wch/sys/startup.h"
 #include "wch/hw/irq.h"
 #include "wch/hw/stk.h"
+#include "wch/sys/startup.h"
 
 //------------------------------------------------------------------------------
 
@@ -102,7 +102,7 @@ void reset_handler(void) {
     : [irq_entry]"r"(irq_entry)
     : "t0", "memory");
 
-#if STK_HCLK
+#if SYS_STK_HCLK
   STK->CTLR = STK_CTLR_STE | STK_CTLR_STCLK;
 #else
   STK->CTLR = STK_CTLR_STE;

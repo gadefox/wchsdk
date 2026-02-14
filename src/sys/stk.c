@@ -2,8 +2,8 @@
 
 #if SYS_STK
 
-#include "wch/sys/stk.h"
 #include "wch/hw/stk.h"
+#include "wch/sys/stk.h"
 
 //------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ void stk_delay(uint32_t ticks) {
 uint64_t stk_get64(void) {
   uint32_t base = STK->CNT;
 
-#if STK_CNTH
+#if SYS_STK_CNTH
   uint32_t high = STK->CNTH;
   uint32_t check = STK->CNT;
 
@@ -41,13 +41,15 @@ uint64_t stk_get64(void) {
 
   return PACK64(check, high);
 #else
+
   static uint32_t last_base, high;
   if (last_base > base)
     high++;
 
   last_base = base;
   return PACK64(base, high);
-#endif  /* STK_CNTH */
+
+#endif  /* SYS_STK_CNTH */
 }
 
 //------------------------------------------------------------------------------
