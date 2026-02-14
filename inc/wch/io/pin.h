@@ -8,71 +8,92 @@
 #include "wch/hw/afio.h"
 #include "wch/hw/gpio.h"
 #include "wch/hw/rcc.h"
+#include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
 
-static inline void pin_init_all(void) {
-  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPAEN | RCC_IOPCEN | RCC_IOPDEN; }
+#define PIN_CFG(pin, cfg)  ((cfg) << ((pin) << 2))
+#define PIN_MASK(pin)      PIN_CFG(pin, 0xF)
 
-static inline void pin_a_init(void) {
-  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPAEN; }
+// Input modes
+#define PIN_IA(p)  PIN_CFG(p, GPIO_CFGLR_IN_ANALOG)
+#define PIN_IF(p)  PIN_CFG(p, GPIO_CFGLR_IN_FLOAT)
+#define PIN_IP(p)  PIN_CFG(p, GPIO_CFGLR_IN_PUPD)
 
-static inline void pin_c_init(void) {
-  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPCEN; }
+// Output push-pull
+#define PIN_OP2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_PP)
+#define PIN_OP10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_PP)
+#define PIN_OP30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_PP)
+#define PIN_OP50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_PP)
 
-static inline void pin_d_init(void) {
-  RCC->APB2PCENR |= RCC_AFIOEN | RCC_IOPDEN; }
+// Output open-drain
+#define PIN_OD2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_OD)
+#define PIN_OD10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_OD)
+#define PIN_OD30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_OD)
+#define PIN_OD50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_OD)
+
+// Alternate function push-pull
+#define PIN_AP2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_AF_PP)
+#define PIN_AP10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_AF_PP)
+#define PIN_AP30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_AF_PP)
+#define PIN_AP50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_AF_PP)
+
+// Alternate function open-drain
+#define PIN_AD2(p)   PIN_CFG(p, GPIO_CFGLR_OUT_2_AF_OD)
+#define PIN_AD10(p)  PIN_CFG(p, GPIO_CFGLR_OUT_10_AF_OD)
+#define PIN_AD30(p)  PIN_CFG(p, GPIO_CFGLR_OUT_30_AF_OD)
+#define PIN_AD50(p)  PIN_CFG(p, GPIO_CFGLR_OUT_50_AF_OD)
+
+//------------------------------------------------------------------------------
+// Power
+
+#define PORTA  RCC_IOPAEN
+#define PORTC  RCC_IOPCEN
+#define PORTD  RCC_IOPDEN
+
+static inline void port_power_on(uint32_t mask) {
+  RCC->APB2PCENR |= mask | RCC_AFIOEN; }
+
+static inline void port_power_off(uint32_t mask) {
+  RCC->APB2PCENR &= ~mask; }
 
 //------------------------------------------------------------------------------
 
-static inline void pin_a_mode(uint8_t pin, uint8_t mode) {
-  GPIOA->CFGLR &= ~GPIO_PIN_MASK(pin);
-  GPIOA->CFGLR |= GPIO_PIN_CFG(pin, mode);
-}
+static inline void port_clear_cfg(gpio_t* port, uint32_t mask) {
+  port->CFGLR &= ~mask; }
 
-static inline void pin_c_mode(uint8_t pin, uint8_t mode) {
-  GPIOC->CFGLR &= ~GPIO_PIN_MASK(pin);
-  GPIOC->CFGLR |= GPIO_PIN_CFG(pin, mode);
-}
+static inline void port_set_cfg(gpio_t* port, uint32_t cfg) {
+  port->CFGLR |= cfg; }
 
-static inline void pin_d_mode(uint8_t pin, uint8_t mode) {
-  GPIOD->CFGLR &= ~GPIO_PIN_MASK(pin);
-  GPIOD->CFGLR |= GPIO_PIN_CFG(pin, mode);
-}
+static inline void port_cfg(gpio_t* port, uint32_t cfg, uint32_t mask) {
+  port_clear_cfg(port, mask);
+  port_set_cfg(port, cfg); }
 
 //------------------------------------------------------------------------------
 
-static inline bool pin_a_get(uint8_t pin) {
-  return (GPIOA->INDR >> pin) & 1; }
 
-static inline bool pin_c_get(uint8_t pin) {
-  return (GPIOC->INDR >> pin) & 1; }
+static inline uint32_t port_get(gpio_t* port) {
+  return port->INDR; }
 
-static inline bool pin_d_get(uint8_t pin) {
-  return (GPIOD->INDR >> pin) & 1; }
+static inline bool pin_get(gpio_t* port, uint8_t pin) {
+  return BITR(port->INDR, pin); }
 
 //------------------------------------------------------------------------------
 
-static inline void pin_a_set(uint8_t pin) {
-  GPIOA->BSHR = 1 << pin; }
+static inline void port_set(gpio_t* port, uint32_t mask) {
+  port->BSHR = mask; }
 
-static inline void pin_c_set(uint8_t pin) {
-  GPIOC->BSHR = 1 << pin; }
-
-static inline void pin_d_set(uint8_t pin) {
-  GPIOD->BSHR = 1 << pin; }
+static inline void pin_set(gpio_t* port, uint8_t pin) {
+  port->BSHR = BITS(pin); }
 
 //------------------------------------------------------------------------------
 
-static inline void pin_a_reset(uint8_t pin) {
-  GPIOA->BSHR = 1 << (pin + 16); }
+static inline void port_reset(gpio_t* port, uint32_t mask) {
+  port->BCR = mask; }
 
-static inline void pin_c_reset(uint8_t pin) {
-  GPIOC->BSHR = 1 << (pin + 16); }
-
-static inline void pin_d_reset(uint8_t pin) {
-  GPIOD->BSHR = 1 << (pin + 16); }
+static inline void pin_reset(gpio_t* port, uint8_t pin) {
+  port->BCR = BITS(pin); }
 
 //------------------------------------------------------------------------------
 
-#endif  /* IO_PIN */
+#endif  /* IO_LINE */

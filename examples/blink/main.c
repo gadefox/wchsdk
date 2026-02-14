@@ -1,27 +1,19 @@
-// Coppied from Ch32v003 blink example
-
 #include "wchsdk_cfg.h"
 #include "wch/sys/init.h"
 #include "wch/sys/stk.h"
 #include "wch/io/pin.h"
 
-// use defines to make more meaningful names for our GPIO pins
-#define PIND_1      0
-#define PIND_K      4
-#define PIND_BOB    6
-#define PINC_KEVIN  0
+#define PIN_R  0
+#define PIN_G  4
+#define PIN_B  0
 
-void pin_set_all(bool set) {
+void set_pins(bool set) {
   if (set) {
-    pin_d_set(PIND_1);
-    pin_d_set(PIND_K);
-    pin_d_set(PIND_BOB);
-    pin_c_set(PINC_KEVIN);
+    port_set(GPIOD, BITS(PIN_R) | BITS(PIN_G));
+    pin_set(GPIOC, PIN_B);
   } else {
-    pin_d_reset(PIND_1);
-    pin_d_reset(PIND_K);
-    pin_d_reset(PIND_BOB);
-    pin_c_reset(PINC_KEVIN);
+    port_reset(GPIOD, BITS(PIN_R) | BITS(PIN_G));
+    pin_reset(GPIOC, PIN_B);
   }
 
   delay_ms(250);
@@ -29,16 +21,16 @@ void pin_set_all(bool set) {
 
 int main(void) {
   sys_init();
-  pin_init_all(); // Enable GPIOs
+
+  // Enable GPIOs
+  port_power_on(PORTC | PORTD);
 
   // Set pins to output mode
-  pin_d_mode(PIND_1, GPIO_CFGLR_OUT_10_PP);
-  pin_d_mode(PIND_K, GPIO_CFGLR_OUT_10_PP);
-  pin_d_mode(PIND_BOB, GPIO_CFGLR_OUT_10_PP);
-  pin_c_mode(PINC_KEVIN, GPIO_CFGLR_OUT_10_PP);
+  port_cfg(GPIOC, PIN_OP10(PIN_R), PIN_MASK(PIN_R));
+  port_cfg(GPIOD, PIN_OP10(PIN_G) | PIN_OP10(PIN_B), PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
 
   while (true) {
-    pin_set_all(true);
-    pin_set_all(false);
+    set_pins(true);
+    set_pins(false);
   }
 }

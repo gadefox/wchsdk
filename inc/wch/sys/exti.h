@@ -15,14 +15,6 @@
 #endif  /* SYS_PFIC */
 
 //------------------------------------------------------------------------------
-
-#define EXTI_PORTA  GPIO_PORTSOURCE_GPIOA
-#define EXTI_PORTC  GPIO_PORTSOURCE_GPIOC
-#define EXTI_PORTD  GPIO_PORTSOURCE_GPIOD
-
-#define EXTI_LINE(n)  (1 << (n))
-
-//------------------------------------------------------------------------------
 // Power
 
 static inline void exti_power_on(void) {
@@ -34,22 +26,22 @@ static inline void exti_power_off(void) {
 //------------------------------------------------------------------------------
 // Line config
 
-static inline void exti_unmask(uint32_t mask) {
+static inline void exti_enable(uint32_t mask) {
   EXTI->INTENR |= mask; }
 
-static inline void exti_mask(uint32_t mask) {
+static inline void exti_disable(uint32_t mask) {
   EXTI->INTENR &= ~mask; }
 
-static inline void exti_enable_rising(uint32_t mask) {
+static inline void exti_rising_on(uint32_t mask) {
   EXTI->RTENR |= mask; }
 
-static inline void exti_enable_falling(uint32_t mask) {
-  EXTI->FTENR |= mask; }
-
-static inline void exti_disable_rising(uint32_t mask) {
+static inline void exti_rising_off(uint32_t mask) {
   EXTI->RTENR &= ~mask; }
 
-static inline void exti_disable_falling(uint32_t mask) {
+static inline void exti_falling_on(uint32_t mask) {
+  EXTI->FTENR |= mask; }
+
+static inline void exti_falling_off(uint32_t mask) {
   EXTI->FTENR &= ~mask; }
 
 //------------------------------------------------------------------------------
@@ -64,10 +56,22 @@ static inline void exti_clear(uint32_t mask) {
 //------------------------------------------------------------------------------
 // Port mapping
 
-static inline void exti_map_port(uint8_t line, uint8_t port) {
-  uint8_t shift = line << 1;
-  AFIO->EXTICR &= ~(0b11 << shift);
-  AFIO->EXTICR |= port << shift; }
+#define EXTIA  GPIO_PORTSOURCE_GPIOA
+#define EXTIC  GPIO_PORTSOURCE_GPIOC
+#define EXTID  GPIO_PORTSOURCE_GPIOD
+
+#define EXTI_CFG(line, port)  ((port) << ((line) << 1))
+#define EXTI_MASK(line)       EXTI_CFG(line, 0b11)
+
+static inline void exti_clear_map(uint32_t mask) {
+  AFIO->EXTICR &= ~mask; }
+
+static inline void exti_set_map(uint32_t cfg) {
+  AFIO->EXTICR |= cfg; }
+
+static inline void exti_map(uint32_t cfg, uint32_t mask) {
+  exti_clear_map(mask);
+  exti_set_map(cfg); }
 
 //------------------------------------------------------------------------------
 // SW Trigger

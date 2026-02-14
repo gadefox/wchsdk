@@ -6,14 +6,18 @@
 #include "wch/io/enc.h"
 #include "wch/io/pin.h"
 
+#define EXTI_PIN_MASK  0b11
+
+#define PIN_A  0
+#define PIN_B  1
+
 static encoder_t enc;
 
 void irq_exti7_0(void) {
-  if (EXTI->INTFR & (EXTI_INTF_INTF0 | EXTI_INTF_INTF1)) {
-    bool level_a = pin_a_get(0);  // PA0
-    bool level_b = pin_a_get(1);  // PA1
-    encoder_update(&enc, level_a, level_b);
-    EXTI->INTFR = EXTI_INTF_INTF0 | EXTI_INTF_INTF1;
+  if (exti_pending(EXTI_PIN_MASK)) {        // EXTI_INTF_INTF0 | EXTI_INTF_INTF1
+    uint32_t pins = port_get(GPIOA);
+    encoder_init(&enc, BITR(pins, PIN_A), BITR(pins, PIN_B));
+    exti_clear(EXTI_PIN_MASK);              // EXTI_INTF_INTF0 | EXTI_INTF_INTF1
   }
 }
 
@@ -21,24 +25,24 @@ int main(void) {
   sys_init();
 
   // Initialise pins
-  pin_a_init();
+  port_power_on(PORTA);
 
-  pin_a_mode(0, GPIO_CFGLR_IN_PUPD);
-  exti_map_port(0, EXTI_PORTA);
+  port_clear_cfg(GPIOA, PIN_MASK(PIN_A) | PIN_MASK(PIN_B));
+  port_set_cfg(GPIOA, PIN_IP(PIN_A) | PIN_IP(PIN_B));
 
-  pin_a_mode(1, GPIO_CFGLR_IN_PUPD);
-  exti_map_port(1, EXTI_PORTA);
+  exti_clear_map(EXTI_MASK(PIN_A) | EXTI_MASK(PIN_B));
+  exti_set_map(EXTI_CFG(PIN_A, EXTIA) | EXTI_CFG(PIN_B, EXTIA));
 
   // Initialize exti
-  EXTI->INTENR |= EXTI_INTENR_MR0 | EXTI_INTENR_MR1;
-  EXTI->RTENR |= EXTI_RTENR_TR0 | EXTI_RTENR_TR1;
-  EXTI->FTENR |= EXTI_FTENR_TR0 | EXTI_FTENR_TR1;
+  exti_enable(EXTI_PIN_MASK);               // EXTI_INTENR_MR0 | EXTI_INTENR_MR1
+  exti_rising_on(EXTI_PIN_MASK);            // EXTI_RTENR_TR0 | EXTI_RTENR_TR1
+  exti_falling_on(EXTI_PIN_MASK);           // EXTI_FTENR_TR0 | EXTI_FTENR_TR1
 
-  bool level_a = pin_a_get(0);
-  bool level_b = pin_a_get(1);
-  encoder_init(&enc, level_a, level_b);
+  uint32_t pins = port_get(GPIOA);
+  encoder_init(&enc, BITR(pins, PIN_A), BITR(pins, PIN_B));
 
   while (true) {
+    // nop
   }
 
   return 0;

@@ -41,6 +41,24 @@ typedef enum {
   GPIO_MODE_AF_PP       = 0x18
 } gpio_mode_t;
 
+//------------------------------------------------------------------------------
+
+typedef struct {
+  __IO uint32_t CFGLR; /* Port Configuration Register Low  */
+  __IO uint32_t CFGHR; /* Port Configuration Register High */
+  __I  uint32_t INDR;  /* Port Input Data Register         */
+  __IO uint32_t OUTDR; /* Port Output Data Register        */
+  __IO uint32_t BSHR;  /* Port Set/Reset Register          */
+  __IO uint32_t BCR;   /* Port Reset Register              */
+  __IO uint32_t LCKR;  /* Port Configuration Lock Register */
+} gpio_t;
+
+#define GPIOA  ((gpio_t *)GPIOA_BASE)
+#define GPIOC  ((gpio_t *)GPIOC_BASE)
+#define GPIOD  ((gpio_t *)GPIOD_BASE)
+
+//------------------------------------------------------------------------------
+
 typedef enum {
   GPIO_CFGLR_IN_ANALOG    = 0,
   GPIO_CFGLR_IN_FLOAT     = 4,
@@ -64,58 +82,30 @@ typedef enum {
   GPIO_CFGLR_OUT_10_AF_OD = 13,
   GPIO_CFGLR_OUT_2_AF_OD  = 14,
   GPIO_CFGLR_OUT_50_AF_OD = 15,
-  GPIO_CFGLR_OUT_30_AF_OD = 15,
-} gpio_cfglr_pin_mode_t;
-
-//------------------------------------------------------------------------------
-
-#define GPIO_PIN_CFG(p, c)  ((c) << ((p) * 4))
-#define GPIO_PIN_MASK(p)    GPIO_PIN_CFG(p, 0xF)
-
-// Input modes
-#define GPIO_PIN_IN_ANALOG(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_IN_ANALOG)
-#define GPIO_PIN_IN_FLOAT(p)      GPIO_PIN_CFG(p, GPIO_CFGLR_IN_FLOAT)
-#define GPIO_PIN_IN_PUPD(p)       GPIO_PIN_CFG(p, GPIO_CFGLR_IN_PUPD)
-
-// Output push-pull
-#define GPIO_PIN_OUT_10_PP(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_10_PP)
-#define GPIO_PIN_OUT_2_PP(p)      GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_2_PP)
-#define GPIO_PIN_OUT_50_PP(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_50_PP)
-#define GPIO_PIN_OUT_30_PP(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_30_PP)
-
-// Output open-drain
-#define GPIO_PIN_OUT_10_OD(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_10_OD)
-#define GPIO_PIN_OUT_2_OD(p)      GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_2_OD)
-#define GPIO_PIN_OUT_50_OD(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_50_OD)
-#define GPIO_PIN_OUT_30_OD(p)     GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_30_OD)
-
-// Alternate function push-pull
-#define GPIO_PIN_OUT_10_AF_PP(p)  GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_10_AF_PP)
-#define GPIO_PIN_OUT_2_AF_PP(p)   GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_2_AF_PP)
-#define GPIO_PIN_OUT_50_AF_PP(p)  GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_50_AF_PP)
-#define GPIO_PIN_OUT_30_AF_PP(p)  GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_30_AF_PP)
-
-// Alternate function open-drain
-#define GPIO_PIN_OUT_10_AF_OD(p)  GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_10_AF_OD)
-#define GPIO_PIN_OUT_2_AF_OD(p)   GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_2_AF_OD)
-#define GPIO_PIN_OUT_50_AF_OD(p)  GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_50_AF_OD)
-#define GPIO_PIN_OUT_30_AF_OD(p)  GPIO_PIN_CFG(p, GPIO_CFGLR_OUT_30_AF_OD)
+  GPIO_CFGLR_OUT_30_AF_OD = 15
+} gpio_cfglr_mode_t;
 
 //------------------------------------------------------------------------------
 
 typedef union {
   uint32_t __FULL;
   struct {
-    gpio_cfglr_pin_mode_t PIN0 : 4;
-    gpio_cfglr_pin_mode_t PIN1 : 4;
-    gpio_cfglr_pin_mode_t PIN2 : 4;
-    gpio_cfglr_pin_mode_t PIN3 : 4;
-    gpio_cfglr_pin_mode_t PIN4 : 4;
-    gpio_cfglr_pin_mode_t PIN5 : 4;
-    gpio_cfglr_pin_mode_t PIN6 : 4;
-    gpio_cfglr_pin_mode_t PIN7 : 4;
+    gpio_cfglr_mode_t PIN0 : 4;
+    gpio_cfglr_mode_t PIN1 : 4;
+    gpio_cfglr_mode_t PIN2 : 4;
+    gpio_cfglr_mode_t PIN3 : 4;
+    gpio_cfglr_mode_t PIN4 : 4;
+    gpio_cfglr_mode_t PIN5 : 4;
+    gpio_cfglr_mode_t PIN6 : 4;
+    gpio_cfglr_mode_t PIN7 : 4;
   };
 } gpio_cfglr_t;
+
+#define GPIOA_CFG  ((__IO gpio_cfglr_t *)&GPIOA->CFGLR)
+#define GPIOC_CFG  ((__IO gpio_cfglr_t *)&GPIOC->CFGLR)
+#define GPIOD_CFG  ((__IO gpio_cfglr_t *)&GPIOD->CFGLR)
+
+//------------------------------------------------------------------------------
 
 typedef union {
   uint32_t __FULL;
@@ -132,6 +122,12 @@ typedef union {
   };
 } gpio_indr_t;
 
+#define GPIOA_I  ((__I gpio_indr_t *)&GPIOA->INDR)
+#define GPIOC_I  ((__I gpio_indr_t *)&GPIOC->INDR)
+#define GPIOD_I  ((__I gpio_indr_t *)&GPIOD->INDR)
+
+//------------------------------------------------------------------------------
+
 typedef union {
   uint32_t __FULL;
   struct {
@@ -146,6 +142,12 @@ typedef union {
     uint32_t : 24;
   };
 } gpio_outdr_t;
+
+#define GPIOA_O  ((__IO gpio_outdr_t *)&GPIOA->OUTDR)
+#define GPIOC_O  ((__IO gpio_outdr_t *)&GPIOC->OUTDR)
+#define GPIOD_O  ((__IO gpio_outdr_t *)&GPIOD->OUTDR)
+
+//------------------------------------------------------------------------------
 
 typedef union {
   uint32_t __FULL;
@@ -171,6 +173,12 @@ typedef union {
   };
 } gpio_bshr_t;
 
+#define GPIOA_SET  ((__IO gpio_bshr_t *)&GPIOA->BSHR)
+#define GPIOC_SET  ((__IO gpio_bshr_t *)&GPIOC->BSHR)
+#define GPIOD_SET  ((__IO gpio_bshr_t *)&GPIOD->BSHR)
+
+//------------------------------------------------------------------------------
+
 typedef union {
   uint32_t __FULL;
   struct {
@@ -185,6 +193,12 @@ typedef union {
     uint32_t : 24;
   };
 } gpio_bcr_t;
+
+#define GPIOA_CLR  ((__IO gpio_bcr_t *)&GPIOA->BCR)
+#define GPIOC_CLR  ((__IO gpio_bcr_t *)&GPIOC->BCR)
+#define GPIOD_CLR  ((__IO gpio_bcr_t *)&GPIOD->BCR)
+
+//------------------------------------------------------------------------------
 
 typedef union {
   uint32_t __FULL;
@@ -202,19 +216,9 @@ typedef union {
   };
 } gpio_lckr_t;
 
-typedef struct {
-  __IO uint32_t CFGLR; /* Port Configuration Register Low  */
-  __IO uint32_t CFGHR; /* Port Configuration Register High */
-  __I  uint32_t INDR;  /* Port Input Data Register         */
-  __IO uint32_t OUTDR; /* Port Output Data Register        */
-  __IO uint32_t BSHR;  /* Port Set/Reset Register          */
-  __IO uint32_t BCR;   /* Port Reset Register              */
-  __IO uint32_t LCKR;  /* Port Configuration Lock Register */
-} gpio_t;
-
-#define GPIOA  ((gpio_t *)GPIOA_BASE)
-#define GPIOC  ((gpio_t *)GPIOC_BASE)
-#define GPIOD  ((gpio_t *)GPIOD_BASE)
+#define GPIOA_LCK  ((__IO gpio_lckr_t *)&GPIOA->LCKR)
+#define GPIOC_LCK  ((__IO gpio_lckr_t *)&GPIOC->LCKR)
+#define GPIOD_LCK  ((__IO gpio_lckr_t *)&GPIOD->LCKR)
 
 #endif  /* __ASSEMBLER__ */
 
