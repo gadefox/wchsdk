@@ -38,7 +38,7 @@ typedef enum {
   IRQ_TIM2           = 38  /* TIM2 global Interrupt                         */
 } irq_t;
 
-#define IRQ_VECTOR_TABLE_DEFAULT  "\n\
+#define IVT_DEFAULT  "\n\
   .align  2                                                                \n\
   .option push;                                                            \n\
   .option norvc;                                                           \n\

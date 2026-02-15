@@ -7,8 +7,8 @@
 void reset_handler(void);
 void reset_entry(void);
 
-void irq_entry(void);
-void irq_entry_default(void);
+void isr_default_entry(void);
+void isr_entry(void);
 
 //------------------------------------------------------------------------------
 

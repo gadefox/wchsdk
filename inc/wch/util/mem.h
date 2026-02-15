@@ -3,17 +3,31 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdint.h>
 
 //------------------------------------------------------------------------------
 
-int memcmp(const void *vl, const void *vr, size_t n);
+void *mchr(const void *ptr, uint8_t b, size_t n);
+void *mrchr(const void *ptr, uint8_t b, size_t n);
 
-void *memset(void *dest, int c, size_t n);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
+//------------------------------------------------------------------------------
 
-void *memchr(const void *src, int c, size_t n);
-void *memrchr(const void *m, int c, size_t n);
+void *mcpy(void *restrict dst, const void *restrict src, size_t n);
+void *mcpy_fast(void *restrict dst, const void *restrict src, size_t n);
+
+//------------------------------------------------------------------------------
+
+void *mset(void *ptr, uint8_t b, size_t n);
+void *mset_fast(void *ptr, uint8_t b, size_t n);
+
+//------------------------------------------------------------------------------
+
+int mcmp(const void *pl, const void *vr, size_t n);
+int mcmp_fast(const void *vl, const void *vr, size_t n);
+
+//------------------------------------------------------------------------------
+
+void *mmove(void *dst, const void *src, size_t n);
 
 //------------------------------------------------------------------------------
 

@@ -8,7 +8,7 @@
 #include "wch/hw/tim.h"
 
 //------------------------------------------------------------------------------
-// Power
+// Power: tim1
 
 static inline void tim1_power_on(void) {
   RCC->APB2PCENR |= RCC_TIM1EN; }
@@ -18,6 +18,7 @@ static inline void tim1_reset(void) {
   RCC->APB2PRSTR &= ~RCC_TIM1RST; }
 
 //------------------------------------------------------------------------------
+// Power: tim2
 
 static inline void tim2_power_on(void) {
   RCC->APB1PCENR |= RCC_TIM2EN; }
@@ -71,17 +72,17 @@ static inline void tim_continuous(tim_t *tim) {
 //------------------------------------------------------------------------------
 // Interrupt
 
-static inline void tim_irq_enable_update(tim_t *tim) {
+static inline void tim_enable_update_irq(tim_t *tim) {
   tim->DMAINTENR |= TIM_UIE; }
 
-static inline void tim_irq_disable_update(tim_t *tim) {
+static inline void tim_disable_update_irq(tim_t *tim) {
   tim->DMAINTENR &= ~TIM_UIE; }
+
+static inline uint16_t tim_is_update_flag(tim_t * tim) {
+  return tim->INTFR & TIM_UIF; }
 
 static inline void tim_clear_update_flag(tim_t *tim) {
   tim->INTFR &= ~TIM_UIF; }
-
-static inline uint8_t tim_update_flag(tim_t * tim) {
-  return (tim->INTFR & TIM_UIF) != 0; }
 
 //------------------------------------------------------------------------------
 // PWM
@@ -96,7 +97,7 @@ static inline void tim_pwm_ch1_set_duty(tim_t *tim, uint16_t duty) {
   tim->CH1CVR = duty; }
 
 //------------------------------------------------------------------------------
-// PFIC
+// PFIC: tim1
 
 static inline void tim1_enable_break_irq(void) {
   pfic_enable_irq(IRQ_TIM1_BRK); }
@@ -129,6 +130,7 @@ static inline void tim1_disable_cc_irq(void) {
   pfic_disable_irq(IRQ_TIM1_CC); }
 
 //------------------------------------------------------------------------------
+// PFIC: tim2
 
 static inline void tim2_enable_irq(void) {
   pfic_enable_irq(IRQ_TIM2); }

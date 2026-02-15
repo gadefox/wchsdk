@@ -15,19 +15,19 @@
 
 //------------------------------------------------------------------------------
 
-#if SYS_ISR_IN_RAM
-#define IRQ_SECTION  ".data.irq_entry"
+#if SYS_IVT_RAM
+#define IVT_SECTION  ".data.isr_entry"
 #else
-#define IRQ_SECTION  ".text.irq_entry"
-#endif  /* SYS_ISR_IN_RAM */
+#define IVT_SECTION  ".text.isr_entry"
+#endif  /* SYS_IVT_RAM */
 
 //------------------------------------------------------------------------------
 
 void reset_handler(void);
 void reset_entry(void);
 
-void irq_entry(void);
-void irq_entry_default(void);
+void isr_default_entry(void);
+void isr_entry(void);
 
 //------------------------------------------------------------------------------
 // Enable Global Interrupt
@@ -59,19 +59,15 @@ static inline uint8_t irq_is_enabled(void) {
 }
 
 //------------------------------------------------------------------------------
-// used to clear the CSS flag in case of clock fail switch
+// Invoked when the Clock Security detects the failure of the HSE oscilator.
+// The sys clock is switched to HSI. Clears the CSSF flag in RCC->INTR
 
-#if SYS_CLK_SEC
+#if SYS_XTAL_CSS
 
-// @brief Non Maskabke Interrupt handler
-//        Invoked when the Clock Security system
-//        detects the failure of the HSE oscilator.
-//        The sys clock is switched to HSI.
-//        Clears the CSSF flag in RCC->INTR
-static inline void nmi_rcc_css_handler(void) {
+static inline void nmi_css_handler(void) {
   RCC->INTR |= RCC_CSSC; }  // clear the clock security int flag
 
-#endif  /* SYS_CLK_SEC */
+#endif  /* SYS_XTAL_CSS */
 
 //------------------------------------------------------------------------------
 

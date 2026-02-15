@@ -5,9 +5,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "wch/hw/rcc.h"
-#include "wch/hw/tim.h"
-
 //------------------------------------------------------------------------------
 
 typedef struct {
@@ -26,6 +23,7 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 void rtc_init(uint8_t ms);
+void rtc_update(void);
 
 //------------------------------------------------------------------------------
 
@@ -45,7 +43,7 @@ rtc_date_t rtc_days_to_date(uint32_t days);
 static inline bool rtc_is_leap_year(uint16_t year) {
    return (year & 3) == 0; }
 
-static inline uint8_t rtc_leap_days(uint16_t year) {
+static inline uint16_t rtc_leap_days(uint16_t year) {
    return (year + 1) >> 2; }
 
 //------------------------------------------------------------------------------

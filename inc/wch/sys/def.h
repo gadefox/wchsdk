@@ -8,8 +8,8 @@
 
 //------------------------------------------------------------------------------
 
-#define BITR(x, b)  (((x) >> (b)) & 1)
 #define BITS(b)     (1 << (b))
+#define BITR(x, b)  (((x) >> (b)) & 1)
 
 //------------------------------------------------------------------------------
 
@@ -28,42 +28,40 @@
 
 #ifndef SYS_HSI_TRIM
 #define SYS_HSI_TRIM  0x10      // Default (Chip default)
-#endif  /* HSI_TRIM */
+#endif  /* SYS_HSI_TRIM */
+
+#ifndef SYS_PLL_MUL
+#define SYS_PLL_MUL  2
+#endif  /* SYS_PLL_MUL */
 
 //------------------------------------------------------------------------------
 
 #if SYS_XTAL_FREQ
-#define SYS_BASE_FREQ  SYS_XTAL_FREQ
+#define BASE_FREQ  SYS_XTAL_FREQ
 #else  /* SYS_HSI_FREQ */
-#define SYS_BASE_FREQ  SYS_HSI_FREQ
+#define BASE_FREQ  SYS_HSI_FREQ
 #endif  /* SYS_HSI_FREQ || SYS_XTAL_FREQ */
 
-//------------------------------------------------------------------------------
-
-#if !SYS_PLL_MUL
-#define SYS_PLL_MUL  2
-#endif  /* SYS_PLL_MUL */
-
-#define SYS_FREQ  (SYS_BASE_FREQ * SYS_PLL_MUL)
-
-//------------------------------------------------------------------------------
-
-#if SYS_STK_HCLK
-#define SYS_TICKS_PER_US  (SYS_FREQ / 1000000)
-#define SYS_TICKS_PER_MS  (SYS_FREQ / 1000)
-#else
-#define SYS_TICKS_PER_US  (SYS_FREQ / 8000000)
-#define SYS_TICKS_PER_MS  (SYS_FREQ / 8000)
-#endif  /* SYS_STK_HCLK */
-
-//------------------------------------------------------------------------------
-
-#define us_to_ticks(n) ((n) * SYS_TICKS_PER_US)
-#define ms_to_ticks(n) ((n) * SYS_TICKS_PER_MS)
+#define HCLK_FREQ  (BASE_FREQ * SYS_PLL_MUL)
 
 //------------------------------------------------------------------------------
 
 #define time_elapsed(now, start)  ((int32_t)((now) - (start)))
-#define stk_elapsed(deadline)     (time_elapsed(STK->CNT, deadline) >= 0)
+
+//------------------------------------------------------------------------------
+// Add a certain number of nops.
+// NOTE: These are usually executed in pairs and take two cycles,
+// so you typically would use 0, 2, 4, etc.
+
+#define NOPS(n)  asm volatile(\
+                   ".rept " #n "\n \
+                    c.nop       \n \
+                    .endr")
+
+//------------------------------------------------------------------------------
+// nop
+
+static inline void nop(void) {
+  asm volatile("nop"); }
 
 //------------------------------------------------------------------------------

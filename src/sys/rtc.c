@@ -3,6 +3,8 @@
 #if SYS_RTC
 
 #include "wch/hw/irq.h"
+#include "wch/hw/rcc.h"
+#include "wch/hw/tim.h"
 #include "wch/sys/def.h"
 #include "wch/sys/pfic.h"
 #include "wch/sys/rtc.h"
@@ -15,7 +17,7 @@
 #endif  /* SYS_PFIC */
 
 #if !SYS_TIMER
-#error "UART requires SYS_TIMEr = 1"
+#error "UART requires SYS_TIMER = 1"
 #endif  /* SYS_TIMER */
 
 //------------------------------------------------------------------------------
@@ -29,12 +31,7 @@ static volatile uint16_t day;
 
 //------------------------------------------------------------------------------
 
-void irq_tim2(void) {
-  if (!(TIM2->INTFR & TIM_UIF))
-    return;
-
-  TIM2->INTFR &= ~TIM_UIF;
-
+void rtc_update(void) {
   time.milli += interval;
   if (time.milli < 1000)
     return;
@@ -57,15 +54,24 @@ void irq_tim2(void) {
 
 //------------------------------------------------------------------------------
 
+void irq_tim2(void) {
+  if (tim_is_update_flag(TIM2)) {
+    tim_clear_update_flag(TIM2);
+    rtc_updat();
+  }
+}
+
+//------------------------------------------------------------------------------
+
 void rtc_init(uint8_t ms) {
   interval = ms;
 
   tim2_power_on();                          // Enable clock for TIM2
   tim2_reset();                             // Reset TIM2
-  tim_set_prescaler(TIM2, (SYS_FREQ / 1000) - 1); // Prescaler: 48 MHz / 48000 = 1 kHz
+  tim_set_prescaler(TIM2, (HCLK_FREQ / 1000) - 1); // Prescaler: 48 MHz / 48000 = 1 kHz
   tim_set_auto_reload(TIM2, ms - 1);        // Auto-reload: 1000 ticks = 1 s
   tim_set_count(TIM2, 0);                   // Reset counter
-  tim_irq_enable_update(TIM2);              // Enable update interrupt
+  tim_enable_update_irq(TIM2);              // Enable update interrupt
 
   tim2_enable_irq();                        // Enable IRQ in PFIC
   tim_enable(TIM2);                         // Start timer

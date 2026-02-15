@@ -14,44 +14,59 @@ void pfic_set_vtf(uint32_t addr, irq_t irq, uint8_t num, bool enable);
 void pfic_clear_all_irqs_except(uint8_t irq_to_keep);
 
 //------------------------------------------------------------------------------
+
+static inline uint32_t pfic_reg_index(irq_t irq) {
+  return (uint32_t)irq >> 5; }
+
+static inline uint32_t pfic_bit_mask(irq_t irq) {
+  return BITS((uint32_t)irq & 0x1F); }
+
+//------------------------------------------------------------------------------
 // Enable Interrupt (by interrupt number)
 
 static inline void pfic_enable_irq(irq_t irq) {
-  PFIC->IENR[((uint32_t)irq >> 5)] = (1 << ((uint32_t)irq & 0x1F)); }
+  uint8_t index = pfic_reg_index(irq);
+  PFIC->IENR[index] = pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Disable Interrupt (by interrupt number)
 
 static inline void pfic_disable_irq(irq_t irq) {
-  PFIC->IRER[((uint32_t)irq >> 5)] = (1 << ((uint32_t)irq & 0x1F)); }
+  uint8_t index = pfic_reg_index(irq);
+  PFIC->IRER[index] = pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Enable State, (by number)
-static inline bool pfic_is_irq_enabled(irq_t irq) {
-  return (PFIC->ISR[(uint32_t)irq >> 5] & (1 << ((uint32_t)irq & 0x1F))) != 0; }
+static inline uint32_t pfic_is_irq_enabled(irq_t irq) {
+  uint8_t index = pfic_reg_index(irq);
+  return PFIC->ISR[index] & pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Pending State, (by number), 1 = Pending 0 = Not pending
 
-static inline bool pfic_is_irq_pending(irq_t irq) {
-  return (PFIC->IPR[(uint32_t)irq >> 5] & (1 << ((uint32_t)irq & 0x1F))) != 0; }
+static inline uint32_t pfic_is_irq_pending(irq_t irq) {
+  uint8_t index = pfic_reg_index(irq);
+  return PFIC->IPR[index] & pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 
 static inline void pfic_set_pending_irq(irq_t irq) {
-  PFIC->IPSR[((uint32_t)irq >> 5)] = (1 << ((uint32_t)irq & 0x1F)); }
+  uint8_t index = pfic_reg_index(irq);
+  PFIC->IPSR[index] = pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Clear Interrupt Pending
 
 static inline void pfic_clear_pending_irq(irq_t irq) {
-  PFIC->IPRR[((uint32_t)irq >> 5)] = (1 << ((uint32_t)irq & 0x1F)); }
+  uint8_t index = pfic_reg_index(irq);
+  PFIC->IPRR[index] = pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Active State (returns 1 if active)
 
-static inline bool pfic_get_active(irq_t irq) {
-  return (PFIC->IACTR[(uint32_t)irq >> 5] & (1 << ((uint32_t)irq & 0x1F))) != 0; }
+static inline uint32_t pfic_get_active(irq_t irq) {
+  uint8_t index = pfic_reg_index(irq);
+  return PFIC->IACTR[index] & pfic_bit_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Set Interrupt Priority (priority: bit7: pre-emption priority, bit6: subpriority, bit[5-0]: reserved

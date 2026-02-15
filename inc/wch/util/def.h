@@ -1,15 +1,8 @@
-#if SYS_INIT
-
 #pragma once
 
 //------------------------------------------------------------------------------
 
-void sys_init(void);
-
-#if SYS_CONSTRUCTORS
-void sys_constructors(void);
-#endif  /* SYS_CONSTRUCTORS */
+#define MAX(a, b)  ((a) > (b) ? (a) : (b))
+#define MIN(a, b)  ((a) < (b) ? (a) : (b))
 
 //------------------------------------------------------------------------------
-
-#endif  /* SYS_INIT */

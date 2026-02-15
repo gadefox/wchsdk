@@ -14,14 +14,6 @@
 
 //------------------------------------------------------------------------------
 
-#if SYS_ISR_IN_RAM
-#define IRQ_SECTION  ".data.irq_entry"
-#else
-#define IRQ_SECTION  ".text.irq_entry"
-#endif  /* SYS_ISR_IN_RAM */
-
-//------------------------------------------------------------------------------
-
 extern int main(void);
 
 //------------------------------------------------------------------------------
@@ -51,7 +43,7 @@ void reset_handler(void) {
 #endif  /* HPE_ENABLE */
 
    "li      a3, 0x3         \n\
-    la      a0, irq_entry   \n\
+    la      a0, isr_entry   \n\
     or      a0, a0, a3      \n\
     csrw    mtvec, a0"
     :
@@ -95,18 +87,18 @@ void reset_handler(void) {
    "li      t0, 0x0B        \n\
     csrw    0x804, t0       \n"
 #endif  /* HPE_ENABLE */
-   "la      t0, irq_entry   \n\
+   "la      t0, isr_entry   \n\
     ori     t0, t0, 3       \n\
     csrw    mtvec, t0"
     :
-    : [irq_entry]"r"(irq_entry)
+    : [isr_entry]"r"(isr_entry)
     : "t0", "memory");
 
 #if SYS_STK_HCLK
   STK->CTLR = STK_CTLR_STE | STK_CTLR_STCLK;
 #else
   STK->CTLR = STK_CTLR_STE;
-#endif  /* STK_HCLK */
+#endif  /* SYS_STK_HCLK */
 
   // set mepc to be main as the root app.
   asm volatile(
@@ -118,7 +110,7 @@ void reset_handler(void) {
 
 //------------------------------------------------------------------------------
 
-#if USE_ISR_IN_RAM
+#if SYS_ISR_RAM
 
 __attribute__((naked)) __attribute((section(".init"))) __attribute((naked))
 void reset_entry(void) {
@@ -132,24 +124,24 @@ void reset_entry(void) {
 
 //------------------------------------------------------------------------------
 
-__attribute__((naked)) __attribute((section(IRQ_SECTION))) __attribute((weak,alias("irq_entry_default"))) __attribute((naked))
-void irq_entry(void);
+__attribute__((naked)) __attribute((section(IVT_SECTION))) __attribute((weak,alias("isr_default_entry"))) __attribute((naked))
+void isr_entry(void);
 
-__attribute__((naked)) __attribute((section(IRQ_SECTION))) __attribute((naked))
-void irq_entry_default(void) {
-  asm volatile(IRQ_VECTOR_TABLE_DEFAULT);
+__attribute__((naked)) __attribute((section(IVT_SECTION))) __attribute((naked))
+void isr_default_entry(void) {
+  asm volatile(IVT_DEFAULT);
 }
 
-#else  /* !USE_ISR_IN_RAM */
+#else  /* !SYS_ISR_RAM */
 
 //------------------------------------------------------------------------------
 
-__attribute__((naked)) __attribute((section(".init"))) __attribute((weak,alias("irq_entry_default"))) __attribute((naked))
-void irq_entry(void);
+__attribute__((naked)) __attribute((section(".init"))) __attribute((weak,alias("isr_default_entry"))) __attribute((naked))
+void isr_entry(void);
 
 __attribute__((naked)) __attribute((section(".init"))) __attribute((naked))
-void irq_entry_default(void) {
-#if USE_TINYVECTOR
+void isr_default_entry(void) {
+#if SYS_IVT_TINY
   asm volatile("\n\
     .align  2\n\
     .option push;\n\
@@ -157,11 +149,11 @@ void irq_entry_default(void) {
       j     reset_handler\n\
     .option pop;\n");
 #else
-  asm volatile(IRQ_VECTOR_TABLE_DEFAULT);
-#endif  /* USE_TINYVECTOR */
+  asm volatile(IVT_DEFAULT);
+#endif  /* SYS_IVT_TINY */
 }
 
-#endif  /* USE_ISR_IN_RAM */
+#endif  /* SYS_IVT_RAM */
 
 //------------------------------------------------------------------------------
 

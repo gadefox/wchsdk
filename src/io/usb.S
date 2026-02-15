@@ -827,15 +827,15 @@ insert_stuffed_bit:
 
 //------------------------------------------------------------------------------
 
-#ifdef SYS_TINY_BOOT
+#ifdef SYS_IVT_TINY
 
 // Absolutely bare-bones hardware initialization for bringing the chip up,
 // setting up the environment for C, switching to 48MHz clock, and booting
 // into main... as well as providing irq_exti7_0 jump at interrupt
 
 .section .init
-.global  irq_entry
-irq_entry:
+.global  isr_entry
+isr_entry:
 .align   2
 .option  push
 .option  norelax
@@ -887,7 +887,7 @@ usb_bb_always0:
 usb_bb_always0:
 .word    0x00
 
-#endif  /* SYS_TINY_BOOT */
+#endif  /* SYS_IVT_TINY */
 
 //------------------------------------------------------------------------------
 

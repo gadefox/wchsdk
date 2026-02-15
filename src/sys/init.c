@@ -17,11 +17,11 @@
 #define BYPASS  0
 #endif  /* XTAL_BYPASS */
 
-#if SYS_CLK_SEC
+#if SYS_XTAL_CSS
 #define CLKSEC  RCC_CSSON  // Enable clock security system
 #else
 #define CLKSEC  0
-#endif  /* SYS_CLK_SEC */
+#endif  /* SYS_XTAL_CSS */
 
 //------------------------------------------------------------------------------
 
@@ -41,11 +41,11 @@ void call_constructors(void) {
 
 void sys_init(void) {
   // Flash latency settings.
-#if SYS_FREQ > 25000000
+#if HCLK_FREQ > 25000000
   FLASH->ACTLR = FLASH_ACTLR_LATENCY_1; // +1 Cycle Latency
 #else
   FLASH->ACTLR = FLASH_ACTLR_LATENCY_0; // +0 Cycle Latency
-#endif  /* SYS_FREQ */
+#endif  /* HCLK_FREQ */
 
 // External crystal
 #if SYS_XTAL_FREQ
@@ -63,10 +63,10 @@ void sys_init(void) {
 
 #if SYS_PLL
   RCC->CFGR0 = RCC_HPRE_DIV1 | RCC_PLLSRC_HSI_MUL2;
-  RCC->CTLR = CLKSEC | RCC_HSION | RCC_PLLON | (SYS_HSI_TRIM << 3);
+  RCC->CTLR = RCC_HSION | RCC_PLLON | (SYS_HSI_TRIM << 3);
 #else
   RCC->CFGR0 = RCC_HPRE_DIV1;                     // PLLCLK = HCLK = SYSCLK = APB1
-  RCC->CTLR = CLKSEC | RCC_HSION | (SYS_HSI_TRIM << 3);
+  RCC->CTLR = RCC_HSION | (SYS_HSI_TRIM << 3);
 #endif  /* SYS_PLL */
 
 #endif  /* SYS_HSI_FREQ || SYS_XTAL_FREQ */

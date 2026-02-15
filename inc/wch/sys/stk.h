@@ -3,29 +3,45 @@
 #pragma once
 
 #include <stdint.h>
+
+#include "wch/hw/stk.h"
 #include "wch/sys/def.h"
+
+//------------------------------------------------------------------------------
+
+#if SYS_STK_HCLK
+#define STK_FREQ  HCLK_FREQ         // HCLK for time base
+#else
+#define STK_FREQ  (HCLK_FREQ / 8)   // HCLK/8 for time base
+#endif  /* SYS_STK_HCLK */
+
+//------------------------------------------------------------------------------
+
+#define STK_MS  (STK_FREQ / 1000)
+#define STK_US  (STK_MS / 1000)
+
+#define ms_to_stk(n) ((n) * STK_MS)
+#define us_to_stk(n) ((n) * STK_US)
+
+#define stk_elapsed(deadline)  (time_elapsed(STK->CNT, deadline) >= 0)
+
+//------------------------------------------------------------------------------
+// NOTE: MCUs without a 64-bit timer must call this function at least once
+// every 2^32 ticks to ensure that the most significant bits are not lost.
+
+uint64_t stk_get64(void);
 
 //------------------------------------------------------------------------------
 
 void stk_delay(uint32_t ticks);
 
-// Get a 64-bit timestamp.  Please in general try to use 32-bit timestamps
-// whenever possible.  Use functions that automatically handle rollover
-// correctly like TimeElapsed32( start, end ).  Only use this in cases where
-// you must act on time periods exceeding 2^31 ticks.
-//
-// Also, if you are on a platform without a hardware 64-bit timer, you must
-// call this function at least once every 2^32 ticks to make sure MSBs aren't
-// lost.
-uint64_t stk_get64(void);
-
-//------------------------------------------------------------------------------
+static inline void delay_ms(uint32_t ms) {
+  uint32_t ticks = ms_to_stk(ms);
+  stk_delay(ticks); }
 
 static inline void delay_us(uint32_t us) {
-  stk_delay(us_to_ticks(us)); }
-
-static inline void delay_ms(uint32_t ms) {
-  stk_delay(ms_to_ticks(ms)); }
+  uint32_t ticks = us_to_stk(us);
+  stk_delay(ticks); }
 
 //------------------------------------------------------------------------------
 
