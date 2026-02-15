@@ -6,54 +6,8 @@
 #include "wch/util/str.h"
 
 //------------------------------------------------------------------------------
-
-__attribute__((weak))
-size_t strlen_align(const uint32_t *w) {
-  const char *start = (const char *)w;
-
-  while (true) {
-    uint32_t x = *w;
-
-    if ((x - 0x01010101) & ~x & 0x80808080) {
-      const char *s = (const char *)w;
-      while (*s) s++;
-      return s - start;
-    }
-    w++;
-  }
-}
-
-//------------------------------------------------------------------------------
-
-__attribute__((weak))
-size_t strlen4(const char *s) {
-  const char *start = s;
-
-  while ((uintptr_t)s & 3) {
-    if (!*s)
-      return s - start;
-    s++;
-  }
-
-  // 4 bytes
-  const uint32_t *w = (const uint32_t *)s;
-
-  while (true) {
-    uint32_t x = *w;
-
-    if ((x - 0x01010101) & ~x & 0x80808080) {
-      s = (const char *)w;
-      while (*s)
-        s++;
-      return s - start;
-    }
-    w++;
-  }
-}
-
-//------------------------------------------------------------------------------
-// Copyright © 2005-2020 Rich Felker, et al.
-
+// Simple strlen
+//
 __attribute__((weak))
 size_t strlen(const char *s) {
   const char *p = s;
@@ -63,21 +17,46 @@ size_t strlen(const char *s) {
 }
 
 //------------------------------------------------------------------------------
+// Optimized strlen for RISC-V 32-bit
 
 __attribute__((weak))
-size_t strnlen(const char *s, size_t n) {
-  const char *p = memchr(s, 0, n);
-  return p ? (size_t)(p - s) : n;
+size_t strlen_fast(const char *s) {
+  const char *start = s;
+
+  // Align pointer to 4-byte boundary
+  uintptr_t misalign = (uintptr_t)s & 3;
+  if (__builtin_expect(misalign != 0, 0)) {
+    misalign = 4 - misalign;
+    while (misalign--) {
+      if (!*s)
+        return s - start;
+      s++;
+    }
+  }
+
+  // 4 bytes
+  const uint32_t *s32 = (const uint32_t *)s;
+
+  while (true) {
+    uint32_t w = *s32;
+
+    if ((w - 0x01010101) & ~w & 0x80808080) {
+      s = (const char *)s32;
+      while (*s)
+        s++;
+      return s - start;
+    }
+
+    s32++;
+  }
 }
 
 //------------------------------------------------------------------------------
 
 __attribute__((weak))
-void *memset(void *dest, int c, size_t n) {
-  unsigned char *s = dest;
-  for (; n; n--, s++)
-    *s = c;
-  return dest;
+size_t strnlen(const char *s, size_t n) {
+  const char *p = memchr(s, 0, n);
+  return p ? (size_t)(p - s) : n;
 }
 
 //------------------------------------------------------------------------------

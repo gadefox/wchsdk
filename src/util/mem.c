@@ -216,7 +216,7 @@ int mcmp(const void *vl, const void *vr, size_t n) {
 
 //------------------------------------------------------------------------------
 
-int wordcmp(const uint32_t *l32, const uint32_t *r32) {
+static int wordcmp(const uint32_t *l32, const uint32_t *r32) {
   const uint8_t *l = (const uint8_t *)l32;
   const uint8_t *r = (const uint8_t *)r32;
 
