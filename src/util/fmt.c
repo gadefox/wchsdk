@@ -16,7 +16,7 @@
 
 
 #if !UTIL_STR
-//#error "format requires UTIL_STR = 1"
+#error "format requires UTIL_STR = 1"
 #endif  /* UTIL_STR */
 
 //==============================================================================
@@ -30,7 +30,7 @@ static fmt_free_t fmt_free;
 
 //------------------------------------------------------------------------------
 
-void printf_set(void *data, fmt_handler_t handler, fmt_free_t free) {
+void fmt_set(void *data, fmt_handler_t handler, fmt_free_t free) {
   fmt_data = data;
   fmt_handler = handler;
   fmt_free = free;
@@ -115,7 +115,7 @@ size_t itoa(char *buf, long value, uint8_t radix, bool uppercase, bool unsig) {
 //==============================================================================
 // xxprintf functions
 
-size_t vpprintf(fmt_buf_t *buf, const char *fmt, va_list va) {
+static size_t vpprintf(fmt_buf_t *buf, const char *fmt, va_list va) {
   char bn[11];  // max: "-2147483648" = 11 chars (10 + '\0')
   size_t n = 0;
 
@@ -192,7 +192,7 @@ size_t vpprintf(fmt_buf_t *buf, const char *fmt, va_list va) {
         char *s = va_arg(va, char *);
         if (!s)
           s = "(null)";  // Safety
-        size_t len = 0;//strlen(s);
+        size_t len = strlen(s);
 
         if (padw > len)
           n += fmt_buf_pad(buf, padc, padw - len);

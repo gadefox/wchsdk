@@ -17,7 +17,7 @@ typedef void (*fmt_free_t)(void *data, void *buf);
 
 //------------------------------------------------------------------------------
 
-void printf_set(void *data, fmt_handler_t handler, fmt_free_t free);
+void fmt_set(void *data, fmt_handler_t handler, fmt_free_t free);
 
 #endif  /* UTIL_FMT_OBJS */
 
