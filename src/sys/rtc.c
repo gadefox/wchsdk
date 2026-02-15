@@ -57,7 +57,7 @@ void rtc_update(void) {
 void irq_tim2(void) {
   if (tim_is_update_flag(TIM2)) {
     tim_clear_update_flag(TIM2);
-    rtc_updat();
+    rtc_update();
   }
 }
 

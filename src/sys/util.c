@@ -5,6 +5,7 @@
 
 #include "wch/hw/stk.h"
 #include "wch/sys/def.h"
+#include "wch/sys/stk.h"
 #include "wch/sys/util.h"
 
 //==============================================================================

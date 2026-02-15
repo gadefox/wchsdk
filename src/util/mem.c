@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 __attribute__((weak))
-void *mchr(const void *ptr, uint8_t b, size_t n) {
+void *memchr(const void *ptr, int b, size_t n) {
   const uint8_t *p = ptr;
 
   while (n--) {
@@ -22,7 +22,7 @@ void *mchr(const void *ptr, uint8_t b, size_t n) {
 //------------------------------------------------------------------------------
 
 __attribute__((weak))
-void *mrchr(const void *ptr, uint8_t b, size_t n) {
+void *memrchr(const void *ptr, int b, size_t n) {
   const uint8_t *p = (const uint8_t *)ptr + n;
 
   while (n--) {
@@ -37,7 +37,7 @@ void *mrchr(const void *ptr, uint8_t b, size_t n) {
 // Simple memcpy - returns pointer to end (dst + n)
 
 __attribute__((weak))
-void *mcpy(void *restrict dst, const void *restrict src, size_t n) {
+void *memcpy(void *restrict dst, const void *restrict src, size_t n) {
   uint8_t *d = (uint8_t *)dst;
   const uint8_t *s = (const uint8_t *)src;
 
@@ -50,10 +50,10 @@ void *mcpy(void *restrict dst, const void *restrict src, size_t n) {
 // Optimized memcpy for RISC-V 32-bit
 // Returns: pointer to end of destination (dst + n) for easy buffer chaining
 
-void* mcpy_fast(void *restrict dst, const void *restrict src, size_t n) {
+void* memcpy_fast(void *restrict dst, const void *restrict src, size_t n) {
   // Small blocks - direct copy
   if (n < 8)
-    return mcpy(dst, src, n);
+    return memcpy(dst, src, n);
 
   // Optimized copy
   uint8_t *d = (uint8_t *)dst;
@@ -130,7 +130,7 @@ void* mcpy_fast(void *restrict dst, const void *restrict src, size_t n) {
 // Simple memset - returns pointer to end (dst + n)
 
 __attribute__((weak))
-void *mset(void *ptr, uint8_t b, size_t n) {
+void *memset(void *ptr, int b, size_t n) {
   uint8_t *p = (uint8_t *)ptr;
 
   while (n--)
@@ -142,10 +142,10 @@ void *mset(void *ptr, uint8_t b, size_t n) {
 // Optimized memset for RISC-V 32-bit
 // Returns: pointer to end of destination (dst + n) for easy buffer chaining
 
-void* mset_fast(void *ptr, uint8_t b, size_t n) {
+void* memset_fast(void *ptr, uint8_t b, size_t n) {
   // Small blocks - direct set
   if (n < 8)
-    return mset(ptr, b, n);
+    return memset(ptr, b, n);
 
   // Optimized set
   uint8_t *p = (uint8_t *)ptr;
@@ -201,7 +201,7 @@ void* mset_fast(void *ptr, uint8_t b, size_t n) {
 // Simple memcmp
 
 __attribute__((weak))
-int mcmp(const void *vl, const void *vr, size_t n) {
+int memcmp(const void *vl, const void *vr, size_t n) {
   const uint8_t *l = (const uint8_t *)vl;
   const uint8_t *r = (const uint8_t *)vr;
 
@@ -216,7 +216,7 @@ int mcmp(const void *vl, const void *vr, size_t n) {
 
 //------------------------------------------------------------------------------
 
-static int wordcmp(const uint32_t *l32, const uint32_t *r32) {
+int wordcmp(const uint32_t *l32, const uint32_t *r32) {
   const uint8_t *l = (const uint8_t *)l32;
   const uint8_t *r = (const uint8_t *)r32;
 
@@ -228,10 +228,10 @@ static int wordcmp(const uint32_t *l32, const uint32_t *r32) {
 
 //------------------------------------------------------------------------------
 
-int mcmp_fast(const void *vl, const void *vr, size_t n) {
+int memcmp_fast(const void *vl, const void *vr, size_t n) {
   // Small blocks - direct compare
   if (n < 8)
-    return mcmp(vl, vr, n);
+    return memcmp(vl, vr, n);
 
   const uint8_t *l = (const uint8_t *)vl;
   const uint8_t *r = (const uint8_t *)vr;
@@ -323,7 +323,7 @@ int mcmp_fast(const void *vl, const void *vr, size_t n) {
 //------------------------------------------------------------------------------
 
 __attribute__((weak))
-void *mmove(void *dst, const void *src, size_t n) {
+void *memmove(void *dst, const void *src, size_t n) {
   uint8_t *d = (uint8_t *)dst;
   const uint8_t *s = (const uint8_t *)src;
 

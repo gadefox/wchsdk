@@ -8,6 +8,7 @@
 // SPI
 #define UTIL_RING  1
 #define SYS_PFIC   1
+#define SYS_STK    1
 #define SYS_UTIL   1
 #define IO_SPI     1
 #define IO_UTIL    1

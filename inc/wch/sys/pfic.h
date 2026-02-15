@@ -7,6 +7,7 @@
 
 #include "wch/hw/irq.h"
 #include "wch/hw/pfic.h"
+#include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
 

@@ -1,4 +1,3 @@
-// Copyright (c) 2013,2014 Michal Ludvig <michal@logix.cz>
 // Copyright (c) 2026 gadefox <gadefoxren@gmail.com>
 
 #include "wchsdk_cfg.h"
@@ -6,15 +5,22 @@
 #if UTIL_FMT
 
 #include "wch/util/fmt.h"
+#include "wch/util/mem.h"
 #include "wch/util/str.h"
 
 //------------------------------------------------------------------------------
 
+#if !UTIL_MEM
+#error "snprintf requires UTIL_MEM = 1"
+#endif  /* UTIL_MEM */
+
+
 #if !UTIL_STR
-#error "format requires UTIL_SYS = 1"
+//#error "format requires UTIL_STR = 1"
 #endif  /* UTIL_STR */
 
-//------------------------------------------------------------------------------
+//==============================================================================
+// Format objects
 
 #ifdef UTIL_FMT_OBJS
 
@@ -32,31 +38,72 @@ void printf_set(void *data, fmt_handler_t handler, fmt_free_t free) {
 
 #endif  /* UTIL_FMT_OBJS */
 
+//==============================================================================
+// Format buffer
+
+size_t fmt_buf_puts(fmt_buf_t *buf, char *s, size_t len) {
+  // Counting mode - just return requested length
+  if (!buf)
+    return len;
+
+  // Limit to available space
+  if (len > buf->free)
+    len = buf->free;
+
+  memcpy(buf->ptr, s, len);
+  buf->ptr += len;
+  buf->free -= len;
+  return len;
+}
+
 //------------------------------------------------------------------------------
 
-size_t itoa(long value, uint8_t radix, bool uppercase, bool unsig, char *buf) {
-  bool negative = false;
-  char *p = buf;
+size_t fmt_buf_pad(fmt_buf_t *buf, int padc, size_t padw) {
+  // Counting mode
+  if (!buf)
+    return padw;
+
+  // Limit to available space
+  if (padw > buf->free)
+    padw = buf->free;
+  
+  memset(buf->ptr, padc, padw);
+  buf->ptr += padw;
+  buf->free -= padw;
+  return padw;
+}
+
+//==============================================================================
+
+size_t itoa(char *buf, long value, uint8_t radix, bool uppercase, bool unsig) {
+  bool negative;
+  unsigned long uvalue;
 
   if (!unsig && value < 0) {
     negative = true;
-    value = -value;
+    uvalue = -(unsigned long)value;
+  } else {
+    negative = false;
+    uvalue = (unsigned long)value;
   }
-
-  // This builds the string back to front
+  
   char hexc = uppercase ? 'A' : 'a';
+  char *p = buf;
+  
+  // Build string backwards
   do {
-    int digit = value % radix;
+    int digit = uvalue % radix;
     *p++ = digit < 10 ? digit + '0' : digit + hexc - 10;
-    value /= radix;
-  } while (value > 0);
+    uvalue /= radix;
+  } while (uvalue > 0);
+ 
+  if (negative)
+    *p++ = '-'; 
 
-  if (negative) *p++ = '-';
-  *p = '\0';
-
-  // Now we reverse it (could do it recursively but will conserve the stack space
   size_t len = p - buf;
-  for (int i = 0; i < len / 2; i++) {
+
+  // Copy reversed to buffer
+  for (size_t i = 0; i < len; i++) {
     char c = buf[i];
     buf[i] = buf[len - i - 1];
     buf[len - i - 1] = c;
@@ -65,78 +112,12 @@ size_t itoa(long value, uint8_t radix, bool uppercase, bool unsig, char *buf) {
   return len;
 }
 
-//------------------------------------------------------------------------------
-// Pads src to pad_to length with char c. If src is longer than pad_to,
-// truncates and marks overflow with "***" at the end. Caller must ensure buf
-// has at least pad_to bytes. Returns: number of bytes written to buf
+//==============================================================================
+// xxprintf functions
 
-static size_t pad(char *src, size_t len, char c, size_t pad_to, char *buf) {
-  bool overflow = false;
-  char *p = buf;
-
-  if (pad_to == 0)
-    pad_to = len;
-  if (len > pad_to) {
-    len = pad_to;
-    overflow = true;
-  }
-
-  // Padding
-  for (int i = pad_to - len; i > 0; i--)
-    *p++ = c;
-
-  // Copy src
-  while (len--)
-    *p++ = *src++;
-
-  len = p - buf;
-
-  // Overflow indicator
-  if (overflow && len >= 3)
-    p[-3] = p[-2] = p[-1] = '*';
-
-  return len;
-}
-
-//------------------------------------------------------------------------------
-
-static size_t puts_internal(char *s, size_t len, fmt_buf_t *buf) {
-  if (!buf)
-    return len;
-
-  // Calculate available space (reserve 1 byte for null terminator)
-  char *start = buf->cur;
-  size_t available = (buf->ptr + buf->len) - start - 1;
-  
-  // Copy what fits
-  if (len > available)
-    len = available;
-
-  while (len--)
-    *buf->cur++ = *s++;
-
-  // Null terminate
-  *buf->cur = '\0';
-  return buf->cur - start;
-}
-
-//------------------------------------------------------------------------------
-
-size_t vpprintf(fmt_puts_t puts, fmt_buf_t *buf, const char *fmt, va_list va) {
-  char bf[24];
-  char bf2[24];
-
-#ifdef UTIL_FMT_OBJS
-  void *obj;
-#endif  /* UTIL_FMT_OBJS */
-
-  if (puts == NULL) {
-    // Run puts in counting mode
-    puts = puts_internal;
-    buf = NULL;
-  }
-
-  size_t len, n = 0;
+size_t vpprintf(fmt_buf_t *buf, const char *fmt, va_list va) {
+  char bn[11];  // max: "-2147483648" = 11 chars (10 + '\0')
+  size_t n = 0;
 
   while (true) {
     char c = *fmt++;
@@ -144,27 +125,22 @@ size_t vpprintf(fmt_puts_t puts, fmt_buf_t *buf, const char *fmt, va_list va) {
       break;
 
     if (c != '%')
-      len = puts(&c, 1, buf);
+      n += fmt_buf_puts(buf, &c, 1);
     else {
-      char padc = ' ';
-      size_t pad_to = 0;
-      bool l = false;
-      char *ptr;
-
-      c = *fmt++;
-
       // Zero padding requested
-      if (c == '\0')
+      char padc = ' ';
+      c = *fmt++;
+      if (!c)
         padc = '\0';
 
+      size_t padw = 0;
       while (c >= '0' && c <= '9') {
-        pad_to *= 10;
-        pad_to += c - '0';
+        padw *= 10;
+        padw += c - '0';
         c = *fmt++;
       }
 
-      if (pad_to > sizeof(bf))
-        pad_to = sizeof(bf);
+      bool l = false;
       if (c == 'l') {
         l = true;
         c = *fmt++;
@@ -174,69 +150,79 @@ size_t vpprintf(fmt_puts_t puts, fmt_buf_t *buf, const char *fmt, va_list va) {
       case '\0':
         goto end;
       case 'u':
-      case 'd':
+      case 'd': {
+        long value;
         if (l)
-          len = itoa(va_arg(va, unsigned long), 10, false, c == 'u', bf2);
-        else {
-          if (c == 'u')
-            len = itoa((unsigned long)va_arg(va, unsigned int), 10, false, true, bf2);
-          else
-            len = itoa((long)va_arg(va, int), 10, false, true, bf2);
-        }
-        len = pad(bf2, len, padc, pad_to, bf);
-        len = puts(bf, len, buf);
+          value = va_arg(va,  long);
+        else if (c == 'u')
+          value = (long)va_arg(va, unsigned int);
+        else
+          value = (long)va_arg(va, int);
+
+        size_t len = itoa(bn, value, 16, false, c == 'u');
+        if (padw > len)
+          n += fmt_buf_pad(buf, padc, padw - len);
+        n += fmt_buf_puts(buf, bn, len);
         break;
+      }
 
       case 'x':
-      case 'X':
+      case 'X': {
+        unsigned long value;
         if (l)
-          len = itoa(va_arg(va, unsigned long), 16, c == 'X', true, bf2);
+          value = va_arg(va, unsigned long);
         else
-          len = itoa((unsigned long)va_arg(va, unsigned int), 16, c == 'X', true, bf2);
-        len = pad(bf2, len, padc, pad_to, bf);
-        len = puts(bf, len, buf);
+          value = (unsigned long)va_arg(va, unsigned int);
+
+        size_t len = itoa(bn, value, 16, c == 'X', true);
+        if (padw > len)
+          n += fmt_buf_pad(buf, padc, padw - len);
+        n += fmt_buf_puts(buf, bn, len);
         break;
+      }
 
       case 'c':
         c = (char)(va_arg(va, int));
-        len = pad(&c, 1, padc, pad_to, bf);
-        len = puts(bf, len, buf);
+        if (padw > 1)
+          n += fmt_buf_pad(buf, padc, padw - 1);
+        n += fmt_buf_puts(buf, &c, 1);
         break;
 
-      case 's':
-        ptr = va_arg(va, char *);
-        len = strlen(ptr);
-        if (pad_to <= 0)
-          len = puts(ptr, len, buf);
-        else {
-          len = pad(ptr, len, padc, pad_to, bf);
-          len = puts(bf, len, buf);
-        }
+      case 's': {
+        char *s = va_arg(va, char *);
+        if (!s)
+          s = "(null)";  // Safety
+        size_t len = 0;//strlen(s);
+
+        if (padw > len)
+          n += fmt_buf_pad(buf, padc, padw - len);
+        n += fmt_buf_puts(buf, s, len);
         break;
+      }
 
 #ifdef UTIL_FMT_OBJS
-      case 'O':  // Object by content (e.g. str)
-      case 'R':  // Object by representation (e.g. repr)
-        obj = va_arg(va, void *);
-        len = fmt_handler(fmt_data, obj, c, pad_to, &ptr);
-        if (pad_to <= 0)
-          len = puts(ptr, len, buf);
-        else {
-          len = pad(ptr, len, padc, pad_to, bf);
-          len = puts(bf, len, buf);
-        }
+      case 'O':     // Object by content (e.g. str)
+      case 'R': {   // Object by representation (e.g. repr)
+        void *obj = va_arg(va, void *);
+        char *ptr;
+        size_t len = fmt_handler(fmt_data, obj, c, padw, &ptr);
+
+        if (padw > len)
+          n += fmt_buf_pad(buf, padc, padw - len);
+        n += fmt_buf_puts(buf, ptr, len);
+
         fmt_free(fmt_data, ptr);
         break;
+      }
 #endif  /* UTIL_FMT_OBJS */
 
       default:
-        len = puts(&c, len, buf);
+        n += fmt_buf_puts(buf, &c, 1);
         break;
       }
     }
-
-    n += len;
   }
+
 end:
   return n;
 }
@@ -245,14 +231,16 @@ end:
 
 size_t vsnprintf(char *buf, size_t len, const char *fmt, va_list va) {
   if (!buf || !len)
-    return vpprintf(puts_internal, NULL, fmt, va);  // Counting mode
+    return vpprintf(NULL, fmt, va);  // Counting mode
 
-  fmt_buf_t buf;
-  buf.cur = buf.ptr = buf;
-  buf.len = len;
+  fmt_buf_t fb;
+  fb.ptr = buf;
+  fb.free = len - 1;  // for '\0'
 
-  vpprintf(puts_internal, &buf, fmt, va);
-  return buf.cur - buf.buf;
+  vpprintf(&fb, fmt, va);
+  *fb.ptr = '\0';
+
+  return fb.ptr - fb.ptr;
 }
 
 //------------------------------------------------------------------------------
@@ -262,38 +250,6 @@ size_t snprintf(char *buf, size_t len, const char *fmt, ...) {
   va_start(va, fmt);
   size_t n = vsnprintf(buf, len, fmt, va);
   va_end(va);
-  return n;
-}
-
-//------------------------------------------------------------------------------
-
-int pprintf(fmt_puts_t puts, void *buf, const char *fmt, ...) {
-  va_list va;
-  va_start(va, fmt);
-  size_t n = vpprintf(puts, buf, fmt, va);
-  va_end(va);
-  return n;
-}
-
-//------------------------------------------------------------------------------
-
-__attribute__((weak))
-size_t snprintf(char *buf, size_t len, const char *fmt, ...) {
-  va_list args;
-  va_start(args, fmt);
-  size_t n = vsnprintf(buf, len, fmt, args);
-  va_end(args);
-  return n;
-}
-
-//------------------------------------------------------------------------------
-
-__attribute__((weak))
-size_t sprintf(char *buf, const char *fmt, ...) {
-  va_list args;
-  va_start(args, fmt);
-  size_t n = vsnprintf(buf, INT_MAX, fmt, args);
-  va_end(args);
   return n;
 }
 
