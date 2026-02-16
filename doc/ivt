@@ -1,0 +1,7 @@
+MCU (e.g. timer, GPIO, SPI,...)
+     ↓
+Interrupt Request (IRQ)
+     ↓
+Interrup Vector Table (IVT)
+     ↓
+Interrupt Service Routine (ISR)

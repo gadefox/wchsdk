@@ -42,7 +42,7 @@ typedef enum {
   .align  2                                                                \n\
   .option push;                                                            \n\
   .option norvc;                                                           \n\
-  j reset_handler                                                          \n\
+        j reset_handler                                                    \n\
   .word   0                                                                \n\
   .word   nmi_handler                  /* NMI Handler */                   \n\
   .word   hard_fault_handler           /* Hard Fault Handler */            \n\
@@ -54,34 +54,34 @@ typedef enum {
   .word   0                                                                \n\
   .word   0                                                                \n\
   .word   0                                                                \n\
-  .word   irq_stk                      /* SysTick Handler */               \n\
+  .word   isr_stk                      /* SysTick Handler */               \n\
   .word   0                                                                \n\
-  .word   irq_sw                       /* SW Handler */                    \n\
+  .word   isr_sw                       /* SW Handler */                    \n\
   .word   0                                                                \n\
-  .word   irq_wwdg                     /* Window Watchdog */               \n\
-  .word   irq_pvd                      /* PVD through EXTI Line detect*/   \n\
-  .word   irq_flash                    /* Flash */                         \n\
-  .word   irq_rcc                      /* RCC */                           \n\
-  .word   irq_exti7_0                  /* EXTI Line 7..0 */                \n\
-  .word   irq_awu                      /* AWU */                           \n\
-  .word   irq_dma1_channel1            /* DMA1 Channel 1 */                \n\
-  .word   irq_dma1_channel2            /* DMA1 Channel 2 */                \n\
-  .word   irq_dma1_channel3            /* DMA1 Channel 3 */                \n\
-  .word   irq_dma1_channel4            /* DMA1 Channel 4 */                \n\
-  .word   irq_dma1_channel5            /* DMA1 Channel 5 */                \n\
-  .word   irq_dma1_channel6            /* DMA1 Channel 6 */                \n\
-  .word   irq_dma1_channel7            /* DMA1 Channel 7 */                \n\
-  .word   irq_adc1                     /* ADC1 */                          \n\
-  .word   irq_i2c1_ev                  /* I2C1 Event */                    \n\
-  .word   irq_i2c1_er                  /* I2C1 Error */                    \n\
-  .word   irq_usart1                   /* USART1 */                        \n\
-  .word   irq_spi1                     /* SPI1 */                          \n\
-  .word   irq_tim1_brk                 /* TIM1 Break */                    \n\
-  .word   irq_tim1_up                  /* TIM1 Update */                   \n\
-  .word   irq_tim1_trg                 /* TIM1 Trigger and Commutation */  \n\
-  .word   irq_tim1_cc                  /* TIM1 Capture Compare */          \n\
-  .word   irq_tim2                     /* TIM2 */                          \n\
-  .option pop;\n"
+  .word   isr_wwdg                     /* Window Watchdog */               \n\
+  .word   isr_pvd                      /* PVD through EXTI Line detect*/   \n\
+  .word   isr_flash                    /* Flash */                         \n\
+  .word   isr_rcc                      /* RCC */                           \n\
+  .word   isr_exti7_0                  /* EXTI Line 7..0 */                \n\
+  .word   isr_awu                      /* AWU */                           \n\
+  .word   isr_dma1_channel1            /* DMA1 Channel 1 */                \n\
+  .word   isr_dma1_channel2            /* DMA1 Channel 2 */                \n\
+  .word   isr_dma1_channel3            /* DMA1 Channel 3 */                \n\
+  .word   isr_dma1_channel4            /* DMA1 Channel 4 */                \n\
+  .word   isr_dma1_channel5            /* DMA1 Channel 5 */                \n\
+  .word   isr_dma1_channel6            /* DMA1 Channel 6 */                \n\
+  .word   isr_dma1_channel7            /* DMA1 Channel 7 */                \n\
+  .word   isr_adc1                     /* ADC1 */                          \n\
+  .word   isr_i2c1_ev                  /* I2C1 Event */                    \n\
+  .word   isr_i2c1_er                  /* I2C1 Error */                    \n\
+  .word   isr_usart1                   /* USART1 */                        \n\
+  .word   isr_spi1                     /* SPI1 */                          \n\
+  .word   isr_tim1_brk                 /* TIM1 Break */                    \n\
+  .word   isr_tim1_up                  /* TIM1 Update */                   \n\
+  .word   isr_tim1_trg                 /* TIM1 Trigger and Commutation */  \n\
+  .word   isr_tim1_cc                  /* TIM1 Capture Compare */          \n\
+  .word   isr_tim2                     /* TIM2 */                          \n\
+  .option pop;                                                             \n"
 
 //------------------------------------------------------------------------------
 

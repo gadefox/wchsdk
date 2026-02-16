@@ -116,7 +116,7 @@ size_t itoa(char *buf, long value, uint8_t radix, bool uppercase, bool unsig) {
 // xxprintf functions
 
 static size_t vpprintf(fmt_buf_t *buf, const char *fmt, va_list va) {
-  char bn[11];  // max: "-2147483648" = 11 chars (10 + '\0')
+  char bn[11];  // max: "-2147483648" (10 characters + '-'; without '\0'!)
   size_t n = 0;
 
   while (true) {

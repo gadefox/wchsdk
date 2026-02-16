@@ -60,7 +60,7 @@ const char *utf8_decode(const char *s, wchar_t *wc) {
     w |= *p++ & UTF8_CONT_MASK;
 
     *wc = w;
-  } else if (BETWEEN(w, UTF8_4BYTE_PREFIX, 0xF8)) {
+  } else if (BETWEEN(w, UTF8_4BYTE_PREFIX, UTF8_5BYTE_PREFIX)) {
     // 4-byte: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
     w = (w & UTF8_4BYTE_MASK) << 18;
     w |= (*p++ & UTF8_CONT_MASK) << 12;
@@ -85,9 +85,9 @@ size_t utf8_charlen(const char *s) {
     return 2;
   if (BETWEEN(w, UTF8_3BYTE_PREFIX, UTF8_4BYTE_PREFIX))
     return 3;
-  if (BETWEEN(w, UTF8_4BYTE_PREFIX, UTF8_4BYTE_PREFIX + UTF8_4BYTE_MASK + 1))
+  if (BETWEEN(w, UTF8_4BYTE_PREFIX, UTF8_5BYTE_PREFIX))
     return 4;
-  
+
   return 1;  // Invalid - treat as 1 byte
 }
 

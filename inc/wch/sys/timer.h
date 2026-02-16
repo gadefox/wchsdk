@@ -7,6 +7,8 @@
 #include "wch/hw/rcc.h"
 #include "wch/hw/tim.h"
 
+#include "wch/sys/pfic.h"
+
 //------------------------------------------------------------------------------
 // Power: tim1
 

@@ -161,13 +161,7 @@ const char *strkmp(const char *haystack, size_t haylen, const char *needle, size
 
 //------------------------------------------------------------------------------
 
-const char *strstr_kmp(const char *haystack, const char *needle) {
-  // Handle edge cases
-  if (!needle || !needle[0])
-    return haystack;  // Empty needle matches at start
-  if (!haystack || !haystack[0])
-    return NULL;      // Empty haystack
-  
+const char *strkmpw(const char *haystack, const char *needle) {
   // Get lengths
   size_t haylen = strlen(haystack);
   size_t neelen = strlen(needle);
@@ -213,13 +207,7 @@ const char *strsun(const char *haystack, size_t haylen, const char *needle, size
 
 //------------------------------------------------------------------------------
 
-const char *strstr_sun(const char *haystack, const char *needle) {
-  // Handle edge cases
-  if (!needle || !needle[0])
-    return haystack;  // Empty needle matches at start
-  if (!haystack || !haystack[0])
-    return NULL;      // Empty haystack
-
+const char *strwsunw(const char *haystack, const char *needle) {
   // Get lengths
   size_t haylen = strlen(haystack);
   size_t neelen = strlen(needle);

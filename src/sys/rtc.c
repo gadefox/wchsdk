@@ -2,11 +2,6 @@
 
 #if SYS_RTC
 
-#include "wch/hw/irq.h"
-#include "wch/hw/rcc.h"
-#include "wch/hw/tim.h"
-#include "wch/sys/def.h"
-#include "wch/sys/pfic.h"
 #include "wch/sys/rtc.h"
 #include "wch/sys/timer.h"
 
@@ -68,7 +63,7 @@ void rtc_init(uint8_t ms) {
 
   tim2_power_on();                          // Enable clock for TIM2
   tim2_reset();                             // Reset TIM2
-  tim_set_prescaler(TIM2, (HCLK_FREQ / 1000) - 1); // Prescaler: 48 MHz / 48000 = 1 kHz
+  tim_set_prescaler(TIM2, (HCLK / 1000) - 1); // Prescaler: 48 MHz / 48000 = 1 kHz
   tim_set_auto_reload(TIM2, ms - 1);        // Auto-reload: 1000 ticks = 1 s
   tim_set_count(TIM2, 0);                   // Reset counter
   tim_enable_update_irq(TIM2);              // Enable update interrupt

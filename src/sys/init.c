@@ -4,10 +4,12 @@
 
 #include "wch/hw/flash.h"
 #include "wch/hw/rcc.h"
+
 #include "wch/sys/def.h"
 #include "wch/sys/init.h"
-#include "wch/io/dbg.h"
-#include "wch/io/uart.h"
+
+//#include "wch/io/dbg.h"
+//#include "wch/io/uart.h"
 
 //------------------------------------------------------------------------------
 
@@ -17,7 +19,7 @@
 #define BYPASS  0
 #endif  /* XTAL_BYPASS */
 
-#if SYS_XTAL_CSS
+#if SYS_HSE_CSS
 #define CLKSEC  RCC_CSSON  // Enable clock security system
 #else
 #define CLKSEC  0
@@ -25,17 +27,17 @@
 
 //------------------------------------------------------------------------------
 
-#ifdef SYS_CONSTRUCTORS
+#ifdef SYS_CONSTR
 
 extern void (*__init_array_start[])(void);
 extern void (*__init_array_end[])(void);
 
-void call_constructors(void) {
+void sys_call_constr(void) {
   for (void (**ctor)(void) = __init_array_start; ctor < __init_array_end; ++ctor)
     (*ctor)();
 }
 
-#endif  /* SYS_CONSTRUCTORS */
+#endif  /* SYS_CONSTR */
 
 //------------------------------------------------------------------------------
 

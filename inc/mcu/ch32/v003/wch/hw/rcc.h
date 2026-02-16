@@ -177,8 +177,8 @@ typedef struct {
 #define RCC_ADCPRE_DIV128 ((uint32_t)0x0000F800) /* HBCLK divided by 128 */
 
 #define RCC_PLLSRC          ((uint32_t)0x00010000) /* PLL entry clock source */
-#define RCC_PLLSRC_HSI_Mul2 ((uint32_t)0x00000000) /* HSI clock*2 selected as PLL entry clock source */
-#define RCC_PLLSRC_HSE_Mul2 ((uint32_t)0x00010000) /* HSE clock*2 selected as PLL entry clock source */
+#define RCC_PLLSRC_HSI_MUL2 ((uint32_t)0x00000000) /* HSI clock*2 selected as PLL entry clock source */
+#define RCC_PLLSRC_HSE_MUL2 ((uint32_t)0x00010000) /* HSE clock*2 selected as PLL entry clock source */
 
 #define RCC_CFGR0_MCO ((uint32_t)0x07000000) /* MCO[2:0] bits (Microcontroller Clock Output) */
 #define RCC_MCO_0     ((uint32_t)0x01000000) /* Bit 0 */

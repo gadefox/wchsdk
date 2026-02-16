@@ -1,15 +1,12 @@
-#if SYS_STARTUP
+#if SYS_IVT
 
 #pragma once
 
 //------------------------------------------------------------------------------
 
 void reset_handler(void);
-void reset_entry(void);
-
-void isr_default_entry(void);
-void isr_entry(void);
+void ivt_entry(void);
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_STARTUP */
+#endif  /* SYS_IVT */

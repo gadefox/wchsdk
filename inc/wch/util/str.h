@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include "wch/util/mem.h"
 
-//------------------------------------------------------------------------------
+//==============================================================================
 
 size_t strlen(const char *s);
 size_t strnlen(const char *s, size_t n);
@@ -41,7 +41,7 @@ static inline char *strrchr(const char *s, int c) {
 // - Text scanning where no backtracking allowed
 
 const char *strkmp(const char *haystack, size_t haylen, const char *needle, size_t neelen);
-const char *strstr_kmp(const char *haystack, const char *needle);  // wrapper
+const char *strkmpw(const char *haystack, const char *needle);  // wrapper
 
 //------------------------------------------------------------------------------
 // Sunday String Search Algorithm
@@ -56,8 +56,8 @@ const char *strstr_kmp(const char *haystack, const char *needle);  // wrapper
 // - Short patterns in large text
 // - When average case performance matters more than worst case
 
-const char *str_sun(const char *haystack, size_t haylen, const char *needle, size_t neelen);
-const char *strstr_sun(const char *haystack, const char *needle);  // wrapper
+const char *strsun(const char *haystack, size_t haylen, const char *needle, size_t neelen);
+const char *strsunw(const char *haystack, const char *needle);  // wrapper
 
 //------------------------------------------------------------------------------
 

@@ -7,6 +7,9 @@
 //------------------------------------------------------------------------------
 // UTF-8 range boundaries
 
+#define UTF8_CONT_PREFIX   0x80      // 10xxxxxx
+#define UTF8_CONT_MASK     0x3F      // 6 bits
+
 #define UTF8_1BYTE_MAX     0x80      // 0-127: ASCII
 
 #define UTF8_2BYTE_MAX     0x800     // 128-2047
@@ -24,9 +27,7 @@
 #define UTF8_4BYTE_MASK    0b111     // 3 bits
 
 #define UTF8_5BYTE_PREFIX  0xF8      // 111110xx
-
-#define UTF8_CONT_PREFIX   0x80      // 10xxxxxx
-#define UTF8_CONT_MASK     0x3F      // 6 bits
+#define UTF8_5BYTE_MASK    0b11      // 2 bits
 
 //------------------------------------------------------------------------------
 

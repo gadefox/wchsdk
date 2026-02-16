@@ -6,7 +6,7 @@
 
 //------------------------------------------------------------------------------
 
-void pfic_disable_irqs_except(uint8_t irq) {
+void pfic_disable_irqs_except(irq_t irq) {
   uint32_t mask = pfic_bit_mask(irq);
   uint8_t index = pfic_reg_index(irq);
 

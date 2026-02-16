@@ -7,41 +7,24 @@
 
 #include "wch/hw/irq.h"
 #include "wch/hw/pfic.h"
+
 #include "wch/sys/def.h"
-
-//------------------------------------------------------------------------------
-// Set VTF Interrupt: addr - VTF interrupt service function base address.
-//  irq - Interrupt Numbers; num - VTF Interrupt Numbers
-
-void pfic_enable_vtf(irq_t irq, void *addr, uint8_t num) {
-  PFIC->VTFIDR[num] = irq;
-  PFIC->VTFADDR[num] = ((uint32_t)addr << 1) | PFIC_VTFADDR_EN; }
-
-void pfic_disable_vtf(irq_t irq, uint8_t num) {
-  PFIC->VTFIDR[num] = irq;
-  PFIC->VTFADDR[num] = 0; }
-
-//------------------------------------------------------------------------------
-
-static inline uint8_t pfic_reg_index(irq_t irq) {
-  return (uint32_t)irq >> 5; }
-
-static inline uint32_t pfic_bit_mask(irq_t irq) {
-  return BITS((uint32_t)irq & 0x1F); }
 
 //------------------------------------------------------------------------------
 // Enable Interrupt (by interrupt number)
 
 static inline void pfic_enable_irq(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  PFIC->IENR[index] = pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  PFIC->IENR[num] = mask; }
 
 //------------------------------------------------------------------------------
 // Disable Interrupt (by interrupt number)
 
 static inline void pfic_disable_irq(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  PFIC->IRER[index] = pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  PFIC->IRER[num] = mask; }
 
 //------------------------------------------------------------------------------
 
@@ -50,35 +33,40 @@ void pfic_disable_irqs_except(uint8_t irq);
 //------------------------------------------------------------------------------
 // Get Interrupt Enable State, (by number)
 static inline uint32_t pfic_is_irq_enabled(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  return PFIC->ISR[index] & pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  return PFIC->ISR[num] & mask; }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Pending State, (by number), 1 = Pending 0 = Not pending
 
 static inline uint32_t pfic_is_irq_pending(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  return PFIC->IPR[index] & pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  return PFIC->IPR[num] & mask; }
 
 //------------------------------------------------------------------------------
 
 static inline void pfic_set_pending_irq(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  PFIC->IPSR[index] = pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  PFIC->IPSR[num] = mask; }
 
 //------------------------------------------------------------------------------
 // Clear Interrupt Pending
 
 static inline void pfic_clear_pending_irq(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  PFIC->IPRR[index] = pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  PFIC->IPRR[num] = mask; }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Active State (returns 1 if active)
 
 static inline uint32_t pfic_get_active(irq_t irq) {
-  uint8_t index = pfic_reg_index(irq);
-  return PFIC->IACTR[index] & pfic_bit_mask(irq); }
+  uint8_t num = pfic_reg_num(irq);
+  uint32_t mask = pfic_irq_mask(irq);
+  return PFIC->IACTR[num] & mask; }
 
 //------------------------------------------------------------------------------
 // Set Interrupt Priority (priority: bit7: pre-emption priority, bit6: subpriority, bit[5-0]: reserved
@@ -104,7 +92,7 @@ static inline void pfic_set_priority(irq_t irq, uint8_t priority) {
 
 static inline uint32_t pfic_get_enabled_irqs() {
   return ((PFIC->ISR[0] & (PFIC_ISR1_INTENSTA2 | PFIC_ISR1_INTENSTA3)) >> 2) |
-           (PFIC->ISR[0] >> 10) | (PFIC->ISR[1] << 22); }
+          (PFIC->ISR[0] >> 10) | (PFIC->ISR[1] << 22); }
 
 //------------------------------------------------------------------------------
 
@@ -137,6 +125,18 @@ static inline void pfic_wait_for_events(void) {
   PFIC->SCTLR |= sctlr;
   asm volatile("wfi");
   asm volatile("wfi"); }
+
+//------------------------------------------------------------------------------
+// Set VTF Interrupt: addr - VTF interrupt service function base address.
+//  irq - Interrupt Numbers; num - VTF Interrupt Numbers
+
+static inline void pfic_enable_vtf(irq_t irq, void *addr, uint8_t num) {
+  PFIC->VTFIDR[num] = irq;
+  PFIC->VTFADDR[num] = ((uint32_t)addr << 1) | PFIC_VTFADDR_EN; }
+
+static inline void pfic_disable_vtf(irq_t irq, uint8_t num) {
+  PFIC->VTFIDR[num] = irq;
+  PFIC->VTFADDR[num] = 0; }
 
 //------------------------------------------------------------------------------
 
