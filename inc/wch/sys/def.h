@@ -30,19 +30,39 @@
 #define SYS_HSI_TRIM  0x10      // Default (Chip default)
 #endif  /* SYS_HSI_TRIM */
 
-#ifndef SYS_PLL_MUL
-#define SYS_PLL_MUL  2
-#endif  /* SYS_PLL_MUL */
+#ifndef SYS_PLL
+#define SYS_PLL  2
+#endif  /* SYS_PLL */
 
 //------------------------------------------------------------------------------
 
-#if SYS_XTAL_FREQ
-#define BASE_FREQ  SYS_XTAL_FREQ
+#if SYS_HSE_FREQ
+#define SYSCLK  (SYS_HSE_FREQ * SYS_PLL)
 #else  /* SYS_HSI_FREQ */
-#define BASE_FREQ  SYS_HSI_FREQ
-#endif  /* SYS_HSI_FREQ || SYS_XTAL_FREQ */
+#define SYSCLK  (SYS_HSI_FREQ * SYS_PLL)
+#endif  /* SYS_HSI_FREQ || SYS_HSE_FREQ */
 
-#define HCLK_FREQ  (BASE_FREQ * SYS_PLL_MUL)
+//------------------------------------------------------------------------------
+// Bus prescalers
+
+#ifndef SYS_AHBP
+#define SYS_AHBP  1         // AHB prescaler (1, 2, 4, 8, 16, ...)
+#endif
+
+#ifndef SYS_APB1P
+#define SYS_APB1P  1        // APB1 prescaler (1, 2, 4, 8, 16)
+#endif
+
+#ifndef SYS_APB2P
+#define SYS_APB2P  1        // APB2 prescaler (1, 2, 4, 8, 16)
+#endif
+
+//------------------------------------------------------------------------------
+// Derived clocks
+
+#define HCLK   (SYSCLK / SYS_AHBP)
+#define PCLK1  (HCLK / SYS_APB1P)
+#define PCLK2  (HCLK / SYS_APB2P)
 
 //------------------------------------------------------------------------------
 

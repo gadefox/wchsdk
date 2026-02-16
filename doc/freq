@@ -1,0 +1,12 @@
+HSI (24 MHz) 
+    ↓
+PLL (×2) 
+    ↓
+SYSCLK (HSI×PLL)
+    ↓
+AHB prescaler (AHBP) 
+    ↓
+HCLK (SYSCLK/AHBP)
+    ↓
+APB1 prescaler → PCLK1 (e.g. I2C, UART,...)
+APB2 prescaler → PCLK2 (e.g. SPI, TIM1,...)

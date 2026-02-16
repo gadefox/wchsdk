@@ -40,7 +40,7 @@ typedef struct {
   __IO uint32_t RESERVED;
   __IO uint32_t CFGR;               /* Interrupt Configuration Register                    */
    __I uint32_t GISR;               /* Interrupt Global Status Register                    */
-  __IO uint8_t  VTFIDR[4];          /* VTF ID Configuration Regsite                        */
+  __IO uint8_t  VTFIDR[4];          /* VTF ID Configuration Register                       */
        uint8_t  RESERVED0[12];
   __IO uint32_t VTFADDR[4];         /* VTF x Offset register                               */
        uint8_t  RESERVED1[0x90];
@@ -159,11 +159,8 @@ typedef struct {
 #define PFIC_GISR_GPENDSTA ((uint32_t)0x00000200) /* Bit 9  : Any interrupt pending */
 #define PFIC_GISR_GACTSTA  ((uint32_t)0x00000100) /* Bit 8  : Any interrupt active */
 
-/*******************  Bit definition for PFIC_VTFADDRR0 register  ***********/
-#define PFIC_VTFADDRR0_VTF0EN ((uint32_t)0x00000001) /* Bit 0 : Enable VTF0 interrupt */
-
-/*******************  Bit definition for PFIC_VTFADDRR1 register  ***********/
-#define PFIC_VTFADDRR1_VTF1EN ((uint32_t)0x00000001) /* Bit 0 : Enable VTF1 interrupt */
+/*******************  Bit definition for PFIC_VTFADDRRx register  ***********/
+#define PFIC_VTFADDR_EN ((uint32_t)0x00000001) /* Bit 0 : Enable VTFx interrupt */
 
 /*******************  Bit definition for PFIC_IENR1 register  ***************/
 #define PFIC_IENR1_INTEN12 ((uint32_t)0x00001000) /* Bit 12 : Enable IRQ12 */

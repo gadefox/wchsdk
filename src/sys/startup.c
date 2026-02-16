@@ -94,11 +94,11 @@ void reset_handler(void) {
     : [isr_entry]"r"(isr_entry)
     : "t0", "memory");
 
-#if SYS_STK_HCLK
-  STK->CTLR = STK_CTLR_STE | STK_CTLR_STCLK;
-#else
+#if SYS_STK_DIV8
   STK->CTLR = STK_CTLR_STE;
-#endif  /* SYS_STK_HCLK */
+#else
+  STK->CTLR = STK_CTLR_STE | STK_CTLR_STCLK;
+#endif  /* SYS_STK_DIV8 */
 
   // set mepc to be main as the root app.
   asm volatile(
@@ -132,7 +132,7 @@ void isr_default_entry(void) {
   asm volatile(IVT_DEFAULT);
 }
 
-#else  /* !SYS_ISR_RAM */
+#else  /* !SYS_IVT_RAM */
 
 //------------------------------------------------------------------------------
 

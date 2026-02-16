@@ -7,12 +7,12 @@
 //------------------------------------------------------------------------------
 // CH32V003 MCU uses 32-bit single-precision floating point only
 
-#if defined( __riscv_float_abi_double )
-#define FLOAD( src, offset, dst )   "fld " #src ", " #offset "*8(" #dst ")\n"
-#define FSTORE( dst, offset, src )  "fsd " #dst ", " #offset "*8(" #src ")\n"
-#elif defined( __riscv_float_abi_single )
-#define FLOAD( src, offset, dst )   "flw " #src ", " #offset "*4(" #dst ")\n"
-#define FSTORE( dst, offset, src )  "fsw " #dst ", " #offset "*4(" #src ")\n"
+#if defined(__riscv_float_abi_double)
+#define FLOAD(src, offset, dst)   "fld " #src ", " #offset "*8(" #dst ")\n"
+#define FSTORE(dst, offset, src)  "fsd " #dst ", " #offset "*8(" #src ")\n"
+#elif defined(__riscv_float_abi_single)
+#define FLOAD(src, offset, dst)   "flw " #src ", " #offset "*4(" #dst ")\n"
+#define FSTORE(dst, offset, src)  "fsw " #dst ", " #offset "*4(" #src ")\n"
 #endif
 
 //------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ int setjmp(jmp_buf env) {
     "sw sp, 3*4(a0)\n"
 
   // RV32I only registers
-#if !defined(__riscv_abi_rve)
+#ifndef __riscv_abi_rve
     "sw s2, 4*4(a0)\n"
     "sw s3, 5*4(a0)\n"
     "sw s4, 6*4(a0)\n"
@@ -41,7 +41,7 @@ int setjmp(jmp_buf env) {
 #endif  /* __riscv_abi_rve */
 
   // FPU registers
-#if defined(FSTORE)
+#ifdef FSTORE
     FSTORE(fs2, 14, a0)
     FSTORE(fs3, 15, a0)
     FSTORE(fs4, 16, a0)
@@ -69,7 +69,7 @@ __attribute__((naked)) void longjmp(jmp_buf env, int val) {
     "lw sp, 3*4(a0)\n"
 
   // RV32I only registers
-#if !defined(__riscv_abi_rve)
+#ifndef __riscv_abi_rve
     "lw s2, 4*4(a0)\n"
     "lw s3, 5*4(a0)\n"
     "lw s4, 6*4(a0)\n"
@@ -83,7 +83,7 @@ __attribute__((naked)) void longjmp(jmp_buf env, int val) {
 #endif  /* __riscv_abi_rve */
 
   // FPU registers
-#if defined(FLOAD)
+#ifdef FLOAD
     FLOAD(fs2, 14, a0)
     FLOAD(fs3, 15, a0)
     FLOAD(fs4, 16, a0)

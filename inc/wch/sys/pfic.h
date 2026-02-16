@@ -10,13 +10,20 @@
 #include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
+// Set VTF Interrupt: addr - VTF interrupt service function base address.
+//  irq - Interrupt Numbers; num - VTF Interrupt Numbers
 
-void pfic_set_vtf(uint32_t addr, irq_t irq, uint8_t num, bool enable);
-void pfic_clear_all_irqs_except(uint8_t irq_to_keep);
+void pfic_enable_vtf(irq_t irq, void *addr, uint8_t num) {
+  PFIC->VTFIDR[num] = irq;
+  PFIC->VTFADDR[num] = ((uint32_t)addr << 1) | PFIC_VTFADDR_EN; }
+
+void pfic_disable_vtf(irq_t irq, uint8_t num) {
+  PFIC->VTFIDR[num] = irq;
+  PFIC->VTFADDR[num] = 0; }
 
 //------------------------------------------------------------------------------
 
-static inline uint32_t pfic_reg_index(irq_t irq) {
+static inline uint8_t pfic_reg_index(irq_t irq) {
   return (uint32_t)irq >> 5; }
 
 static inline uint32_t pfic_bit_mask(irq_t irq) {
@@ -35,6 +42,10 @@ static inline void pfic_enable_irq(irq_t irq) {
 static inline void pfic_disable_irq(irq_t irq) {
   uint8_t index = pfic_reg_index(irq);
   PFIC->IRER[index] = pfic_bit_mask(irq); }
+
+//------------------------------------------------------------------------------
+
+void pfic_disable_irqs_except(uint8_t irq);
 
 //------------------------------------------------------------------------------
 // Get Interrupt Enable State, (by number)

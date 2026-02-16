@@ -9,15 +9,15 @@
 
 //------------------------------------------------------------------------------
 
-#if SYS_STK_HCLK
-#define STK_FREQ  HCLK_FREQ         // HCLK for time base
+#if SYS_STK_DIV8
+#define STKCLK  (HCLK / 8)   // HCLK/8 for time base
 #else
-#define STK_FREQ  (HCLK_FREQ / 8)   // HCLK/8 for time base
-#endif  /* SYS_STK_HCLK */
+#define STKCLK  HCLK         // HCLK for time base
+#endif  /* SYS_STK_DIV8 */
 
 //------------------------------------------------------------------------------
 
-#define STK_MS  (STK_FREQ / 1000)
+#define STK_MS  (STKCLK / 1000)
 #define STK_US  (STK_MS / 1000)
 
 #define ms_to_stk(n) ((n) * STK_MS)
@@ -33,7 +33,9 @@ uint64_t stk_get64(void);
 
 //------------------------------------------------------------------------------
 
-void stk_delay(uint32_t ticks);
+static inline void stk_delay(uint32_t ticks) {
+  uint32_t deadline = STK->CNT + ticks;
+  while (!stk_elapsed(deadline)); }
 
 static inline void delay_ms(uint32_t ms) {
   uint32_t ticks = ms_to_stk(ms);

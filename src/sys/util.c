@@ -1,10 +1,7 @@
-
 #include "wchsdk_cfg.h"
 
 #if SYS_UTIL
 
-#include "wch/hw/stk.h"
-#include "wch/sys/def.h"
 #include "wch/sys/stk.h"
 #include "wch/sys/util.h"
 
@@ -23,6 +20,8 @@ bool wait_mask(__IO uint32_t *statr, uint32_t mask, bool want_set, uint32_t time
       return false;
   }
 }
+
+//------------------------------------------------------------------------------
 
 bool wait_mask2(__IO uint16_t *statr1, __IO uint16_t *statr2, uint32_t mask,
                 bool want_set, uint32_t timeout) {

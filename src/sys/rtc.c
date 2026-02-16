@@ -13,11 +13,11 @@
 //------------------------------------------------------------------------------
 
 #if !SYS_PFIC
-#error "UART requires SYS_PFIC = 1"
+#error "RTC requires SYS_PFIC = 1"
 #endif  /* SYS_PFIC */
 
 #if !SYS_TIMER
-#error "UART requires SYS_TIMER = 1"
+#error "RTC requires SYS_TIMER = 1"
 #endif  /* SYS_TIMER */
 
 //------------------------------------------------------------------------------
