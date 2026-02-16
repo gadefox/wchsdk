@@ -1,5 +1,4 @@
 ENTRY(ivt_entry)
-__stack_size = 256;
 
 MEMORY {
   /* Actually at 0x1FFFF000 but the system maps it to 0x00000000 */
@@ -44,10 +43,7 @@ SECTIONS {
     PROVIDE(_ebss = .);
   } >RAM
 
-  .stack ORIGIN(RAM) + LENGTH(RAM) - __stack_size : {
-    PROVIDE(_heap_end = .);
-    PROVIDE(_susrstack = .);
-    . = . + __stack_size;
-    PROVIDE(_eusrstack = .);
-  } >RAM
+  PROVIDE( _end = _ebss);
+  PROVIDE( end = . );
+  PROVIDE( _eusrstack = ORIGIN(RAM) + LENGTH(RAM));	
 }

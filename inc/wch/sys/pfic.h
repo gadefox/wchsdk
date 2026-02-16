@@ -11,6 +11,14 @@
 #include "wch/sys/def.h"
 
 //------------------------------------------------------------------------------
+
+static inline uint8_t pfic_reg_num(irq_t irq) {
+  return (uint32_t)irq >> 5; }              // irq / 32
+
+static inline uint32_t pfic_irq_mask(irq_t irq) {
+  return BITS((uint32_t)irq & 0x1F); }      // bit[irq % 32]
+
+//------------------------------------------------------------------------------
 // Enable Interrupt (by interrupt number)
 
 static inline void pfic_enable_irq(irq_t irq) {
@@ -28,7 +36,7 @@ static inline void pfic_disable_irq(irq_t irq) {
 
 //------------------------------------------------------------------------------
 
-void pfic_disable_irqs_except(uint8_t irq);
+void pfic_disable_irqs_except(irq_t irq);
 
 //------------------------------------------------------------------------------
 // Get Interrupt Enable State, (by number)
@@ -128,11 +136,11 @@ static inline void pfic_wait_for_events(void) {
 
 //------------------------------------------------------------------------------
 // Set VTF Interrupt: addr - VTF interrupt service function base address.
-//  irq - Interrupt Numbers; num - VTF Interrupt Numbers
+// NOTE: addr[31:1], no shift
 
 static inline void pfic_enable_vtf(irq_t irq, void *addr, uint8_t num) {
   PFIC->VTFIDR[num] = irq;
-  PFIC->VTFADDR[num] = ((uint32_t)addr << 1) | PFIC_VTFADDR_EN; }
+  PFIC->VTFADDR[num] = (uint32_t)addr | PFIC_VTFADDR_EN; }
 
 static inline void pfic_disable_vtf(irq_t irq, uint8_t num) {
   PFIC->VTFIDR[num] = irq;

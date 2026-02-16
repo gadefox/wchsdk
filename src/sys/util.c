@@ -12,8 +12,8 @@ bool wait_mask(__IO uint32_t *statr, uint32_t mask, bool want_set, uint32_t time
   uint32_t deadline = STK->CNT + timeout;
 
   while (true) {
-    uint32_t state = *statr;
-    if ((state & mask) == want_set)
+    bool is_set = (*statr & mask) != 0;
+    if (is_set == want_set)
       return true;
 
     if (stk_elapsed(deadline))
@@ -29,7 +29,9 @@ bool wait_mask2(__IO uint16_t *statr1, __IO uint16_t *statr2, uint32_t mask,
 
   while (true) {
     uint32_t state = PACK32(*statr1, *statr2);
-    if ((state & mask) == want_set)
+    bool is_set = (state & mask) != 0;
+
+    if (is_set == want_set)
       return true;
 
     if (stk_elapsed(deadline))

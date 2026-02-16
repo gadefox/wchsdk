@@ -9,11 +9,11 @@
 
 //------------------------------------------------------------------------------
 
-#if SYS_IVT_RAM
+#if SYS_IRQ_RAM
 #define ISR_SECTION  ".data.isr"
 #else
 #define ISR_SECTION  ".init.isr"
-#endif  /* SYS_IVT_RAM */
+#endif  /* SYS_IRQ_RAM */
 
 //------------------------------------------------------------------------------
 // NOTE: If you don't override a specific handler, it will just spin forever.

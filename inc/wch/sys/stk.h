@@ -40,6 +40,16 @@ static inline void delay_us(uint32_t us) {
   stk_delay(ticks); }
 
 //------------------------------------------------------------------------------
+
+static inline void stk_init(void) {
+#if SYS_STK_HCLK
+  STK->CTLR = STK_CTLR_STE | STK_CTLR_STCLK;
+#else
+  STK->CTLR = STK_CTLR_STE;
+#endif  /* SYS_STK_HCLK */
+}
+
+//------------------------------------------------------------------------------
 // NOTE: MCUs without a 64-bit timer must call this function at least once
 // every 2^32 ticks to ensure that the most significant bits are not lost.
 
