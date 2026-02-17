@@ -7,7 +7,7 @@
 /*                     General Alternate Function I/O                         */
 /******************************************************************************/
 
-#define AFIO_BASE  (APB2PERIPH_BASE + 0x0000)
+#define AFIO_BASE  APB2PERIPH_BASE
 
 //------------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@
 //------------------------------------------------------------------------------
 
 typedef struct {
-       uint32_t RESERVED0;
+       uint32_t RESERVED;
   __IO uint32_t PCFR1;      /* Remap Register 1 */
   __IO uint32_t EXTICR;     /* External Interrupt Configuration Register 1*/
 } afio_t;
@@ -69,36 +69,42 @@ typedef struct {
 #define AFIO_PCFR1_SWCFG_DISABLE ((uint32_t)0x04000000) /* SWD (SDI) disabled */
 
 /*****************  Bit definition for AFIO_EXTICR register  *****************/
-#define AFIO_EXTICR_EXTI0 ((uint32_t)0x00000003) /* EXTI 0 configuration */
-#define AFIO_EXTICR_EXTI1 ((uint32_t)0x0000000C) /* EXTI 1 configuration */
-#define AFIO_EXTICR_EXTI2 ((uint32_t)0x00000030) /* EXTI 2 configuration */
-#define AFIO_EXTICR_EXTI3 ((uint32_t)0x000000C0) /* EXTI 3 configuration */
-#define AFIO_EXTICR_EXTI4 ((uint32_t)0x00000300) /* EXTI 4 configuration */
-#define AFIO_EXTICR_EXTI5 ((uint32_t)0x00000C00) /* EXTI 5 configuration */
-#define AFIO_EXTICR_EXTI6 ((uint32_t)0x00003000) /* EXTI 6 configuration */
-#define AFIO_EXTICR_EXTI7 ((uint32_t)0x0000C000) /* EXTI 7 configuration */
-
+#define AFIO_EXTICR_EXTI0    ((uint32_t)0x00000003) /* EXTI 0 configuration */
 #define AFIO_EXTICR_EXTI0_PA ((uint32_t)0x00000000) /* PA[0] pin */
 #define AFIO_EXTICR_EXTI0_PC ((uint32_t)0x00000002) /* PC[0] pin */
 #define AFIO_EXTICR_EXTI0_PD ((uint32_t)0x00000003) /* PD[0] pin */
+
+#define AFIO_EXTICR_EXTI1    ((uint32_t)0x0000000C) /* EXTI 1 configuration */
 #define AFIO_EXTICR_EXTI1_PA ((uint32_t)0x00000000) /* PA[1] pin */
 #define AFIO_EXTICR_EXTI1_PC ((uint32_t)0x00000008) /* PC[1] pin */
 #define AFIO_EXTICR_EXTI1_PD ((uint32_t)0x0000000C) /* PD[1] pin */
+
+#define AFIO_EXTICR_EXTI2    ((uint32_t)0x00000030) /* EXTI 2 configuration */
 #define AFIO_EXTICR_EXTI2_PA ((uint32_t)0x00000000) /* PA[2] pin */
 #define AFIO_EXTICR_EXTI2_PC ((uint32_t)0x00000020) /* PC[2] pin */
 #define AFIO_EXTICR_EXTI2_PD ((uint32_t)0x00000030) /* PD[2] pin */
+
+#define AFIO_EXTICR_EXTI3    ((uint32_t)0x000000C0) /* EXTI 3 configuration */
 #define AFIO_EXTICR_EXTI3_PA ((uint32_t)0x00000000) /* PA[3] pin */
 #define AFIO_EXTICR_EXTI3_PC ((uint32_t)0x00000080) /* PC[3] pin */
 #define AFIO_EXTICR_EXTI3_PD ((uint32_t)0x000000C0) /* PD[3] pin */
+
+#define AFIO_EXTICR_EXTI4    ((uint32_t)0x00000300) /* EXTI 4 configuration */
 #define AFIO_EXTICR_EXTI4_PA ((uint32_t)0x00000000) /* PA[4] pin */
 #define AFIO_EXTICR_EXTI4_PC ((uint32_t)0x00000200) /* PC[4] pin */
 #define AFIO_EXTICR_EXTI4_PD ((uint32_t)0x00000300) /* PD[4] pin */
+
+#define AFIO_EXTICR_EXTI5    ((uint32_t)0x00000C00) /* EXTI 5 configuration */
 #define AFIO_EXTICR_EXTI5_PA ((uint32_t)0x00000000) /* PA[5] pin */
 #define AFIO_EXTICR_EXTI5_PC ((uint32_t)0x00000800) /* PC[5] pin */
 #define AFIO_EXTICR_EXTI5_PD ((uint32_t)0x00000C00) /* PD[5] pin */
+
+#define AFIO_EXTICR_EXTI6    ((uint32_t)0x00003000) /* EXTI 6 configuration */
 #define AFIO_EXTICR_EXTI6_PA ((uint32_t)0x00000000) /* PA[6] pin */
 #define AFIO_EXTICR_EXTI6_PC ((uint32_t)0x00002000) /* PC[6] pin */
 #define AFIO_EXTICR_EXTI6_PD ((uint32_t)0x00003000) /* PD[6] pin */
+
+#define AFIO_EXTICR_EXTI7    ((uint32_t)0x0000C000) /* EXTI 7 configuration */
 #define AFIO_EXTICR_EXTI7_PA ((uint32_t)0x00000000) /* PA[7] pin */
 #define AFIO_EXTICR_EXTI7_PC ((uint32_t)0x00008000) /* PC[7] pin */
 #define AFIO_EXTICR_EXTI7_PD ((uint32_t)0x0000C000) /* PD[7] pin */

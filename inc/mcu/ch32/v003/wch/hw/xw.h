@@ -1,107 +1,80 @@
+// Encoder for some of the proprietary 'XW' RISC-V instructions present on the
+// QingKe RV32 processor. Examples:
+//  c_xw_lbu(a3, a1, 27); // c.xw.lbu a3, 27(a1)
+//  c_xw_sb(a0, s0, 13);  // c.xw.sb a0, 13(s0)
+//  c_xw_lhu(a5, a5, 38); // c.xw.lhu a5, 38(a5)
+//  c_xw_sh(a2, s1, 14);  // c.xw.sh a2, 14(s1)
+// Thanks to @macyler, @jnk0le, @duk for this reverse engineering.
+
 #pragma once
 
 /******************************************************************************/
 /*                              XW Opcodes                                    */
 /******************************************************************************/
 
-// Thanks to @macyler, @jnk0le, @duk for this reverse engineering.
-// Encoder for some of the proprietary 'XW' RISC-V instructions present on the
-// QingKe RV32 processor. Examples:
-//  XW_C_LBU(a3, a1, 27); // c.xw.lbu a3, 27(a1)
-//  XW_C_SB(a0, s0, 13);  // c.xw.sb a0, 13(s0)
-//
-//  XW_C_LHU(a5, a5, 38); // c.xw.lhu a5, 38(a5)
-//  XW_C_SH(a2, s1, 14);  // c.xw.sh a2, 14(s1)
+// [15] [14] [13] [12] [11] [10] [9] [8] [7] [6] [5] [4] [3] [2] [1] [0]
+//  o4   o3   o2   i0   i4   i3   r2  r2  r2  i2  i1  r1  r1  r1  o1  o0
 
 //------------------------------------------------------------------------------
-#define XW_OP_LBUSP 0b1000000000000000
-#define XW_OP_STSP  0b1000000001000000
 
-#define XW_OP_LHUSP 0b1000000000100000
-#define XW_OP_SHSP  0b1000000001100000
+typedef enum {
+  XW_s0 = 0b000,
+  XW_s1 = 0b001,
+  XW_a0 = 0b010,
+  XW_a1 = 0b011,
+  XW_a2 = 0b100,
+  XW_a3 = 0b101,
+  XW_a4 = 0b110,
+  XW_a5 = 0b111
+} xw_reg_t;
 
-#define XW_OP_LBU   0b0010000000000000
-#define XW_OP_SB    0b1010000000000000
+#define xw_r(x)  XW_##x
 
-#define XW_OP_LHU   0b0010000000000010
-#define XW_OP_SH    0b1010000000000010
+// Registers to encoding:  [9] [8] [7] [6] [5] [4] [3] [2] [1] [0]
+//                          r2  r2  r2  0   0   r1  r1  r1  0   0
+
+#define XW_REGS_ENC(r1, r2)  ((xw_r(r2) << 7) | (xw_r(r1) << 2))
+
+//------------------------------------------------------------------------------
+// OP to encoding:
+//  [15] [14] [13] [12] [11] [10] [9] [8] [7] [6] [5] [4] [3] [2] [1] [0]
+//   o4   o3   o2   0    0    0    0   0   0   0   0   0   0   0   o1  o0
+
+#define XW_OP_ENC(op)  (((op) & 0b11) | (((op) & 0b11100) << 10))
+
+//------------------------------------------------------------------------------
+// IMM to encoding1:  [12] [11] [10] [9] [8] [7] [6] [5] [4] [3] [2] [1] [0]
+//                     i0   i4   i3   0   0   0   i2  i1  0   0   0   0   0
+
+#define XW_IMM_ENC(imm)  ((((imm) & 1) << 12) | (((imm) & 0b11000) << 7) | \
+                          (((imm) & 0b110) << 4))
+
+#define xw_imm_assert1(imm)  asm_assert(BETWEEN((imm), 0, 32))
+#define xw_imm_assert2(imm)  asm_assert(((imm) & 1) == 0)
 
 //------------------------------------------------------------------------------
 // Integer encodings of the possible compressed registers.
-#define XW_s0  0
-#define XW_s1  1
-#define XW_a0  2
-#define XW_a1  3
-#define XW_a2  4
-#define XW_a3  5
-#define XW_a4  6
-#define XW_a5  7
 
-// register to encoding
-#define XW_REG(X) (XW_##X)
-
-// The two different XW encodings supported at the moment.
-#define XW_ENCODE1(OP, R1, R2, IMM)                   \
-  ASM_ASSERT((IMM) >= 0 && (IMM) < 32);               \
-  .2byte((OP) | (XW_REG(R1) << 2) | (XW_REG(R2) << 7) | \
-         (((IMM) & 0b1) << 12) | (((IMM) & 0b110) << (5 - 1)) | \
-         (((IMM) & 0b11000) << (10 - 3)))
-
-#define XW_ENCODE2(OP, R1, R2, IMM)                   \
-  ASM_ASSERT((IMM) >= 0 && (IMM) < 32);
-  .2byte ((OP) | (XW_REG(R1) << 2) | (XW_REG(R2) << 7) | \
-          (((IMM) & 0b11) << 5) | (((IMM) & 0b11100) << (10 - 2))
+#define XW_ENC(op, r1, r2, imm)  xw_imm_assert1(imm); \
+  .2byte (XW_OP_ENC(op) | XW_REGS_ENC(r1, r2) | XW_IMM_ENC(imm))
 
 // Compressed load byte, zero-extend result
-#define XW_C_LBU(RD, RS, IMM)  XW_ENCODE1(XW_OP_LBU, RD, RS, IMM)
-
-// Compressed store byte
-#define XW_C_SB(RS1, RS2, IMM) XW_ENCODE1(XW_OP_SB, RS1, RS2, IMM)
+#define c_xw_lbu(rd, rs, imm)  XW_ENC(0b00100, rd, rs, imm)
 
 // Compressed load half, zero-extend result
-#define XW_C_LHU(RD, RS, IMM) \
-  ASM_ASSERT(!(IMM) & 1)); \
-  XW_ENCODE2(XW_OP_LHU, RD, RS, ((IMM) >> 1)))
+#define c_xw_lhu(rd, rs, imm)  XW_ENC(0b00110, rd, rs, imm)
+
+// Compressed store byte
+#define c_xw_sb(rs1, rs2, imm) xw_imm_assert2(imm); XW_ENC(0b10100, rs1, rs2, imm)
 
 // Compressed store half
-#define XW_C_SH(RS1, RS2, IMM) \
-  ASM_ASSERT(!((IMM) & 1)); \
-  XW_ENCODE2(XW_OP_SH, RS1, RS2, ((IMM) >> 1)))
+#define c_xw_sh(rs1, rs2, imm) xw_imm_assert2(imm); XW_ENC(0b10110, rs1, rs2, imm)
+
+// FIXME:
+#define XW_OP_LBUSP  0b1000000000000000
+#define XW_OP_STSP   0b1000000001000000
+
+#define XW_OP_LHUSP  0b1000000000100000
+#define XW_OP_SHSP   0b1000000001100000
 
 //------------------------------------------------------------------------------
-
-/*
- * This file contains various parts of the official WCH EVT Headers which
- * were originally under a restrictive license.
- *
- * The collection of this file was generated by
- * cnlohr, 2023-02-18 and
- * AlexanderMandera, 2023-06-23
- * It was significantly reworked into several files cnlohr, 2025-01-29
- *
- * While originally under a restrictive copyright, WCH has approved use
- * under MIT-licensed use, because of inclusion in Zephyr, as well as other
- * open-source licensed projects.
- *
- * These copies of the headers from WCH are available now under:
- *
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the “Software”), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
- */

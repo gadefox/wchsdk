@@ -48,9 +48,9 @@ typedef struct {
 
 typedef enum {
   GPIO_MODE_IN     = 0b00,
-  GPIO_MODE_OUT_2  = 0b10,  // 2 MHz
-  GPIO_MODE_OUT_10 = 0b01,  // 10 MHz
-  GPIO_MODE_OUT_30 = 0b11   // 30 MHz
+  GPIO_MODE_OUT2   = 0b10,  // 2 MHz
+  GPIO_MODE_OUT10  = 0b01,  // 10 MHz
+  GPIO_MODE_OUT30  = 0b11   // 30 MHz
 } gpio_mode_t;
 
 typedef enum {
@@ -72,24 +72,24 @@ typedef enum {
   GPIO_CFGI_PUPD   = GPIO_MODE_IN | GPIO_CNFI_PUPD,
 
   // Output mode: push-pull
-  GPIO_CFGO_PP_2  = GPIO_MODE_OUT_2 | GPIO_CNFO_PP,
-  GPIO_CFGO_PP_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_PP,
-  GPIO_CFGO_PP_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP2  = GPIO_MODE_OUT2 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP10 = GPIO_MODE_OUT10 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP30 = GPIO_MODE_OUT30 | GPIO_CNFO_PP,
 
   // Output mode: open-drain
-  GPIO_CFGO_OD_2  = GPIO_MODE_OUT_2 | GPIO_CNFO_OD,
-  GPIO_CFGO_OD_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_OD,
-  GPIO_CFGO_OD_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD2  = GPIO_MODE_OUT2 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD10 = GPIO_MODE_OUT10 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD30 = GPIO_MODE_OUT30 | GPIO_CNFO_OD,
 
   // Output mode: multiplexed function push-pull
-  GPIO_CFGO_MP_2  = GPIO_MODE_OUT_2 |  GPIO_CNFO_PP | GPIO_CNFO_MUX,
-  GPIO_CFGO_MP_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
-  GPIO_CFGO_MP_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP2  = GPIO_MODE_OUT2 |  GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP10 = GPIO_MODE_OUT10 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP30 = GPIO_MODE_OUT30 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
   
   // Output mode: multiplexed function open-drain
-  GPIO_CFGO_MD_2  = GPIO_MODE_OUT_2 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
-  GPIO_CFGO_MD_10 = GPIO_MODE_OUT_10 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
-  GPIO_CFGO_MD_30 = GPIO_MODE_OUT_30 | GPIO_CNFO_OD | GPIO_CNFO_MUX
+  GPIO_CFGO_MD2  = GPIO_MODE_OUT2 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
+  GPIO_CFGO_MD10 = GPIO_MODE_OUT10 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
+  GPIO_CFGO_MD30 = GPIO_MODE_OUT30 | GPIO_CNFO_OD | GPIO_CNFO_MUX
 } gpio_mode_cnf_t;
 
 //------------------------------------------------------------------------------
@@ -241,71 +241,71 @@ typedef union {
 /*******************  Bit definition for GPIO_CFGLR register  *******************/
 #define GPIO_CFGLR_MODE ((uint32_t)0x33333333) /* Port x mode bits */
 
-#define GPIO_CFGLR_MODE0   ((uint32_t)0x00000003) /* MODE0[1:0] bits (Port x mode bits, pin 0) */
-#define GPIO_CFGLR_MODE0_0 ((uint32_t)0x00000001) /* Bit 0 */
-#define GPIO_CFGLR_MODE0_1 ((uint32_t)0x00000002) /* Bit 1 */
+#define GPIO_CFGLR_MODE0  ((uint32_t)0x00000003) /* MODE0[1:0] bits (Port x mode bits, pin 0) */
+#define GPIO_CFGLR_MODE00 ((uint32_t)0x00000001) /* Bit 0 */
+#define GPIO_CFGLR_MODE01 ((uint32_t)0x00000002) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE1   ((uint32_t)0x00000030) /* MODE1[1:0] bits (Port x mode bits, pin 1) */
-#define GPIO_CFGLR_MODE1_0 ((uint32_t)0x00000010) /* Bit 0 */
-#define GPIO_CFGLR_MODE1_1 ((uint32_t)0x00000020) /* Bit 1 */
+#define GPIO_CFGLR_MODE1  ((uint32_t)0x00000030) /* MODE1[1:0] bits (Port x mode bits, pin 1) */
+#define GPIO_CFGLR_MODE10 ((uint32_t)0x00000010) /* Bit 0 */
+#define GPIO_CFGLR_MODE11 ((uint32_t)0x00000020) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE2   ((uint32_t)0x00000300) /* MODE2[1:0] bits (Port x mode bits, pin 2) */
-#define GPIO_CFGLR_MODE2_0 ((uint32_t)0x00000100) /* Bit 0 */
-#define GPIO_CFGLR_MODE2_1 ((uint32_t)0x00000200) /* Bit 1 */
+#define GPIO_CFGLR_MODE2  ((uint32_t)0x00000300) /* MODE2[1:0] bits (Port x mode bits, pin 2) */
+#define GPIO_CFGLR_MODE20 ((uint32_t)0x00000100) /* Bit 0 */
+#define GPIO_CFGLR_MODE21 ((uint32_t)0x00000200) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE3   ((uint32_t)0x00003000) /* MODE3[1:0] bits (Port x mode bits, pin 3) */
-#define GPIO_CFGLR_MODE3_0 ((uint32_t)0x00001000) /* Bit 0 */
-#define GPIO_CFGLR_MODE3_1 ((uint32_t)0x00002000) /* Bit 1 */
+#define GPIO_CFGLR_MODE3  ((uint32_t)0x00003000) /* MODE3[1:0] bits (Port x mode bits, pin 3) */
+#define GPIO_CFGLR_MODE30 ((uint32_t)0x00001000) /* Bit 0 */
+#define GPIO_CFGLR_MODE31 ((uint32_t)0x00002000) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE4   ((uint32_t)0x00030000) /* MODE4[1:0] bits (Port x mode bits, pin 4) */
-#define GPIO_CFGLR_MODE4_0 ((uint32_t)0x00010000) /* Bit 0 */
-#define GPIO_CFGLR_MODE4_1 ((uint32_t)0x00020000) /* Bit 1 */
+#define GPIO_CFGLR_MODE4  ((uint32_t)0x00030000) /* MODE4[1:0] bits (Port x mode bits, pin 4) */
+#define GPIO_CFGLR_MODE40 ((uint32_t)0x00010000) /* Bit 0 */
+#define GPIO_CFGLR_MODE41 ((uint32_t)0x00020000) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE5   ((uint32_t)0x00300000) /* MODE5[1:0] bits (Port x mode bits, pin 5) */
-#define GPIO_CFGLR_MODE5_0 ((uint32_t)0x00100000) /* Bit 0 */
-#define GPIO_CFGLR_MODE5_1 ((uint32_t)0x00200000) /* Bit 1 */
+#define GPIO_CFGLR_MODE5  ((uint32_t)0x00300000) /* MODE5[1:0] bits (Port x mode bits, pin 5) */
+#define GPIO_CFGLR_MODE50 ((uint32_t)0x00100000) /* Bit 0 */
+#define GPIO_CFGLR_MODE51 ((uint32_t)0x00200000) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE6   ((uint32_t)0x03000000) /* MODE6[1:0] bits (Port x mode bits, pin 6) */
-#define GPIO_CFGLR_MODE6_0 ((uint32_t)0x01000000) /* Bit 0 */
-#define GPIO_CFGLR_MODE6_1 ((uint32_t)0x02000000) /* Bit 1 */
+#define GPIO_CFGLR_MODE6  ((uint32_t)0x03000000) /* MODE6[1:0] bits (Port x mode bits, pin 6) */
+#define GPIO_CFGLR_MODE60 ((uint32_t)0x01000000) /* Bit 0 */
+#define GPIO_CFGLR_MODE61 ((uint32_t)0x02000000) /* Bit 1 */
 
-#define GPIO_CFGLR_MODE7   ((uint32_t)0x30000000) /* MODE7[1:0] bits (Port x mode bits, pin 7) */
-#define GPIO_CFGLR_MODE7_0 ((uint32_t)0x10000000) /* Bit 0 */
-#define GPIO_CFGLR_MODE7_1 ((uint32_t)0x20000000) /* Bit 1 */
+#define GPIO_CFGLR_MODE7  ((uint32_t)0x30000000) /* MODE7[1:0] bits (Port x mode bits, pin 7) */
+#define GPIO_CFGLR_MODE70 ((uint32_t)0x10000000) /* Bit 0 */
+#define GPIO_CFGLR_MODE71 ((uint32_t)0x20000000) /* Bit 1 */
 
 #define GPIO_CFGLR_CNF ((uint32_t)0xCCCCCCCC) /* Port x configuration bits */
 
-#define GPIO_CFGLR_CNF0   ((uint32_t)0x0000000C) /* CNF0[1:0] bits (Port x configuration bits, pin 0) */
-#define GPIO_CFGLR_CNF0_0 ((uint32_t)0x00000004) /* Bit 0 */
-#define GPIO_CFGLR_CNF0_1 ((uint32_t)0x00000008) /* Bit 1 */
+#define GPIO_CFGLR_CNF0  ((uint32_t)0x0000000C) /* CNF0[1:0] bits (Port x configuration bits, pin 0) */
+#define GPIO_CFGLR_CNF00 ((uint32_t)0x00000004) /* Bit 0 */
+#define GPIO_CFGLR_CNF01 ((uint32_t)0x00000008) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF1   ((uint32_t)0x000000C0) /* CNF1[1:0] bits (Port x configuration bits, pin 1) */
-#define GPIO_CFGLR_CNF1_0 ((uint32_t)0x00000040) /* Bit 0 */
-#define GPIO_CFGLR_CNF1_1 ((uint32_t)0x00000080) /* Bit 1 */
+#define GPIO_CFGLR_CNF1  ((uint32_t)0x000000C0) /* CNF1[1:0] bits (Port x configuration bits, pin 1) */
+#define GPIO_CFGLR_CNF10 ((uint32_t)0x00000040) /* Bit 0 */
+#define GPIO_CFGLR_CNF11 ((uint32_t)0x00000080) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF2   ((uint32_t)0x00000C00) /* CNF2[1:0] bits (Port x configuration bits, pin 2) */
-#define GPIO_CFGLR_CNF2_0 ((uint32_t)0x00000400) /* Bit 0 */
-#define GPIO_CFGLR_CNF2_1 ((uint32_t)0x00000800) /* Bit 1 */
+#define GPIO_CFGLR_CNF2  ((uint32_t)0x00000C00) /* CNF2[1:0] bits (Port x configuration bits, pin 2) */
+#define GPIO_CFGLR_CNF20 ((uint32_t)0x00000400) /* Bit 0 */
+#define GPIO_CFGLR_CNF21 ((uint32_t)0x00000800) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF3   ((uint32_t)0x0000C000) /* CNF3[1:0] bits (Port x configuration bits, pin 3) */
-#define GPIO_CFGLR_CNF3_0 ((uint32_t)0x00004000) /* Bit 0 */
-#define GPIO_CFGLR_CNF3_1 ((uint32_t)0x00008000) /* Bit 1 */
+#define GPIO_CFGLR_CNF3  ((uint32_t)0x0000C000) /* CNF3[1:0] bits (Port x configuration bits, pin 3) */
+#define GPIO_CFGLR_CNF30 ((uint32_t)0x00004000) /* Bit 0 */
+#define GPIO_CFGLR_CNF31 ((uint32_t)0x00008000) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF4   ((uint32_t)0x000C0000) /* CNF4[1:0] bits (Port x configuration bits, pin 4) */
-#define GPIO_CFGLR_CNF4_0 ((uint32_t)0x00040000) /* Bit 0 */
-#define GPIO_CFGLR_CNF4_1 ((uint32_t)0x00080000) /* Bit 1 */
+#define GPIO_CFGLR_CNF4  ((uint32_t)0x000C0000) /* CNF4[1:0] bits (Port x configuration bits, pin 4) */
+#define GPIO_CFGLR_CNF40 ((uint32_t)0x00040000) /* Bit 0 */
+#define GPIO_CFGLR_CNF41 ((uint32_t)0x00080000) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF5   ((uint32_t)0x00C00000) /* CNF5[1:0] bits (Port x configuration bits, pin 5) */
-#define GPIO_CFGLR_CNF5_0 ((uint32_t)0x00400000) /* Bit 0 */
-#define GPIO_CFGLR_CNF5_1 ((uint32_t)0x00800000) /* Bit 1 */
+#define GPIO_CFGLR_CNF5  ((uint32_t)0x00C00000) /* CNF5[1:0] bits (Port x configuration bits, pin 5) */
+#define GPIO_CFGLR_CNF50 ((uint32_t)0x00400000) /* Bit 0 */
+#define GPIO_CFGLR_CNF51 ((uint32_t)0x00800000) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF6   ((uint32_t)0x0C000000) /* CNF6[1:0] bits (Port x configuration bits, pin 6) */
-#define GPIO_CFGLR_CNF6_0 ((uint32_t)0x04000000) /* Bit 0 */
-#define GPIO_CFGLR_CNF6_1 ((uint32_t)0x08000000) /* Bit 1 */
+#define GPIO_CFGLR_CNF6  ((uint32_t)0x0C000000) /* CNF6[1:0] bits (Port x configuration bits, pin 6) */
+#define GPIO_CFGLR_CNF60 ((uint32_t)0x04000000) /* Bit 0 */
+#define GPIO_CFGLR_CNF61 ((uint32_t)0x08000000) /* Bit 1 */
 
-#define GPIO_CFGLR_CNF7   ((uint32_t)0xC0000000) /* CNF7[1:0] bits (Port x configuration bits, pin 7) */
-#define GPIO_CFGLR_CNF7_0 ((uint32_t)0x40000000) /* Bit 0 */
-#define GPIO_CFGLR_CNF7_1 ((uint32_t)0x80000000) /* Bit 1 */
+#define GPIO_CFGLR_CNF7  ((uint32_t)0xC0000000) /* CNF7[1:0] bits (Port x configuration bits, pin 7) */
+#define GPIO_CFGLR_CNF70 ((uint32_t)0x40000000) /* Bit 0 */
+#define GPIO_CFGLR_CNF71 ((uint32_t)0x80000000) /* Bit 1 */
 
 /*******************  Bit definition for GPIO_INDR register  *******************/
 #define GPIO_INDR_IDR0 ((uint32_t)0x00000001) /* Port input data, bit 0 */
@@ -368,15 +368,15 @@ typedef union {
 #define GPIO_LCKK ((uint32_t)0x00010000) /* Lock key */
 
 /* GPIO_pins_define */
-#define GPIO_PIN_0   ((uint16_t)0x0001) /* Pin 0 selected */
-#define GPIO_PIN_1   ((uint16_t)0x0002) /* Pin 1 selected */
-#define GPIO_PIN_2   ((uint16_t)0x0004) /* Pin 2 selected */
-#define GPIO_PIN_3   ((uint16_t)0x0008) /* Pin 3 selected */
-#define GPIO_PIN_4   ((uint16_t)0x0010) /* Pin 4 selected */
-#define GPIO_PIN_5   ((uint16_t)0x0020) /* Pin 5 selected */
-#define GPIO_PIN_6   ((uint16_t)0x0040) /* Pin 6 selected */
-#define GPIO_PIN_7   ((uint16_t)0x0080) /* Pin 7 selected */
-#define GPIO_PIN_ALL ((uint16_t)0xFFFF) /* All pins selected */
+#define GPIO_PIN0 ((uint16_t)0x0001) /* Pin 0 selected */
+#define GPIO_PIN1 ((uint16_t)0x0002) /* Pin 1 selected */
+#define GPIO_PIN2 ((uint16_t)0x0004) /* Pin 2 selected */
+#define GPIO_PIN3 ((uint16_t)0x0008) /* Pin 3 selected */
+#define GPIO_PIN4 ((uint16_t)0x0010) /* Pin 4 selected */
+#define GPIO_PIN5 ((uint16_t)0x0020) /* Pin 5 selected */
+#define GPIO_PIN6 ((uint16_t)0x0040) /* Pin 6 selected */
+#define GPIO_PIN7 ((uint16_t)0x0080) /* Pin 7 selected */
+#define GPIO_PINS ((uint16_t)0xFFFF) /* All pins selected */
 
 /* GPIO_Remap_define */
 #define GPIO_REMAP_SPI1           ((uint32_t)0x00000001) /* SPI1 Alternate Function mapping */

@@ -12,10 +12,12 @@
 
 #define OB_RDPR   0
 #define OB_USER   2
-#define OB_Data0  4
-#define OB_Data1  6
+#define OB_DATA0  4
+#define OB_DATA1  6
 #define OB_WRPR0  8
 #define OB_WRPR1  10
+#define OB_DATA   12
+#define OB_SIZE   64    /* sizoof (User option bytes) = 64 bytes */
 
 #else
 
@@ -26,10 +28,11 @@
 typedef struct {
   __IO uint16_t RDPR;
   __IO uint16_t USER;
-  __IO uint16_t Data0;
-  __IO uint16_t Data1;
+  __IO uint16_t DATA0;
+  __IO uint16_t DATA1;
   __IO uint16_t WRPR0;
   __IO uint16_t WRPR1;
+  __IO uint32_t DATA[13];
 } ob_t;
 
 #define OB  ((ob_t *)OB_BASE)
@@ -52,16 +55,31 @@ typedef struct {
 
 /* Option_Bytes_RST_ENandDT */
 #define OB_RST_NOEN       ((uint16_t)0x0018) /* Reset IO disable (PD7)*/
-#define OB_RST_EN_DT12MS  ((uint16_t)0x0010) /* Reset IO enable (PD7) and  Ignore delay time 12ms */
+#define OB_RST_EN_DT128US ((uint16_t)0x0000) /* Reset IO enable (PD7) and  Ignore delay time 128us */
 #define OB_RST_EN_DT1MS   ((uint16_t)0x0008) /* Reset IO enable (PD7) and  Ignore delay time 1ms */
-#define B_RST_EN_DT128US ((uint16_t)0x0000) /* Reset IO enable (PD7) and  Ignore delay time 128us */
+#define OB_RST_EN_DT12MS  ((uint16_t)0x0010) /* Reset IO enable (PD7) and  Ignore delay time 12ms */
 
 /* Option_Bytes_Power_ON_Start_Mode */
-#define OB_POWERON_START_MODE_BOOT ((uint16_t)0x0020) /* from Boot after power on */
-#define OB_POWERON_START_MODE_USER ((uint16_t)0x0000) /* from User after power on */
-
 #define OB_START_MODE_BOOT ((uint16_t)0x0020) /* Start in BOOT area */
 #define OB_START_MODE_USER ((uint16_t)0x0000) /* Start in user area */
+
+/******************  Bit definition for OB_RDPR register  *******************/
+#define OB_RDPR  ((uint16_t)0x00FF) /* Read protection option byte */
+#define OB_nRDPR ((uint16_t)0xFF00) /* Read protection complemented option byte */
+
+/******************  Bit definition for OB_USER register  ******************/
+#define OB_USER  ((uint16_t)0x00FF) /* User option byte */
+#define OB_nUSER ((uint16_t)0xFF00) /* User complemented option byte */
+
+/******************  Bit definition for OB_DATA Register  *****************/
+#define OB_DATA  ((uint16_t)0x00FF0000) /* User data storage option byte */
+#define OB_nDATA ((uint16_t)0xFF000000) /* User data storage complemented option byte */
+
+/******************  Bit definition for OB_WRPR register  ******************/
+#define OB_WRPR  ((uint16_t)0x00FF) /* Flash memory write protection option bytes */
+#define OB_nWRPR ((uint16_t)0xFF00) /* Flash memory write protection complemented option bytes */
+
+//------------------------------------------------------------------------------
 
 /*
  * This file contains various parts of the official WCH EVT Headers which

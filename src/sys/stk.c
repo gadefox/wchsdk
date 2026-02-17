@@ -19,7 +19,7 @@ uint64_t stk_get64(void) {
     high = STK->CNTH;
 
   return PACK64(check, high);
-#else
+#else  /* !SYS_STK_CNTH */
 
   static uint32_t last_base, high;
   if (last_base > base)

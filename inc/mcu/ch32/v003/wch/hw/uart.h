@@ -133,9 +133,9 @@ typedef struct {
 #define USART_CTLR2_CPOL  ((uint16_t)0x0400) /* Clock Polarity */
 #define USART_CTLR2_CLKEN ((uint16_t)0x0800) /* Clock Enable */
 
-#define USART_CTLR2_STOP   ((uint16_t)0x3000) /* STOP[1:0] bits (STOP bits) */
-#define USART_CTLR2_STOP_0 ((uint16_t)0x1000) /* Bit 0 */
-#define USART_CTLR2_STOP_1 ((uint16_t)0x2000) /* Bit 1 */
+#define USART_CTLR2_STOP  ((uint16_t)0x3000) /* STOP[1:0] bits (STOP bits) */
+#define USART_CTLR2_STOP0 ((uint16_t)0x1000) /* Bit 0 */
+#define USART_CTLR2_STOP1 ((uint16_t)0x2000) /* Bit 1 */
 
 #define USART_CTLR2_LINEN ((uint16_t)0x4000) /* LIN mode enable */
 
@@ -154,15 +154,15 @@ typedef struct {
 #define USART_CTLR3_ONEBIT ((uint16_t)0x0800) /* One Bit method */
 
 /******************  Bit definition for USART_GPR register  ******************/
-#define USART_GPR_PSC   ((uint16_t)0x00FF) /* PSC[7:0] bits (Prescaler value) */
-#define USART_GPR_PSC_0 ((uint16_t)0x0001) /* Bit 0 */
-#define USART_GPR_PSC_1 ((uint16_t)0x0002) /* Bit 1 */
-#define USART_GPR_PSC_2 ((uint16_t)0x0004) /* Bit 2 */
-#define USART_GPR_PSC_3 ((uint16_t)0x0008) /* Bit 3 */
-#define USART_GPR_PSC_4 ((uint16_t)0x0010) /* Bit 4 */
-#define USART_GPR_PSC_5 ((uint16_t)0x0020) /* Bit 5 */
-#define USART_GPR_PSC_6 ((uint16_t)0x0040) /* Bit 6 */
-#define USART_GPR_PSC_7 ((uint16_t)0x0080) /* Bit 7 */
+#define USART_GPR_PSC  ((uint16_t)0x00FF) /* PSC[7:0] bits (Prescaler value) */
+#define USART_GPR_PSC0 ((uint16_t)0x0001) /* Bit 0 */
+#define USART_GPR_PSC1 ((uint16_t)0x0002) /* Bit 1 */
+#define USART_GPR_PSC2 ((uint16_t)0x0004) /* Bit 2 */
+#define USART_GPR_PSC3 ((uint16_t)0x0008) /* Bit 3 */
+#define USART_GPR_PSC4 ((uint16_t)0x0010) /* Bit 4 */
+#define USART_GPR_PSC5 ((uint16_t)0x0020) /* Bit 5 */
+#define USART_GPR_PSC6 ((uint16_t)0x0040) /* Bit 6 */
+#define USART_GPR_PSC7 ((uint16_t)0x0080) /* Bit 7 */
 
 #define USART_GPR_GT ((uint16_t)0xFF00) /* Guard time value */
 
@@ -171,10 +171,10 @@ typedef struct {
 #define USART_WORDLENGTH_9B ((uint16_t)0x1000)
 
 /* USART_Stop_Bits */
-#define USART_STOPBITS_1   ((uint16_t)0x0000)
-#define USART_STOPBITS_0_5 ((uint16_t)0x1000)
-#define USART_STOPBITS_2   ((uint16_t)0x2000)
-#define USART_STOPBITS_1_5 ((uint16_t)0x3000)
+#define USART_STOPBITS1   ((uint16_t)0x0000)
+#define USART_STOPBITS0_5 ((uint16_t)0x1000)
+#define USART_STOPBITS2   ((uint16_t)0x2000)
+#define USART_STOPBITS1_5 ((uint16_t)0x3000)
 
 /* USART_Parity */
 #define USART_PARITY_NO   ((uint16_t)0x0000)

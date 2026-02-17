@@ -36,17 +36,17 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /* CTLR register bit mask */
-#define CTLR_KEY_Reload ((uint16_t)0xAAAA)
-#define CTLR_KEY_Enable ((uint16_t)0xCCCC)
+#define CTLR_KEY_RELOAD ((uint16_t)0xAAAA)
+#define CTLR_KEY_EN     ((uint16_t)0xCCCC)
 
 /*******************  Bit definition for IWDG_CTLR register  ********************/
 #define IWDG_KEY ((uint16_t)0xFFFF) /* Key value (write only, read 0000h) */
 
 /*******************  Bit definition for IWDG_PSCR register  ********************/
-#define IWDG_PR   ((uint8_t)0x07) /* PR[2:0] (Prescaler divider) */
-#define IWDG_PR_0 ((uint8_t)0x01) /* Bit 0 */
-#define IWDG_PR_1 ((uint8_t)0x02) /* Bit 1 */
-#define IWDG_PR_2 ((uint8_t)0x04) /* Bit 2 */
+#define IWDG_PR  ((uint8_t)0x07) /* PR[2:0] (Prescaler divider) */
+#define IWDG_PR0 ((uint8_t)0x01) /* Bit 0 */
+#define IWDG_PR1 ((uint8_t)0x02) /* Bit 1 */
+#define IWDG_PR2 ((uint8_t)0x04) /* Bit 2 */
 
 /*******************  Bit definition for IWDG_RLDR register  *******************/
 #define IWDG_RL ((uint16_t)0x0FFF) /* Watchdog counter reload value */
@@ -56,21 +56,22 @@ typedef struct {
 #define IWDG_RVU ((uint8_t)0x02) /* Watchdog counter reload value update */
 
 /* IWDG_WriteAccess */
-#define IWDG_WRITEACCESS_ENABLE  ((uint16_t)0x5555)
-#define IWDG_WRITEACCESS_DISABLE ((uint16_t)0x0000)
+#define IWDG_WRITEACCESS_EN  ((uint16_t)0x5555)
 
 /* IWDG_prescaler */
-#define IWDG_PRESCALER_4   ((uint8_t)0x00)
-#define IWDG_PRESCALER_8   ((uint8_t)0x01)
-#define IWDG_PRESCALER_16  ((uint8_t)0x02)
-#define IWDG_PRESCALER_32  ((uint8_t)0x03)
-#define IWDG_PRESCALER_64  ((uint8_t)0x04)
-#define IWDG_PRESCALER_128 ((uint8_t)0x05)
-#define IWDG_PRESCALER_256 ((uint8_t)0x06)
+#define IWDG_PRESCALER4   ((uint8_t)0x00)
+#define IWDG_PRESCALER8   ((uint8_t)0x01)
+#define IWDG_PRESCALER16  ((uint8_t)0x02)
+#define IWDG_PRESCALER32  ((uint8_t)0x03)
+#define IWDG_PRESCALER64  ((uint8_t)0x04)
+#define IWDG_PRESCALER128 ((uint8_t)0x05)
+#define IWDG_PRESCALER256 ((uint8_t)0x06)
 
 /* IWDG_Flag */
 #define IWDG_FLAG_PVU ((uint16_t)0x0001)
 #define IWDG_FLAG_RVU ((uint16_t)0x0002)
+
+//------------------------------------------------------------------------------
 
 /*
  * This file contains various parts of the official WCH EVT Headers which

@@ -78,10 +78,10 @@ typedef struct {
 #define SPI_CTLR1_CPOL ((uint16_t)0x0002) /* Clock Polarity */
 #define SPI_CTLR1_MSTR ((uint16_t)0x0004) /* Master Selection */
 
-#define SPI_CTLR1_BR   ((uint16_t)0x0038) /* BR[2:0] bits (Baud Rate Control) */
-#define SPI_CTLR1_BR_0 ((uint16_t)0x0008) /* Bit 0 */
-#define SPI_CTLR1_BR_1 ((uint16_t)0x0010) /* Bit 1 */
-#define SPI_CTLR1_BR_2 ((uint16_t)0x0020) /* Bit 2 */
+#define SPI_CTLR1_BR  ((uint16_t)0x0038) /* BR[2:0] bits (Baud Rate Control) */
+#define SPI_CTLR1_BR0 ((uint16_t)0x0008) /* Bit 0 */
+#define SPI_CTLR1_BR1 ((uint16_t)0x0010) /* Bit 1 */
+#define SPI_CTLR1_BR2 ((uint16_t)0x0020) /* Bit 2 */
 
 #define SPI_CTLR1_SPE      ((uint16_t)0x0040) /* SPI Enable */
 #define SPI_CTLR1_LSBFIRST ((uint16_t)0x0080)
@@ -154,14 +154,14 @@ typedef struct {
 #define SPI_NSS_HARD ((uint16_t)0x0000)
 
 /* SPI_BaudRate_Prescaler */
-#define SPI_BAUDRATE_PRESCALER_2   ((uint16_t)0x0000)
-#define SPI_BAUDRATE_PRESCALER_4   ((uint16_t)0x0008)
-#define SPI_BAUDRATE_PRESCALER_8   ((uint16_t)0x0010)
-#define SPI_BAUDRATE_PRESCALER_16  ((uint16_t)0x0018)
-#define SPI_BAUDRATE_PRESCALER_32  ((uint16_t)0x0020)
-#define SPI_BAUDRATE_PRESCALER_64  ((uint16_t)0x0028)
-#define SPI_BAUDRATE_PRESCALER_128 ((uint16_t)0x0030)
-#define SPI_BAUDRATE_PRESCALER_256 ((uint16_t)0x0038)
+#define SPI_BAUDRATE_PRESCALER2   ((uint16_t)0x0000)
+#define SPI_BAUDRATE_PRESCALER4   ((uint16_t)0x0008)
+#define SPI_BAUDRATE_PRESCALER8   ((uint16_t)0x0010)
+#define SPI_BAUDRATE_PRESCALER16  ((uint16_t)0x0018)
+#define SPI_BAUDRATE_PRESCALER32  ((uint16_t)0x0020)
+#define SPI_BAUDRATE_PRESCALER64  ((uint16_t)0x0028)
+#define SPI_BAUDRATE_PRESCALER128 ((uint16_t)0x0030)
+#define SPI_BAUDRATE_PRESCALER256 ((uint16_t)0x0038)
 
 /* SPI_MSB transmission */
 #define SPI_FIRSTBIT_MSB ((uint16_t)0x0000)

@@ -23,10 +23,11 @@
 
 typedef struct {
   __IO uint16_t CTLR;       /* Control Register */
-       uint16_t RESERVED1;
+       uint16_t RESERVED0;
   __IO uint16_t CFGR;       /* Configuration Register */
-       uint16_t RESERVED2;
+       uint16_t RESERVED1;
   __IO uint16_t STATR;      /* Status Register */
+       uint16_t RESERVED2;
 } wwdg_t;
 
 #define WWDG  ((wwdg_t *)WWDG_BASE)
@@ -72,10 +73,10 @@ typedef struct {
 #define WWDG_STATR_EWIF ((uint8_t)0x01) /* Early Wakeup Interrupt Flag */
 
 /* WWDG_Prescaler */
-#define WWDG_PRESCALER_1 ((uint32_t)0x00000000)
-#define WWDG_PRESCALER_2 ((uint32_t)0x00000080)
-#define WWDG_PRESCALER_4 ((uint32_t)0x00000100)
-#define WWDG_PRESCALER_8 ((uint32_t)0x00000180)
+#define WWDG_PRESCALER1 ((uint32_t)0x00000000)
+#define WWDG_PRESCALER2 ((uint32_t)0x00000080)
+#define WWDG_PRESCALER4 ((uint32_t)0x00000100)
+#define WWDG_PRESCALER8 ((uint32_t)0x00000180)
 
 //------------------------------------------------------------------------------
 

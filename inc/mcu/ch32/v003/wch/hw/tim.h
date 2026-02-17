@@ -98,25 +98,25 @@ typedef struct {
 #define TIM_OPM  ((uint16_t)0x0008) /* One pulse mode */
 #define TIM_DIR  ((uint16_t)0x0010) /* Direction */
 
-#define TIM_CMS   ((uint16_t)0x0060) /* CMS[1:0] bits (Center-aligned mode selection) */
-#define TIM_CMS_0 ((uint16_t)0x0020) /* Bit 0 */
-#define TIM_CMS_1 ((uint16_t)0x0040) /* Bit 1 */
+#define TIM_CMS  ((uint16_t)0x0060) /* CMS[1:0] bits (Center-aligned mode selection) */
+#define TIM_CMS0 ((uint16_t)0x0020) /* Bit 0 */
+#define TIM_CMS1 ((uint16_t)0x0040) /* Bit 1 */
 
 #define TIM_ARPE ((uint16_t)0x0080) /* Auto-reload preload enable */
 
 #define TIM_CTLR1_CKD ((uint16_t)0x0300) /* CKD[1:0] bits (clock division) */
-#define TIM_CKD_0     ((uint16_t)0x0100) /* Bit 0 */
-#define TIM_CKD_1     ((uint16_t)0x0200) /* Bit 1 */
+#define TIM_CKD0      ((uint16_t)0x0100) /* Bit 0 */
+#define TIM_CKD1      ((uint16_t)0x0200) /* Bit 1 */
 
 /*******************  Bit definition for TIM_CTLR2 register  ********************/
 #define TIM_CCPC ((uint16_t)0x0001) /* Capture/Compare Preloaded Control */
 #define TIM_CCUS ((uint16_t)0x0004) /* Capture/Compare Control Update Selection */
 #define TIM_CCDS ((uint16_t)0x0008) /* Capture/Compare DMA Selection */
 
-#define TIM_MMS   ((uint16_t)0x0070) /* MMS[2:0] bits (Master Mode Selection) */
-#define TIM_MMS_0 ((uint16_t)0x0010) /* Bit 0 */
-#define TIM_MMS_1 ((uint16_t)0x0020) /* Bit 1 */
-#define TIM_MMS_2 ((uint16_t)0x0040) /* Bit 2 */
+#define TIM_MMS  ((uint16_t)0x0070) /* MMS[2:0] bits (Master Mode Selection) */
+#define TIM_MMS0 ((uint16_t)0x0010) /* Bit 0 */
+#define TIM_MMS1 ((uint16_t)0x0020) /* Bit 1 */
+#define TIM_MMS2 ((uint16_t)0x0040) /* Bit 2 */
 
 #define TIM_TI1S  ((uint16_t)0x0080) /* TI1 Selection */
 #define TIM_OIS1  ((uint16_t)0x0100) /* Output Idle state 1 (OC1 output) */
@@ -128,27 +128,27 @@ typedef struct {
 #define TIM_OIS4  ((uint16_t)0x4000) /* Output Idle state 4 (OC4 output) */
 
 /*******************  Bit definition for TIM_SMCFGR register  *******************/
-#define TIM_SMS   ((uint16_t)0x0007) /* SMS[2:0] bits (Slave mode selection) */
-#define TIM_SMS_0 ((uint16_t)0x0001) /* Bit 0 */
-#define TIM_SMS_1 ((uint16_t)0x0002) /* Bit 1 */
-#define TIM_SMS_2 ((uint16_t)0x0004) /* Bit 2 */
+#define TIM_SMS  ((uint16_t)0x0007) /* SMS[2:0] bits (Slave mode selection) */
+#define TIM_SMS0 ((uint16_t)0x0001) /* Bit 0 */
+#define TIM_SMS1 ((uint16_t)0x0002) /* Bit 1 */
+#define TIM_SMS2 ((uint16_t)0x0004) /* Bit 2 */
 
-#define TIM_TS   ((uint16_t)0x0070) /* TS[2:0] bits (Trigger selection) */
-#define TIM_TS_0 ((uint16_t)0x0010) /* Bit 0 */
-#define TIM_TS_1 ((uint16_t)0x0020) /* Bit 1 */
-#define TIM_TS_2 ((uint16_t)0x0040) /* Bit 2 */
+#define TIM_TS  ((uint16_t)0x0070) /* TS[2:0] bits (Trigger selection) */
+#define TIM_TS0 ((uint16_t)0x0010) /* Bit 0 */
+#define TIM_TS1 ((uint16_t)0x0020) /* Bit 1 */
+#define TIM_TS2 ((uint16_t)0x0040) /* Bit 2 */
 
 #define TIM_MSM ((uint16_t)0x0080) /* Master/slave mode */
 
-#define TIM_ETF   ((uint16_t)0x0F00) /* ETF[3:0] bits (External trigger filter) */
-#define TIM_ETF_0 ((uint16_t)0x0100) /* Bit 0 */
-#define TIM_ETF_1 ((uint16_t)0x0200) /* Bit 1 */
-#define TIM_ETF_2 ((uint16_t)0x0400) /* Bit 2 */
-#define TIM_ETF_3 ((uint16_t)0x0800) /* Bit 3 */
+#define TIM_ETF  ((uint16_t)0x0F00) /* ETF[3:0] bits (External trigger filter) */
+#define TIM_ETF0 ((uint16_t)0x0100) /* Bit 0 */
+#define TIM_ETF1 ((uint16_t)0x0200) /* Bit 1 */
+#define TIM_ETF2 ((uint16_t)0x0400) /* Bit 2 */
+#define TIM_ETF3 ((uint16_t)0x0800) /* Bit 3 */
 
-#define TIM_ETPS   ((uint16_t)0x3000) /* ETPS[1:0] bits (External trigger prescaler) */
-#define TIM_ETPS_0 ((uint16_t)0x1000) /* Bit 0 */
-#define TIM_ETPS_1 ((uint16_t)0x2000) /* Bit 1 */
+#define TIM_ETPS  ((uint16_t)0x3000) /* ETPS[1:0] bits (External trigger prescaler) */
+#define TIM_ETPS0 ((uint16_t)0x1000) /* Bit 0 */
+#define TIM_ETPS1 ((uint16_t)0x2000) /* Bit 1 */
 
 #define TIM_ECE ((uint16_t)0x4000) /* External clock enable */
 #define TIM_ETP ((uint16_t)0x8000) /* External trigger polarity */
@@ -195,102 +195,102 @@ typedef struct {
 #define TIM_BG   ((uint16_t)0x0080) /* Break Generation */
 
 /******************  Bit definition for TIM_CHCTLR1 register  *******************/
-#define TIM_CC1S   ((uint16_t)0x0003) /* CC1S[1:0] bits (Capture/Compare 1 Selection) */
-#define TIM_CC1S_0 ((uint16_t)0x0001) /* Bit 0 */
-#define TIM_CC1S_1 ((uint16_t)0x0002) /* Bit 1 */
+#define TIM_CC1S  ((uint16_t)0x0003) /* CC1S[1:0] bits (Capture/Compare 1 Selection) */
+#define TIM_CC1S0 ((uint16_t)0x0001) /* Bit 0 */
+#define TIM_CC1S1 ((uint16_t)0x0002) /* Bit 1 */
 
 #define TIM_OC1FE ((uint16_t)0x0004) /* Output Compare 1 Fast enable */
 #define TIM_OC1PE ((uint16_t)0x0008) /* Output Compare 1 Preload enable */
 
-#define TIM_OC1M   ((uint16_t)0x0070) /* OC1M[2:0] bits (Output Compare 1 Mode) */
-#define TIM_OC1M_0 ((uint16_t)0x0010) /* Bit 0 */
-#define TIM_OC1M_1 ((uint16_t)0x0020) /* Bit 1 */
-#define TIM_OC1M_2 ((uint16_t)0x0040) /* Bit 2 */
+#define TIM_OC1M  ((uint16_t)0x0070) /* OC1M[2:0] bits (Output Compare 1 Mode) */
+#define TIM_OC1M0 ((uint16_t)0x0010) /* Bit 0 */
+#define TIM_OC1M1 ((uint16_t)0x0020) /* Bit 1 */
+#define TIM_OC1M2 ((uint16_t)0x0040) /* Bit 2 */
 
 #define TIM_OC1CE ((uint16_t)0x0080) /* Output Compare 1Clear Enable */
 
-#define TIM_CC2S   ((uint16_t)0x0300) /* CC2S[1:0] bits (Capture/Compare 2 Selection) */
-#define TIM_CC2S_0 ((uint16_t)0x0100) /* Bit 0 */
-#define TIM_CC2S_1 ((uint16_t)0x0200) /* Bit 1 */
+#define TIM_CC2S  ((uint16_t)0x0300) /* CC2S[1:0] bits (Capture/Compare 2 Selection) */
+#define TIM_CC2S0 ((uint16_t)0x0100) /* Bit 0 */
+#define TIM_CC2S1 ((uint16_t)0x0200) /* Bit 1 */
 
 #define TIM_OC2FE ((uint16_t)0x0400) /* Output Compare 2 Fast enable */
 #define TIM_OC2PE ((uint16_t)0x0800) /* Output Compare 2 Preload enable */
 
-#define TIM_OC2M   ((uint16_t)0x7000) /* OC2M[2:0] bits (Output Compare 2 Mode) */
-#define TIM_OC2M_0 ((uint16_t)0x1000) /* Bit 0 */
-#define TIM_OC2M_1 ((uint16_t)0x2000) /* Bit 1 */
-#define TIM_OC2M_2 ((uint16_t)0x4000) /* Bit 2 */
+#define TIM_OC2M  ((uint16_t)0x7000) /* OC2M[2:0] bits (Output Compare 2 Mode) */
+#define TIM_OC2M0 ((uint16_t)0x1000) /* Bit 0 */
+#define TIM_OC2M1 ((uint16_t)0x2000) /* Bit 1 */
+#define TIM_OC2M2 ((uint16_t)0x4000) /* Bit 2 */
 
 #define TIM_OC2CE ((uint16_t)0x8000) /* Output Compare 2 Clear Enable */
 
-#define TIM_IC1PSC   ((uint16_t)0x000C) /* IC1PSC[1:0] bits (Input Capture 1 Prescaler) */
-#define TIM_IC1PSC_0 ((uint16_t)0x0004) /* Bit 0 */
-#define TIM_IC1PSC_1 ((uint16_t)0x0008) /* Bit 1 */
+#define TIM_IC1PSC  ((uint16_t)0x000C) /* IC1PSC[1:0] bits (Input Capture 1 Prescaler) */
+#define TIM_IC1PSC0 ((uint16_t)0x0004) /* Bit 0 */
+#define TIM_IC1PSC1 ((uint16_t)0x0008) /* Bit 1 */
 
-#define TIM_IC1F   ((uint16_t)0x00F0) /* IC1F[3:0] bits (Input Capture 1 Filter) */
-#define TIM_IC1F_0 ((uint16_t)0x0010) /* Bit 0 */
-#define TIM_IC1F_1 ((uint16_t)0x0020) /* Bit 1 */
-#define TIM_IC1F_2 ((uint16_t)0x0040) /* Bit 2 */
-#define TIM_IC1F_3 ((uint16_t)0x0080) /* Bit 3 */
+#define TIM_IC1F  ((uint16_t)0x00F0) /* IC1F[3:0] bits (Input Capture 1 Filter) */
+#define TIM_IC1F0 ((uint16_t)0x0010) /* Bit 0 */
+#define TIM_IC1F1 ((uint16_t)0x0020) /* Bit 1 */
+#define TIM_IC1F2 ((uint16_t)0x0040) /* Bit 2 */
+#define TIM_IC1F3 ((uint16_t)0x0080) /* Bit 3 */
 
-#define TIM_IC2PSC   ((uint16_t)0x0C00) /* IC2PSC[1:0] bits (Input Capture 2 Prescaler) */
-#define TIM_IC2PSC_0 ((uint16_t)0x0400) /* Bit 0 */
-#define TIM_IC2PSC_1 ((uint16_t)0x0800) /* Bit 1 */
+#define TIM_IC2PSC  ((uint16_t)0x0C00) /* IC2PSC[1:0] bits (Input Capture 2 Prescaler) */
+#define TIM_IC2PSC0 ((uint16_t)0x0400) /* Bit 0 */
+#define TIM_IC2PSC1 ((uint16_t)0x0800) /* Bit 1 */
 
-#define TIM_IC2F   ((uint16_t)0xF000) /* IC2F[3:0] bits (Input Capture 2 Filter) */
-#define TIM_IC2F_0 ((uint16_t)0x1000) /* Bit 0 */
-#define TIM_IC2F_1 ((uint16_t)0x2000) /* Bit 1 */
-#define TIM_IC2F_2 ((uint16_t)0x4000) /* Bit 2 */
-#define TIM_IC2F_3 ((uint16_t)0x8000) /* Bit 3 */
+#define TIM_IC2F  ((uint16_t)0xF000) /* IC2F[3:0] bits (Input Capture 2 Filter) */
+#define TIM_IC2F0 ((uint16_t)0x1000) /* Bit 0 */
+#define TIM_IC2F1 ((uint16_t)0x2000) /* Bit 1 */
+#define TIM_IC2F2 ((uint16_t)0x4000) /* Bit 2 */
+#define TIM_IC2F3 ((uint16_t)0x8000) /* Bit 3 */
 
 /******************  Bit definition for TIM_CHCTLR2 register  *******************/
-#define TIM_CC3S   ((uint16_t)0x0003) /* CC3S[1:0] bits (Capture/Compare 3 Selection) */
-#define TIM_CC3S_0 ((uint16_t)0x0001) /* Bit 0 */
-#define TIM_CC3S_1 ((uint16_t)0x0002) /* Bit 1 */
+#define TIM_CC3S  ((uint16_t)0x0003) /* CC3S[1:0] bits (Capture/Compare 3 Selection) */
+#define TIM_CC3S0 ((uint16_t)0x0001) /* Bit 0 */
+#define TIM_CC3S1 ((uint16_t)0x0002) /* Bit 1 */
 
 #define TIM_OC3FE ((uint16_t)0x0004) /* Output Compare 3 Fast enable */
 #define TIM_OC3PE ((uint16_t)0x0008) /* Output Compare 3 Preload enable */
 
-#define TIM_OC3M   ((uint16_t)0x0070) /* OC3M[2:0] bits (Output Compare 3 Mode) */
-#define TIM_OC3M_0 ((uint16_t)0x0010) /* Bit 0 */
-#define TIM_OC3M_1 ((uint16_t)0x0020) /* Bit 1 */
-#define TIM_OC3M_2 ((uint16_t)0x0040) /* Bit 2 */
+#define TIM_OC3M  ((uint16_t)0x0070) /* OC3M[2:0] bits (Output Compare 3 Mode) */
+#define TIM_OC3M0 ((uint16_t)0x0010) /* Bit 0 */
+#define TIM_OC3M1 ((uint16_t)0x0020) /* Bit 1 */
+#define TIM_OC3M2 ((uint16_t)0x0040) /* Bit 2 */
 
 #define TIM_OC3CE ((uint16_t)0x0080) /* Output Compare 3 Clear Enable */
 
-#define TIM_CC4S   ((uint16_t)0x0300) /* CC4S[1:0] bits (Capture/Compare 4 Selection) */
-#define TIM_CC4S_0 ((uint16_t)0x0100) /* Bit 0 */
-#define TIM_CC4S_1 ((uint16_t)0x0200) /* Bit 1 */
+#define TIM_CC4S  ((uint16_t)0x0300) /* CC4S[1:0] bits (Capture/Compare 4 Selection) */
+#define TIM_CC4S0 ((uint16_t)0x0100) /* Bit 0 */
+#define TIM_CC4S1 ((uint16_t)0x0200) /* Bit 1 */
 
 #define TIM_OC4FE ((uint16_t)0x0400) /* Output Compare 4 Fast enable */
 #define TIM_OC4PE ((uint16_t)0x0800) /* Output Compare 4 Preload enable */
 
-#define TIM_OC4M   ((uint16_t)0x7000) /* OC4M[2:0] bits (Output Compare 4 Mode) */
-#define TIM_OC4M_0 ((uint16_t)0x1000) /* Bit 0 */
-#define TIM_OC4M_1 ((uint16_t)0x2000) /* Bit 1 */
-#define TIM_OC4M_2 ((uint16_t)0x4000) /* Bit 2 */
+#define TIM_OC4M  ((uint16_t)0x7000) /* OC4M[2:0] bits (Output Compare 4 Mode) */
+#define TIM_OC4M0 ((uint16_t)0x1000) /* Bit 0 */
+#define TIM_OC4M1 ((uint16_t)0x2000) /* Bit 1 */
+#define TIM_OC4M2 ((uint16_t)0x4000) /* Bit 2 */
 
 #define TIM_OC4CE ((uint16_t)0x8000) /* Output Compare 4 Clear Enable */
 
-#define TIM_IC3PSC   ((uint16_t)0x000C) /* IC3PSC[1:0] bits (Input Capture 3 Prescaler) */
-#define TIM_IC3PSC_0 ((uint16_t)0x0004) /* Bit 0 */
-#define TIM_IC3PSC_1 ((uint16_t)0x0008) /* Bit 1 */
+#define TIM_IC3PSC  ((uint16_t)0x000C) /* IC3PSC[1:0] bits (Input Capture 3 Prescaler) */
+#define TIM_IC3PSC0 ((uint16_t)0x0004) /* Bit 0 */
+#define TIM_IC3PSC1 ((uint16_t)0x0008) /* Bit 1 */
 
-#define TIM_IC3F   ((uint16_t)0x00F0) /* IC3F[3:0] bits (Input Capture 3 Filter) */
-#define TIM_IC3F_0 ((uint16_t)0x0010) /* Bit 0 */
-#define TIM_IC3F_1 ((uint16_t)0x0020) /* Bit 1 */
-#define TIM_IC3F_2 ((uint16_t)0x0040) /* Bit 2 */
-#define TIM_IC3F_3 ((uint16_t)0x0080) /* Bit 3 */
+#define TIM_IC3F  ((uint16_t)0x00F0) /* IC3F[3:0] bits (Input Capture 3 Filter) */
+#define TIM_IC3F0 ((uint16_t)0x0010) /* Bit 0 */
+#define TIM_IC3F1 ((uint16_t)0x0020) /* Bit 1 */
+#define TIM_IC3F2 ((uint16_t)0x0040) /* Bit 2 */
+#define TIM_IC3F3 ((uint16_t)0x0080) /* Bit 3 */
 
-#define TIM_IC4PSC   ((uint16_t)0x0C00) /* IC4PSC[1:0] bits (Input Capture 4 Prescaler) */
-#define TIM_IC4PSC_0 ((uint16_t)0x0400) /* Bit 0 */
-#define TIM_IC4PSC_1 ((uint16_t)0x0800) /* Bit 1 */
+#define TIM_IC4PSC  ((uint16_t)0x0C00) /* IC4PSC[1:0] bits (Input Capture 4 Prescaler) */
+#define TIM_IC4PSC0 ((uint16_t)0x0400) /* Bit 0 */
+#define TIM_IC4PSC1 ((uint16_t)0x0800) /* Bit 1 */
 
-#define TIM_IC4F   ((uint16_t)0xF000) /* IC4F[3:0] bits (Input Capture 4 Filter) */
-#define TIM_IC4F_0 ((uint16_t)0x1000) /* Bit 0 */
-#define TIM_IC4F_1 ((uint16_t)0x2000) /* Bit 1 */
-#define TIM_IC4F_2 ((uint16_t)0x4000) /* Bit 2 */
-#define TIM_IC4F_3 ((uint16_t)0x8000) /* Bit 3 */
+#define TIM_IC4F  ((uint16_t)0xF000) /* IC4F[3:0] bits (Input Capture 4 Filter) */
+#define TIM_IC4F0 ((uint16_t)0x1000) /* Bit 0 */
+#define TIM_IC4F1 ((uint16_t)0x2000) /* Bit 1 */
+#define TIM_IC4F2 ((uint16_t)0x4000) /* Bit 2 */
+#define TIM_IC4F3 ((uint16_t)0x8000) /* Bit 3 */
 
 /*******************  Bit definition for TIM_CCER register  *******************/
 #define TIM_CC1E  ((uint16_t)0x0001) /* Capture/Compare 1 output enable */
@@ -338,19 +338,19 @@ typedef struct {
 #define TIM_CH4CVR_LEVEL4 ((uint32_t)0x00010000) /* The level indication bit corresponding to the captured value */
 
 /*******************  Bit definition for TIM_BDTR register  *******************/
-#define TIM_DTG   ((uint16_t)0x00FF) /* DTG[0:7] bits (Dead-Time Generator set-up) */
-#define TIM_DTG_0 ((uint16_t)0x0001) /* Bit 0 */
-#define TIM_DTG_1 ((uint16_t)0x0002) /* Bit 1 */
-#define TIM_DTG_2 ((uint16_t)0x0004) /* Bit 2 */
-#define TIM_DTG_3 ((uint16_t)0x0008) /* Bit 3 */
-#define TIM_DTG_4 ((uint16_t)0x0010) /* Bit 4 */
-#define TIM_DTG_5 ((uint16_t)0x0020) /* Bit 5 */
-#define TIM_DTG_6 ((uint16_t)0x0040) /* Bit 6 */
-#define TIM_DTG_7 ((uint16_t)0x0080) /* Bit 7 */
+#define TIM_DTG  ((uint16_t)0x00FF) /* DTG[0:7] bits (Dead-Time Generator set-up) */
+#define TIM_DTG0 ((uint16_t)0x0001) /* Bit 0 */
+#define TIM_DTG1 ((uint16_t)0x0002) /* Bit 1 */
+#define TIM_DTG2 ((uint16_t)0x0004) /* Bit 2 */
+#define TIM_DTG3 ((uint16_t)0x0008) /* Bit 3 */
+#define TIM_DTG4 ((uint16_t)0x0010) /* Bit 4 */
+#define TIM_DTG5 ((uint16_t)0x0020) /* Bit 5 */
+#define TIM_DTG6 ((uint16_t)0x0040) /* Bit 6 */
+#define TIM_DTG7 ((uint16_t)0x0080) /* Bit 7 */
 
-#define TIM_LOCK   ((uint16_t)0x0300) /* LOCK[1:0] bits (Lock Configuration) */
-#define TIM_LOCK_0 ((uint16_t)0x0100) /* Bit 0 */
-#define TIM_LOCK_1 ((uint16_t)0x0200) /* Bit 1 */
+#define TIM_LOCK  ((uint16_t)0x0300) /* LOCK[1:0] bits (Lock Configuration) */
+#define TIM_LOCK0 ((uint16_t)0x0100) /* Bit 0 */
+#define TIM_LOCK1 ((uint16_t)0x0200) /* Bit 1 */
 
 #define TIM_OSSI ((uint16_t)0x0400) /* Off-State Selection for Idle mode */
 #define TIM_OSSR ((uint16_t)0x0800) /* Off-State Selection for Run mode */
@@ -360,19 +360,19 @@ typedef struct {
 #define TIM_MOE  ((uint16_t)0x8000) /* Main Output enable */
 
 /*******************  Bit definition for TIM_DMACFGR register  ********************/
-#define TIM_DBA   ((uint16_t)0x001F) /* DBA[4:0] bits (DMA Base Address) */
-#define TIM_DBA_0 ((uint16_t)0x0001) /* Bit 0 */
-#define TIM_DBA_1 ((uint16_t)0x0002) /* Bit 1 */
-#define TIM_DBA_2 ((uint16_t)0x0004) /* Bit 2 */
-#define TIM_DBA_3 ((uint16_t)0x0008) /* Bit 3 */
-#define TIM_DBA_4 ((uint16_t)0x0010) /* Bit 4 */
+#define TIM_DBA  ((uint16_t)0x001F) /* DBA[4:0] bits (DMA Base Address) */
+#define TIM_DBA0 ((uint16_t)0x0001) /* Bit 0 */
+#define TIM_DBA1 ((uint16_t)0x0002) /* Bit 1 */
+#define TIM_DBA2 ((uint16_t)0x0004) /* Bit 2 */
+#define TIM_DBA3 ((uint16_t)0x0008) /* Bit 3 */
+#define TIM_DBA4 ((uint16_t)0x0010) /* Bit 4 */
 
-#define TIM_DBL   ((uint16_t)0x1F00) /* DBL[4:0] bits (DMA Burst Length) */
-#define TIM_DBL_0 ((uint16_t)0x0100) /* Bit 0 */
-#define TIM_DBL_1 ((uint16_t)0x0200) /* Bit 1 */
-#define TIM_DBL_2 ((uint16_t)0x0400) /* Bit 2 */
-#define TIM_DBL_3 ((uint16_t)0x0800) /* Bit 3 */
-#define TIM_DBL_4 ((uint16_t)0x1000) /* Bit 4 */
+#define TIM_DBL  ((uint16_t)0x1F00) /* DBL[4:0] bits (DMA Burst Length) */
+#define TIM_DBL0 ((uint16_t)0x0100) /* Bit 0 */
+#define TIM_DBL1 ((uint16_t)0x0200) /* Bit 1 */
+#define TIM_DBL2 ((uint16_t)0x0400) /* Bit 2 */
+#define TIM_DBL3 ((uint16_t)0x0800) /* Bit 3 */
+#define TIM_DBL4 ((uint16_t)0x1000) /* Bit 4 */
 
 /*******************  Bit definition for TIM_DMAADR register  *******************/
 #define TIM_DMAR_DMAB ((uint16_t)0xFFFF) /* DMA register for burst accesses */
@@ -390,10 +390,10 @@ typedef struct {
 #define TIM_OPMODE_REPETITIVE ((uint16_t)0x0000)
 
 /* TIM_Channel */
-#define TIM_CHANNEL_1 ((uint16_t)0x0000)
-#define TIM_CHANNEL_2 ((uint16_t)0x0004)
-#define TIM_CHANNEL_3 ((uint16_t)0x0008)
-#define TIM_CHANNEL_4 ((uint16_t)0x000C)
+#define TIM_CHANNEL1 ((uint16_t)0x0000)
+#define TIM_CHANNEL2 ((uint16_t)0x0004)
+#define TIM_CHANNEL3 ((uint16_t)0x0008)
+#define TIM_CHANNEL4 ((uint16_t)0x000C)
 
 /* TIM_Clock_Division_CKD */
 #define TIM_CKD_DIV1 ((uint16_t)0x0000)
@@ -416,54 +416,44 @@ typedef struct {
 #define TIM_OCNPOLARITY_LOW  ((uint16_t)0x0008)
 
 /* TIM_Output_Compare_state */
-#define TIM_OUTPUT_STATE_DISABLE ((uint16_t)0x0000)
-#define TIM_OUTPUT_STATE_ENABLE  ((uint16_t)0x0001)
+#define TIM_OUTPUT_STATE_EN  ((uint16_t)0x0001)
 
 /* TIM_Output_Compare_N_state */
-#define TIM_OUTPUT_NSTATE_DISABLE ((uint16_t)0x0000)
-#define TIM_OUTPUT_NSTATE_ENABLE  ((uint16_t)0x0004)
+#define TIM_OUTPUT_NSTATE_EN  ((uint16_t)0x0004)
 
 /* TIM_Capture_Compare_state */
-#define TIM_CCX_ENABLE  ((uint16_t)0x0001)
-#define TIM_CCX_DISABLE ((uint16_t)0x0000)
+#define TIM_CCX_EN  ((uint16_t)0x0001)
 
 /* TIM_Capture_Compare_N_state */
-#define TIM_CCXN_ENABLE  ((uint16_t)0x0004)
-#define TIM_CCXN_DISABLE ((uint16_t)0x0000)
+#define TIM_CCXN_EN  ((uint16_t)0x0004)
 
 /* Break_Input_enable_disable */
-#define TIM_BREAK_ENABLE  ((uint16_t)0x1000)
-#define TIM_BREAK_DISABLE ((uint16_t)0x0000)
+#define TIM_BREAK_EN  ((uint16_t)0x1000)
 
 /* Break_Polarity */
 #define TIM_BREAK_POLARITY_LOW  ((uint16_t)0x0000)
 #define TIM_BREAK_POLARITY_HIGH ((uint16_t)0x2000)
 
 /* TIM_AOE_Bit_Set_Reset */
-#define TIM_AUTOMATI_COUTPUT_ENABLE  ((uint16_t)0x4000)
-#define TIM_AUTOMATI_COUTPUT_DISABLE ((uint16_t)0x0000)
+#define TIM_AUTOMATI_COUTPUT_EN  ((uint16_t)0x4000)
 
 /* Lock_level */
-#define TIM_LOCK_LEVEL_OFF ((uint16_t)0x0000)
-#define TIM_LOCK_LEVEL_1   ((uint16_t)0x0100)
-#define TIM_LOCK_LEVEL_2   ((uint16_t)0x0200)
-#define TIM_LOCK_LEVEL_3   ((uint16_t)0x0300)
+#define TIM_LOCK_LEVELOFF ((uint16_t)0x0000)
+#define TIM_LOCK_LEVEL1   ((uint16_t)0x0100)
+#define TIM_LOCK_LEVEL2   ((uint16_t)0x0200)
+#define TIM_LOCK_LEVEL3   ((uint16_t)0x0300)
 
 /* OSSI_Off_State_Selection_for_Idle_mode_state */
-#define TIM_OSSI_STATE_ENABLE  ((uint16_t)0x0400)
-#define TIM_OSSI_STATE_DISABLE ((uint16_t)0x0000)
+#define TIM_OSSI_STATE_EN  ((uint16_t)0x0400)
 
 /* OSSR_Off_State_Selection_for_Run_mode_state */
-#define TIM_OSSR_STATE_ENABLE  ((uint16_t)0x0800)
-#define TIM_OSSR_STATE_DISABLE ((uint16_t)0x0000)
+#define TIM_OSSR_STATE_EN  ((uint16_t)0x0800)
 
 /* TIM_Output_Compare_Idle_State */
 #define TIM_OCIDLE_STATE_SET   ((uint16_t)0x0100)
-#define TIM_OCIDLE_STATE_RESET ((uint16_t)0x0000)
 
 /* TIM_Output_Compare_N_Idle_State */
 #define TIM_OCNIDLE_STATE_SET   ((uint16_t)0x0200)
-#define TIM_OCNIDLE_STATE_RESET ((uint16_t)0x0000)
 
 /* TIM_Input_Capture_Polarity */
 #define TIM_ICPOLARITY_RISING   ((uint16_t)0x0000)
@@ -598,20 +588,17 @@ typedef struct {
 #define TIM_UPDATESOURCE_REGULAR ((uint16_t)0x0001) /* Source of update is counter overflow/underflow. */
 
 /* TIM_Output_Compare_Preload_State */
-#define TIM_OCPRELOAD_ENABLE  ((uint16_t)0x0008)
-#define TIM_OCPRELOAD_DISABLE ((uint16_t)0x0000)
+#define TIM_OCPRELOAD_EN  ((uint16_t)0x0008)
 
 /* TIM_Output_Compare_Fast_State */
-#define TIM_OCFAST_ENABLE  ((uint16_t)0x0004)
-#define TIM_OCFAST_DISABLE ((uint16_t)0x0000)
+#define TIM_OCFAST_EN  ((uint16_t)0x0004)
 
 /* TIM_Output_Compare_Clear_State */
-#define TIM_OCCLEAR_ENABLE  ((uint16_t)0x0080)
-#define TIM_OCCLEAR_DISABLE ((uint16_t)0x0000)
+#define TIM_OCCLEAR_EN  ((uint16_t)0x0080)
 
 /* TIM_Trigger_Output_Source */
 #define TIM_TRGO_SOURCE_RESET  ((uint16_t)0x0000)
-#define TIM_TRGO_SOURCE_ENABLE ((uint16_t)0x0010)
+#define TIM_TRGO_SOURCE_EN     ((uint16_t)0x0010)
 #define TIM_TRGO_SOURCE_UPDATE ((uint16_t)0x0020)
 #define TIM_TRGO_SOURCE_OC1    ((uint16_t)0x0030)
 #define TIM_TRGO_SOURCE_OC1REF ((uint16_t)0x0040)
@@ -626,8 +613,7 @@ typedef struct {
 #define TIM_SLAVE_MODE_EXTERNAL1 ((uint16_t)0x0007)
 
 /* TIM_Master_Slave_Mode */
-#define TIM_MASTERSLAVE_MODE_ENABLE  ((uint16_t)0x0080)
-#define TIM_MASTERSLAVE_MODE_DISABLE ((uint16_t)0x0000)
+#define TIM_MASTERSLAVE_MODE_EN  ((uint16_t)0x0080)
 
 /* TIM_Flags */
 #define TIM_FLAG_UPDATE  ((uint16_t)0x0001)

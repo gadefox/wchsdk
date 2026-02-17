@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdint.h>
-
 //------------------------------------------------------------------------------
 
 #ifdef __cplusplus
@@ -16,14 +14,19 @@
 //------------------------------------------------------------------------------
 
 // Let us do some compile-time error checking.
-#define ASM_ASSERT(COND) \
-  .if (!(COND)); \
-  .err; \
+#define asm_assert(cond)  \
+  .if (!(cond));          \
+  .err;                   \
   .endif
 
 //------------------------------------------------------------------------------
 
-#define CONCAT(A, B)  A##B
-#define EXP(A, B)     CONCAT(A, B)
+#define CONCAT(a, b)  a##b
+#define EXP(a, b)     CONCAT(a, b)
+
+#define MAX(a, b)  ((a) > (b) ? (a) : (b))
+#define MIN(a, b)  ((a) < (b) ? (a) : (b))
+
+#define BETWEEN(x, l, h)  ((unsigned)((x) - (l)) < (h) - (l))
 
 //------------------------------------------------------------------------------

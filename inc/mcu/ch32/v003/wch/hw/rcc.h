@@ -36,7 +36,7 @@ typedef struct {
   __IO uint32_t AHBPCENR;   /* AHB Peripheral Clock Enable Register  */
   __IO uint32_t APB2PCENR;  /* APB2 Peripheral Clock Enable Register */
   __IO uint32_t APB1PCENR;  /* APB1 Peripheral Clock Enable Register */
-  __IO uint32_t RESERVED0;
+       uint32_t RESERVED;
   __IO uint32_t RSTSCKR;    /* Control/Status Register               */
 } rcc_t;
 
@@ -100,27 +100,27 @@ typedef struct {
 #define RCC_PLLRDY  ((uint32_t)0x02000000) /* PLL clock ready flag */
 
 /*******************  Bit definition for RCC_CFGR0 register  *******************/
-#define RCC_SW   ((uint32_t)0x00000003) /* SW[1:0] bits (System clock Switch) */
-#define RCC_SW_0 ((uint32_t)0x00000001) /* Bit 0 */
-#define RCC_SW_1 ((uint32_t)0x00000002) /* Bit 1 */
+#define RCC_SW  ((uint32_t)0x00000003) /* SW[1:0] bits (System clock Switch) */
+#define RCC_SW0 ((uint32_t)0x00000001) /* Bit 0 */
+#define RCC_SW1 ((uint32_t)0x00000002) /* Bit 1 */
 
 #define RCC_SW_HSI ((uint32_t)0x00000000) /* HSI selected as system clock */
 #define RCC_SW_HSE ((uint32_t)0x00000001) /* HSE selected as system clock */
 #define RCC_SW_PLL ((uint32_t)0x00000002) /* PLL selected as system clock */
 
-#define RCC_SWS   ((uint32_t)0x0000000C) /* SWS[1:0] bits (System Clock Switch Status) */
-#define RCC_SWS_0 ((uint32_t)0x00000004) /* Bit 0 */
-#define RCC_SWS_1 ((uint32_t)0x00000008) /* Bit 1 */
+#define RCC_SWS  ((uint32_t)0x0000000C) /* SWS[1:0] bits (System Clock Switch Status) */
+#define RCC_SWS0 ((uint32_t)0x00000004) /* Bit 0 */
+#define RCC_SWS1 ((uint32_t)0x00000008) /* Bit 1 */
 
 #define RCC_SWS_HSI ((uint32_t)0x00000000) /* HSI oscillator used as system clock */
 #define RCC_SWS_HSE ((uint32_t)0x00000004) /* HSE oscillator used as system clock */
 #define RCC_SWS_PLL ((uint32_t)0x00000008) /* PLL used as system clock */
 
-#define RCC_HPRE   ((uint32_t)0x000000F0) /* HPRE[3:0] bits (AHB prescaler) */
-#define RCC_HPRE_0 ((uint32_t)0x00000010) /* Bit 0 */
-#define RCC_HPRE_1 ((uint32_t)0x00000020) /* Bit 1 */
-#define RCC_HPRE_2 ((uint32_t)0x00000040) /* Bit 2 */
-#define RCC_HPRE_3 ((uint32_t)0x00000080) /* Bit 3 */
+#define RCC_HPRE  ((uint32_t)0x000000F0) /* HPRE[3:0] bits (AHB prescaler) */
+#define RCC_HPRE0 ((uint32_t)0x00000010) /* Bit 0 */
+#define RCC_HPRE1 ((uint32_t)0x00000020) /* Bit 1 */
+#define RCC_HPRE2 ((uint32_t)0x00000040) /* Bit 2 */
+#define RCC_HPRE3 ((uint32_t)0x00000080) /* Bit 3 */
 
 #define RCC_HPRE_DIV1   ((uint32_t)0x00000000) /* SYSCLK not divided */
 #define RCC_HPRE_DIV2   ((uint32_t)0x00000010) /* SYSCLK divided by 2 */
@@ -136,12 +136,12 @@ typedef struct {
 #define RCC_HPRE_DIV128 ((uint32_t)0x000000E0) /* SYSCLK divided by 128 */
 #define RCC_HPRE_DIV256 ((uint32_t)0x000000F0) /* SYSCLK divided by 256 */
 
-#define RCC_ADCPRE   ((uint32_t)0x0000F800) /* ADCPRE[4:0] bits (ADC prescaler) */
-#define RCC_ADCPRE_0 ((uint32_t)0x00000800) /* Bit 0 */
-#define RCC_ADCPRE_1 ((uint32_t)0x00001000) /* Bit 1 */
-#define RCC_ADCPRE_2 ((uint32_t)0x00002000)
-#define RCC_ADCPRE_3 ((uint32_t)0x00004000)
-#define RCC_ADCPRE_4 ((uint32_t)0x00008000)
+#define RCC_ADCPRE  ((uint32_t)0x0000F800) /* ADCPRE[4:0] bits (ADC prescaler) */
+#define RCC_ADCPRE0 ((uint32_t)0x00000800) /* Bit 0 */
+#define RCC_ADCPRE1 ((uint32_t)0x00001000) /* Bit 1 */
+#define RCC_ADCPRE2 ((uint32_t)0x00002000)
+#define RCC_ADCPRE3 ((uint32_t)0x00004000)
+#define RCC_ADCPRE4 ((uint32_t)0x00008000)
 
 #define RCC_ADCPRE_DIV2 ((uint32_t)0x00000000) /* HBCLK divided by 2 */
 /* includes                                                0x00000800,
@@ -181,9 +181,9 @@ typedef struct {
 #define RCC_PLLSRC_HSE_MUL2 ((uint32_t)0x00010000) /* HSE clock*2 selected as PLL entry clock source */
 
 #define RCC_CFGR0_MCO ((uint32_t)0x07000000) /* MCO[2:0] bits (Microcontroller Clock Output) */
-#define RCC_MCO_0     ((uint32_t)0x01000000) /* Bit 0 */
-#define RCC_MCO_1     ((uint32_t)0x02000000) /* Bit 1 */
-#define RCC_MCO_2     ((uint32_t)0x04000000) /* Bit 2 */
+#define RCC_MCO0      ((uint32_t)0x01000000) /* Bit 0 */
+#define RCC_MCO1      ((uint32_t)0x02000000) /* Bit 1 */
+#define RCC_MCO2      ((uint32_t)0x04000000) /* Bit 2 */
 
 #define RCC_MCO_NOCLOCK      ((uint32_t)0x00000000) /* No clock */
 #define RCC_CFGR0_MCO_SYSCLK ((uint32_t)0x04000000) /* System clock selected as MCO source */
@@ -296,8 +296,8 @@ typedef struct {
 #define RCC_HSE_BYPASS ((uint32_t)0x00040000)
 
 /* PLL_entry_clock_source */
-#define RCC_PLLSource_HSI_MUL2 ((uint32_t)0x00000000)
-#define RCC_PLLSource_HSE_MUL2 ((uint32_t)0x00030000)
+#define RCC_PLLSOURCE_HSI_MUL2 ((uint32_t)0x00000000)
+#define RCC_PLLSOURCE_HSE_MUL2 ((uint32_t)0x00030000)
 
 /* System_clock_source */
 #define RCC_SYSCLKSOURCE_HSI    ((uint32_t)0x00000000)
@@ -361,7 +361,7 @@ typedef struct {
 #define RCC_APB1PERIPH_PWR  ((uint32_t)0x10000000)
 
 /* Clock_source_to_output_on_MCO_pin */
-#define RCC_MCO_NoClock ((uint8_t)0x00)
+#define RCC_MCO_NOCLOCK ((uint8_t)0x00)
 #define RCC_MCO_SYSCLK  ((uint8_t)0x04)
 #define RCC_MCO_HSI     ((uint8_t)0x05)
 #define RCC_MCO_HSE     ((uint8_t)0x06)

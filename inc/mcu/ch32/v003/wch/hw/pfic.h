@@ -66,11 +66,11 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /* Preemption_Priority_Group */
-#define PFIC_PRIORITY_GROUP_0 ((uint32_t)0x00)
-#define PFIC_PRIORITY_GROUP_1 ((uint32_t)0x01)
-#define PFIC_PRIORITY_GROUP_2 ((uint32_t)0x02)
-#define PFIC_PRIORITY_GROUP_3 ((uint32_t)0x03)
-#define PFIC_PRIORITY_GROUP_4 ((uint32_t)0x04)
+#define PFIC_PRIORITY_GROUP0 ((uint32_t)0x00)
+#define PFIC_PRIORITY_GROUP1 ((uint32_t)0x01)
+#define PFIC_PRIORITY_GROUP2 ((uint32_t)0x02)
+#define PFIC_PRIORITY_GROUP3 ((uint32_t)0x03)
+#define PFIC_PRIORITY_GROUP4 ((uint32_t)0x04)
 
 //------------------------------------------------------------------------------
 

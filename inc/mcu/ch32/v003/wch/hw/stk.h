@@ -13,10 +13,10 @@
 
 #ifdef __ASSEMBLER__
 
-#define STK_CTLR  0
-#define STK_SR    4
-#define STK_CNT   8
-#define STK_CMP   16
+#define STK_CTLR   0
+#define STK_SR     4
+#define STK_CNTL   8
+#define STK_CMPLR  16
 
 #else
 
@@ -26,10 +26,9 @@
 typedef struct {
   __IO uint32_t CTLR;       /* System Count Control Register          */
   __IO uint32_t SR;         /* System Count Status Register           */
-  __IO uint32_t CNT;        /* System Counter Register                */
-       uint32_t RESERVED0;
-  __IO uint32_t CMPR;       /* System Count Comparison Value Register */
-       uint32_t RESERVED1;
+  __IO uint32_t CNTL;       /* System Counter Register                */
+       uint32_t RESERVED;
+  __IO uint32_t CMPLR;      /* System Count Comparison Value Register */
 } stk_t;
 
 #define STK  ((stk_t *)STK_BASE)

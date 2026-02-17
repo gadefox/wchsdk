@@ -26,15 +26,15 @@
 
 /* EXTI mode enumeration */
 typedef enum {
-  EXTI_MODE_INTERRUPT   = 0x00,
-  EXTI_MODE_EVENT       = 0x04
+  EXTI_MODE_INTERRUPT = 0x00,
+  EXTI_MODE_EVENT     = 0x04
 } exti_mode_t;
 
 /* EXTI Trigger enumeration */
 typedef enum {
-  EXTI_TRIGGER_RISING           = 0x08,
-  EXTI_TRIGGER_FALLING          = 0x0C,
-  EXTI_TRIGGER_RISING_FALLING   = 0x10
+  EXTI_TRIGGER_RISING         = 0x08,
+  EXTI_TRIGGER_FALLING        = 0x0C,
+  EXTI_TRIGGER_RISING_FALLING = 0x10
 } exti_trigger_t;
 
 typedef struct {
@@ -57,82 +57,9 @@ typedef struct {
 #define EXTI_GPIOC  ((uint8_t)0x02)
 #define EXTI_GPIOD  ((uint8_t)0x03)
 
-/* No interrupt selected */
-#define EXTI_LINENONE ((uint32_t)0x00000)
-
-/*******************  Bit definition for EXTI_INTENR register  *******************/
-#define EXTI_INTENR_MR0 ((uint32_t)0x00000001) /* Interrupt Mask on line 0 */
-#define EXTI_INTENR_MR1 ((uint32_t)0x00000002) /* Interrupt Mask on line 1 */
-#define EXTI_INTENR_MR2 ((uint32_t)0x00000004) /* Interrupt Mask on line 2 */
-#define EXTI_INTENR_MR3 ((uint32_t)0x00000008) /* Interrupt Mask on line 3 */
-#define EXTI_INTENR_MR4 ((uint32_t)0x00000010) /* Interrupt Mask on line 4 */
-#define EXTI_INTENR_MR5 ((uint32_t)0x00000020) /* Interrupt Mask on line 5 */
-#define EXTI_INTENR_MR6 ((uint32_t)0x00000040) /* Interrupt Mask on line 6 */
-#define EXTI_INTENR_MR7 ((uint32_t)0x00000080) /* Interrupt Mask on line 7 */
-#define EXTI_INTENR_MR8 ((uint32_t)0x00000100) /* Interrupt Mask on line 8 */
-#define EXTI_INTENR_MR9 ((uint32_t)0x00000200) /* Interrupt Mask on line 9 */
-
-/*******************  Bit definition for EXTI_EVENR register  *******************/
-#define EXTI_EVENR_MR0 ((uint32_t)0x00000001) /* Event Mask on line 0 */
-#define EXTI_EVENR_MR1 ((uint32_t)0x00000002) /* Event Mask on line 1 */
-#define EXTI_EVENR_MR2 ((uint32_t)0x00000004) /* Event Mask on line 2 */
-#define EXTI_EVENR_MR3 ((uint32_t)0x00000008) /* Event Mask on line 3 */
-#define EXTI_EVENR_MR4 ((uint32_t)0x00000010) /* Event Mask on line 4 */
-#define EXTI_EVENR_MR5 ((uint32_t)0x00000020) /* Event Mask on line 5 */
-#define EXTI_EVENR_MR6 ((uint32_t)0x00000040) /* Event Mask on line 6 */
-#define EXTI_EVENR_MR7 ((uint32_t)0x00000080) /* Event Mask on line 7 */
-#define EXTI_EVENR_MR8 ((uint32_t)0x00000100) /* Event Mask on line 8 */
-#define EXTI_EVENR_MR9 ((uint32_t)0x00000200) /* Event Mask on line 9 */
-
-/******************  Bit definition for EXTI_RTENR register  *******************/
-#define EXTI_RTENR_TR0 ((uint32_t)0x00000001) /* Rising trigger event configuration bit of line 0 */
-#define EXTI_RTENR_TR1 ((uint32_t)0x00000002) /* Rising trigger event configuration bit of line 1 */
-#define EXTI_RTENR_TR2 ((uint32_t)0x00000004) /* Rising trigger event configuration bit of line 2 */
-#define EXTI_RTENR_TR3 ((uint32_t)0x00000008) /* Rising trigger event configuration bit of line 3 */
-#define EXTI_RTENR_TR4 ((uint32_t)0x00000010) /* Rising trigger event configuration bit of line 4 */
-#define EXTI_RTENR_TR5 ((uint32_t)0x00000020) /* Rising trigger event configuration bit of line 5 */
-#define EXTI_RTENR_TR6 ((uint32_t)0x00000040) /* Rising trigger event configuration bit of line 6 */
-#define EXTI_RTENR_TR7 ((uint32_t)0x00000080) /* Rising trigger event configuration bit of line 7 */
-#define EXTI_RTENR_TR8 ((uint32_t)0x00000100) /* Rising trigger event configuration bit of line 8 */
-#define EXTI_RTENR_TR9 ((uint32_t)0x00000200) /* Rising trigger event configuration bit of line 9 */
-
-/******************  Bit definition for EXTI_FTENR register  *******************/
-#define EXTI_FTENR_TR0 ((uint32_t)0x00000001) /* Falling trigger event configuration bit of line 0 */
-#define EXTI_FTENR_TR1 ((uint32_t)0x00000002) /* Falling trigger event configuration bit of line 1 */
-#define EXTI_FTENR_TR2 ((uint32_t)0x00000004) /* Falling trigger event configuration bit of line 2 */
-#define EXTI_FTENR_TR3 ((uint32_t)0x00000008) /* Falling trigger event configuration bit of line 3 */
-#define EXTI_FTENR_TR4 ((uint32_t)0x00000010) /* Falling trigger event configuration bit of line 4 */
-#define EXTI_FTENR_TR5 ((uint32_t)0x00000020) /* Falling trigger event configuration bit of line 5 */
-#define EXTI_FTENR_TR6 ((uint32_t)0x00000040) /* Falling trigger event configuration bit of line 6 */
-#define EXTI_FTENR_TR7 ((uint32_t)0x00000080) /* Falling trigger event configuration bit of line 7 */
-#define EXTI_FTENR_TR8 ((uint32_t)0x00000100) /* Falling trigger event configuration bit of line 8 */
-#define EXTI_FTENR_TR9 ((uint32_t)0x00000200) /* Falling trigger event configuration bit of line 9 */
-
-/******************  Bit definition for EXTI_SWIEVR register  ******************/
-#define EXTI_SWIEVR_SWIEVR0 ((uint32_t)0x00000001) /* Software Interrupt on line 0 */
-#define EXTI_SWIEVR_SWIEVR1 ((uint32_t)0x00000002) /* Software Interrupt on line 1 */
-#define EXTI_SWIEVR_SWIEVR2 ((uint32_t)0x00000004) /* Software Interrupt on line 2 */
-#define EXTI_SWIEVR_SWIEVR3 ((uint32_t)0x00000008) /* Software Interrupt on line 3 */
-#define EXTI_SWIEVR_SWIEVR4 ((uint32_t)0x00000010) /* Software Interrupt on line 4 */
-#define EXTI_SWIEVR_SWIEVR5 ((uint32_t)0x00000020) /* Software Interrupt on line 5 */
-#define EXTI_SWIEVR_SWIEVR6 ((uint32_t)0x00000040) /* Software Interrupt on line 6 */
-#define EXTI_SWIEVR_SWIEVR7 ((uint32_t)0x00000080) /* Software Interrupt on line 7 */
-#define EXTI_SWIEVR_SWIEVR8 ((uint32_t)0x00000100) /* Software Interrupt on line 8 */
-#define EXTI_SWIEVR_SWIEVR9 ((uint32_t)0x00000200) /* Software Interrupt on line 9 */
-
-/*******************  Bit definition for EXTI_INTFR register  ********************/
-#define EXTI_INTF_INTF0 ((uint32_t)0x00000001) /* Pending bit for line 0 */
-#define EXTI_INTF_INTF1 ((uint32_t)0x00000002) /* Pending bit for line 1 */
-#define EXTI_INTF_INTF2 ((uint32_t)0x00000004) /* Pending bit for line 2 */
-#define EXTI_INTF_INTF3 ((uint32_t)0x00000008) /* Pending bit for line 3 */
-#define EXTI_INTF_INTF4 ((uint32_t)0x00000010) /* Pending bit for line 4 */
-#define EXTI_INTF_INTF5 ((uint32_t)0x00000020) /* Pending bit for line 5 */
-#define EXTI_INTF_INTF6 ((uint32_t)0x00000040) /* Pending bit for line 6 */
-#define EXTI_INTF_INTF7 ((uint32_t)0x00000080) /* Pending bit for line 7 */
-#define EXTI_INTF_INTF8 ((uint32_t)0x00000100) /* Pending bit for line 8 */
-#define EXTI_INTF_INTF9 ((uint32_t)0x00000200) /* Pending bit for line 9 */
-
 /* EXTI_Lines */
+#define EXTI_NOLINE ((uint32_t)0x00000)  /* No interrupt selected */
+
 #define EXTI_LINE0 ((uint32_t)0x00001) /* External interrupt line 0 */
 #define EXTI_LINE1 ((uint32_t)0x00002) /* External interrupt line 1 */
 #define EXTI_LINE2 ((uint32_t)0x00004) /* External interrupt line 2 */
@@ -143,6 +70,78 @@ typedef struct {
 #define EXTI_LINE7 ((uint32_t)0x00080) /* External interrupt line 7 */
 #define EXTI_LINE8 ((uint32_t)0x00100) /* External interrupt line 8 Connected to the PVD Output */
 #define EXTI_LINE9 ((uint32_t)0x00200) /* External interrupt line 9 Connected to the PWR Auto Wake-up event*/
+
+/*******************  Bit definition for EXTI_INTENR register  *******************/
+#define EXTI_INTENR0 ((uint32_t)0x00000001) /* Interrupt Mask on line 0 */
+#define EXTI_INTENR1 ((uint32_t)0x00000002) /* Interrupt Mask on line 1 */
+#define EXTI_INTENR2 ((uint32_t)0x00000004) /* Interrupt Mask on line 2 */
+#define EXTI_INTENR3 ((uint32_t)0x00000008) /* Interrupt Mask on line 3 */
+#define EXTI_INTENR4 ((uint32_t)0x00000010) /* Interrupt Mask on line 4 */
+#define EXTI_INTENR5 ((uint32_t)0x00000020) /* Interrupt Mask on line 5 */
+#define EXTI_INTENR6 ((uint32_t)0x00000040) /* Interrupt Mask on line 6 */
+#define EXTI_INTENR7 ((uint32_t)0x00000080) /* Interrupt Mask on line 7 */
+#define EXTI_INTENR8 ((uint32_t)0x00000100) /* Interrupt Mask on line 8 */
+#define EXTI_INTENR9 ((uint32_t)0x00000200) /* Interrupt Mask on line 9 */
+
+/*******************  Bit definition for EXTI_EVENR register  *******************/
+#define EXTI_EVENR0 ((uint32_t)0x00000001) /* Event Mask on line 0 */
+#define EXTI_EVENR1 ((uint32_t)0x00000002) /* Event Mask on line 1 */
+#define EXTI_EVENR2 ((uint32_t)0x00000004) /* Event Mask on line 2 */
+#define EXTI_EVENR3 ((uint32_t)0x00000008) /* Event Mask on line 3 */
+#define EXTI_EVENR4 ((uint32_t)0x00000010) /* Event Mask on line 4 */
+#define EXTI_EVENR5 ((uint32_t)0x00000020) /* Event Mask on line 5 */
+#define EXTI_EVENR6 ((uint32_t)0x00000040) /* Event Mask on line 6 */
+#define EXTI_EVENR7 ((uint32_t)0x00000080) /* Event Mask on line 7 */
+#define EXTI_EVENR8 ((uint32_t)0x00000100) /* Event Mask on line 8 */
+#define EXTI_EVENR9 ((uint32_t)0x00000200) /* Event Mask on line 9 */
+
+/******************  Bit definition for EXTI_RTENR register  *******************/
+#define EXTI_RTENR0 ((uint32_t)0x00000001) /* Rising trigger event configuration bit of line 0 */
+#define EXTI_RTENR1 ((uint32_t)0x00000002) /* Rising trigger event configuration bit of line 1 */
+#define EXTI_RTENR2 ((uint32_t)0x00000004) /* Rising trigger event configuration bit of line 2 */
+#define EXTI_RTENR3 ((uint32_t)0x00000008) /* Rising trigger event configuration bit of line 3 */
+#define EXTI_RTENR4 ((uint32_t)0x00000010) /* Rising trigger event configuration bit of line 4 */
+#define EXTI_RTENR5 ((uint32_t)0x00000020) /* Rising trigger event configuration bit of line 5 */
+#define EXTI_RTENR6 ((uint32_t)0x00000040) /* Rising trigger event configuration bit of line 6 */
+#define EXTI_RTENR7 ((uint32_t)0x00000080) /* Rising trigger event configuration bit of line 7 */
+#define EXTI_RTENR8 ((uint32_t)0x00000100) /* Rising trigger event configuration bit of line 8 */
+#define EXTI_RTENR9 ((uint32_t)0x00000200) /* Rising trigger event configuration bit of line 9 */
+
+/******************  Bit definition for EXTI_FTENR register  *******************/
+#define EXTI_FTENR0 ((uint32_t)0x00000001) /* Falling trigger event configuration bit of line 0 */
+#define EXTI_FTENR1 ((uint32_t)0x00000002) /* Falling trigger event configuration bit of line 1 */
+#define EXTI_FTENR2 ((uint32_t)0x00000004) /* Falling trigger event configuration bit of line 2 */
+#define EXTI_FTENR3 ((uint32_t)0x00000008) /* Falling trigger event configuration bit of line 3 */
+#define EXTI_FTENR4 ((uint32_t)0x00000010) /* Falling trigger event configuration bit of line 4 */
+#define EXTI_FTENR5 ((uint32_t)0x00000020) /* Falling trigger event configuration bit of line 5 */
+#define EXTI_FTENR6 ((uint32_t)0x00000040) /* Falling trigger event configuration bit of line 6 */
+#define EXTI_FTENR7 ((uint32_t)0x00000080) /* Falling trigger event configuration bit of line 7 */
+#define EXTI_FTENR8 ((uint32_t)0x00000100) /* Falling trigger event configuration bit of line 8 */
+#define EXTI_FTENR9 ((uint32_t)0x00000200) /* Falling trigger event configuration bit of line 9 */
+
+/******************  Bit definition for EXTI_SWIEVR register  ******************/
+#define EXTI_SWIEVR0 ((uint32_t)0x00000001) /* Software Interrupt on line 0 */
+#define EXTI_SWIEVR1 ((uint32_t)0x00000002) /* Software Interrupt on line 1 */
+#define EXTI_SWIEVR2 ((uint32_t)0x00000004) /* Software Interrupt on line 2 */
+#define EXTI_SWIEVR3 ((uint32_t)0x00000008) /* Software Interrupt on line 3 */
+#define EXTI_SWIEVR4 ((uint32_t)0x00000010) /* Software Interrupt on line 4 */
+#define EXTI_SWIEVR5 ((uint32_t)0x00000020) /* Software Interrupt on line 5 */
+#define EXTI_SWIEVR6 ((uint32_t)0x00000040) /* Software Interrupt on line 6 */
+#define EXTI_SWIEVR7 ((uint32_t)0x00000080) /* Software Interrupt on line 7 */
+#define EXTI_SWIEVR8 ((uint32_t)0x00000100) /* Software Interrupt on line 8 */
+#define EXTI_SWIEVR9 ((uint32_t)0x00000200) /* Software Interrupt on line 9 */
+
+/*******************  Bit definition for EXTI_INTFR register  ********************/
+#define EXTI_INTF0 ((uint32_t)0x00000001) /* Pending bit for line 0 */
+#define EXTI_INTF1 ((uint32_t)0x00000002) /* Pending bit for line 1 */
+#define EXTI_INTF2 ((uint32_t)0x00000004) /* Pending bit for line 2 */
+#define EXTI_INTF3 ((uint32_t)0x00000008) /* Pending bit for line 3 */
+#define EXTI_INTF4 ((uint32_t)0x00000010) /* Pending bit for line 4 */
+#define EXTI_INTF5 ((uint32_t)0x00000020) /* Pending bit for line 5 */
+#define EXTI_INTF6 ((uint32_t)0x00000040) /* Pending bit for line 6 */
+#define EXTI_INTF7 ((uint32_t)0x00000080) /* Pending bit for line 7 */
+#define EXTI_INTF8 ((uint32_t)0x00000100) /* Pending bit for line 8 */
+#define EXTI_INTF9 ((uint32_t)0x00000200) /* Pending bit for line 9 */
 
 //------------------------------------------------------------------------------
 

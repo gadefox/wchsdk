@@ -23,8 +23,8 @@
 
 //------------------------------------------------------------------------------
 
-#define CONCAT_BASE(A, B)  A##B##_BASE
-#define EXP_BASE(A, B)     CONCAT_BASE(A, B)
+#define CONCAT_BASE(a, b)  a##b##_BASE
+#define EXP_BASE(a, b)     CONCAT_BASE(a, b)
 
 //------------------------------------------------------------------------------
 

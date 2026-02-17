@@ -2,11 +2,14 @@
 
 #if SYS_INIT
 
+#include <stdbool.h>
+
 #include "wch/hw/flash.h"
 #include "wch/hw/rcc.h"
 
 #include "wch/sys/def.h"
 #include "wch/sys/init.h"
+#include "wch/sys/stk.h"
 #include "wch/sys/util.h"
 
 //------------------------------------------------------------------------------
@@ -42,10 +45,8 @@ static inline bool sys_init_xtal(void) {
   RCC->CTLR = RCC_HSEON | CLKSEC | BYPASS;
 
   // Wait for HSE ready with timeout (~50ms @ 24MHz)
-  if (!wait_mask(&RCC->CTLR, RCC_HSERDY, true, ms_to_stk(50))) {
-    RCC->CTLR &= ~RCC_HSEON;
+  if (!wait_mask(&RCC->CTLR, RCC_HSERDY, true, ms_to_stk(50)))
     return false;
-  }
 
 #if SYS_PLL
   RCC->CFGR0 = RCC_PLLSRC_HSE_MUL2 | RCC_SW_HSE;

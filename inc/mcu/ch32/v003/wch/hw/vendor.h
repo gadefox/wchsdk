@@ -8,21 +8,18 @@
 
 #ifdef __ASSEMBLER__
 
-#define INFO_BASE  0x1FFFF704
-#define CFG0_BASE  0x1FFFF7D4
-#define ESIG_BASE  0x1FFFF7E0
+#define CHIPID_BASE  0x1FFFF704
+#define CFG0_BASE    0x1FFFF7D4
+#define ESIG_BASE    0x1FFFF7E0
 
 //------------------------------------------------------------------------------
 
-#define INFO_CHIPID  0
-#define INFO_REVID   0  /* Lower 16 bits of CHIPID */
-#define INFO_DEVID   2  /* Upper 16 bits of CHIPID */
+#define CHIPID_REVID   0
+#define CHIPID_DEVID   2
 
 //------------------------------------------------------------------------------
 
 #define ESIG_FLACAP  0
-#define ESIG_RES1    2
-#define ESIG_RES2    4
 #define ESIG_UNIID1  8
 #define ESIG_UNIID2  12
 #define ESIG_UNIID3  16
@@ -31,33 +28,28 @@
 
 //------------------------------------------------------------------------------
 
-#define INFO_BASE  ((uint32_t)0x1FFFF704)
-#define CFG0_BASE  ((uint32_t)0x1FFFF7D4)
-#define ESIG_BASE  ((uint32_t)0x1FFFF7E0)
+#define CHIPID_BASE  ((uint32_t)0x1FFFF704)
+#define CFG0_BASE    ((uint32_t)0x1FFFF7D4)
+#define ESIG_BASE    ((uint32_t)0x1FFFF7E0)
 
 //------------------------------------------------------------------------------
 
 typedef struct {
-  union {
-    __I uint32_t CHIPID;
-    struct {
-      __I uint16_t REVID;
-      __I uint16_t DEVID;
-    };
-  };
-} info_t;
+  __I uint16_t REVID;  /* Lower 16 bits of CHIPID */
+  __I uint16_t DEVID;  /* Upper 16 bits of CHIPID */
+} chipid_t;
 
-#define INFO  ((info_t *)INFO_BASE)
+#define CHIPID  ((chipid_t *)CHIPID_BASE)
 
 //------------------------------------------------------------------------------
 
 typedef struct {
-  __IO uint16_t FLACAP;
-  __IO uint16_t RES1;
-  __IO uint32_t RES2;
-  __IO uint32_t UNIID1;
-  __IO uint32_t UNIID2;
-  __IO uint32_t UNIID3;
+  __I uint16_t FLACAP;      /* Flash capacity register */
+      uint16_t RESERVED0;
+      uint32_t RESERVED1;
+  __I uint32_t UNIID1;      /* UID register 1 */
+  __I uint32_t UNIID2;      /* UID register 2 */
+  __I uint32_t UNIID3;      /* UID register 3 */
 } esig_t;
 
 #define ESIG  ((esig_t *)ESIG_BASE)
