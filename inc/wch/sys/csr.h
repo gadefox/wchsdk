@@ -1,4 +1,4 @@
-#if SYS_CSR
+#if SYS_CORE
 
 #pragma once
 
@@ -229,4 +229,4 @@ static inline void csr_write_intsyscr(intsyscr_t value) {
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_CSR */
+#endif  /* SYS_CORE */

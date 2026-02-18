@@ -55,8 +55,8 @@ bool i2c_get(uint8_t* out);
 
 static inline uint16_t i2c_scl_to_ccr(uint32_t freq_scl) {
   if (freq_scl <= 100000)  // 100 kHz
-    return (SYS_BASE_FREQ / 2 / freq_scl) & I2C_CKCFGR_CCR;
-  return ((SYS_BASE_FREQ / 3 / freq_scl) & I2C_CKCFGR_CCR) | I2C_CKCFGR_FS; }
+    return (PCLK1 / 2 / freq_scl) & I2C_CKCFGR_CCR;
+  return ((PCLK1 / 3 / freq_scl) & I2C_CKCFGR_CCR) | I2C_CKCFGR_FS; }
 
 //------------------------------------------------------------------------------
 

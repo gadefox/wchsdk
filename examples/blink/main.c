@@ -3,9 +3,9 @@
 #include "wch/sys/stk.h"
 #include "wch/io/pin.h"
 
-#define PIN_R  0
-#define PIN_G  4
-#define PIN_B  0
+#define PIN_R  PD0
+#define PIN_G  PD4
+#define PIN_B  PC0
 
 void set_pins(bool set) {
   if (set) {

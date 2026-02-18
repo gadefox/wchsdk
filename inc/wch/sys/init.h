@@ -1,4 +1,4 @@
-#if SYS_INIT
+#if SYS_CORE
 
 #pragma once
 
@@ -8,4 +8,4 @@ void sys_init(void);
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_INIT */
+#endif  /* SYS_CORE */

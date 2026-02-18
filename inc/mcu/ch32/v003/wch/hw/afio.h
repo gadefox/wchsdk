@@ -33,10 +33,10 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /******************  Bit definition for AFIO_PCFR1register  *******************/
-#define AFIO_PCFR1_SPI1_REMAP     ((uint32_t)0x00000001) /* SPI1 remapping */
-#define AFIO_PCFR1_I2C1_REMAP     ((uint32_t)0x00000002) /* I2C1 remapping */
-#define AFIO_PCFR1_USART1_REMAP   ((uint32_t)0x00000004) /* USART1 remapping */
-#define AFIO_PCFR1_USART1_REMAP_1 ((uint32_t)0x00200000) /* USART1 remapping higher bit */
+#define AFIO_PCFR1_SPI1_REMAP    ((uint32_t)0x00000001) /* SPI1 remapping */
+#define AFIO_PCFR1_I2C1_REMAP    ((uint32_t)0x00000002) /* I2C1 remapping */
+#define AFIO_PCFR1_UART1_REMAP   ((uint32_t)0x00000004) /* UART1 remapping */
+#define AFIO_PCFR1_UART1_REMAP_1 ((uint32_t)0x00200000) /* UART1 remapping higher bit */
 
 #define AFIO_PCFR1_TIM1_REMAP               ((uint32_t)0x000000C0) /* TIM1_REMAP[1:0] bits (TIM1 remapping) */
 #define AFIO_PCFR1_TIM1_REMAP_0             ((uint32_t)0x00000040) /* Bit 0 */

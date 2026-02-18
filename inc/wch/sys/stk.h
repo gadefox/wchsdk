@@ -1,7 +1,8 @@
-#if SYS_STK
+#if SYS_CORE
 
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #include "wch/hw/stk.h"
@@ -23,12 +24,24 @@
 #define ms_to_stk(n) ((n) * STK_MS)
 #define us_to_stk(n) ((n) * STK_US)
 
-#define stk_elapsed(deadline)  (time_elapsed(STK->CNT, deadline) >= 0)
-
 //------------------------------------------------------------------------------
 
+static inline uint32_t stk_get_count(void) {
+  return STK->CNTL; }
+
+#if SYS_STK_CNTH
+static inline uint32_t stk_get_count_high(void) {
+  return STK->CNTH; }
+#endif  /* SYS_STK_CNTH */
+ 
+//------------------------------------------------------------------------------
+
+static inline bool stk_elapsed(uint32_t deadline) {
+  uint32_t now = stk_get_count();
+  return time_elapsed(now, deadline) >= 0; }
+
 static inline void stk_delay(uint32_t ticks) {
-  uint32_t deadline = STK->CNT + ticks;
+  uint32_t deadline = stk_get_count() + ticks;
   while (!stk_elapsed(deadline)); }
 
 static inline void delay_ms(uint32_t ms) {
@@ -57,4 +70,4 @@ uint64_t stk_get64(void);
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_STK */
+#endif  /* SYS_CORE */

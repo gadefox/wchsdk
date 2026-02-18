@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #include "wch/hw/base.h"
 #include "wch/hw/def.h"
 

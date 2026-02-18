@@ -92,7 +92,7 @@ static inline void pfic_set_priority(irq_t irq, uint8_t priority) {
 // Specifying an invalid irq_to_keep like 0 will disable all interrupts.
 
 static inline uint32_t pfic_get_enabled_irqs() {
-  return ((PFIC->ISR[0] & (PFIC1_I2 | PFIC1_I3)) >> 2) |
+  return ((PFIC->ISR[0] & (PFIC1_ISR2 | PFIC1_ISR3)) >> 2) |
           (PFIC->ISR[0] >> 10) | (PFIC->ISR[1] << 22); }
 
 //------------------------------------------------------------------------------

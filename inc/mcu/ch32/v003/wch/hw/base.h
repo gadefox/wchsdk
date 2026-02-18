@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 /* Peripheral memory map */
 #ifdef __ASSEMBLER__
 

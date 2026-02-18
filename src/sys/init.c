@@ -1,6 +1,6 @@
 #include "wchsdk_cfg.h"
 
-#if SYS_INIT
+#if SYS_CORE
 
 #include <stdbool.h>
 
@@ -17,9 +17,7 @@
 static inline void sys_init_flash(void) {
   // Flash latency settings.
 #if SYSCLK > 25000000
-  FLASH->ACTLR = FLASH_ACTLR_LATENCY_1; // +1 Cycle Latency
-#else
-  FLASH->ACTLR = FLASH_ACTLR_LATENCY_0; // +0 Cycle Latency
+  FLASH->ACTLR = FLASH_ACTLR_LATENCY1; // +1 Cycle Latency
 #endif  /* SYSCLK */
 }
 
@@ -115,4 +113,4 @@ void sys_init(void) {
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_INIT */
+#endif  /* SYS_CORE */

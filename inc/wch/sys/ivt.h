@@ -1,4 +1,4 @@
-#if SYS_IVT
+#if SYS_CORE
 
 #pragma once
 
@@ -9,4 +9,4 @@ void ivt_entry(void);
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_IVT */
+#endif  /* SYS_CORE */

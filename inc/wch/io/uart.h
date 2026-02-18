@@ -25,7 +25,7 @@
 //------------------------------------------------------------------------------
 // Baud
 
-#define UART_BAUD_TO_BRR(b)  ((SYS_FREQ + ((b) / 2)) / (b))
+#define UART_BAUD_TO_BRR(b)  ((SYSCLK + ((b) / 2)) / (b))
 
 //------------------------------------------------------------------------------
 
@@ -56,63 +56,63 @@ void uart_printnl(const char *s);
 
 //------------------------------------------------------------------------------
 static inline void uart_set_baud(uint32_t baud) {
-  USART1->BRR = UART_BAUD_TO_BRR(baud); }
+  UART1->BRR = UART_BAUD_TO_BRR(baud); }
 
 //------------------------------------------------------------------------------
 
 static inline bool uart_is_tx_empty(void) {
-  return USART1->STATR & USART_STATR_TXE; }
+  return UART1->STATR & UART_STATR_TXE; }
 
 static inline bool uart_is_rx_ready(void) {
-  return USART1->STATR & USART_STATR_RXNE; }
+  return UART1->STATR & UART_STATR_RXNE; }
 
 //------------------------------------------------------------------------------
 
 static inline void uart_disable_txe(void) {
-  USART1->CTLR1 &= ~USART_CTLR1_TXEIE; }
+  UART1->CTLR1 &= ~UART_CTLR1_TXEIE; }
 
 static inline void uart_enable_txe(void) {
-  USART1->CTLR1 |= USART_CTLR1_TXEIE; }
+  UART1->CTLR1 |= UART_CTLR1_TXEIE; }
 
 static inline void uart_disable_idle(void) {
-  USART1->CTLR1 &= ~USART_CTLR1_IDLEIE; }
+  UART1->CTLR1 &= ~UART_CTLR1_IDLEIE; }
 
 static inline void uart_enable_idle(void) {
-  USART1->CTLR1 |= USART_CTLR1_IDLEIE; }
+  UART1->CTLR1 |= UART_CTLR1_IDLEIE; }
 
 //------------------------------------------------------------------------------
 
 static inline void uart_enable(void) {
-  USART1->CTLR1 |= CTLR1_UE_SET; }
+  UART1->CTLR1 |= CTLR1_UE_SET; }
 
 static inline void uart_disable(void) {
-  USART1->CTLR1 &= CTLR1_UE_RESET; }
+  UART1->CTLR1 &= CTLR1_UE_RESET; }
 
 static inline void uart_power_on(void) {
-  RCC->APB2PCENR |= RCC_USART1EN; }
+  RCC->APB2PCENR |= RCC_UART1EN; }
 
 static inline void uart_power_off(void) {
-  RCC->APB2PCENR &= ~RCC_USART1EN; }
+  RCC->APB2PCENR &= ~RCC_UART1EN; }
 
 static inline void uart_reset(void) {
-  RCC->APB2PRSTR |= RCC_USART1RST;
-  RCC->APB2PRSTR &= ~RCC_USART1RST; }
+  RCC->APB2PRSTR |= RCC_UART1RST;
+  RCC->APB2PRSTR &= ~RCC_UART1RST; }
 
 //------------------------------------------------------------------------------
 
-static inline void usart_remap(uint32_t pcfr) {
-  AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_USART1_REMAP |
-      AFIO_PCFR1_USART1_REMAP_1);
+static inline void uart_remap(uint32_t pcfr) {
+  AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_UART1_REMAP |
+      AFIO_PCFR1_UART1_REMAP_1);
   AFIO->PCFR1 |= pcfr; }
 
 //------------------------------------------------------------------------------
 // PFIC
 
 static inline void uart_enable_irq(void) {
-  pfic_enable_irq(IRQ_USART1); }
+  pfic_enable_irq(IRQ_UART1); }
 
 static inline void uart_disable_irq(void) {
-  pfic_disable_irq(IRQ_USART1); }
+  pfic_disable_irq(IRQ_UART1); }
 
 //------------------------------------------------------------------------------
 

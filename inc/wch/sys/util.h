@@ -1,4 +1,4 @@
-#if SYS_UTIL
+#if SYS_CORE
 
 #pragma once
 
@@ -24,4 +24,4 @@ bool wait_mask2(__IO uint16_t *statr1, __IO uint16_t *statr2, uint32_t mask,
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_UTIL */
+#endif  /* SYS_CORE */

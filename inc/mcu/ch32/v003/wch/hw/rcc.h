@@ -185,11 +185,11 @@ typedef struct {
 #define RCC_MCO1      ((uint32_t)0x02000000) /* Bit 1 */
 #define RCC_MCO2      ((uint32_t)0x04000000) /* Bit 2 */
 
-#define RCC_MCO_NOCLOCK      ((uint32_t)0x00000000) /* No clock */
-#define RCC_CFGR0_MCO_SYSCLK ((uint32_t)0x04000000) /* System clock selected as MCO source */
-#define RCC_CFGR0_MCO_HSI    ((uint32_t)0x05000000) /* HSI clock selected as MCO source */
-#define RCC_CFGR0_MCO_HSE    ((uint32_t)0x06000000) /* HSE clock selected as MCO source  */
-#define RCC_CFGR0_MCO_PLL    ((uint32_t)0x07000000) /* PLL clock divided by 2 selected as MCO source */
+#define RCC_CFGR0_MCO_NOCLOCK ((uint32_t)0x00000000) /* No clock */
+#define RCC_CFGR0_MCO_SYSCLK  ((uint32_t)0x04000000) /* System clock selected as MCO source */
+#define RCC_CFGR0_MCO_HSI     ((uint32_t)0x05000000) /* HSI clock selected as MCO source */
+#define RCC_CFGR0_MCO_HSE     ((uint32_t)0x06000000) /* HSE clock selected as MCO source  */
+#define RCC_CFGR0_MCO_PLL     ((uint32_t)0x07000000) /* PLL clock divided by 2 selected as MCO source */
 
 /*******************  Bit definition for RCC_INTR register  ********************/
 #define RCC_LSIRDYF  ((uint32_t)0x00000001) /* LSI Ready Interrupt flag */
@@ -219,7 +219,7 @@ typedef struct {
 
 #define RCC_TIM1RST   ((uint32_t)0x00000800) /* TIM1 Timer reset */
 #define RCC_SPI1RST   ((uint32_t)0x00001000) /* SPI 1 reset */
-#define RCC_USART1RST ((uint32_t)0x00004000) /* USART1 reset */
+#define RCC_UART1RST  ((uint32_t)0x00004000) /* UART1 reset */
 
 #define RCC_IOPERST ((uint32_t)0x00000040) /* I/O port E reset */
 
@@ -227,7 +227,7 @@ typedef struct {
 #define RCC_TIM2RST   ((uint32_t)0x00000001) /* Timer 2 reset */
 #define RCC_TIM3RST   ((uint32_t)0x00000002) /* Timer 3 reset */
 #define RCC_WWDGRST   ((uint32_t)0x00000800) /* Window Watchdog reset */
-#define RCC_USART2RST ((uint32_t)0x00020000) /* USART 2 reset */
+#define RCC_UART2RST  ((uint32_t)0x00020000) /* UART 2 reset */
 #define RCC_I2C1RST   ((uint32_t)0x00200000) /* I2C 1 reset */
 
 #define RCC_CAN1RST ((uint32_t)0x02000000) /* CAN1 reset */
@@ -237,7 +237,7 @@ typedef struct {
 
 #define RCC_TIM4RST   ((uint32_t)0x00000004) /* Timer 4 reset */
 #define RCC_SPI2RST   ((uint32_t)0x00004000) /* SPI 2 reset */
-#define RCC_USART3RST ((uint32_t)0x00040000) /* USART 3 reset */
+#define RCC_UART3RST  ((uint32_t)0x00040000) /* UART 3 reset */
 #define RCC_I2C2RST   ((uint32_t)0x00400000) /* I2C 2 reset */
 
 #define RCC_USBRST ((uint32_t)0x00800000) /* USB Device reset */
@@ -261,16 +261,16 @@ typedef struct {
 
 #define RCC_ADC2EN ((uint32_t)0x00000400) /* ADC 2 interface clock enable */
 
-#define RCC_TIM1EN   ((uint32_t)0x00000800) /* TIM1 Timer clock enable */
-#define RCC_SPI1EN   ((uint32_t)0x00001000) /* SPI 1 clock enable */
-#define RCC_USART1EN ((uint32_t)0x00004000) /* USART1 clock enable */
+#define RCC_TIM1EN  ((uint32_t)0x00000800) /* TIM1 Timer clock enable */
+#define RCC_SPI1EN  ((uint32_t)0x00001000) /* SPI 1 clock enable */
+#define RCC_UART1EN ((uint32_t)0x00004000) /* UART1 clock enable */
 
 /*****************  Bit definition for RCC_APB1PCENR register  ******************/
-#define RCC_TIM2EN   ((uint32_t)0x00000001) /* Timer 2 clock enabled*/
-#define RCC_TIM3EN   ((uint32_t)0x00000002) /* Timer 3 clock enable */
-#define RCC_WWDGEN   ((uint32_t)0x00000800) /* Window Watchdog clock enable */
-#define RCC_USART2EN ((uint32_t)0x00020000) /* USART 2 clock enable */
-#define RCC_I2C1EN   ((uint32_t)0x00200000) /* I2C 1 clock enable */
+#define RCC_TIM2EN  ((uint32_t)0x00000001) /* Timer 2 clock enabled*/
+#define RCC_TIM3EN  ((uint32_t)0x00000002) /* Timer 3 clock enable */
+#define RCC_WWDGEN  ((uint32_t)0x00000800) /* Window Watchdog clock enable */
+#define RCC_UART2EN ((uint32_t)0x00020000) /* UART 2 clock enable */
+#define RCC_I2C1EN  ((uint32_t)0x00200000) /* I2C 1 clock enable */
 
 #define RCC_BKPEN ((uint32_t)0x08000000) /* Backup interface clock enable */
 #define RCC_PWREN ((uint32_t)0x10000000) /* Power interface clock enable */
@@ -345,14 +345,14 @@ typedef struct {
 #define RCC_AHBPERIPH_SRAM ((uint32_t)0x00000004)
 
 /* APB2_peripheral */
-#define RCC_APB2PERIPH_AFIO   ((uint32_t)0x00000001)
-#define RCC_APB2PERIPH_GPIOA  ((uint32_t)0x00000004)
-#define RCC_APB2PERIPH_GPIOC  ((uint32_t)0x00000010)
-#define RCC_APB2PERIPH_GPIOD  ((uint32_t)0x00000020)
-#define RCC_APB2PERIPH_ADC1   ((uint32_t)0x00000200)
-#define RCC_APB2PERIPH_TIM1   ((uint32_t)0x00000800)
-#define RCC_APB2PERIPH_SPI1   ((uint32_t)0x00001000)
-#define RCC_APB2PERIPH_USART1 ((uint32_t)0x00004000)
+#define RCC_APB2PERIPH_AFIO  ((uint32_t)0x00000001)
+#define RCC_APB2PERIPH_GPIOA ((uint32_t)0x00000004)
+#define RCC_APB2PERIPH_GPIOC ((uint32_t)0x00000010)
+#define RCC_APB2PERIPH_GPIOD ((uint32_t)0x00000020)
+#define RCC_APB2PERIPH_ADC1  ((uint32_t)0x00000200)
+#define RCC_APB2PERIPH_TIM1  ((uint32_t)0x00000800)
+#define RCC_APB2PERIPH_SPI1  ((uint32_t)0x00001000)
+#define RCC_APB2PERIPH_UART1 ((uint32_t)0x00004000)
 
 /* APB1_peripheral */
 #define RCC_APB1PERIPH_TIM2 ((uint32_t)0x00000001)

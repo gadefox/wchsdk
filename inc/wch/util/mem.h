@@ -1,4 +1,4 @@
-#if UTIL_MEM
+#if SYS_CORE
 
 #pragma once
 
@@ -32,4 +32,4 @@ void *memmove(void *dst, const void *src, size_t n);
 
 //------------------------------------------------------------------------------
 
-#endif  /* UTIL_MEM */
+#endif  /* SYS_CORE */

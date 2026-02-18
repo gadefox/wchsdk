@@ -1,15 +1,9 @@
-#if SYS_IRQ
+#if SYS_CORE
 
 #pragma once
 
 #include <stdint.h>
 #include "wch/sys/csr.h"
-
-//------------------------------------------------------------------------------
-
-#if !SYS_CSR
-#error "IRQ requires SYS_CSR = 1"
-#endif  /* SYS_CSR */
 
 //------------------------------------------------------------------------------
 // Enable Global Interrupt
@@ -213,16 +207,16 @@ void isr_spi2(void);
 void isr_spi3(void);
 
 //------------------------------------------------------------------------------
-// USART handlers
+// UART handlers
 
-void isr_usart1(void);
-void isr_usart2(void);
-void isr_usart3(void);
-void isr_usart4(void);
-void isr_usart5(void);
-void isr_usart6(void);
-void isr_usart7(void);
-void isr_usart8(void);
+void isr_uart1(void);
+void isr_uart2(void);
+void isr_uart3(void);
+void isr_uart4(void);
+void isr_uart5(void);
+void isr_uart6(void);
+void isr_uart7(void);
+void isr_uart8(void);
 
 //------------------------------------------------------------------------------
 // Other peripheral handlers
@@ -243,4 +237,4 @@ void isr_cmp_wake_up(void);
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_IRQ */
+#endif  /* SYS_CORE */

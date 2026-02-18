@@ -78,7 +78,7 @@ void spi_init(spi_config_t* c) {
   SPI1->CTLR1 |= SPI_NSS_HARD | SPI_CTLR2_SSOE | SPI_MODE_MASTER;
 
   // Set prescaler; NSS hardware control mode; pull NSS high; MCU is master
-  uint8_t prescaler = freq_to_prescaler(c->freq, SPI_BAUDRATE_PRESCALER_256);
+  uint8_t prescaler = freq_to_prescaler(c->freq, SPI_BAUDRATE_PRESCALER256);
   SPI1->CTLR1 |= prescaler;
 
   // Set data direction and configure data pins

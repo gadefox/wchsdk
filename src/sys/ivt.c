@@ -1,6 +1,6 @@
 #include "wchsdk_cfg.h"
 
-#if SYS_IVT
+#if SYS_CORE
 
 #include "wch/hw/irq.h"
 #include "wch/hw/stk.h"
@@ -10,16 +10,6 @@
 #include "wch/sys/stk.h"
 
 #include "wch/util/mem.h"
-
-//------------------------------------------------------------------------------
-
-#if !SYS_CSR
-#error "startup requires SYS_CSR = 1"
-#endif  /* SYS_CSR */
-
-#if !SYS_IRQ
-#error "startup requires SYS_IRQ = 1"
-#endif  /* SYS_IRQ */
 
 //------------------------------------------------------------------------------
 
@@ -89,4 +79,4 @@ void ivt_entry(void) {
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_IVT */
+#endif  /* SYS_CORE */

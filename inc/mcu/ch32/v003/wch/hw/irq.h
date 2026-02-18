@@ -29,7 +29,7 @@ typedef enum {
   IRQ_ADC            = 29, /* ADC global Interrupt                          */
   IRQ_I2C1_EV        = 30, /* I2C1 Event Interrupt                          */
   IRQ_I2C1_ER        = 31, /* I2C1 Error Interrupt                          */
-  IRQ_USART1         = 32, /* USART1 global Interrupt                       */
+  IRQ_UART1          = 32, /* UART1 global Interrupt                        */
   IRQ_SPI1           = 33, /* SPI1 global Interrupt                         */
   IRQ_TIM1_BRK       = 34, /* TIM1 Break Interrupt                          */
   IRQ_TIM1_UP        = 35, /* TIM1 Update Interrupt                         */
@@ -75,7 +75,7 @@ typedef enum {
   .word   isr_adc1                     /* ADC1 */                          \n\
   .word   isr_i2c1_ev                  /* I2C1 Event */                    \n\
   .word   isr_i2c1_er                  /* I2C1 Error */                    \n\
-  .word   isr_usart1                   /* USART1 */                        \n\
+  .word   isr_uart1                    /* UART1 */                         \n\
   .word   isr_spi1                     /* SPI1 */                          \n\
   .word   isr_tim1_brk                 /* TIM1 Break */                    \n\
   .word   isr_tim1_up                  /* TIM1 Update */                   \n\

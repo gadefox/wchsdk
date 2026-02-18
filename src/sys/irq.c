@@ -1,6 +1,6 @@
 #include "wchsdk_cfg.h"
 
-#if SYS_IRQ
+#if SYS_CORE
 
 #include "wch/hw/dbg.h"
 //#include "wch/hw/irq.h"
@@ -238,15 +238,15 @@ void isr_spi2(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, al
 void isr_spi3(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
 
 //------------------------------------------------------------------------------
-// USART handlers
-void isr_usart1(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart2(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart3(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart4(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart5(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart6(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart7(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_usart8(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+// UART handlers
+void isr_uart1(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart2(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart3(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart4(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart5(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart6(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart7(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_uart8(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
 
 //------------------------------------------------------------------------------
 // Other peripheral handlers
@@ -266,4 +266,4 @@ void isr_cmp_wake_up(void)  __attribute__((section(ISR_SECTION))) __attribute((w
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_IRQ */
+#endif  /* SYS_CORE */

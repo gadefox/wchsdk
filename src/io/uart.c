@@ -60,14 +60,14 @@ inline uint8_t uart_rx_snapshot(void) {
 // Called when UART RX IDLE line interrupt fires indicating new data ready
 
 __attribute__((interrupt))
-void irq_usart1(void) {
+void irq_uart1(void) {
 #ifdef IO_UART_USB_CDC
 
-  if (!(USART1->STATR & USART_STATR_IDLE))
+  if (!(UART1->STATR & UART_STATR_IDLE))
     return;
 
-  (void)USART1->STATR;  // Clear flags
-  (void)USART1->DATAR;
+  (void)UART1->STATR;  // Clear flags
+  (void)UART1->DATAR;
 
   // Update head according to DMA count, get number of new bytes
   uint8_t new_bytes = uart_rx_snapshot();
@@ -93,7 +93,7 @@ void irq_usart1(void) {
 
   uint8_t data;
   if (ring_get(&tx_ring, &data))
-    USART1->DATAR = data;  // Send next byte
+    UART1->DATAR = data;  // Send next byte
   else
     uart_disable_txe();
 
@@ -147,17 +147,17 @@ void uart_init(uart_config_t* c) {
 
 #ifdef IO_UART_USB_CDC
   // TX DMA setup (USB -> UART)
-  dma_init_mem2periph(DMA1_CHANNEL6, IRQ_DMA1_CHANNEL6, (void*)&USART1->DATAR);
+  dma_init_mem2periph(DMA1_CHANNEL6, IRQ_DMA1_CHANNEL6, (void*)&UART1->DATAR);
 #endif  /* IOE_UART_USB_CDC */
   
   // RX DMA setup (UART -> USB)
-  dma_init_periph2mem(DMA1_CHANNEL7, (void*)&USART1->DATAR, rx_ring.buf, rx_ring.size);
+  dma_init_periph2mem(DMA1_CHANNEL7, (void*)&UART1->DATAR, rx_ring.buf, rx_ring.size);
 
   // Set CTLR registers
-  USART1->CTLR1 = USART_WORDLENGTH_8B | USART_PARITY_NO | USART_MODE_TX |
-                  USART_MODE_RX;                     // 8bit, no parity, rx/tx uart
-  USART1->CTLR2 = USART_STOPBITS_1;                  // 1 stop bit
-  USART1->CTLR3 = USART_DMAREQ_TX | USART_DMAREQ_RX; // enable dma requests both ways
+  UART1->CTLR1 = UART_WORDLENGTH_8B | UART_PARITY_NO | UART_MODE_TX |
+                 UART_MODE_RX;                     // 8bit, no parity, rx/tx uart
+  UART1->CTLR2 = UART_STOPBITS1;                   // 1 stop bit
+  UART1->CTLR3 = UART_DMAREQ_TX | UART_DMAREQ_RX; // enable dma requests both ways
 
   // Set the Baudrate, assuming 48KHz
   uart_set_baud(c->baud);

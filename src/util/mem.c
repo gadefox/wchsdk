@@ -1,6 +1,6 @@
 #include "wchsdk_cfg.h"
 
-#if UTIL_MEM
+#if SYS_CORE
 
 #include <stdint.h>
 #include "wch/util/mem.h"
@@ -347,4 +347,4 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 //------------------------------------------------------------------------------
 
-#endif  /* UTIL_MEM */
+#endif  /* SYS_CORE */

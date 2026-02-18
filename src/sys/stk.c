@@ -7,11 +7,11 @@
 //------------------------------------------------------------------------------
 
 uint64_t stk_get64(void) {
-  uint32_t base = STK->CNT;
+  uint32_t base = stk_get_count();
 
 #if SYS_STK_CNTH
-  uint32_t high = STK->CNTH;
-  uint32_t check = STK->CNT;
+  uint32_t high = stg_get_count_high();
+  uint32_t check = stk_get_count();
 
   // If and only if check is higher than base can we guarantee high is
   // valid and matches the check else we need a new high.
