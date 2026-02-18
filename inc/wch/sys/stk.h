@@ -3,7 +3,6 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
 
 #include "wch/hw/stk.h"
 #include "wch/sys/def.h"
@@ -29,10 +28,12 @@
 static inline uint32_t stk_get_count(void) {
   return STK->CNTL; }
 
-#if SYS_STK_CNTH
+//------------------------------------------------------------------------------
+
+#if STK_CNTH
 static inline uint32_t stk_get_count_high(void) {
   return STK->CNTH; }
-#endif  /* SYS_STK_CNTH */
+#endif  /* STK_CNTH */
  
 //------------------------------------------------------------------------------
 

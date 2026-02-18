@@ -13,10 +13,6 @@
 #error "Encoder requires SYS_EXTI = 1"
 #endif  /* SYS_EXTI */
 
-#if !SYS_STK
-#error "Encoder requires SYS_STK = 1"
-#endif  /* SYS_STK */
-
 //------------------------------------------------------------------------------
 
 #define IO_ENC_STATE(a, b)  (((a) << 7) | ((b) << 6))
@@ -43,7 +39,7 @@ void encoder_update(encoder_t* e, bool level_a, bool level_b) {
     state |= dir << 4;
 
     // Update timestamp
-    uint32_t now = STK->CNT;
+    uint32_t now = stk_get_count();
     uint32_t tdiff = time_elapsed(now, e->timestamp);
     e->timestamp = now;
 

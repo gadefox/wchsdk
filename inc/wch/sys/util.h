@@ -3,8 +3,6 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
-
 #include "wch/hw/def.h"
 
 //------------------------------------------------------------------------------

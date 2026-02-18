@@ -14,10 +14,6 @@
 #error "pool requires UTIL_LL = 1"
 #endif  /* UTIL_LL */
 
-#if !UTIL_SLOT
-#error "pool requires UTIL_SLOT = 1"
-#endif  /* UTIL_SLOT */
-
 //------------------------------------------------------------------------------
 
 typedef struct {

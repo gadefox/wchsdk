@@ -8,11 +8,11 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
 
 #include "wch/hw/afio.h"
 #include "wch/hw/rcc.h"
 #include "wch/hw/uart.h"
+
 #include "wch/sys/def.h"
 #include "wch/sys/pfic.h"
 

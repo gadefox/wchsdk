@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <stdint.h>
-
 #include "wch/hw/dma.h"
 #include "wch/hw/rcc.h"
 

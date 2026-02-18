@@ -8,12 +8,12 @@
 
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
 
 #include "wch/hw/afio.h"
 #include "wch/hw/i2c.h"
 #include "wch/hw/rcc.h"
+
 #include "wch/sys/def.h"
 #include "wch/sys/pfic.h"
 #include "wch/sys/util.h"
@@ -23,10 +23,6 @@
 #if !SYS_PFIC
 #error "I2C requires SYS_PFIC = 1"
 #endif  /* SYS_PFIC */
-
-#if !SYS_UTIL
-#error "I2C requires SYS_UTIL = 1"
-#endif  /* SYS_UTIL */
 
 //------------------------------------------------------------------------------
 

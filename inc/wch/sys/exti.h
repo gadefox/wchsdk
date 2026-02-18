@@ -6,6 +6,7 @@
 #include "wch/hw/exti.h"
 #include "wch/hw/irq.h"
 #include "wch/hw/rcc.h"
+
 #include "wch/sys/pfic.h"
 
 //------------------------------------------------------------------------------
@@ -63,15 +64,11 @@ static inline void exti_clear(uint32_t mask) {
 #define EXTI_PORTC(l)  EXTI_CFG(l, EXTI_GPIOC)
 #define EXTI_PORTD(l)  EXTI_CFG(l, EXTI_GPIOD)
 
-static inline void exti_clear_map(uint32_t mask) {
+static inline void exti_mask_map(uint32_t mask) {
   AFIO->EXTICR &= ~mask; }
 
 static inline void exti_set_map(uint32_t cfg) {
   AFIO->EXTICR |= cfg; }
-
-static inline void exti_map(uint32_t cfg, uint32_t mask) {
-  exti_clear_map(mask);
-  exti_set_map(cfg); }
 
 //------------------------------------------------------------------------------
 // SW Trigger

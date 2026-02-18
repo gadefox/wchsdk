@@ -3,7 +3,6 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
 
 #include "wch/hw/irq.h"
 #include "wch/hw/pfic.h"

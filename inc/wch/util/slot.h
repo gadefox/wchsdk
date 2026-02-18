@@ -1,4 +1,4 @@
-#if UTIL_SLOT
+#if UTIL_POOL
 
 #pragma once
 
@@ -42,4 +42,4 @@ static inline void slot_init(slot_t *slot, uint8_t pool) {
 
 //------------------------------------------------------------------------------
 
-#endif  /* UTIL_SLOT */
+#endif  /* UTIL_POOL */

@@ -9,11 +9,11 @@
 
 void set_pins(bool set) {
   if (set) {
-    port_set(GPIOD, BITS(PIN_R) | BITS(PIN_G));
-    pin_set(GPIOC, PIN_B);
+    port_set(GPIOD, PIN_BIT(PIN_R) | PIN_BIT(PIN_G));
+    pin_set(PIN_B);
   } else {
-    port_reset(GPIOD, BITS(PIN_R) | BITS(PIN_G));
-    pin_reset(GPIOC, PIN_B);
+    port_reset(GPIOD, PIN_BIT(PIN_R) | PIN_BIT(PIN_G));
+    pin_reset(PIN_B);
   }
 
   delay_ms(250);
@@ -23,11 +23,13 @@ int main(void) {
   sys_init();
 
   // Enable GPIOs
-  port_power_on(PORTC | PORTD);
+  port_power_on(RCC_IOPCEN | RCC_IOPDEN);
 
   // Set pins to output mode
-  port_cfg(GPIOC, PIN_PP10(PIN_R), PIN_MASK(PIN_R));
-  port_cfg(GPIOD, PIN_PP10(PIN_G) | PIN_PP10(PIN_B), PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
+  pin_set_mode(PIN_R, GPIO_CFGO_PP10);
+
+  port_mask_cfg(GPIOD, PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
+  port_set_cfg(GPIOD, PIN_PP10(PIN_G) | PIN_PP10(PIN_B));
 
   while (true) {
     set_pins(true);

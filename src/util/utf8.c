@@ -3,7 +3,6 @@
 #if UTIL_UTF8
 
 #include "wch/hw/def.h"
-#include "wch/util/def.h"
 #include "wch/util/utf8.h"
 
 //------------------------------------------------------------------------------

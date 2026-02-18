@@ -33,6 +33,14 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
+/* MASK */
+#define DBGAFR_POS_MASK ((uint32_t)0x000F0000)
+#define DBGAFR_SDI_MASK ((uint32_t)0xF8FFFFFF)
+#define DBGAFR_LOC_MASK ((uint32_t)0x00200000)
+#define DBGAFR_NUM_MASK ((uint32_t)0x00100000)
+
+//------------------------------------------------------------------------------
+
 /*
  * This file contains various parts of the official WCH EVT Headers which
  * were originally under a restrictive license.

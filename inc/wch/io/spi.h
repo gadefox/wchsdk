@@ -9,11 +9,11 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
 
 #include "wch/hw/afio.h"
 #include "wch/hw/rcc.h"
 #include "wch/hw/spi.h"
+
 #include "wch/sys/pfic.h"
 #include "wch/sys/util.h"
 
@@ -22,10 +22,6 @@
 #if !SYS_PFIC
 #error "SPI requires SYS_PFIC = 1"
 #endif  /* SYS_PFIC */
-
-#if !SYS_UTIL
-#error "SPI requires SYS_UTIL = 1"
-#endif  /* SYS_UTIL */
 
 //------------------------------------------------------------------------------
 

@@ -10,11 +10,6 @@
 
 //------------------------------------------------------------------------------
 
-#if !UTIL_MEM
-#error "snprintf requires UTIL_MEM = 1"
-#endif  /* UTIL_MEM */
-
-
 #if !UTIL_STR
 #error "format requires UTIL_STR = 1"
 #endif  /* UTIL_STR */

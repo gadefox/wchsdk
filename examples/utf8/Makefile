@@ -1,4 +1,4 @@
-TARGET := mem
+TARGET := utf8
 WCHSDK_MCU := ch32/v003
 include wchsdk/makefile
 

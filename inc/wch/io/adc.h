@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include <stdint.h>
-
 #include "wch/hw/adc.h"
 #include "wch/hw/rcc.h"
 

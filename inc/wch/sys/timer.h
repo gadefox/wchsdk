@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <stdint.h>
-
 #include "wch/hw/rcc.h"
 #include "wch/hw/tim.h"
 

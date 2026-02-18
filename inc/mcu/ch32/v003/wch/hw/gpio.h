@@ -49,66 +49,27 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 typedef enum {
-  PORTA = 0,
-  PORTC = 2,
-  PORTD = 3,
-  PORT_MAX = 4
-} port_t;
+  GPIO_PORTA = 0,
+  GPIO_PORTC = 2,
+  GPIO_PORTD = 3,
+  GPIO_PORT_MAX = 4
+} gpio_port_id_t;
 
 typedef struct {
-  gpio_port_t ports[PORT_MAX];
+  gpio_port_t ports[GPIO_PORT_MAX];
 } gpio_t;
 
 #define GPIO  ((gpio_t *)GPIO_BASE)
 
 //------------------------------------------------------------------------------
-
-#define PIN(port, pin) ((uint8_t)(((port) << 4) | ((pin) & 0xF)))
-#define PIN_PORT(p)    ((port_t)((p) >> 4))
-#define PIN_NUM(p)     ((p) & 0xF)
-
-typedef enum {
-  PA0 = GPIO_PIN(GPIO_PORTA, 0),  /* 0 */
-  PA1 = GPIO_PIN(GPIO_PORTA, 1),  /* 1 */
-  PA2 = GPIO_PIN(GPIO_PORTA, 2),  /* 2 */
-  PA3 = GPIO_PIN(GPIO_PORTA, 3),  /* 3 */
-  PA4 = GPIO_PIN(GPIO_PORTA, 4),  /* 4 */
-  PA5 = GPIO_PIN(GPIO_PORTA, 5),  /* 5 */
-  PA6 = GPIO_PIN(GPIO_PORTA, 6),  /* 6 */
-  PA7 = GPIO_PIN(GPIO_PORTA, 7)   /* 7 */
-} pina_t;
-
-typedef enum {
-  PC0 = GPIO_PIN(GPIO_PORTC, 0),  /* 32 */
-  PC1 = GPIO_PIN(GPIO_PORTC, 1),  /* 33 */
-  PC2 = GPIO_PIN(GPIO_PORTC, 2),  /* 34 */
-  PC3 = GPIO_PIN(GPIO_PORTC, 3),  /* 35 */
-  PC4 = GPIO_PIN(GPIO_PORTC, 4),  /* 36 */
-  PC5 = GPIO_PIN(GPIO_PORTC, 5),  /* 37 */
-  PC6 = GPIO_PIN(GPIO_PORTC, 6),  /* 38 */
-  PC7 = GPIO_PIN(GPIO_PORTC, 7)   /* 39 */
-} pinc_t;
-
-typedef enum {
-  PD0 = GPIO_PIN(GPIO_PORTD, 0),  /* 48 */
-  PD1 = GPIO_PIN(GPIO_PORTD, 1),  /* 49 */
-  PD2 = GPIO_PIN(GPIO_PORTD, 2),  /* 50 */
-  PD3 = GPIO_PIN(GPIO_PORTD, 3),  /* 51 */
-  PD4 = GPIO_PIN(GPIO_PORTD, 4),  /* 52 */
-  PD5 = GPIO_PIN(GPIO_PORTD, 5),  /* 53 */
-  PD6 = GPIO_PIN(GPIO_PORTD, 6),  /* 54 */
-  PD7 = GPIO_PIN(GPIO_PORTD, 7)   /* 55 */
-} pind_t;
-
-//------------------------------------------------------------------------------
 // Configuration Mode enumeration
 
 typedef enum {
-  GPIO_MODE_IN     = 0b00,
-  GPIO_MODE_OUT2   = 0b10,  // 2 MHz
-  GPIO_MODE_OUT10  = 0b01,  // 10 MHz
-  GPIO_MODE_OUT30  = 0b11   // 30 MHz
-} gpio_mode_t;
+  GPIO_DIR_IN     = 0b00,
+  GPIO_DIR_OUT2   = 0b10,  // 2 MHz
+  GPIO_DIR_OUT10  = 0b01,  // 10 MHz
+  GPIO_DIR_OUT30  = 0b11   // 30 MHz
+} gpio_dir_t;
 
 typedef enum {
   GPIO_CNFI_ANALOG = 0b00 << 2,
@@ -124,50 +85,50 @@ typedef enum {
 
 typedef enum {
   // Input mode
-  GPIO_CFGI_ANALOG = GPIO_MODE_IN | GPIO_CNFI_ANALOG,
-  GPIO_CFGI_FLOAT  = GPIO_MODE_IN | GPIO_CNFI_FLOAT,
-  GPIO_CFGI_PUPD   = GPIO_MODE_IN | GPIO_CNFI_PUPD,
+  GPIO_CFGI_ANALOG = GPIO_DIR_IN | GPIO_CNFI_ANALOG,
+  GPIO_CFGI_FLOAT  = GPIO_DIR_IN | GPIO_CNFI_FLOAT,
+  GPIO_CFGI_PUPD   = GPIO_DIR_IN | GPIO_CNFI_PUPD,
 
   // Output mode: push-pull
-  GPIO_CFGO_PP2  = GPIO_MODE_OUT2 | GPIO_CNFO_PP,
-  GPIO_CFGO_PP10 = GPIO_MODE_OUT10 | GPIO_CNFO_PP,
-  GPIO_CFGO_PP30 = GPIO_MODE_OUT30 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP2  = GPIO_DIR_OUT2 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP10 = GPIO_DIR_OUT10 | GPIO_CNFO_PP,
+  GPIO_CFGO_PP30 = GPIO_DIR_OUT30 | GPIO_CNFO_PP,
 
   // Output mode: open-drain
-  GPIO_CFGO_OD2  = GPIO_MODE_OUT2 | GPIO_CNFO_OD,
-  GPIO_CFGO_OD10 = GPIO_MODE_OUT10 | GPIO_CNFO_OD,
-  GPIO_CFGO_OD30 = GPIO_MODE_OUT30 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD2  = GPIO_DIR_OUT2 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD10 = GPIO_DIR_OUT10 | GPIO_CNFO_OD,
+  GPIO_CFGO_OD30 = GPIO_DIR_OUT30 | GPIO_CNFO_OD,
 
   // Output mode: multiplexed function push-pull
-  GPIO_CFGO_MP2  = GPIO_MODE_OUT2 |  GPIO_CNFO_PP | GPIO_CNFO_MUX,
-  GPIO_CFGO_MP10 = GPIO_MODE_OUT10 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
-  GPIO_CFGO_MP30 = GPIO_MODE_OUT30 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP2  = GPIO_DIR_OUT2 |  GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP10 = GPIO_DIR_OUT10 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_CFGO_MP30 = GPIO_DIR_OUT30 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
   
   // Output mode: multiplexed function open-drain
-  GPIO_CFGO_MD2  = GPIO_MODE_OUT2 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
-  GPIO_CFGO_MD10 = GPIO_MODE_OUT10 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
-  GPIO_CFGO_MD30 = GPIO_MODE_OUT30 | GPIO_CNFO_OD | GPIO_CNFO_MUX
-} gpio_mode_cnf_t;
+  GPIO_CFGO_MD2  = GPIO_DIR_OUT2 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
+  GPIO_CFGO_MD10 = GPIO_DIR_OUT10 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
+  GPIO_CFGO_MD30 = GPIO_DIR_OUT30 | GPIO_CNFO_OD | GPIO_CNFO_MUX
+} gpio_cfg_t;
 
 //------------------------------------------------------------------------------
 
 typedef union {
   uint32_t __FULL;
   struct {
-    gpio_mode_cnf_t PIN0 : 4;
-    gpio_mode_cnf_t PIN1 : 4;
-    gpio_mode_cnf_t PIN2 : 4;
-    gpio_mode_cnf_t PIN3 : 4;
-    gpio_mode_cnf_t PIN4 : 4;
-    gpio_mode_cnf_t PIN5 : 4;
-    gpio_mode_cnf_t PIN6 : 4;
-    gpio_mode_cnf_t PIN7 : 4;
+    gpio_cfg_t PIN0 : 4;
+    gpio_cfg_t PIN1 : 4;
+    gpio_cfg_t PIN2 : 4;
+    gpio_cfg_t PIN3 : 4;
+    gpio_cfg_t PIN4 : 4;
+    gpio_cfg_t PIN5 : 4;
+    gpio_cfg_t PIN6 : 4;
+    gpio_cfg_t PIN7 : 4;
   };
-} gpio_cfg_t;
+} gpio_cfglr_t;
 
-#define GPIOA_CFG  ((__IO gpio_cfg_t *)&GPIOA->CFGLR)
-#define GPIOC_CFG  ((__IO gpio_cfg_t *)&GPIOC->CFGLR)
-#define GPIOD_CFG  ((__IO gpio_cfg_t *)&GPIOD->CFGLR)
+#define GPIOA_CFG  ((__IO gpio_cfglr_t *)&GPIOA->CFGLR)
+#define GPIOC_CFG  ((__IO gpio_cfglr_t *)&GPIOC->CFGLR)
+#define GPIOD_CFG  ((__IO gpio_cfglr_t *)&GPIOD->CFGLR)
 
 //------------------------------------------------------------------------------
 
@@ -300,13 +261,6 @@ typedef union {
 
 #define GPIO_PIN_ALL ((uint32_t)0x000000FF) /* All pins selected */
 
-/* MASK */
-#define LSB_MASK             ((uint16_t)0xFFFF)
-#define DBGAFR_POSITION_MASK ((uint32_t)0x000F0000)
-#define DBGAFR_SDI_MASK      ((uint32_t)0xF8FFFFFF)
-#define DBGAFR_LOCATION_MASK ((uint32_t)0x00200000)
-#define DBGAFR_NUMBITS_MASK  ((uint32_t)0x00100000)
-
 /*******************  Bit definition for GPIO_CFGLR register  *******************/
 #define GPIO_CFGLR_MODE ((uint32_t)0x33333333) /* Port x mode bits */
 
@@ -397,16 +351,16 @@ typedef union {
 #define GPIO_PARTIALREMAP_I2C1   ((uint32_t)0x10000002) /* I2C1 Partial Alternate Function mapping */
 #define GPIO_FULLREMAP_I2C1      ((uint32_t)0x10400002) /* I2C1 Full Alternate Function mapping */
 
-#define GPIO_PARTIALREMAP1_UART1 ((uint32_t)0x80000004) /* UART1 Partial1 Alternate Function mapping */
-#define GPIO_PARTIALREMAP2_UART1 ((uint32_t)0x80200000) /* UART1 Partial2 Alternate Function mapping */
+#define GPIO_PARTREMAP1_UART1    ((uint32_t)0x80000004) /* UART1 Partial1 Alternate Function mapping */
+#define GPIO_PARTREMAP2_UART1    ((uint32_t)0x80200000) /* UART1 Partial2 Alternate Function mapping */
 #define GPIO_FULLREMAP_UART1     ((uint32_t)0x80200004) /* UART1 Full Alternate Function mapping */
 
-#define GPIO_PARTIALREMAP1_TIM1  ((uint32_t)0x00160040) /* TIM1 Partial1 Alternate Function mapping */
-#define GPIO_PARTIALREMAP2_TIM1  ((uint32_t)0x00160080) /* TIM1 Partial2 Alternate Function mapping */
+#define GPIO_PARTREMAP1_TIM1     ((uint32_t)0x00160040) /* TIM1 Partial1 Alternate Function mapping */
+#define GPIO_PARTREMAP2_TIM1     ((uint32_t)0x00160080) /* TIM1 Partial2 Alternate Function mapping */
 #define GPIO_FULLREMAP_TIM1      ((uint32_t)0x001600C0) /* TIM1 Full Alternate Function mapping */
 
-#define GPIO_PARTIALREMAP1_TIM2  ((uint32_t)0x00180100) /* TIM2 Partial1 Alternate Function mapping */
-#define GPIO_PARTIALREMAP2_TIM2  ((uint32_t)0x00180200) /* TIM2 Partial2 Alternate Function mapping */
+#define GPIO_PARTREMAP1_TIM2     ((uint32_t)0x00180100) /* TIM2 Partial1 Alternate Function mapping */
+#define GPIO_PARTREMAP2_TIM2     ((uint32_t)0x00180200) /* TIM2 Partial2 Alternate Function mapping */
 #define GPIO_FULLREMAP_TIM2      ((uint32_t)0x00180300) /* TIM2 Full Alternate Function mapping */
 
 #define GPIO_REMAP_PA1_2         ((uint32_t)0x00008000) /* PA1 and PA2 Alternate Function mapping */

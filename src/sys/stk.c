@@ -1,6 +1,6 @@
 #include "wchsdk_cfg.h"
 
-#if SYS_STK
+#if SYS_CORE
 
 #include "wch/sys/stk.h"
 
@@ -9,7 +9,7 @@
 uint64_t stk_get64(void) {
   uint32_t base = stk_get_count();
 
-#if SYS_STK_CNTH
+#if STK_CNTH
   uint32_t high = stg_get_count_high();
   uint32_t check = stk_get_count();
 
@@ -19,7 +19,7 @@ uint64_t stk_get64(void) {
     high = STK->CNTH;
 
   return PACK64(check, high);
-#else  /* !SYS_STK_CNTH */
+#else  /* !HW_STK_CNTH */
 
   static uint32_t last_base, high;
   if (last_base > base)
@@ -28,9 +28,9 @@ uint64_t stk_get64(void) {
   last_base = base;
   return PACK64(base, high);
 
-#endif  /* SYS_STK_CNTH */
+#endif  /* STK_CNTH */
 }
 
 //------------------------------------------------------------------------------
 
-#endif  /* SYS_STK */
+#endif  /* SYS_CORE */
