@@ -41,6 +41,8 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
+#define OB_RDPR_KEY ((uint8_t)0xA5)
+
 /* Option_Bytes_IWatchdog */
 #define OB_IWDG_SW ((uint16_t)0x0001) /* Software IWDG selected */
 #define OB_IWDG_HW ((uint16_t)0x0000) /* Hardware IWDG selected */

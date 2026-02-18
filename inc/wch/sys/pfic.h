@@ -23,16 +23,14 @@ static inline uint32_t pfic_irq_mask(irq_t irq) {
 
 static inline void pfic_enable_irq(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  PFIC->IENR[num] = mask; }
+  PFIC->IENR[num] = pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Disable Interrupt (by interrupt number)
 
 static inline void pfic_disable_irq(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  PFIC->IRER[num] = mask; }
+  PFIC->IRER[num] = pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 
@@ -42,39 +40,34 @@ void pfic_disable_irqs_except(irq_t irq);
 // Get Interrupt Enable State, (by number)
 static inline uint32_t pfic_is_irq_enabled(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  return PFIC->ISR[num] & mask; }
+  return PFIC->ISR[num] & pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Pending State, (by number), 1 = Pending 0 = Not pending
 
 static inline uint32_t pfic_is_irq_pending(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  return PFIC->IPR[num] & mask; }
+  return PFIC->IPR[num] & pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 
 static inline void pfic_set_pending_irq(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  PFIC->IPSR[num] = mask; }
+  PFIC->IPSR[num] = pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Clear Interrupt Pending
 
 static inline void pfic_clear_pending_irq(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  PFIC->IPRR[num] = mask; }
+  PFIC->IPRR[num] = pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Get Interrupt Active State (returns 1 if active)
 
 static inline uint32_t pfic_get_active(irq_t irq) {
   uint8_t num = pfic_reg_num(irq);
-  uint32_t mask = pfic_irq_mask(irq);
-  return PFIC->IACTR[num] & mask; }
+  return PFIC->IACTR[num] & pfic_irq_mask(irq); }
 
 //------------------------------------------------------------------------------
 // Set Interrupt Priority (priority: bit7: pre-emption priority, bit6: subpriority, bit[5-0]: reserved
@@ -99,7 +92,7 @@ static inline void pfic_set_priority(irq_t irq, uint8_t priority) {
 // Specifying an invalid irq_to_keep like 0 will disable all interrupts.
 
 static inline uint32_t pfic_get_enabled_irqs() {
-  return ((PFIC->ISR[0] & (PFIC_ISR1_INTENSTA2 | PFIC_ISR1_INTENSTA3)) >> 2) |
+  return ((PFIC->ISR[0] & (PFIC1_I2 | PFIC1_I3)) >> 2) |
           (PFIC->ISR[0] >> 10) | (PFIC->ISR[1] << 22); }
 
 //------------------------------------------------------------------------------

@@ -35,7 +35,8 @@ typedef enum {
   IRQ_TIM1_UP        = 35, /* TIM1 Update Interrupt                         */
   IRQ_TIM1_TRG       = 36, /* TIM1 Trigger and Commutation Interrupt        */
   IRQ_TIM1_CC        = 37, /* TIM1 Capture Compare Interrupt                */
-  IRQ_TIM2           = 38  /* TIM2 global Interrupt                         */
+  IRQ_TIM2           = 38, /* TIM2 global Interrupt                         */
+  IRQ_MAX            = 39
 } irq_t;
 
 #define IVT_DEFAULT  "\n\
