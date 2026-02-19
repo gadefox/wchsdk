@@ -40,14 +40,14 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /*******************  Bit definition for STK_CTLR register  *******************/
-#define STK_CTLR_STE    ((uint32_t)0x00000001) /* System counter enable */
-#define STK_CTLR_STIE   ((uint32_t)0x00000002) /* Counter interrupt enable */
-#define STK_CTLR_STCLK  ((uint32_t)0x00000004) /* Counter clock source (1=HCLK, 0=HCLK/8) */
-#define STK_CTLR_STRE   ((uint32_t)0x00000008) /* Auto-reload enable */
-#define STK_CTLR_SWIER  ((uint32_t)0x80000000) /* Software interrupt trigger enable */
+#define STK_CTLR_STE    0x00000001 /* System counter enable */
+#define STK_CTLR_STIE   0x00000002 /* Counter interrupt enable */
+#define STK_CTLR_STCLK  0x00000004 /* Counter clock source (1=HCLK, 0=HCLK/8) */
+#define STK_CTLR_STRE   0x00000008 /* Auto-reload enable */
+#define STK_CTLR_SWIER  0x80000000 /* Software interrupt trigger enable */
 
 /*******************  Bit definition for STK_SR register  *******************/
-#define STK_SR_CNTIF  ((uint32_t)0x00000001) /* Counting value comparison flag (write 0 to clear) */
+#define STK_SR_CNTIF  0x00000001 /* Counting value comparison flag (write 0 to clear) */
 
 //------------------------------------------------------------------------------
 

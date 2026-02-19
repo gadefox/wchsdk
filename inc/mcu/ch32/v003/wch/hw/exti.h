@@ -53,23 +53,23 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /* GPIO_Port */
-#define EXTI_GPIOA  ((uint8_t)0x00)
-#define EXTI_GPIOC  ((uint8_t)0x02)
-#define EXTI_GPIOD  ((uint8_t)0x03)
+#define EXTI_GPIOA  0x00
+#define EXTI_GPIOC  0x02
+#define EXTI_GPIOD  0x03
 
 /* EXTI_Lines */
-#define EXTI_NOLINE ((uint32_t)0x00000)  /* No interrupt selected */
+#define EXTI_NOLINE 0x00000  /* No interrupt selected */
 
-#define EXTI_LINE0 ((uint32_t)0x00001) /* External interrupt line 0 */
-#define EXTI_LINE1 ((uint32_t)0x00002) /* External interrupt line 1 */
-#define EXTI_LINE2 ((uint32_t)0x00004) /* External interrupt line 2 */
-#define EXTI_LINE3 ((uint32_t)0x00008) /* External interrupt line 3 */
-#define EXTI_LINE4 ((uint32_t)0x00010) /* External interrupt line 4 */
-#define EXTI_LINE5 ((uint32_t)0x00020) /* External interrupt line 5 */
-#define EXTI_LINE6 ((uint32_t)0x00040) /* External interrupt line 6 */
-#define EXTI_LINE7 ((uint32_t)0x00080) /* External interrupt line 7 */
-#define EXTI_LINE8 ((uint32_t)0x00100) /* External interrupt line 8 Connected to the PVD Output */
-#define EXTI_LINE9 ((uint32_t)0x00200) /* External interrupt line 9 Connected to the PWR Auto Wake-up event*/
+#define EXTI_LINE0 0x00001 /* External interrupt line 0 */
+#define EXTI_LINE1 0x00002 /* External interrupt line 1 */
+#define EXTI_LINE2 0x00004 /* External interrupt line 2 */
+#define EXTI_LINE3 0x00008 /* External interrupt line 3 */
+#define EXTI_LINE4 0x00010 /* External interrupt line 4 */
+#define EXTI_LINE5 0x00020 /* External interrupt line 5 */
+#define EXTI_LINE6 0x00040 /* External interrupt line 6 */
+#define EXTI_LINE7 0x00080 /* External interrupt line 7 */
+#define EXTI_LINE8 0x00100 /* External interrupt line 8 Connected to the PVD Output */
+#define EXTI_LINE9 0x00200 /* External interrupt line 9 Connected to the PWR Auto Wake-up event*/
 
 //------------------------------------------------------------------------------
 

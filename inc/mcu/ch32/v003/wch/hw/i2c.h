@@ -52,182 +52,182 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /* I2C_duty_cycle_in_fast_mode */
-#define I2C_DUTYCYCLE16_9 ((uint16_t)0x4000) /* I2C fast mode Tlow/Thigh = 16/9 */
-#define I2C_DUTYCYCLE2    ((uint16_t)0xBFFF) /* I2C fast mode Tlow/Thigh = 2 */
+#define I2C_DUTYCYCLE16_9 0x4000 /* I2C fast mode Tlow/Thigh = 16/9 */
+#define I2C_DUTYCYCLE2    0xBFFF /* I2C fast mode Tlow/Thigh = 2 */
 
 /* I2C_acknowledgement */
-#define I2C_ACK_EN  ((uint16_t)0x0400)
+#define I2C_ACK_EN  0x0400
 
 /* I2C_transfer_direction */
-#define I2C_DIR_TRANSMITTER ((uint8_t)0x00)
-#define I2C_DIR_RECEIVER    ((uint8_t)0x01)
+#define I2C_DIR_TRANSMITTER 0x00
+#define I2C_DIR_RECEIVER    0x01
 
 /* I2C_acknowledged_address */
-#define I2C_ACK_ADDR_7BIT  ((uint16_t)0x4000)
-#define I2C_ACK_ADDR_10BIT ((uint16_t)0xC000)
+#define I2C_ACK_ADDR_7BIT  0x4000
+#define I2C_ACK_ADDR_10BIT 0xC000
 
 /* I2C_PEC_position */
-#define I2C_PECPOS_NEXT ((uint16_t)0x0800)
-#define I2C_PECPOS_CUR  ((uint16_t)0xF7FF)
+#define I2C_PECPOS_NEXT 0x0800
+#define I2C_PECPOS_CUR  0xF7FF
 
 /* I2C_NACK_position */
-#define I2C_NACKPOS_NEXT ((uint16_t)0x0800)
-#define I2C_NACKPOS_CUR  ((uint16_t)0xF7FF)
+#define I2C_NACKPOS_NEXT 0x0800
+#define I2C_NACKPOS_CUR  0xF7FF
 
 /* I2C_interrupts_definition */
-#define I2C_IT_BUF ((uint16_t)0x0400)
-#define I2C_IT_EVT ((uint16_t)0x0200)
-#define I2C_IT_ERR ((uint16_t)0x0100)
+#define I2C_IT_BUF 0x0400
+#define I2C_IT_EVT 0x0200
+#define I2C_IT_ERR 0x0100
 
 /* I2C SPE mask */
-#define CTLR1_PE_SET   ((uint16_t)0x0001)
-#define CTLR1_PE_RESET ((uint16_t)0xFFFE)
+#define CTLR1_PE_SET   0x0001
+#define CTLR1_PE_RESET 0xFFFE
 
 /* I2C START mask */
-#define CTLR1_START_SET   ((uint16_t)0x0100)
-#define CTLR1_START_RESET ((uint16_t)0xFEFF)
+#define CTLR1_START_SET   0x0100
+#define CTLR1_START_RESET 0xFEFF
 
 /* I2C STOP mask */
-#define CTLR1_STOP_SET   ((uint16_t)0x0200)
-#define CTLR1_STOP_RESET ((uint16_t)0xFDFF)
+#define CTLR1_STOP_SET   0x0200
+#define CTLR1_STOP_RESET 0xFDFF
 
 /* I2C ACK mask */
-#define CTLR1_ACK_SET   ((uint16_t)0x0400)
-#define CTLR1_ACK_RESET ((uint16_t)0xFBFF)
+#define CTLR1_ACK_SET   0x0400
+#define CTLR1_ACK_RESET 0xFBFF
 
 /* I2C ENGC mask */
-#define CTLR1_ENGC_SET   ((uint16_t)0x0040)
-#define CTLR1_ENGC_RESET ((uint16_t)0xFFBF)
+#define CTLR1_ENGC_SET   0x0040
+#define CTLR1_ENGC_RESET 0xFFBF
 
 /* I2C SWRST mask */
-#define CTLR1_SWRST_SET   ((uint16_t)0x8000)
-#define CTLR1_SWRST_RESET ((uint16_t)0x7FFF)
+#define CTLR1_SWRST_SET   0x8000
+#define CTLR1_SWRST_RESET 0x7FFF
 
 /* I2C PEC mask */
-#define CTLR1_PEC_SET   ((uint16_t)0x1000)
-#define CTLR1_PEC_RESET ((uint16_t)0xEFFF)
+#define CTLR1_PEC_SET   0x1000
+#define CTLR1_PEC_RESET 0xEFFF
 
 /* I2C ENPEC mask */
-#define CTLR1_ENPEC_SET   ((uint16_t)0x0020)
-#define CTLR1_ENPEC_RESET ((uint16_t)0xFFDF)
+#define CTLR1_ENPEC_SET   0x0020
+#define CTLR1_ENPEC_RESET 0xFFDF
 
 /* I2C ENARP mask */
-#define CTLR1_ENARP_SET   ((uint16_t)0x0010)
-#define CTLR1_ENARP_RESET ((uint16_t)0xFFEF)
+#define CTLR1_ENARP_SET   0x0010
+#define CTLR1_ENARP_RESET 0xFFEF
 
 /* I2C NOSTRETCH mask */
-#define CTLR1_NOSTRETCH_SET   ((uint16_t)0x0080)
-#define CTLR1_NOSTRETCH_RESET ((uint16_t)0xFF7F)
+#define CTLR1_NOSTRETCH_SET   0x0080
+#define CTLR1_NOSTRETCH_RESET 0xFF7F
 
 /* I2C registers Masks */
 // NOTE:Overloaded Definition.
-#define I2C_CTLR1_CLEAR_MASK ((uint16_t)0xFBF5)
+#define I2C_CTLR1_CLEAR_MSK 0xFBF5
 
 /* I2C DMAEN mask */
-#define CTLR2_DMAEN_SET   ((uint16_t)0x0800)
-#define CTLR2_DMAEN_RESET ((uint16_t)0xF7FF)
+#define CTLR2_DMAEN_SET   0x0800
+#define CTLR2_DMAEN_RESET 0xF7FF
 
 /* I2C LAST mask */
-#define CTLR2_LAST_SET   ((uint16_t)0x1000)
-#define CTLR2_LAST_RESET ((uint16_t)0xEFFF)
+#define CTLR2_LAST_SET   0x1000
+#define CTLR2_LAST_RESET 0xEFFF
 
 /* I2C FREQ mask */
-#define CTLR2_FREQ_RESET ((uint16_t)0xFFC0)
+#define CTLR2_FREQ_RESET 0xFFC0
 
 /* I2C ADD0 mask */
-#define OADDR1_ADD0_SET   ((uint16_t)0x0001)
-#define OADDR1_ADD0_RESET ((uint16_t)0xFFFE)
+#define OADDR1_ADD0_SET   0x0001
+#define OADDR1_ADD0_RESET 0xFFFE
 
 /* I2C ENDUAL mask */
-#define OADDR2_ENDUAL_SET   ((uint16_t)0x0001)
-#define OADDR2_ENDUAL_RESET ((uint16_t)0xFFFE)
+#define OADDR2_ENDUAL_SET   0x0001
+#define OADDR2_ENDUAL_RESET 0xFFFE
 
 /* I2C ADD2 mask */
-#define OADDR2_ADD2_RESET ((uint16_t)0xFF01)
+#define OADDR2_ADD2_RESET 0xFF01
 
 /* I2C F/S mask */
-#define CKCFGR_FS_SET ((uint16_t)0x8000)
+#define CKCFGR_FS_SET 0x8000
 
 /* I2C CCR mask */
-#define CKCFGR_CCR_SET ((uint16_t)0x0FFF)
+#define CKCFGR_CCR_SET 0x0FFF
 
 /*******************  Bit definition for I2C_CTLR1 register  ********************/
-#define I2C_CTLR1_PE        ((uint16_t)0x0001) /* Peripheral Enable */
-#define I2C_CTLR1_ENPEC     ((uint16_t)0x0020) /* PEC Enable */
-#define I2C_CTLR1_ENGC      ((uint16_t)0x0040) /* General Call Enable */
-#define I2C_CTLR1_NOSTRETCH ((uint16_t)0x0080) /* Clock Stretching Disable (Slave mode) */
-#define I2C_CTLR1_START     ((uint16_t)0x0100) /* Start Generation */
-#define I2C_CTLR1_STOP      ((uint16_t)0x0200) /* Stop Generation */
-#define I2C_CTLR1_ACK       ((uint16_t)0x0400) /* Acknowledge Enable */
-#define I2C_CTLR1_POS       ((uint16_t)0x0800) /* Acknowledge/PEC Position (for data reception) */
-#define I2C_CTLR1_PEC       ((uint16_t)0x1000) /* Packet Error Checking */
-#define I2C_CTLR1_SWRST     ((uint16_t)0x8000) /* Software Reset */
+#define I2C_CTLR1_PE        0x0001 /* Peripheral Enable */
+#define I2C_CTLR1_ENPEC     0x0020 /* PEC Enable */
+#define I2C_CTLR1_ENGC      0x0040 /* General Call Enable */
+#define I2C_CTLR1_NOSTRETCH 0x0080 /* Clock Stretching Disable (Slave mode) */
+#define I2C_CTLR1_START     0x0100 /* Start Generation */
+#define I2C_CTLR1_STOP      0x0200 /* Stop Generation */
+#define I2C_CTLR1_ACK       0x0400 /* Acknowledge Enable */
+#define I2C_CTLR1_POS       0x0800 /* Acknowledge/PEC Position (for data reception) */
+#define I2C_CTLR1_PEC       0x1000 /* Packet Error Checking */
+#define I2C_CTLR1_SWRST     0x8000 /* Software Reset */
 
 /*******************  Bit definition for I2C_CTLR2 register  ********************/
-#define I2C_CTLR2_FREQ  ((uint16_t)0x003F) /* FREQ[5:0] bits (Peripheral Clock Frequency) */
-#define I2C_CTLR2_FREQ0 ((uint16_t)0x0001) /* Bit 0 */
-#define I2C_CTLR2_FREQ1 ((uint16_t)0x0002) /* Bit 1 */
-#define I2C_CTLR2_FREQ2 ((uint16_t)0x0004) /* Bit 2 */
-#define I2C_CTLR2_FREQ3 ((uint16_t)0x0008) /* Bit 3 */
-#define I2C_CTLR2_FREQ4 ((uint16_t)0x0010) /* Bit 4 */
-#define I2C_CTLR2_FREQ5 ((uint16_t)0x0020) /* Bit 5 */
+#define I2C_CTLR2_FREQ  0x003F /* FREQ[5:0] bits (Peripheral Clock Frequency) */
+#define I2C_CTLR2_FREQ0 0x0001 /* Bit 0 */
+#define I2C_CTLR2_FREQ1 0x0002 /* Bit 1 */
+#define I2C_CTLR2_FREQ2 0x0004 /* Bit 2 */
+#define I2C_CTLR2_FREQ3 0x0008 /* Bit 3 */
+#define I2C_CTLR2_FREQ4 0x0010 /* Bit 4 */
+#define I2C_CTLR2_FREQ5 0x0020 /* Bit 5 */
 
-#define I2C_CTLR2_ITERREN ((uint16_t)0x0100) /* Error Interrupt Enable */
-#define I2C_CTLR2_ITEVTEN ((uint16_t)0x0200) /* Event Interrupt Enable */
-#define I2C_CTLR2_ITBUFEN ((uint16_t)0x0400) /* Buffer Interrupt Enable */
-#define I2C_CTLR2_DMAEN   ((uint16_t)0x0800) /* DMA Requests Enable */
-#define I2C_CTLR2_LAST    ((uint16_t)0x1000) /* DMA Last Transfer */
+#define I2C_CTLR2_ITERREN 0x0100 /* Error Interrupt Enable */
+#define I2C_CTLR2_ITEVTEN 0x0200 /* Event Interrupt Enable */
+#define I2C_CTLR2_ITBUFEN 0x0400 /* Buffer Interrupt Enable */
+#define I2C_CTLR2_DMAEN   0x0800 /* DMA Requests Enable */
+#define I2C_CTLR2_LAST    0x1000 /* DMA Last Transfer */
 
 /*******************  Bit definition for I2C_OADDR1 register  *******************/
-#define I2C_OADDR1_ADD1_7 ((uint16_t)0x00FE) /* Interface Address */
-#define I2C_OADDR1_ADD8_9 ((uint16_t)0x0300) /* Interface Address */
+#define I2C_OADDR1_ADD1_7 0x00FE /* Interface Address */
+#define I2C_OADDR1_ADD8_9 0x0300 /* Interface Address */
 
-#define I2C_OADDR1_ADD0 ((uint16_t)0x0001) /* Bit 0 */
-#define I2C_OADDR1_ADD1 ((uint16_t)0x0002) /* Bit 1 */
-#define I2C_OADDR1_ADD2 ((uint16_t)0x0004) /* Bit 2 */
-#define I2C_OADDR1_ADD3 ((uint16_t)0x0008) /* Bit 3 */
-#define I2C_OADDR1_ADD4 ((uint16_t)0x0010) /* Bit 4 */
-#define I2C_OADDR1_ADD5 ((uint16_t)0x0020) /* Bit 5 */
-#define I2C_OADDR1_ADD6 ((uint16_t)0x0040) /* Bit 6 */
-#define I2C_OADDR1_ADD7 ((uint16_t)0x0080) /* Bit 7 */
-#define I2C_OADDR1_ADD8 ((uint16_t)0x0100) /* Bit 8 */
-#define I2C_OADDR1_ADD9 ((uint16_t)0x0200) /* Bit 9 */
+#define I2C_OADDR1_ADD0 0x0001 /* Bit 0 */
+#define I2C_OADDR1_ADD1 0x0002 /* Bit 1 */
+#define I2C_OADDR1_ADD2 0x0004 /* Bit 2 */
+#define I2C_OADDR1_ADD3 0x0008 /* Bit 3 */
+#define I2C_OADDR1_ADD4 0x0010 /* Bit 4 */
+#define I2C_OADDR1_ADD5 0x0020 /* Bit 5 */
+#define I2C_OADDR1_ADD6 0x0040 /* Bit 6 */
+#define I2C_OADDR1_ADD7 0x0080 /* Bit 7 */
+#define I2C_OADDR1_ADD8 0x0100 /* Bit 8 */
+#define I2C_OADDR1_ADD9 0x0200 /* Bit 9 */
 
-#define I2C_OADDR1_ADDMODE ((uint16_t)0x8000) /* Addressing Mode (Slave mode) */
+#define I2C_OADDR1_ADDMODE 0x8000 /* Addressing Mode (Slave mode) */
 
 /*******************  Bit definition for I2C_OADDR2 register  *******************/
-#define I2C_OADDR2_ENDUAL ((uint8_t)0x01) /* Dual addressing mode enable */
-#define I2C_OADDR2_ADD2   ((uint8_t)0xFE) /* Interface address */
+#define I2C_OADDR2_ENDUAL 0x01 /* Dual addressing mode enable */
+#define I2C_OADDR2_ADD2   0xFE /* Interface address */
 
 /********************  Bit definition for I2C_DATAR register  ********************/
-#define I2C_DR_DATAR ((uint8_t)0xFF) /* 8-bit Data Register */
+#define I2C_DR_DATAR 0xFF /* 8-bit Data Register */
 
 /*******************  Bit definition for I2C_STAR1 register  ********************/
-#define I2C_STAR1_SB     ((uint16_t)0x0001) /* Start Bit (Master mode) */
-#define I2C_STAR1_ADDR   ((uint16_t)0x0002) /* Address sent (master mode)/matched (slave mode) */
-#define I2C_STAR1_BTF    ((uint16_t)0x0004) /* Byte Transfer Finished */
-#define I2C_STAR1_ADD10  ((uint16_t)0x0008) /* 10-bit header sent (Master mode) */
-#define I2C_STAR1_STOPF  ((uint16_t)0x0010) /* Stop detection (Slave mode) */
-#define I2C_STAR1_RXNE   ((uint16_t)0x0040) /* Data Register not Empty (receivers) */
-#define I2C_STAR1_TXE    ((uint16_t)0x0080) /* Data Register Empty (transmitters) */
-#define I2C_STAR1_BERR   ((uint16_t)0x0100) /* Bus Error */
-#define I2C_STAR1_ARLO   ((uint16_t)0x0200) /* Arbitration Lost (master mode) */
-#define I2C_STAR1_AF     ((uint16_t)0x0400) /* Acknowledge Failure */
-#define I2C_STAR1_OVR    ((uint16_t)0x0800) /* Overrun/Underrun */
-#define I2C_STAR1_PECERR ((uint16_t)0x1000) /* PEC Error in reception */
+#define I2C_STAR1_SB     0x0001 /* Start Bit (Master mode) */
+#define I2C_STAR1_ADDR   0x0002 /* Address sent (master mode)/matched (slave mode) */
+#define I2C_STAR1_BTF    0x0004 /* Byte Transfer Finished */
+#define I2C_STAR1_ADD10  0x0008 /* 10-bit header sent (Master mode) */
+#define I2C_STAR1_STOPF  0x0010 /* Stop detection (Slave mode) */
+#define I2C_STAR1_RXNE   0x0040 /* Data Register not Empty (receivers) */
+#define I2C_STAR1_TXE    0x0080 /* Data Register Empty (transmitters) */
+#define I2C_STAR1_BERR   0x0100 /* Bus Error */
+#define I2C_STAR1_ARLO   0x0200 /* Arbitration Lost (master mode) */
+#define I2C_STAR1_AF     0x0400 /* Acknowledge Failure */
+#define I2C_STAR1_OVR    0x0800 /* Overrun/Underrun */
+#define I2C_STAR1_PECERR 0x1000 /* PEC Error in reception */
 
 /*******************  Bit definition for I2C_STAR2 register  ********************/
-#define I2C_STAR2_MSL     ((uint16_t)0x0001) /* Master/Slave */
-#define I2C_STAR2_BUSY    ((uint16_t)0x0002) /* Bus Busy */
-#define I2C_STAR2_TRA     ((uint16_t)0x0004) /* Transmitter/Receiver */
-#define I2C_STAR2_GENCALL ((uint16_t)0x0010) /* General Call Address (Slave mode) */
-#define I2C_STAR2_DUALF   ((uint16_t)0x0080) /* Dual Flag (Slave mode) */
-#define I2C_STAR2_PEC     ((uint16_t)0xFF00) /* Packet Error Checking Register */
+#define I2C_STAR2_MSL     0x0001 /* Master/Slave */
+#define I2C_STAR2_BUSY    0x0002 /* Bus Busy */
+#define I2C_STAR2_TRA     0x0004 /* Transmitter/Receiver */
+#define I2C_STAR2_GENCALL 0x0010 /* General Call Address (Slave mode) */
+#define I2C_STAR2_DUALF   0x0080 /* Dual Flag (Slave mode) */
+#define I2C_STAR2_PEC     0xFF00 /* Packet Error Checking Register */
 
 /*******************  Bit definition for I2C_CKCFGR register  ********************/
-#define I2C_CKCFGR_CCR  ((uint16_t)0x0FFF) /* Clock Control Register in Fast/Standard mode (Master mode) */
-#define I2C_CKCFGR_DUTY ((uint16_t)0x4000) /* Fast Mode Duty Cycle */
-#define I2C_CKCFGR_FS   ((uint16_t)0x8000) /* I2C Master Mode Selection */
+#define I2C_CKCFGR_CCR  0x0FFF /* Clock Control Register in Fast/Standard mode (Master mode) */
+#define I2C_CKCFGR_DUTY 0x4000 /* Fast Mode Duty Cycle */
+#define I2C_CKCFGR_FS   0x8000 /* I2C Master Mode Selection */
 
 //------------------------------------------------------------------------------
 // I2C Master Events (Events grouped in order of communication)
@@ -240,7 +240,7 @@ typedef struct {
 
 
 /* EVT5 */
-#define I2C_EVENT_MASTER_MODE_SELECT ((uint32_t)0x00030001) /* BUSY, MSL and SB flag */
+#define I2C_EVENT_MASTER_MODE_SELECT 0x00030001 /* BUSY, MSL and SB flag */
 
 //------------------------------------------------------------------------------
 // Address Acknowledge:
@@ -261,11 +261,11 @@ typedef struct {
 // (LSB). Then master should wait for event 6.
 
 /* EVT6 */
-#define I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED ((uint32_t)0x00070082) /* BUSY, MSL, ADDR, TXE and TRA flags */
-#define I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED    ((uint32_t)0x00030002) /* BUSY, MSL and ADDR flags */
+#define I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED 0x00070082 /* BUSY, MSL, ADDR, TXE and TRA flags */
+#define I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED    0x00030002 /* BUSY, MSL and ADDR flags */
 
 /* EVT9 */
-#define I2C_EVENT_MASTER_MODE_ADDRESS10 ((uint32_t)0x00030008) /* BUSY, MSL and ADD10 flags */
+#define I2C_EVENT_MASTER_MODE_ADDRESS10 0x00030008 /* BUSY, MSL and ADD10 flags */
 
 //------------------------------------------------------------------------------
 // Communication events:
@@ -292,13 +292,13 @@ typedef struct {
 
 /* Master Receive mode */
 /* EVT7 */
-#define I2C_EVENT_MASTER_BYTE_RECEIVED ((uint32_t)0x00030040) /* BUSY, MSL and RXNE flags */
+#define I2C_EVENT_MASTER_BYTE_RECEIVED 0x00030040 /* BUSY, MSL and RXNE flags */
 
 /* Master Transmitter mode*/
 /* EVT8 */
-#define I2C_EVENT_MASTER_BYTE_TRANSMITTING ((uint32_t)0x00070080) /* TRA, BUSY, MSL, TXE flags */
+#define I2C_EVENT_MASTER_BYTE_TRANSMITTING 0x00070080 /* TRA, BUSY, MSL, TXE flags */
 /* EVT8_2 */
-#define I2C_EVENT_MASTER_BYTE_TRANSMITTED ((uint32_t)0x00070084) /* TRA, BUSY, MSL, TXE and BTF flags */
+#define I2C_EVENT_MASTER_BYTE_TRANSMITTED 0x00070084 /* TRA, BUSY, MSL, TXE and BTF flags */
 
 //------------------------------------------------------------------------------
 // I2C Slave Events (Events grouped in order of communication)
@@ -324,15 +324,15 @@ typedef struct {
 
 /* EVT1 */
 /* a) Case of One Single Address managed by the slave */
-#define I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED    ((uint32_t)0x00020002) /* BUSY and ADDR flags */
-#define I2C_EVENT_SLAVE_TRANSMITTER_ADDRESS_MATCHED ((uint32_t)0x00060082) /* TRA, BUSY, TXE and ADDR flags */
+#define I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED    0x00020002 /* BUSY and ADDR flags */
+#define I2C_EVENT_SLAVE_TRANSMITTER_ADDRESS_MATCHED 0x00060082 /* TRA, BUSY, TXE and ADDR flags */
 
 /* b) Case of Dual address managed by the slave */
-#define I2C_EVENT_SLAVE_RECEIVER_SECONDADDRESS_MATCHED    ((uint32_t)0x00820000) /* DUALF and BUSY flags */
-#define I2C_EVENT_SLAVE_TRANSMITTER_SECONDADDRESS_MATCHED ((uint32_t)0x00860080) /* DUALF, TRA, BUSY and TXE flags */
+#define I2C_EVENT_SLAVE_RECEIVER_SECONDADDRESS_MATCHED    0x00820000 /* DUALF and BUSY flags */
+#define I2C_EVENT_SLAVE_TRANSMITTER_SECONDADDRESS_MATCHED 0x00860080 /* DUALF, TRA, BUSY and TXE flags */
 
 /* c) Case of General Call enabled for the slave */
-#define I2C_EVENT_SLAVE_GENERALCALLADDRESS_MATCHED ((uint32_t)0x00120000) /* GENCALL and BUSY flags */
+#define I2C_EVENT_SLAVE_GENERALCALLADDRESS_MATCHED 0x00120000 /* GENCALL and BUSY flags */
 
 //------------------------------------------------------------------------------
 // Communication events:
@@ -358,18 +358,18 @@ typedef struct {
 
 /* Slave Receiver mode */
 /* EVT2 */
-#define I2C_EVENT_SLAVE_BYTE_RECEIVED ((uint32_t)0x00020040) /* BUSY and RXNE flags */
+#define I2C_EVENT_SLAVE_BYTE_RECEIVED 0x00020040 /* BUSY and RXNE flags */
 
 /* EVT4  */
-#define I2C_EVENT_SLAVE_STOP_DETECTED ((uint32_t)0x00000010) /* STOPF flag */
+#define I2C_EVENT_SLAVE_STOP_DETECTED 0x00000010 /* STOPF flag */
 
 /* Slave Transmitter mode */
 /* EVT3 */
-#define I2C_EVENT_SLAVE_BYTE_TRANSMITTED  ((uint32_t)0x00060084) /* TRA, BUSY, TXE and BTF flags */
-#define I2C_EVENT_SLAVE_BYTE_TRANSMITTING ((uint32_t)0x00060080) /* TRA, BUSY and TXE flags */
+#define I2C_EVENT_SLAVE_BYTE_TRANSMITTED  0x00060084 /* TRA, BUSY, TXE and BTF flags */
+#define I2C_EVENT_SLAVE_BYTE_TRANSMITTING 0x00060080 /* TRA, BUSY and TXE flags */
 
 /*EVT3_2 */
-#define I2C_EVENT_SLAVE_ACK_FAILURE ((uint32_t)0x00000400) /* AF flag */
+#define I2C_EVENT_SLAVE_ACK_FAILURE 0x00000400 /* AF flag */
 
 //------------------------------------------------------------------------------
 

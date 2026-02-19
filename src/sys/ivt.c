@@ -7,6 +7,7 @@
 
 #include "wch/sys/csr.h"
 #include "wch/sys/ivt.h"
+#include "wch/sys/gpr.h"
 #include "wch/sys/stk.h"
 
 #include "wch/util/mem.h"
@@ -30,22 +31,19 @@ extern int main(void);
 
 __attribute((section(".text.reset"))) __attribute__((naked)) __attribute__((used))
 void reset_handler(void) {
-  asm volatile(
-   ".option push                        \n\
-    .option norelax                     \n\
-    la      gp, __global_pointer$       \n\
-    .option pop                         \n\
-    la      sp, _eusrstack              \n"
-    : : : "memory");
+  // Set stack and global pointer
+  gpr_init_gp();
+  gpr_init_sp();
 
   // Setup processor status and INTSYSCR.
 #if SYS_HPE
-  // Enabled nested and hw stack, since it's really good on the x035.
   csr_write_mstatus(MSTATUS_MIE | MSTATUS_MPIE | MSTATUS_MPP_M);
-  csr_write_intsyscr(INTSYSCR_INESTENMRW | INTSYSCR_HWSTKEN);
 #else
   csr_write_mstatus(MSTATUS_MPIE | MSTATUS_MPP_M);
 #endif  /* SYS_HPE */
+
+  // Enabled nested and hw stack.
+  csr_write_intsyscr(INTSYSCR_INEST | INTSYSCR_HWSTK);
 
   // Setup the interrupt vector
   csr_write_mtvec((uint32_t)ivt_entry | MTVEC_IVT | MTVEC_ABS);
@@ -59,7 +57,7 @@ void reset_handler(void) {
 
   // Set mepc to be main as the root app.
   csr_write_mepc((uint32_t)main);
-  assert();
+  mret();
 }
 
 //------------------------------------------------------------------------------

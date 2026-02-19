@@ -47,7 +47,7 @@ static inline bool sys_init_xtal(void) {
     return false;
 
 #if SYS_PLL
-  RCC->CFGR0 = RCC_PLLSRC_HSE_MUL2 | RCC_SW_HSE;
+  RCC->CFGR0 = RCC_PLLSRC | RCC_SW_HSE;
 #else
   RCC->CFGR0 = RCC_SW_HSE;
 #endif  /* SYS_PLL */
@@ -60,16 +60,12 @@ static inline bool sys_init_xtal(void) {
 
 static inline void sys_init_rc(void) {
   // Enable HSI with trim
-  RCC->CTLR = RCC_HSION | (SYS_HSI_TRIM << 3);
+  RCC->CTLR = RCC_HSION | (SYS_HSI_TRIM << RCC_HSITRIM_POS);
 
   // Wait for HSI ready (typically 1-2 µs, but safety first)
   while (!(RCC->CTLR & RCC_HSIRDY));
 
-#if SYS_PLL
-  RCC->CFGR0 = RCC_PLLSRC_HSI_MUL2 | RCC_HPRE_DIV1;
-#else
   RCC->CFGR0 = RCC_HPRE_DIV1;   // PLLCLK = HCLK = SYSCLK = APB1
-#endif  /* SYS_PLL */
 }
 
 //------------------------------------------------------------------------------

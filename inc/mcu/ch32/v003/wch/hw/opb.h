@@ -6,9 +6,9 @@
 /*                          Option Bytes Registers                            */
 /******************************************************************************/
 
-#ifdef __ASSEMBLER__
-
 #define OB_BASE  0x1FFFF800  /* Flash Option Bytes base address */
+
+#ifdef __ASSEMBLER__
 
 #define OB_RDPR   0
 #define OB_USER   2
@@ -22,8 +22,6 @@
 #else
 
 //------------------------------------------------------------------------------
-
-#define OB_BASE  ((uint32_t)0x1FFFF800) /* Flash Option Bytes base address */
 
 typedef struct {
   __IO uint16_t RDPR;
@@ -41,45 +39,45 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-#define OB_RDPR_KEY ((uint8_t)0xA5)
+#define OB_RDPR_KEY 0xA5
 
 /* Option_Bytes_IWatchdog */
-#define OB_IWDG_SW ((uint16_t)0x0001) /* Software IWDG selected */
-#define OB_IWDG_HW ((uint16_t)0x0000) /* Hardware IWDG selected */
+#define OB_IWDG_SW 0x0001 /* Software IWDG selected */
+#define OB_IWDG_HW 0x0000 /* Hardware IWDG selected */
 
 /* Option_Bytes_nRST_STOP */
-#define OB_STOP_NORST ((uint16_t)0x0002) /* No reset generated when entering in STOP */
-#define OB_STOP_RST   ((uint16_t)0x0000) /* Reset generated when entering in STOP */
+#define OB_STOP_NORST 0x0002 /* No reset generated when entering in STOP */
+#define OB_STOP_RST   0x0000 /* Reset generated when entering in STOP */
 
 /* Option_Bytes_nRST_STDBY */
-#define OB_STDBY_NORST ((uint16_t)0x0004) /* No reset generated when entering in STANDBY */
-#define OB_STDBY_RST   ((uint16_t)0x0000) /* Reset generated when entering in STANDBY */
+#define OB_STDBY_NORST 0x0004 /* No reset generated when entering in STANDBY */
+#define OB_STDBY_RST   0x0000 /* Reset generated when entering in STANDBY */
 
 /* Option_Bytes_RST_ENandDT */
-#define OB_RST_NOEN       ((uint16_t)0x0018) /* Reset IO disable (PD7)*/
-#define OB_RST_EN_DT128US ((uint16_t)0x0000) /* Reset IO enable (PD7) and  Ignore delay time 128us */
-#define OB_RST_EN_DT1MS   ((uint16_t)0x0008) /* Reset IO enable (PD7) and  Ignore delay time 1ms */
-#define OB_RST_EN_DT12MS  ((uint16_t)0x0010) /* Reset IO enable (PD7) and  Ignore delay time 12ms */
+#define OB_RST_NOEN       0x0018 /* Reset IO disable (PD7)*/
+#define OB_RST_EN_DT128US 0x0000 /* Reset IO enable (PD7) and  Ignore delay time 128us */
+#define OB_RST_EN_DT1MS   0x0008 /* Reset IO enable (PD7) and  Ignore delay time 1ms */
+#define OB_RST_EN_DT12MS  0x0010 /* Reset IO enable (PD7) and  Ignore delay time 12ms */
 
 /* Option_Bytes_Power_ON_Start_Mode */
-#define OB_START_MODE_BOOT ((uint16_t)0x0020) /* Start in BOOT area */
-#define OB_START_MODE_USER ((uint16_t)0x0000) /* Start in user area */
+#define OB_START_MODE_BOOT 0x0020 /* Start in BOOT area */
+#define OB_START_MODE_USER 0x0000 /* Start in user area */
 
 /******************  Bit definition for OB_RDPR register  *******************/
-#define OB_RDPR  ((uint16_t)0x00FF) /* Read protection option byte */
-#define OB_nRDPR ((uint16_t)0xFF00) /* Read protection complemented option byte */
+#define OB_RDPR  0x00FF /* Read protection option byte */
+#define OB_nRDPR 0xFF00 /* Read protection complemented option byte */
 
 /******************  Bit definition for OB_USER register  ******************/
-#define OB_USER  ((uint16_t)0x00FF) /* User option byte */
-#define OB_nUSER ((uint16_t)0xFF00) /* User complemented option byte */
+#define OB_USER  0x00FF /* User option byte */
+#define OB_nUSER 0xFF00 /* User complemented option byte */
 
 /******************  Bit definition for OB_DATA Register  *****************/
-#define OB_DATA  ((uint16_t)0x00FF0000) /* User data storage option byte */
-#define OB_nDATA ((uint16_t)0xFF000000) /* User data storage complemented option byte */
+#define OB_DATA  0x00FF0000 /* User data storage option byte */
+#define OB_nDATA 0xFF000000 /* User data storage complemented option byte */
 
 /******************  Bit definition for OB_WRPR register  ******************/
-#define OB_WRPR  ((uint16_t)0x00FF) /* Flash memory write protection option bytes */
-#define OB_nWRPR ((uint16_t)0xFF00) /* Flash memory write protection complemented option bytes */
+#define OB_WRPR  0x00FF /* Flash memory write protection option bytes */
+#define OB_nWRPR 0xFF00 /* Flash memory write protection complemented option bytes */
 
 //------------------------------------------------------------------------------
 

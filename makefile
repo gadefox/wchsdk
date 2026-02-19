@@ -20,7 +20,7 @@ CXX := riscv64-unknown-elf-g++
 OBJCOPY := riscv64-unknown-elf-objcopy
 OBJDUMP := riscv64-unknown-elf-objdump
 
-CFLAGS := -Wall -march=rv32ec -mabi=ilp32e -flto -static-libgcc -nostdlib \
+CFLAGS := -Wall -march=rv32ec -mabi=ilp32e -static-libgcc -nostdlib \
 		  -ffunction-sections -fdata-sections -msmall-data-limit=8
 LDFLAGS := -lgcc -Wl,--gc-sections -Wl,--print-memory-usage
 

@@ -6,6 +6,11 @@
 #include "wch/sys/csr.h"
 
 //------------------------------------------------------------------------------
+
+static inline void irq_ret(void) {
+  asm volatile("mret"); }
+
+//------------------------------------------------------------------------------
 // Enable Global Interrupt
 static inline void irq_enable() {
   csr_set_mstatus(MSTATUS_MIE | MSTATUS_MPIE); }

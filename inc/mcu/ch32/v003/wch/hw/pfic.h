@@ -70,76 +70,76 @@ typedef struct {
 /*******************  Bit definition for PFIC_IPRIOR register  *****************/
 
 // Nesting level 1 enabled: Bits 7:6
-#define PFIC_PRIORITY0 ((uint32_t)0x00)
-#define PFIC_PRIORITY1 ((uint32_t)0x40)
-#define PFIC_PRIORITY2 ((uint32_t)0x80)
-#define PFIC_PRIORITY3 ((uint32_t)0xC0)
+#define PFIC_PRIORITY0 0x00
+#define PFIC_PRIORITY1 0x40
+#define PFIC_PRIORITY2 0x80
+#define PFIC_PRIORITY3 0xC0
 
 // Nesting level 2 enabled:
-#define PFIC_PRIORITY    ((uint8_t)0x40)  /* Bit 6 : subpriority */
-#define PFIC_PREEMPT_EN  ((uint8_t)0x80)  /* Bit 7 : preemption level enabled */
+#define PFIC_PRIORITY    0x40  /* Bit 6 : subpriority */
+#define PFIC_PREEMPT_EN  0x80  /* Bit 7 : preemption level enabled */
 
 /*******************  Bit definition for PFIC_SCTLR register  ******************/
-#define PFIC_SCTLR_SLEEPONEXIT ((uint32_t)0x00000002) /* Bit 1  : 1 = Enter sleep after ISR exit; 0 = Return to main program */
-#define PFIC_SCTLR_SLEEPDEEP   ((uint32_t)0x00000004) /* Bit 2  : 1 = DEEPSLEEP; 0 = SLEEP */
-#define PFIC_SCTLR_WFITOWFE    ((uint32_t)0x00000008) /* Bit 3  : 1 = Treat WFI as WFE; 0 = Normal WFI behavior */
-#define PFIC_SCTLR_SEVONPEND   ((uint32_t)0x00000010) /* Bit 4  : 1 = All events and all interrupts (even disabled) wake system; 0 = Only enabled events and enabled interrupts wake system */
-#define PFIC_SCTLR_SETEVENT    ((uint32_t)0x00000020) /* Bit 5  : Set event for WFE wakeup */
-#define PFIC_SCTLR_SYSRESET    ((uint32_t)0x80000000) /* Bit 31 : System reset (write 1 to reset, auto clear) */
+#define PFIC_SCTLR_SLEEPONEXIT 0x00000002 /* Bit 1  : 1 = Enter sleep after ISR exit; 0 = Return to main program */
+#define PFIC_SCTLR_SLEEPDEEP   0x00000004 /* Bit 2  : 1 = DEEPSLEEP; 0 = SLEEP */
+#define PFIC_SCTLR_WFITOWFE    0x00000008 /* Bit 3  : 1 = Treat WFI as WFE; 0 = Normal WFI behavior */
+#define PFIC_SCTLR_SEVONPEND   0x00000010 /* Bit 4  : 1 = All events and all interrupts (even disabled) wake system; 0 = Only enabled events and enabled interrupts wake system */
+#define PFIC_SCTLR_SETEVENT    0x00000020 /* Bit 5  : Set event for WFE wakeup */
+#define PFIC_SCTLR_SYSRESET    0x80000000 /* Bit 31 : System reset (write 1 to reset, auto clear) */
 
 // Bit definition for PFIC_ISR1, PFIC_IPR1, PFIC_IPSR1, PFIC_IPRR1, PFIC_IACTR1,
 // PFIC_IENR1, PFIC_IRER1 registers
-#define PFIC1_MASK  ((uint32_t)0xFFFF500C) /* Mask for IRQ2–31 */
-#define PFIC1_ISR2  ((uint32_t)0x00000004) /* Bit 2  : Interrupt 2 */
-#define PFIC1_ISR3  ((uint32_t)0x00000008) /* Bit 3  : Interrupt 3 */
-#define PFIC1_ISR12 ((uint32_t)0x00001000) /* Bit 12 : Interrupt 12 */
-#define PFIC1_ISR14 ((uint32_t)0x00004000) /* Bit 14 : Interrupt 14 */
-#define PFIC1_ISR16 ((uint32_t)0x00010000) /* Bit 16 : Interrupt 16 */
-#define PFIC1_ISR17 ((uint32_t)0x00020000) /* Bit 17 : Interrupt 17 */
-#define PFIC1_ISR18 ((uint32_t)0x00040000) /* Bit 18 : Interrupt 18 */
-#define PFIC1_ISR19 ((uint32_t)0x00080000) /* Bit 19 : Interrupt 19 */
-#define PFIC1_ISR20 ((uint32_t)0x00100000) /* Bit 20 : Interrupt 20 */
-#define PFIC1_ISR21 ((uint32_t)0x00200000) /* Bit 21 : Interrupt 21 */
-#define PFIC1_ISR22 ((uint32_t)0x00400000) /* Bit 22 : Interrupt 22 */
-#define PFIC1_ISR23 ((uint32_t)0x00800000) /* Bit 23 : Interrupt 23 */
-#define PFIC1_ISR24 ((uint32_t)0x01000000) /* Bit 24 : Interrupt 24 */
-#define PFIC1_ISR25 ((uint32_t)0x02000000) /* Bit 25 : Interrupt 25 */
-#define PFIC1_ISR26 ((uint32_t)0x04000000) /* Bit 26 : Interrupt 26 */
-#define PFIC1_ISR27 ((uint32_t)0x08000000) /* Bit 27 : Interrupt 27 */
-#define PFIC1_ISR28 ((uint32_t)0x10000000) /* Bit 28 : Interrupt 28 */
-#define PFIC1_ISR29 ((uint32_t)0x20000000) /* Bit 29 : Interrupt 29 */
-#define PFIC1_ISR30 ((uint32_t)0x40000000) /* Bit 30 : Interrupt 30 */
-#define PFIC1_ISR31 ((uint32_t)0x80000000) /* Bit 31 : Interrupt 31 */
+#define PFIC1_MSK  0xFFFF500C /* Mask for IRQ2–31 */
+#define PFIC1_ISR2  0x00000004 /* Bit 2  : Interrupt 2 */
+#define PFIC1_ISR3  0x00000008 /* Bit 3  : Interrupt 3 */
+#define PFIC1_ISR12 0x00001000 /* Bit 12 : Interrupt 12 */
+#define PFIC1_ISR14 0x00004000 /* Bit 14 : Interrupt 14 */
+#define PFIC1_ISR16 0x00010000 /* Bit 16 : Interrupt 16 */
+#define PFIC1_ISR17 0x00020000 /* Bit 17 : Interrupt 17 */
+#define PFIC1_ISR18 0x00040000 /* Bit 18 : Interrupt 18 */
+#define PFIC1_ISR19 0x00080000 /* Bit 19 : Interrupt 19 */
+#define PFIC1_ISR20 0x00100000 /* Bit 20 : Interrupt 20 */
+#define PFIC1_ISR21 0x00200000 /* Bit 21 : Interrupt 21 */
+#define PFIC1_ISR22 0x00400000 /* Bit 22 : Interrupt 22 */
+#define PFIC1_ISR23 0x00800000 /* Bit 23 : Interrupt 23 */
+#define PFIC1_ISR24 0x01000000 /* Bit 24 : Interrupt 24 */
+#define PFIC1_ISR25 0x02000000 /* Bit 25 : Interrupt 25 */
+#define PFIC1_ISR26 0x04000000 /* Bit 26 : Interrupt 26 */
+#define PFIC1_ISR27 0x08000000 /* Bit 27 : Interrupt 27 */
+#define PFIC1_ISR28 0x10000000 /* Bit 28 : Interrupt 28 */
+#define PFIC1_ISR29 0x20000000 /* Bit 29 : Interrupt 29 */
+#define PFIC1_ISR30 0x40000000 /* Bit 30 : Interrupt 30 */
+#define PFIC1_ISR31 0x80000000 /* Bit 31 : Interrupt 31 */
 
 // Bit definition for PFIC_ISR2, PFIC_IPR2, PFIC_IENR2, PFIC_IRER2, PFIC_IPSR2,
 // PFIC_IPRR2, PFIC_IACTR2 registers
-#define PFIC2_MASK  ((uint32_t)0x0000007F) /* Mask for IRQ32–38 */
-#define PFIC2_ISR32 ((uint32_t)0x00000001) /* Bit 0  : Interrupt 32 enable status */
-#define PFIC2_ISR33 ((uint32_t)0x00000002) /* Bit 1  : Interrupt 33 enable status */
-#define PFIC2_ISR34 ((uint32_t)0x00000004) /* Bit 2  : Interrupt 34 enable status */
-#define PFIC2_ISR35 ((uint32_t)0x00000008) /* Bit 3  : Interrupt 35 enable status */
-#define PFIC2_ISR36 ((uint32_t)0x00000010) /* Bit 4  : Interrupt 36 enable status */
-#define PFIC2_ISR37 ((uint32_t)0x00000020) /* Bit 5  : Interrupt 37 enable status */
-#define PFIC2_ISR38 ((uint32_t)0x00000040) /* Bit 6  : Interrupt 38 enable status */
+#define PFIC2_MSK  0x0000007F /* Mask for IRQ32–38 */
+#define PFIC2_ISR32 0x00000001 /* Bit 0  : Interrupt 32 enable status */
+#define PFIC2_ISR33 0x00000002 /* Bit 1  : Interrupt 33 enable status */
+#define PFIC2_ISR34 0x00000004 /* Bit 2  : Interrupt 34 enable status */
+#define PFIC2_ISR35 0x00000008 /* Bit 3  : Interrupt 35 enable status */
+#define PFIC2_ISR36 0x00000010 /* Bit 4  : Interrupt 36 enable status */
+#define PFIC2_ISR37 0x00000020 /* Bit 5  : Interrupt 37 enable status */
+#define PFIC2_ISR38 0x00000040 /* Bit 6  : Interrupt 38 enable status */
 
 /*******************  Bit definition for PFIC_CFGR register  ****************/
-#define PFIC_CFGR_RESETSYS ((uint32_t)0x00000080) /* Bit 7 : System reset (write 1 to reset, auto clear) */
+#define PFIC_CFGR_RESETSYS 0x00000080 /* Bit 7 : System reset (write 1 to reset, auto clear) */
 
-#define PFIC_CFGR_KEY1 ((uint32_t)0xFA050000) /* KEY1 */
-#define PFIC_CFGR_KEY2 ((uint32_t)0xBCAF0000) /* KEY2 */
-#define PFIC_CFGR_KEY3 ((uint32_t)0xBEEF0000) /* KEY3 */
+#define PFIC_CFGR_KEY1 0xFA050000 /* KEY1 */
+#define PFIC_CFGR_KEY2 0xBCAF0000 /* KEY2 */
+#define PFIC_CFGR_KEY3 0xBEEF0000 /* KEY3 */
 
 /*******************  Bit definition for PFIC_GISR register  ****************/
-#define PFIC_GISR_GPENDSTA ((uint32_t)0x00000200) /* Bit 9  : Any interrupt pending */
-#define PFIC_GISR_GACTSTA  ((uint32_t)0x00000100) /* Bit 8  : Any interrupt active */
+#define PFIC_GISR_GPENDSTA 0x00000200 /* Bit 9  : Any interrupt pending */
+#define PFIC_GISR_GACTSTA  0x00000100 /* Bit 8  : Any interrupt active */
 
-#define PFIC_GISR_NESTSTA     ((uint32_t)0x000000FF) /* Bits 7:0 */
-#define PFIC_GISR_NEST_LEVEL0 ((uint32_t)0x00000000) /* No interrupt in progress */
-#define PFIC_GISR_NEST_LEVEL1 ((uint32_t)0x00000001) /* Level 1 interrupt in progress */
-#define PFIC_GISR_NEST_LEVEL2 ((uint32_t)0x00000003) /* Level 2 interrupt in progress */
+#define PFIC_GISR_NESTSTA     0x000000FF /* Bits 7:0 */
+#define PFIC_GISR_NEST_LEVEL0 0x00000000 /* No interrupt in progress */
+#define PFIC_GISR_NEST_LEVEL1 0x00000001 /* Level 1 interrupt in progress */
+#define PFIC_GISR_NEST_LEVEL2 0x00000003 /* Level 2 interrupt in progress */
 
 /*******************  Bit definition for PFIC_VTFADDRRx register  ***********/
-#define PFIC_VTFADDR_EN ((uint32_t)0x00000001) /* Bit 0 : Enable VTFx interrupt */
+#define PFIC_VTFADDR_EN 0x00000001 /* Bit 0 : Enable VTFx interrupt */
 
 //------------------------------------------------------------------------------
 

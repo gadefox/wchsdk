@@ -1,0 +1,18 @@
+#!/bin/rc
+
+dev = `(ls /dev/ttyACM*)
+
+fn exec {
+  tio $dev --mute --script 'write('''$1''');expect(''console'');exit()'
+  echo
+}
+
+fn info { exec 'i ve\n' }
+fn unlock { exec 'fl un\n' }
+fn upload {
+  tio $dev --mute --script 'write(string.char(0x16));send('''$1''', XMODEM_CRC)'
+}
+
+info
+unlock
+upload out/blink.bin

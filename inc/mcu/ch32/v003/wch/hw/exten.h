@@ -30,12 +30,12 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-#define EXTEN_LOCKUP_EN   ((uint32_t)0x00000040) /* Bit 6 */
-#define EXTEN_LOCKUP_RSTF ((uint32_t)0x00000080) /* Bit 7 */
-#define EXTEN_LDO_TRIM    ((uint32_t)0x00000400) /* Bit 10 */
-#define EXTEN_OPA_EN      ((uint32_t)0x00010000) /* Bit 16 */
-#define EXTEN_OPA_NSEL    ((uint32_t)0x00020000) /* Bit 17 */
-#define EXTEN_OPA_PSEL    ((uint32_t)0x00040000) /* Bit 18 */
+#define EXTEN_LOCKUP_EN   0x00000040 /* Bit 6 */
+#define EXTEN_LOCKUP_RSTF 0x00000080 /* Bit 7 */
+#define EXTEN_LDO_TRIM    0x00000400 /* Bit 10 */
+#define EXTEN_OPA_EN      0x00010000 /* Bit 16 */
+#define EXTEN_OPA_NSEL    0x00020000 /* Bit 17 */
+#define EXTEN_OPA_PSEL    0x00040000 /* Bit 18 */
 
 //------------------------------------------------------------------------------
 

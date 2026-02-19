@@ -11,9 +11,9 @@
 
 #else
 
-#define SRAM_BASE         ((uint32_t)0x20000000)
-#define PERIPH_BASE       ((uint32_t)0x40000000)
-#define CORE_PERIPH_BASE  ((uint32_t)0xE0000000)
+#define SRAM_BASE         0x20000000)
+#define PERIPH_BASE       0x40000000)
+#define CORE_PERIPH_BASE  0xE0000000)
 
 #endif  /* __ASSEMBLER__ */
 

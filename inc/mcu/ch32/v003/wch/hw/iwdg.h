@@ -36,40 +36,40 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /* CTLR register bit mask */
-#define CTLR_KEY_RELOAD ((uint16_t)0xAAAA)
-#define CTLR_KEY_EN     ((uint16_t)0xCCCC)
+#define CTLR_KEY_RELOAD 0xAAAA
+#define CTLR_KEY_EN     0xCCCC
 
 /*******************  Bit definition for IWDG_CTLR register  ********************/
-#define IWDG_KEY ((uint16_t)0xFFFF) /* Key value (write only, read 0000h) */
+#define IWDG_KEY 0xFFFF /* Key value (write only, read 0000h) */
 
 /*******************  Bit definition for IWDG_PSCR register  ********************/
-#define IWDG_PR  ((uint8_t)0x07) /* PR[2:0] (Prescaler divider) */
-#define IWDG_PR0 ((uint8_t)0x01) /* Bit 0 */
-#define IWDG_PR1 ((uint8_t)0x02) /* Bit 1 */
-#define IWDG_PR2 ((uint8_t)0x04) /* Bit 2 */
+#define IWDG_PR  0x07 /* PR[2:0] (Prescaler divider) */
+#define IWDG_PR0 0x01 /* Bit 0 */
+#define IWDG_PR1 0x02 /* Bit 1 */
+#define IWDG_PR2 0x04 /* Bit 2 */
 
 /*******************  Bit definition for IWDG_RLDR register  *******************/
-#define IWDG_RL ((uint16_t)0x0FFF) /* Watchdog counter reload value */
+#define IWDG_RL 0x0FFF /* Watchdog counter reload value */
 
 /*******************  Bit definition for IWDG_STATR register  ********************/
-#define IWDG_PVU ((uint8_t)0x01) /* Watchdog prescaler value update */
-#define IWDG_RVU ((uint8_t)0x02) /* Watchdog counter reload value update */
+#define IWDG_PVU 0x01 /* Watchdog prescaler value update */
+#define IWDG_RVU 0x02 /* Watchdog counter reload value update */
 
 /* IWDG_WriteAccess */
-#define IWDG_WRITEACCESS_EN  ((uint16_t)0x5555)
+#define IWDG_WRITEACCESS_EN  0x5555
 
 /* IWDG_prescaler */
-#define IWDG_PRESCALER4   ((uint8_t)0x00)
-#define IWDG_PRESCALER8   ((uint8_t)0x01)
-#define IWDG_PRESCALER16  ((uint8_t)0x02)
-#define IWDG_PRESCALER32  ((uint8_t)0x03)
-#define IWDG_PRESCALER64  ((uint8_t)0x04)
-#define IWDG_PRESCALER128 ((uint8_t)0x05)
-#define IWDG_PRESCALER256 ((uint8_t)0x06)
+#define IWDG_PRESCALER4   0x00
+#define IWDG_PRESCALER8   0x01
+#define IWDG_PRESCALER16  0x02
+#define IWDG_PRESCALER32  0x03
+#define IWDG_PRESCALER64  0x04
+#define IWDG_PRESCALER128 0x05
+#define IWDG_PRESCALER256 0x06
 
 /* IWDG_Flag */
-#define IWDG_FLAG_PVU ((uint16_t)0x0001)
-#define IWDG_FLAG_RVU ((uint16_t)0x0002)
+#define IWDG_FLAG_PVU 0x0001
+#define IWDG_FLAG_RVU 0x0002
 
 //------------------------------------------------------------------------------
 

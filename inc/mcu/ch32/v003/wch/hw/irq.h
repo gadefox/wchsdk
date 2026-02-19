@@ -39,11 +39,10 @@ typedef enum {
   IRQ_MAX            = 39
 } irq_t;
 
-#define IVT_DEFAULT  "\n\
+#define IVT_DEFAULT  "\
   .align  2                                                                \n\
-  .option push;                                                            \n\
   .option norvc;                                                           \n\
-        j reset_handler                                                    \n\
+  j reset_handler                                                          \n\
   .word   0                                                                \n\
   .word   nmi_handler                  /* NMI Handler */                   \n\
   .word   hard_fault_handler           /* Hard Fault Handler */            \n\
@@ -81,8 +80,7 @@ typedef enum {
   .word   isr_tim1_up                  /* TIM1 Update */                   \n\
   .word   isr_tim1_trg                 /* TIM1 Trigger and Commutation */  \n\
   .word   isr_tim1_cc                  /* TIM1 Capture Compare */          \n\
-  .word   isr_tim2                     /* TIM2 */                          \n\
-  .option pop;                                                             \n"
+  .word   isr_tim2                     /* TIM2 */                          \n"
 
 //------------------------------------------------------------------------------
 

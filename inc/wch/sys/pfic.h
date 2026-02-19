@@ -140,4 +140,12 @@ static inline void pfic_disable_vtf(irq_t irq, uint8_t num) {
 
 //------------------------------------------------------------------------------
 
+static inline void pfic_disable_irqs_except(irq_t irq) {
+  uint8_t num = pfic_reg_num(irq);
+  PFIC->IRER[num] = ~pfic_irq_mask(irq);
+  PFIC->IRER[1 - num] = ~0;
+}
+
+//------------------------------------------------------------------------------
+
 #endif  /* SYS_PFIC */

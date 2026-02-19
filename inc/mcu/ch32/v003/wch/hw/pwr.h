@@ -38,90 +38,90 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /* CTLR register bit mask */
-#define CTLR_DS_MASK  ((uint32_t)0xFFFFFFFD)
-#define CTLR_PLS_MASK ((uint32_t)0xFFFFFF1F)
-#define AWUPSC_MASK   ((uint32_t)0xFFFFFFF0)
-#define AWUWR_MASK    ((uint32_t)0xFFFFFFC0)
+#define CTLR_DS_MSK  0xFFFFFFFD
+#define CTLR_PLS_MSK 0xFFFFFF1F
+#define AWUPSC_MSK   0xFFFFFFF0
+#define AWUWR_MSK    0xFFFFFFC0
 
 /********************  Bit definition for PWR_CTLR register  ********************/
-#define PWR_CTLR_PDDS  ((uint32_t)0x00000002) /* Power Down Deepsleep */
-#define PWR_CTLR_PVDE  ((uint32_t)0x00000010) /* Power Voltage Detector Enable */
+#define PWR_CTLR_PDDS  0x00000002 /* Power Down Deepsleep */
+#define PWR_CTLR_PVDE  0x00000010 /* Power Voltage Detector Enable */
 
-#define PWR_CTLR_PLS   ((uint32_t)0x000000E0) /* PLS[2:0] bits (PVD Level Selection) */
-#define PWR_CTLR_PLS0  ((uint32_t)0x00000020)
-#define PWR_CTLR_PLS1  ((uint32_t)0x00000040)
-#define PWR_CTLR_PLS2  ((uint32_t)0x00000080)
+#define PWR_CTLR_PLS   0x000000E0 /* PLS[2:0] bits (PVD Level Selection) */
+#define PWR_CTLR_PLS0  0x00000020
+#define PWR_CTLR_PLS1  0x00000040
+#define PWR_CTLR_PLS2  0x00000080
 
-#define PWR_PVDLEVEL0 ((uint32_t)0x00000000)
-#define PWR_PVDLEVEL1 ((uint32_t)0x00000020)
-#define PWR_PVDLEVEL2 ((uint32_t)0x00000040)
-#define PWR_PVDLEVEL3 ((uint32_t)0x00000060)
-#define PWR_PVDLEVEL4 ((uint32_t)0x00000080)
-#define PWR_PVDLEVEL5 ((uint32_t)0x000000A0)
-#define PWR_PVDLEVEL6 ((uint32_t)0x000000C0)
-#define PWR_PVDLEVEL7 ((uint32_t)0x000000E0)
+#define PWR_PVDLEVEL0 0x00000000
+#define PWR_PVDLEVEL1 0x00000020
+#define PWR_PVDLEVEL2 0x00000040
+#define PWR_PVDLEVEL3 0x00000060
+#define PWR_PVDLEVEL4 0x00000080
+#define PWR_PVDLEVEL5 0x000000A0
+#define PWR_PVDLEVEL6 0x000000C0
+#define PWR_PVDLEVEL7 0x000000E0
 
 /*******************  Bit definition for PWR_CSR register  ********************/
-#define PWR_CSR_PVDO ((uint32_t)0x00000004) /* PVD Output */
+#define PWR_CSR_PVDO 0x00000004 /* PVD Output */
 
 /*******************  Bit definition for PWR_AWUCSR register  ********************/
-#define PWR_AWUCSR_AWUEN ((uint32_t)0x00000002)
+#define PWR_AWUCSR_AWUEN 0x00000002
 
 /*******************  Bit definition for PWR_AWUWR register  ********************/
-#define PWR_AWUWR ((uint32_t)0x0000003F)
+#define PWR_AWUWR 0x0000003F
 
 /*******************  Bit definition for PWR_AWUPSC register  ********************/
-#define PWR_AWUPSC       ((uint32_t)0x0000000F)
-#define PWR_AWUPSCOFF   ((uint32_t)0x00000000)
-#define PWR_AWUPSC1     ((uint32_t)0x00000001)
-#define PWR_AWUPSC2     ((uint32_t)0x00000002)
-#define PWR_AWUPSC4     ((uint32_t)0x00000003)
-#define PWR_AWUPSC8     ((uint32_t)0x00000004)
-#define PWR_AWUPSC16    ((uint32_t)0x00000005)
-#define PWR_AWUPSC32    ((uint32_t)0x00000006)
-#define PWR_AWUPSC64    ((uint32_t)0x00000007)
-#define PWR_AWUPSC128   ((uint32_t)0x00000008)
-#define PWR_AWUPSC256   ((uint32_t)0x00000009)
-#define PWR_AWUPSC512   ((uint32_t)0x0000000A)
-#define PWR_AWUPSC1024  ((uint32_t)0x0000000B)
-#define PWR_AWUPSC2048  ((uint32_t)0x0000000C)
-#define PWR_AWUPSC4096  ((uint32_t)0x0000000D)
-#define PWR_AWUPSC10240 ((uint32_t)0x0000000E)
-#define PWR_AWUPSC61440 ((uint32_t)0x0000000F)
+#define PWR_AWUPSC      0x0000000F
+#define PWR_AWUPSCOFF   0x00000000
+#define PWR_AWUPSC1     0x00000001
+#define PWR_AWUPSC2     0x00000002
+#define PWR_AWUPSC4     0x00000003
+#define PWR_AWUPSC8     0x00000004
+#define PWR_AWUPSC16    0x00000005
+#define PWR_AWUPSC32    0x00000006
+#define PWR_AWUPSC64    0x00000007
+#define PWR_AWUPSC128   0x00000008
+#define PWR_AWUPSC256   0x00000009
+#define PWR_AWUPSC512   0x0000000A
+#define PWR_AWUPSC1024  0x0000000B
+#define PWR_AWUPSC2048  0x0000000C
+#define PWR_AWUPSC4096  0x0000000D
+#define PWR_AWUPSC10240 0x0000000E
+#define PWR_AWUPSC61440 0x0000000F
 
 /* PVD_detection_level */
-#define PWR_PVDLEVEL_2V9 ((uint32_t)0x00000000)
-#define PWR_PVDLEVEL_3V1 ((uint32_t)0x00000020)
-#define PWR_PVDLEVEL_3V3 ((uint32_t)0x00000040)
-#define PWR_PVDLEVEL_3V5 ((uint32_t)0x00000060)
-#define PWR_PVDLEVEL_3V7 ((uint32_t)0x00000080)
-#define PWR_PVDLEVEL_3V9 ((uint32_t)0x000000A0)
-#define PWR_PVDLEVEL_4V1 ((uint32_t)0x000000C0)
-#define PWR_PVDLEVEL_4V4 ((uint32_t)0x000000E0)
+#define PWR_PVDLEVEL_2V9 0x00000000
+#define PWR_PVDLEVEL_3V1 0x00000020
+#define PWR_PVDLEVEL_3V3 0x00000040
+#define PWR_PVDLEVEL_3V5 0x00000060
+#define PWR_PVDLEVEL_3V7 0x00000080
+#define PWR_PVDLEVEL_3V9 0x000000A0
+#define PWR_PVDLEVEL_4V1 0x000000C0
+#define PWR_PVDLEVEL_4V4 0x000000E0
 
 /* PWR_AWU_Prescaler */
-#define PWR_AWU_PRESCALER1     ((uint32_t)0x00000000)
-#define PWR_AWU_PRESCALER2     ((uint32_t)0x00000002)
-#define PWR_AWU_PRESCALER4     ((uint32_t)0x00000003)
-#define PWR_AWU_PRESCALER8     ((uint32_t)0x00000004)
-#define PWR_AWU_PRESCALER16    ((uint32_t)0x00000005)
-#define PWR_AWU_PRESCALER32    ((uint32_t)0x00000006)
-#define PWR_AWU_PRESCALER64    ((uint32_t)0x00000007)
-#define PWR_AWU_PRESCALER128   ((uint32_t)0x00000008)
-#define PWR_AWU_PRESCALER256   ((uint32_t)0x00000009)
-#define PWR_AWU_PRESCALER512   ((uint32_t)0x0000000A)
-#define PWR_AWU_PRESCALER1024  ((uint32_t)0x0000000B)
-#define PWR_AWU_PRESCALER2048  ((uint32_t)0x0000000C)
-#define PWR_AWU_PRESCALER4096  ((uint32_t)0x0000000D)
-#define PWR_AWU_PRESCALER10240 ((uint32_t)0x0000000E)
-#define PWR_AWU_PRESCALER61440 ((uint32_t)0x0000000F)
+#define PWR_AWU_PRESCALER1     0x00000000
+#define PWR_AWU_PRESCALER2     0x00000002
+#define PWR_AWU_PRESCALER4     0x00000003
+#define PWR_AWU_PRESCALER8     0x00000004
+#define PWR_AWU_PRESCALER16    0x00000005
+#define PWR_AWU_PRESCALER32    0x00000006
+#define PWR_AWU_PRESCALER64    0x00000007
+#define PWR_AWU_PRESCALER128   0x00000008
+#define PWR_AWU_PRESCALER256   0x00000009
+#define PWR_AWU_PRESCALER512   0x0000000A
+#define PWR_AWU_PRESCALER1024  0x0000000B
+#define PWR_AWU_PRESCALER2048  0x0000000C
+#define PWR_AWU_PRESCALER4096  0x0000000D
+#define PWR_AWU_PRESCALER10240 0x0000000E
+#define PWR_AWU_PRESCALER61440 0x0000000F
 
 /* STOP_mode_entry */
-#define PWR_STANDBYENTRY_WFI ((uint8_t)0x01)
-#define PWR_STANDBYENTRY_WFE ((uint8_t)0x02)
+#define PWR_STANDBYENTRY_WFI 0x01
+#define PWR_STANDBYENTRY_WFE 0x02
 
 /* PWR_Flag */
-#define PWR_FLAG_PVDO ((uint32_t)0x00000004)
+#define PWR_FLAG_PVDO 0x00000004
 
 //------------------------------------------------------------------------------
 

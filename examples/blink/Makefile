@@ -10,7 +10,7 @@ SRCOBJS := $(patsubst %.c,$(OUTDIR)/%.o,$(SRCS))
 ASMOBJS := $(patsubst %.S,$(OUTDIR)/%_s.o,$(ASMS))
 OBJS := $(SRCOBJS) $(ASMOBJS)
 
-CFLAGS += -g -Os $(INC)
+CFLAGS += -Os $(INC)
 LDFLAGS += -T $(WCHSDK_LDSCRIPT) -Wl,-Map=$(OUTDIR)/$(TARGET).map
 
 .PHONY: all build clean
@@ -20,6 +20,7 @@ all: build
 $(OUTDIR)/%.o: %.c | $(OUTDIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -S $< -o $(patsubst %.o,%.s,$@)
 
 $(OUTDIR)/%_s.o: %.S | $(OUTDIR)
 	@mkdir -p $(dir $@)

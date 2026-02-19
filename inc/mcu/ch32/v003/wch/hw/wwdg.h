@@ -36,47 +36,29 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-/* CTLR register bit mask */
-#define CTLR_WDGA_SET ((uint32_t)0x00000080)
-
-/* CFGR register bit mask */
-#define CFGR_WDGTB_MASK ((uint32_t)0xFFFFFE7F)
-#define CFGR_W_MASK     ((uint32_t)0xFFFFFF80)
-#define BIT_MASK        ((uint8_t)0x7F)
-
 /******************* Bit definition for WWDG_CTLR register ********************/
-#define WWDG_CTLR_T    ((uint8_t)0x7F) /* T[6:0] bits (7-Bit counter (MSB to LSB)) */
-#define WWDG_CTLR_T0   ((uint8_t)0x01) /* Bit 0 */
-#define WWDG_CTLR_T1   ((uint8_t)0x02) /* Bit 1 */
-#define WWDG_CTLR_T2   ((uint8_t)0x04) /* Bit 2 */
-#define WWDG_CTLR_T3   ((uint8_t)0x08) /* Bit 3 */
-#define WWDG_CTLR_T4   ((uint8_t)0x10) /* Bit 4 */
-#define WWDG_CTLR_T5   ((uint8_t)0x20) /* Bit 5 */
-#define WWDG_CTLR_T6   ((uint8_t)0x40) /* Bit 6 */
-#define WWDG_CTLR_WDGA ((uint8_t)0x80) /* Activation bit */
+/* T[6:0] bits (7-Bit counter (MSB to LSB)) */
+#define WWDG_CTLR_T_MSK 0x7F
+#define WWDG_CTLR_T_POS 0
+
+#define WWDG_CTLR_WDGA  0x80 /* Activation bit */
 
 /******************* Bit definition for WWDG_CFGR register *******************/
-#define WWDG_CFGR_W      ((uint16_t)0x007F) /* W[6:0] bits (7-bit window value) */
-#define WWDG_CFGR_W0     ((uint16_t)0x0001) /* Bit 0 */
-#define WWDG_CFGR_W1     ((uint16_t)0x0002) /* Bit 1 */
-#define WWDG_CFGR_W2     ((uint16_t)0x0004) /* Bit 2 */
-#define WWDG_CFGR_W3     ((uint16_t)0x0008) /* Bit 3 */
-#define WWDG_CFGR_W4     ((uint16_t)0x0010) /* Bit 4 */
-#define WWDG_CFGR_W5     ((uint16_t)0x0020) /* Bit 5 */
-#define WWDG_CFGR_W6     ((uint16_t)0x0040) /* Bit 6 */
-#define WWDG_CFGR_WDGTB  ((uint16_t)0x0180) /* WDGTB[1:0] bits (Timer Base) */
-#define WWDG_CFGR_WDGTB0 ((uint16_t)0x0080) /* Bit 0 */
-#define WWDG_CFGR_WDGTB1 ((uint16_t)0x0100) /* Bit 1 */
-#define WWDG_CFGR_EWI    ((uint16_t)0x0200) /* Early Wakeup Interrupt */
+/* W[6:0] bits (7-bit window value) */
+#define WWDG_CFGR_W_MSK 0x007F
+#define WWDG_CTLR_W_POS 0
+
+/* WDGTB[1:0] bits (Timer Base) */
+#define WWDG_WDGTB_MSK  0x0180
+#define WWDG_WDGTB_DIV1 0x0000  /* counting time base = hclk/4096 */
+#define WWDG_WDGTB_DIV2 0x0080  /* counting time base = hclk/4096/2 */
+#define WWDG_WDGTB_DIV4 0x0100  /* counting time base = hclk/4096/4 */
+#define WWDG_WDGTB_DIV8 0x0180  /* counting time base = hclk/4096/8 */
+
+#define WWDG_CFGR_EWI 0x0200 /* Early Wakeup Interrupt */
 
 /******************* Bit definition for WWDG_STATR register ********************/
-#define WWDG_STATR_EWIF ((uint8_t)0x01) /* Early Wakeup Interrupt Flag */
-
-/* WWDG_Prescaler */
-#define WWDG_PRESCALER1 ((uint32_t)0x00000000)
-#define WWDG_PRESCALER2 ((uint32_t)0x00000080)
-#define WWDG_PRESCALER4 ((uint32_t)0x00000100)
-#define WWDG_PRESCALER8 ((uint32_t)0x00000180)
+#define WWDG_STATR_EWIF 0x01 /* Early Wakeup Interrupt Flag */
 
 //------------------------------------------------------------------------------
 
