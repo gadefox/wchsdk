@@ -57,9 +57,9 @@ static inline void delay_us(uint32_t us) {
 
 static inline void stk_init(void) {
 #if SYS_STK_HCLK
-  STK->CTLR = STK_CTLR_STE | STK_CTLR_STCLK;
+  STK->CTLR = STK_STE | STK_STCLK;
 #else
-  STK->CTLR = STK_CTLR_STE;
+  STK->CTLR = STK_STE;
 #endif  /* SYS_STK_HCLK */
 }
 

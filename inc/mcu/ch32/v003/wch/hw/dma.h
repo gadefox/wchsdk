@@ -1,6 +1,5 @@
 #pragma once
 
-#include "wch/hw/base.h"
 #include "wch/hw/def.h"
 
 /******************************************************************************/
@@ -51,6 +50,13 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
+typedef enum {
+  DMA_INTF_GL1 = 0x1,  /* Global interrupt flag */
+  DMA_INTF_TC1 = 0x2,  /* Transfer Complete flag */
+  DMA_INTF_HT1 = 0x4,  /* Half Transfer flag */
+  DMA_INTF_TE1 = 0x8   /* Transfer Error flag */
+} dma_intf_t;
+
 typedef struct {
   __IO uint32_t INTFR;  /* DMA Interrupt Status Register     */
   __IO uint32_t INTFCR; /* DMA Interrupt Flag Clear Register */
@@ -63,117 +69,61 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-/* DMA_data_transfer_direction */
-#define DMA_DIR_PERIPHDST 0x00000010
-#define DMA_DIR_PERIPHSRC 0x00000000
+/******************  Bit definition for DMA_INTFCR register  ******************/
+#define DMA_INTF_MSK1 0x0000000F  /* [3:0]   Channel 1 interrupt pending bit masks */
+#define DMA_INTF_MSK2 0x000000F0  /* [7:4]   Channel 2 interrupt pending bit masks */
+#define DMA_INTF_MSK3 0x00000F00  /* [11:8]  Channel 3 interrupt pending bit masks */
+#define DMA_INTF_MSK4 0x0000F000  /* [15:12] Channel 4 interrupt pending bit masks */
+#define DMA_INTF_MSK5 0x000F0000  /* [19:16] Channel 5 interrupt pending bit masks */
+#define DMA_INTF_MSK6 0x00F00000  /* [23:20] Channel 6 interrupt pending bit masks */
+#define DMA_INTF_MSK7 0x0F000000  /* [27:24] Channel 7 interrupt pending bit masks */
 
-/* DMA_peripheral_incremented_mode */
-#define DMA_PERIPHINC_EN  0x00000040
-
-/* DMA_memory_incremented_mode */
-#define DMA_MEMINC_EN  0x00000080
-
-/* DMA_peripheral_data_size */
-#define DMA_PERIPH_BYTE     0x00000000
-#define DMA_PERIPH_HALFWORD 0x00000100
-#define DMA_PERIPH_WORD     0x00000200
-
-/* DMA_memory_data_size */
-#define DMA_MEMORY_BYTE     0x00000000
-#define DMA_MEMORY_HALFWORD 0x00000400
-#define DMA_MEMORY_WORD     0x00000800
-
-/* DMA_circular_normal_mode */
-#define DMA_MODE_CIRCULAR 0x00000020
-#define DMA_MODE_NORMAL   0x00000000
-
-/* DMA_priority_level */
-#define DMA_PRIORITY_VERYHIGH 0x00003000
-#define DMA_PRIORITY_HIGH     0x00002000
-#define DMA_PRIORITY_MEDIUM   0x00001000
-#define DMA_PRIORITY_LOW      0x00000000
-
-/* DMA_memory_to_memory */
-#define DMA_M2M_EN  0x00004000
-
-/* DMA_interrupts_definition */
-#define DMA_MSK1 0x0000000F  /* Channel 1 interrupt pending bit masks */
-#define DMA_GL1   0x00000001  /* Channel 1 Global interrupt flag */
-#define DMA_TC1   0x00000002  /* Channel 1 Transfer Complete flag */
-#define DMA_HT1   0x00000004  /* Channel 1 Half Transfer flag */
-#define DMA_TE1   0x00000008  /* Channel 1 Transfer Error flag */
-
-#define DMA_MSK2 0x000000F0  /* Channel 2 interrupt pending bit masks */
-#define DMA_GL2   0x00000010  /* Channel 2 Global interrupt flag */
-#define DMA_TC2   0x00000020  /* Channel 2 Transfer Complete flag */
-#define DMA_HT2   0x00000040  /* Channel 2 Half Transfer flag */
-#define DMA_TE2   0x00000080  /* Channel 2 Transfer Error flag */
-
-#define DMA_MSK3 0x00000F00  /* Channel 3 interrupt pending bit masks */
-#define DMA_GL3   0x00000100  /* Channel 3 Global interrupt flag */
-#define DMA_TC3   0x00000200  /* Channel 3 Transfer Complete flag */
-#define DMA_HT3   0x00000400  /* Channel 3 Half Transfer flag */
-#define DMA_TE3   0x00000800  /* Channel 3 Transfer Error flag */
-
-#define DMA_MSK4 0x0000F000  /* Channel 4 interrupt pending bit masks */
-#define DMA_GL4   0x00001000  /* Channel 4 Global interrupt flag */
-#define DMA_TC4   0x00002000  /* Channel 4 Transfer Complete flag */
-#define DMA_HT4   0x00004000  /* Channel 4 Half Transfer flag */
-#define DMA_TE4   0x00008000  /* Channel 4 Transfer Error flag */
-
-#define DMA_MSK5 0x000F0000  /* Channel 5 interrupt pending bit masks */
-#define DMA_GL5   0x00010000  /* Channel 5 Global interrupt flag */
-#define DMA_TC5   0x00020000  /* Channel 5 Transfer Complete flag */
-#define DMA_HT5   0x00040000  /* Channel 5 Half Transfer flag */
-#define DMA_TE5   0x00080000  /* Channel 5 Transfer Error flag */
-
-#define DMA_MSK6 0x00F00000  /* Channel 6 interrupt pending bit masks */
-#define DMA_GL6   0x00100000  /* Channel 6 Global interrupt flag */
-#define DMA_TC6   0x00200000  /* Channel 6 Transfer Complete flag */
-#define DMA_HT6   0x00400000  /* Channel 6 Half Transfer flag */
-#define DMA_TE6   0x00800000  /* Channel 6 Transfer Error flag */
-
-#define DMA_MSK7 0x0F000000  /* Channel 7 interrupt pending bit masks */
-#define DMA_GL7   0x01000000  /* Channel 7 Global interrupt flag */
-#define DMA_TC7   0x02000000  /* Channel 7 Transfer Complete flag */
-#define DMA_HT7   0x04000000  /* Channel 7 Half Transfer flag */
-#define DMA_TE7   0x08000000  /* Channel 7 Transfer Error flag */
-
-/* DMA registers Masks */
-#define CFGR_CLEAR_MSK 0xFFFF800F
+#define DMA_INTF_POS1 0
+#define DMA_INTF_POS2 4
+#define DMA_INTF_POS3 8
+#define DMA_INTF_POS4 12
+#define DMA_INTF_POS5 16
+#define DMA_INTF_POS6 20
+#define DMA_INTF_POS7 24
 
 /*******************  Bit definition for DMA_CFGR register  *******************/
-#define DMA_CFGR_EN   0x0001 /* Channel enable*/
-#define DMA_CFGR_TCIE 0x0002 /* Transfer complete interrupt enable */
-#define DMA_CFGR_HTIE 0x0004 /* Half Transfer interrupt enable */
-#define DMA_CFGR_TEIE 0x0008 /* Transfer error interrupt enable */
-#define DMA_CFGR_DIR  0x0010 /* Data transfer direction (Setting = Memory -> Peripheral) */
-#define DMA_CFGR_CIRC 0x0020 /* Circular mode */
-#define DMA_CFGR_PINC 0x0040 /* Peripheral increment mode */
-#define DMA_CFGR_MINC 0x0080 /* Memory increment mode */
+#define DMA_EN   0x00000001 /* Channel enable*/
+#define DMA_TCIE 0x00000002 /* Transfer complete interrupt enable */
+#define DMA_HTIE 0x00000004 /* Half Transfer interrupt enable */
+#define DMA_TEIE 0x00000008 /* Transfer error interrupt enable */
+#define DMA_DIR  0x00000010 /* Data transfer direction (Setting = Memory -> Peripheral) */
+#define DMA_CIRC 0x00000020 /* Circular mode */
+#define DMA_PINC 0x00000040 /* Peripheral increment mode */
+#define DMA_MINC 0x00000080 /* Memory increment mode */
 
-#define DMA_CFGR_PSIZE   0x0300 /* PSIZE[1:0] bits (Peripheral size) */
-#define DMA_CFGR_PSIZE_0 0x0100 /* Bit 0 */
-#define DMA_CFGR_PSIZE_1 0x0200 /* Bit 1 */
+/* Peripheral size */
+#define DMA_PSIZE_MSK      0x00000300 /* PSIZE[9:8] bits */
+#define DMA_PSIZE_BYTE     0x00000000
+#define DMA_PSIZE_HALFWORD 0x00000100
+#define DMA_PSIZE_WORD     0x00000200
 
-#define DMA_CFGR_MSIZE   0x0C00 /* MSIZE[1:0] bits (Memory size) */
-#define DMA_CFGR_MSIZE_0 0x0400 /* Bit 0 */
-#define DMA_CFGR_MSIZE_1 0x0800 /* Bit 1 */
+/* Memory size */
+#define DMA_MSIZE_MSK      0x00000C00 /* MSIZE[11:10] bits */
+#define DMA_MSIZE_BYTE     0x00000000
+#define DMA_MSIZE_HALFWORD 0x00000400
+#define DMA_MSIZE_WORD     0x00000800
 
-#define DMA_CFGR_PL   0x3000 /* PL[1:0] bits(Channel Priority level) */
-#define DMA_CFGR_PL_0 0x1000 /* Bit 0 */
-#define DMA_CFGR_PL_1 0x2000 /* Bit 1 */
+/* Channel Priority level */
+#define DMA_PRIOR_MSK    0x00003000 /* PL[13:12] bits */
+#define DMA_PRIOR_LOW    0x00000000
+#define DMA_PRIOR_MEDIUM 0x00001000
+#define DMA_PRIOR_HIGH   0x00002000
 
-#define DMA_CFGR_MEM2MEM 0x4000 /* Memory to memory mode */
+#define DMA_MEM2MEM 0x00004000 /* Memory to memory mode */
 
 /******************  Bit definition for DMA_CNTR register  ******************/
-#define DMA_CNTR_NDT 0xFFFF /* Number of data to Transfer */
+#define DMA_CNT_NDT 0x0000FFFF /* Number of data to Transfer */
 
 /******************  Bit definition for DMA_PADDR register  *******************/
-#define DMA_PADDR_PA 0xFFFFFFFF /* Peripheral Address */
+#define DMA_PADD_PA 0xFFFFFFFF /* Peripheral Address */
 
 /******************  Bit definition for DMA_MADDR register  *******************/
-#define DMA_MADDR_MA 0xFFFFFFFF /* Memory Address */
+#define DMA_MADD_MA 0xFFFFFFFF /* Memory Address */
 
 //------------------------------------------------------------------------------
 
@@ -184,7 +134,7 @@ typedef struct {
  * The collection of this file was generated by
  * cnlohr, 2023-02-18 and
  * AlexanderMandera, 2023-06-23
- * It was significantly reworked into several files cnlohr, 2025-01-29
+ * gadefox, 2026
  *
  * While originally under a restrictive copyright, WCH has approved use
  * under MIT-licensed use, because of inclusion in Zephyr, as well as other

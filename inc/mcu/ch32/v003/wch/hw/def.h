@@ -1,5 +1,21 @@
 #pragma once
 
+#include <stdint.h>
+
+/* Peripheral memory map */
+#define SRAM_BASE         0x20000000 /* SRAM base address in the alias region */
+#define PERIPH_BASE       0x40000000 /* Peripheral base address in the alias region */
+#define CORE_PERIPH_BASE  0xE0000000 /* System peripherals base address in the alias region */
+
+#define APB1PERIPH_BASE  PERIPH_BASE
+#define APB2PERIPH_BASE  (PERIPH_BASE + 0x10000)
+#define AHBPERIPH_BASE   (PERIPH_BASE + 0x20000)
+
+//------------------------------------------------------------------------------
+
+#define CONCAT_BASE(a, b)  a##b##_BASE
+#define EXP_BASE(a, b)     CONCAT_BASE(a, b)
+
 //------------------------------------------------------------------------------
 
 #ifdef __cplusplus

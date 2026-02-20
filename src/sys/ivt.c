@@ -6,6 +6,7 @@
 #include "wch/hw/stk.h"
 
 #include "wch/sys/csr.h"
+#include "wch/sys/irq.h"
 #include "wch/sys/ivt.h"
 #include "wch/sys/gpr.h"
 #include "wch/sys/stk.h"
@@ -57,7 +58,7 @@ void reset_handler(void) {
 
   // Set mepc to be main as the root app.
   csr_write_mepc((uint32_t)main);
-  mret();
+  irq_ret();
 }
 
 //------------------------------------------------------------------------------

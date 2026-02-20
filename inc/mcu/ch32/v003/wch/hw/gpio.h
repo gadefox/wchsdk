@@ -1,6 +1,5 @@
 #pragma once
 
-#include "wch/hw/base.h"
 #include "wch/hw/def.h"
 
 /******************************************************************************/
@@ -65,49 +64,49 @@ typedef struct {
 // Configuration Mode enumeration
 
 typedef enum {
-  GPIO_DIR_IN     = 0b00,
-  GPIO_DIR_OUT2   = 0b10,  // 2 MHz
-  GPIO_DIR_OUT10  = 0b01,  // 10 MHz
-  GPIO_DIR_OUT30  = 0b11   // 30 MHz
+  GPIO_IN     = 0b00,
+  GPIO_OUT2   = 0b10,  // 2 MHz
+  GPIO_OUT10  = 0b01,  // 10 MHz
+  GPIO_OUT30  = 0b11   // 30 MHz
 } gpio_dir_t;
 
 typedef enum {
-  GPIO_CNFI_ANALOG = 0b00 << 2,
-  GPIO_CNFI_FLOAT  = 0b01 << 2,
-  GPIO_CNFI_PUPD   = 0b10 << 2      // With pull-up and pull-down mode
-} gpio_cnfi_t;
+  GPIO_ANALOG = 0b00 << 2,
+  GPIO_FLOAT  = 0b01 << 2,
+  GPIO_PUPD   = 0b10 << 2      // With pull-up and pull-down mode
+} gpio_type_in_t;
 
-#define GPIO_CNFO_PP   0            // Universal push-pull output mode
-#define GPIO_CNFO_OD   (1 << 2)     // Universal open-drain output mode
-#define GPIO_CNFO_MUX  (1 << 3)     // Multiplexed function
+#define GPIO_PP   0            // Universal push-pull output mode
+#define GPIO_OD   (1 << 2)     // Universal open-drain output mode
+#define GPIO_MUX  (1 << 3)     // Multiplexed function
 
 //------------------------------------------------------------------------------
 
 typedef enum {
   // Input mode
-  GPIO_CFGI_ANALOG = GPIO_DIR_IN | GPIO_CNFI_ANALOG,
-  GPIO_CFGI_FLOAT  = GPIO_DIR_IN | GPIO_CNFI_FLOAT,
-  GPIO_CFGI_PUPD   = GPIO_DIR_IN | GPIO_CNFI_PUPD,
+  GPIO_ANALOG = GPIO_IN | GPIO_ANALOG,
+  GPIO_FLOAT  = GPIO_IN | GPIO_FLOAT,
+  GPIO_PUPD   = GPIO_IN | GPIO_PUPD,
 
   // Output mode: push-pull
-  GPIO_CFGO_PP2  = GPIO_DIR_OUT2 | GPIO_CNFO_PP,
-  GPIO_CFGO_PP10 = GPIO_DIR_OUT10 | GPIO_CNFO_PP,
-  GPIO_CFGO_PP30 = GPIO_DIR_OUT30 | GPIO_CNFO_PP,
+  GPIO_PP2  = GPIO_OUT2 | GPIO_PP,
+  GPIO_PP10 = GPIO_OUT10 | GPIO_PP,
+  GPIO_PP30 = GPIO_OUT30 | GPIO_PP,
 
   // Output mode: open-drain
-  GPIO_CFGO_OD2  = GPIO_DIR_OUT2 | GPIO_CNFO_OD,
-  GPIO_CFGO_OD10 = GPIO_DIR_OUT10 | GPIO_CNFO_OD,
-  GPIO_CFGO_OD30 = GPIO_DIR_OUT30 | GPIO_CNFO_OD,
+  GPIO_OD2  = GPIO_OUT2 | GPIO_OD,
+  GPIO_OD10 = GPIO_OUT10 | GPIO_OD,
+  GPIO_OD30 = GPIO_OUT30 | GPIO_OD,
 
   // Output mode: multiplexed function push-pull
-  GPIO_CFGO_MP2  = GPIO_DIR_OUT2 |  GPIO_CNFO_PP | GPIO_CNFO_MUX,
-  GPIO_CFGO_MP10 = GPIO_DIR_OUT10 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
-  GPIO_CFGO_MP30 = GPIO_DIR_OUT30 | GPIO_CNFO_PP | GPIO_CNFO_MUX,
+  GPIO_APP2  = GPIO_OUT2 |  GPIO_PP | GPIO_MUX,
+  GPIO_APP10 = GPIO_OUT10 | GPIO_PP | GPIO_MUX,
+  GPIO_APP30 = GPIO_OUT30 | GPIO_PP | GPIO_MUX,
   
   // Output mode: multiplexed function open-drain
-  GPIO_CFGO_MD2  = GPIO_DIR_OUT2 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
-  GPIO_CFGO_MD10 = GPIO_DIR_OUT10 | GPIO_CNFO_OD | GPIO_CNFO_MUX,
-  GPIO_CFGO_MD30 = GPIO_DIR_OUT30 | GPIO_CNFO_OD | GPIO_CNFO_MUX
+  GPIO_AOD2  = GPIO_OUT2 | GPIO_OD | GPIO_MUX,
+  GPIO_AOD10 = GPIO_OUT10 | GPIO_OD | GPIO_MUX,
+  GPIO_AOD30 = GPIO_OUT30 | GPIO_OD | GPIO_MUX
 } gpio_cfg_t;
 
 //------------------------------------------------------------------------------
@@ -262,43 +261,19 @@ typedef union {
 #define GPIO_PIN_ALL 0x000000FF /* All pins selected */
 
 /******************  Bit definition for GPIO_BSHR register  *******************/
-#define GPIO_BSHR0 0x00010000 /* Port x Reset bit 0 */
-#define GPIO_BSHR1 0x00020000 /* Port x Reset bit 1 */
-#define GPIO_BSHR2 0x00040000 /* Port x Reset bit 2 */
-#define GPIO_BSHR3 0x00080000 /* Port x Reset bit 3 */
-#define GPIO_BSHR4 0x00100000 /* Port x Reset bit 4 */
-#define GPIO_BSHR5 0x00200000 /* Port x Reset bit 5 */
-#define GPIO_BSHR6 0x00400000 /* Port x Reset bit 6 */
-#define GPIO_BSHR7 0x00800000 /* Port x Reset bit 7 */
+#define GPIO_RST0 0x00010000 /* Port x Reset bit 0 */
+#define GPIO_RST1 0x00020000 /* Port x Reset bit 1 */
+#define GPIO_RST2 0x00040000 /* Port x Reset bit 2 */
+#define GPIO_RST3 0x00080000 /* Port x Reset bit 3 */
+#define GPIO_RST4 0x00100000 /* Port x Reset bit 4 */
+#define GPIO_RST5 0x00200000 /* Port x Reset bit 5 */
+#define GPIO_RST6 0x00400000 /* Port x Reset bit 6 */
+#define GPIO_RST7 0x00800000 /* Port x Reset bit 7 */
 
-#define GPIO_BSHR_ALL 0x00FF0000 /* All pins reset */
+#define GPIO_RST_ALL 0x00FF0000 /* All pins reset */
 
 /******************  Bit definition for GPIO_LCKR register  *******************/
 #define GPIO_LCKK 0x00010000 /* Lock key */
-
-/* GPIO_Remap_define */
-#define GPIO_REMAP_SPI1          0x00000001 /* SPI1 Alternate Function mapping */
-
-#define GPIO_PARTIALREMAP_I2C1   0x10000002 /* I2C1 Partial Alternate Function mapping */
-#define GPIO_FULLREMAP_I2C1      0x10400002 /* I2C1 Full Alternate Function mapping */
-
-#define GPIO_PARTREMAP1_UART1    0x80000004 /* UART1 Partial1 Alternate Function mapping */
-#define GPIO_PARTREMAP2_UART1    0x80200000 /* UART1 Partial2 Alternate Function mapping */
-#define GPIO_FULLREMAP_UART1     0x80200004 /* UART1 Full Alternate Function mapping */
-
-#define GPIO_PARTREMAP1_TIM1     0x00160040 /* TIM1 Partial1 Alternate Function mapping */
-#define GPIO_PARTREMAP2_TIM1     0x00160080 /* TIM1 Partial2 Alternate Function mapping */
-#define GPIO_FULLREMAP_TIM1      0x001600C0 /* TIM1 Full Alternate Function mapping */
-
-#define GPIO_PARTREMAP1_TIM2     0x00180100 /* TIM2 Partial1 Alternate Function mapping */
-#define GPIO_PARTREMAP2_TIM2     0x00180200 /* TIM2 Partial2 Alternate Function mapping */
-#define GPIO_FULLREMAP_TIM2      0x00180300 /* TIM2 Full Alternate Function mapping */
-
-#define GPIO_REMAP_PA1_2         0x00008000 /* PA1 and PA2 Alternate Function mapping */
-#define GPIO_REMAP_ADC1_ETRGINJ  0x00200002 /* ADC1 External Trigger Injected Conversion remapping */
-#define GPIO_REMAP_ADC1_ETRGREG  0x00200004 /* ADC1 External Trigger Regular Conversion remapping */
-#define GPIO_REMAP_LSI_CAL       0x00200080 /* LSI calibration Alternate Function mapping */
-#define GPIO_REMAP_SDI_DISABLE   0x00300400 /* SDI Disabled */
 
 //------------------------------------------------------------------------------
 
@@ -309,7 +284,7 @@ typedef union {
  * The collection of this file was generated by
  * cnlohr, 2023-02-18 and
  * AlexanderMandera, 2023-06-23
- * It was significantly reworked into several files cnlohr, 2025-01-29
+ * gadefox, 2026
  *
  * While originally under a restrictive copyright, WCH has approved use
  * under MIT-licensed use, because of inclusion in Zephyr, as well as other

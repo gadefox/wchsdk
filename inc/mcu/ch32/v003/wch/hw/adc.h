@@ -1,6 +1,5 @@
 #pragma once
 
-#include "wch/hw/base.h"
 #include "wch/hw/def.h"
 
 /******************************************************************************/
@@ -66,8 +65,8 @@ typedef enum {
 
 typedef struct {
   __IO uint32_t STATR;          /* ADC Status Register                         */
-  __IO uint32_t CTLR1;          /* ADC Control Register 1                      */
-  __IO uint32_t CTLR2;          /* ADC Control Register 2                      */
+  __IO uint32_t CTL1R;          /* ADC Control Register 1                      */
+  __IO uint32_t CTL2R;          /* ADC Control Register 2                      */
   __IO uint32_t SAMPTR[2];      /* ADC Sample Time Register x                  */
   __IO uint32_t IOFR[4];        /* ADC Injected Channel Data Offset Register x */
   __IO uint32_t WDHTR;          /* ADC Watchdog High Threshold Register        */
@@ -97,7 +96,7 @@ typedef struct {
 #define ADC_JSTRT 0x00000008 /* Injected channel Start flag */
 #define ADC_STRT  0x00000010 /* Regular channel Start flag */
 
-/*******************  Bit definition for ADC_CTLR1 register *********************/
+/*******************  Bit definition for ADC_CTL1R register *********************/
 #define ADC_AWDCH_MSK 0x0000001F /* AWDCH[4:0] bits (Analog watchdog channel select bits) */
 
 #define ADC_EOCIE   0x00000020 /* Interrupt enable for EOC */
@@ -116,11 +115,11 @@ typedef struct {
 #define ADC_AWDEN  0x00800000 /* Analog watchdog enable on regular channels */
 
 /* ADC_calibration_voltage_definition [26:25] bits */
-#define ADC_CALVOL_MSK    0x06000000
-#define ADC_CALVOL_50AVDD 0x02000000  /* 2/4 AVDD */
-#define ADC_CALVOL_75AVDD 0x04000000  /* 3/4 AVDD */
+#define ADC_CAL_MSK    0x06000000
+#define ADC_CAL_50AVDD 0x02000000  /* 2/4 AVDD */
+#define ADC_CAL_75AVDD 0x04000000  /* 3/4 AVDD */
 
-/*******************  Bit definition for ADC_CTLR2 register *********************/
+/*******************  Bit definition for ADC_CTL2R register *********************/
 #define ADC_ADON   0x00000001 /* A/D Converter ON / OFF */
 #define ADC_CONT   0x00000002 /* Continuous Conversion */
 #define ADC_CAL    0x00000004 /* A/D Calibration */
@@ -129,26 +128,26 @@ typedef struct {
 #define ADC_ALIGN  0x00000800 /* Data Alignment */
 
 /* External event select for injected group */
-#define ADC_JEXTSEL_MSK      0x00007000 /* JEXTSEL[14:12] bits */
-#define ADC_JEXTSEL_TIM1_CC3 0x00000000
-#define ADC_JEXTSEL_TIM1_CC4 0x00001000
-#define ADC_JEXTSEL_TIM2_CC3 0x00002000
-#define ADC_JEXTSEL_TIM2_CC4 0x00003000
-#define ADC_JEXTSEL_PD1_PA2  0x00006000
-#define ADC_JEXTSEL_SWSTART  0x00007000
+#define ADC_JEXT_MSK      0x00007000 /* JEXTSEL[14:12] bits */
+#define ADC_JEXT_TIM1_CC3 0x00000000
+#define ADC_JEXT_TIM1_CC4 0x00001000
+#define ADC_JEXT_TIM2_CC3 0x00002000
+#define ADC_JEXT_TIM2_CC4 0x00003000
+#define ADC_JEXT_PD1_PA2  0x00006000
+#define ADC_JEXT_SWSTART  0x00007000
 
 #define ADC_JEXTTRIG 0x00008000 /* External Trigger Conversion mode for injected channels */
 
 /* External Event Select for regular group */
-#define ADC_EXTSEL_MSK         0x000E0000 /* EXTSEL[2:0] bits */
-#define ADC_EXTSEL_TIM1_TRGO   0x00000000
-#define ADC_EXTSEL_TIM1_CC1    0x00020000
-#define ADC_EXTSEL_TIM1_CC2    0x00040000
-#define ADC_EXTSEL_TIM2_TRGO   0x00060000
-#define ADC_EXTSEL_TIM2_CC1    0x00080000
-#define ADC_EXTSEL_TIM2_CC2    0x000A0000
-#define ADC_EXTSEL_EXT_PD3_PC2 0x000C0000
-#define ADC_EXTSEL_SWSTART     0x000E0000
+#define ADC_EXT_MSK         0x000E0000 /* EXTSEL[2:0] bits */
+#define ADC_EXT_TIM1_TRGO   0x00000000
+#define ADC_EXT_TIM1_CC1    0x00020000
+#define ADC_EXT_TIM1_CC2    0x00040000
+#define ADC_EXT_TIM2_TRGO   0x00060000
+#define ADC_EXT_TIM2_CC1    0x00080000
+#define ADC_EXT_TIM2_CC2    0x000A0000
+#define ADC_EXT_EXT_PD3_PC2 0x000C0000
+#define ADC_EXT_SWSTART     0x000E0000
 
 #define ADC_EXTTRIG  0x00100000 /* External Trigger Conversion mode for regular channels */
 #define ADC_JSWSTART 0x00200000 /* Start Conversion of injected channels */
@@ -178,17 +177,8 @@ typedef struct {
 #define ADC_SMP8_POS 24
 #define ADC_SMP9_POS 27
 
-/******************  Bit definition for ADC_IOFR1 register  *******************/
-#define ADC_JOFFSET1_MSK 0x000002FF /* Data offset for injected channel 1 */
-
-/******************  Bit definition for ADC_IOFR2 register  *******************/
-#define ADC_JOFFSET2_MSK 0x000002FF /* Data offset for injected channel 2 */
-
-/******************  Bit definition for ADC_IOFR3 register  *******************/
-#define ADC_JOFFSET3_MSK 0x000002FF /* Data offset for injected channel 3 */
-
-/******************  Bit definition for ADC_IOFR4 register  *******************/
-#define ADC_JOFFSET4_MSK 0x000002FF /* Data offset for injected channel 4 */
+/******************  Bit definition for ADC_IOFRx register  *******************/
+#define ADC_JOFFSET_MSK 0x000002FF /* Data offset for injected channel x */
 
 /*******************  Bit definition for ADC_WDHTR register *********************/
 #define ADC_HT_MSK 0x000002FF /* Analog watchdog high threshold */
@@ -227,15 +217,15 @@ typedef struct {
 #define ADC_JL_POS   24
 
 /********************  Bit definition for ADC_RDATAR register *********************/
-#define ADC_RDATAR_DATA_MSK     0x0000FFFF /* Regular data */
-#define ADC_RDATAR_ADC2DATA_MSK 0xFFFF0000 /* ADC2 data */
+#define ADC_RDATA_MSK     0x0000FFFF /* Regular data */
+#define ADC_RDATA_ADC2MSK 0xFFFF0000 /* ADC2 data */
 
-#define ADC_RDATAR_DATA_POS 16
+#define ADC_RDATA_POS 16
 
 /********************  Bit definition for ADC_DLYR register *********************/
-#define ADC_DLYR_DLYSRC 0x00000200
+#define ADC_DLY_SRC 0x00000200
 
-#define ADC_DLYR_DLYVLU_MSK 0x000001FF
+#define ADC_DLY_VLU_MSK 0x000001FF
 
 //------------------------------------------------------------------------------
 
@@ -246,7 +236,7 @@ typedef struct {
  * The collection of this file was generated by
  * cnlohr, 2023-02-18 and
  * AlexanderMandera, 2023-06-23
- * It was significantly reworked into several files cnlohr, 2025-01-29
+ * gadefox, 2026
  *
  * While originally under a restrictive copyright, WCH has approved use
  * under MIT-licensed use, because of inclusion in Zephyr, as well as other

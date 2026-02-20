@@ -1,6 +1,5 @@
 #pragma once
 
-#include "wch/hw/base.h"
 #include "wch/hw/def.h"
 
 /******************************************************************************/
@@ -67,29 +66,28 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-/*******************  Bit definition for PFIC_IPRIOR register  *****************/
+/*******************  Bit definition for PFIC_IPRIORx register  *****************/
 
 // Nesting level 1 enabled: Bits 7:6
-#define PFIC_PRIORITY0 0x00
-#define PFIC_PRIORITY1 0x40
-#define PFIC_PRIORITY2 0x80
-#define PFIC_PRIORITY3 0xC0
+#define PFIC_PRIOR0 0x00
+#define PFIC_PRIOR1 0x40
+#define PFIC_PRIOR2 0x80
+#define PFIC_PRIOR3 0xC0
 
 // Nesting level 2 enabled:
-#define PFIC_PRIORITY    0x40  /* Bit 6 : subpriority */
-#define PFIC_PREEMPT_EN  0x80  /* Bit 7 : preemption level enabled */
+#define PFIC_SUBPRIOR 0x40  /* Bit 6 : subpriority */
+#define PFIC_PREEMPT  0x80  /* Bit 7 : preemption level enabled */
 
 /*******************  Bit definition for PFIC_SCTLR register  ******************/
-#define PFIC_SCTLR_SLEEPONEXIT 0x00000002 /* Bit 1  : 1 = Enter sleep after ISR exit; 0 = Return to main program */
-#define PFIC_SCTLR_SLEEPDEEP   0x00000004 /* Bit 2  : 1 = DEEPSLEEP; 0 = SLEEP */
-#define PFIC_SCTLR_WFITOWFE    0x00000008 /* Bit 3  : 1 = Treat WFI as WFE; 0 = Normal WFI behavior */
-#define PFIC_SCTLR_SEVONPEND   0x00000010 /* Bit 4  : 1 = All events and all interrupts (even disabled) wake system; 0 = Only enabled events and enabled interrupts wake system */
-#define PFIC_SCTLR_SETEVENT    0x00000020 /* Bit 5  : Set event for WFE wakeup */
-#define PFIC_SCTLR_SYSRESET    0x80000000 /* Bit 31 : System reset (write 1 to reset, auto clear) */
+#define PFIC_SLEEPONEXIT 0x00000002 /* Bit 1  : 1 = Enter sleep after ISR exit; 0 = Return to main program */
+#define PFIC_SLEEPDEEP   0x00000004 /* Bit 2  : 1 = DEEPSLEEP; 0 = SLEEP */
+#define PFIC_WFITOWFE    0x00000008 /* Bit 3  : 1 = Treat WFI as WFE; 0 = Normal WFI behavior */
+#define PFIC_SEVONPEND   0x00000010 /* Bit 4  : 1 = All events and all interrupts (even disabled) wake system; 0 = Only enabled events and enabled interrupts wake system */
+#define PFIC_SETEVENT    0x00000020 /* Bit 5  : Set event for WFE wakeup */
+#define PFIC_SYSRESET    0x80000000 /* Bit 31 : System reset (write 1 to reset, auto clear) */
 
 // Bit definition for PFIC_ISR1, PFIC_IPR1, PFIC_IPSR1, PFIC_IPRR1, PFIC_IACTR1,
 // PFIC_IENR1, PFIC_IRER1 registers
-#define PFIC1_MSK  0xFFFF500C /* Mask for IRQ2–31 */
 #define PFIC1_ISR2  0x00000004 /* Bit 2  : Interrupt 2 */
 #define PFIC1_ISR3  0x00000008 /* Bit 3  : Interrupt 3 */
 #define PFIC1_ISR12 0x00001000 /* Bit 12 : Interrupt 12 */
@@ -113,7 +111,6 @@ typedef struct {
 
 // Bit definition for PFIC_ISR2, PFIC_IPR2, PFIC_IENR2, PFIC_IRER2, PFIC_IPSR2,
 // PFIC_IPRR2, PFIC_IACTR2 registers
-#define PFIC2_MSK  0x0000007F /* Mask for IRQ32–38 */
 #define PFIC2_ISR32 0x00000001 /* Bit 0  : Interrupt 32 enable status */
 #define PFIC2_ISR33 0x00000002 /* Bit 1  : Interrupt 33 enable status */
 #define PFIC2_ISR34 0x00000004 /* Bit 2  : Interrupt 34 enable status */
@@ -123,23 +120,23 @@ typedef struct {
 #define PFIC2_ISR38 0x00000040 /* Bit 6  : Interrupt 38 enable status */
 
 /*******************  Bit definition for PFIC_CFGR register  ****************/
-#define PFIC_CFGR_RESETSYS 0x00000080 /* Bit 7 : System reset (write 1 to reset, auto clear) */
+#define PFIC_RSTSYS 0x00000080 /* Bit 7 : System reset (write 1 to reset, auto clear) */
 
-#define PFIC_CFGR_KEY1 0xFA050000 /* KEY1 */
-#define PFIC_CFGR_KEY2 0xBCAF0000 /* KEY2 */
-#define PFIC_CFGR_KEY3 0xBEEF0000 /* KEY3 */
+#define PFIC_KEY1 0xFA050000 /* KEY1 */
+#define PFIC_KEY2 0xBCAF0000 /* KEY2 */
+#define PFIC_KEY3 0xBEEF0000 /* KEY3 */
 
 /*******************  Bit definition for PFIC_GISR register  ****************/
-#define PFIC_GISR_GPENDSTA 0x00000200 /* Bit 9  : Any interrupt pending */
-#define PFIC_GISR_GACTSTA  0x00000100 /* Bit 8  : Any interrupt active */
+#define PFIC_GACTSTA  0x00000100 /* Bit 8  : Any interrupt active */
+#define PFIC_GPENDSTA 0x00000200 /* Bit 9  : Any interrupt pending */
 
-#define PFIC_GISR_NESTSTA     0x000000FF /* Bits 7:0 */
-#define PFIC_GISR_NEST_LEVEL0 0x00000000 /* No interrupt in progress */
-#define PFIC_GISR_NEST_LEVEL1 0x00000001 /* Level 1 interrupt in progress */
-#define PFIC_GISR_NEST_LEVEL2 0x00000003 /* Level 2 interrupt in progress */
+#define PFIC_NEST_MSK    0x000000FF /* Bits 7:0 */
+#define PFIC_NEST_NOIRQ  0x00000000 /* No interrupt in progress */
+#define PFIC_NEST_LEVEL1 0x00000001 /* Level 1 interrupt in progress */
+#define PFIC_NEST_LEVEL2 0x00000003 /* Level 2 interrupt in progress */
 
-/*******************  Bit definition for PFIC_VTFADDRRx register  ***********/
-#define PFIC_VTFADDR_EN 0x00000001 /* Bit 0 : Enable VTFx interrupt */
+/*******************  Bit definition for PFIC_VTFADDRx register  ***********/
+#define PFIC_VTFADD_EN 0x00000001 /* Bit 0 : Enable VTFx interrupt */
 
 //------------------------------------------------------------------------------
 
@@ -150,7 +147,7 @@ typedef struct {
  * The collection of this file was generated by
  * cnlohr, 2023-02-18 and
  * AlexanderMandera, 2023-06-23
- * It was significantly reworked into several files cnlohr, 2025-01-29
+ * gadefox, 2026
  *
  * While originally under a restrictive copyright, WCH has approved use
  * under MIT-licensed use, because of inclusion in Zephyr, as well as other
