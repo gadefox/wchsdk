@@ -17,14 +17,6 @@
 
 //------------------------------------------------------------------------------
 
-#define STK_MS  (STKCLK / 1000)
-#define STK_US  (STK_MS / 1000)
-
-#define ms_to_stk(n) ((n) * STK_MS)
-#define us_to_stk(n) ((n) * STK_US)
-
-//------------------------------------------------------------------------------
-
 static inline uint32_t stk_get_count(void) {
   return STK->CNTL; }
 
@@ -44,6 +36,11 @@ static inline bool stk_elapsed(uint32_t deadline) {
 static inline void stk_delay(uint32_t ticks) {
   uint32_t deadline = stk_get_count() + ticks;
   while (!stk_elapsed(deadline)); }
+
+//------------------------------------------------------------------------------
+
+#define ms_to_stk(n) ((n) * STKCLK / 1000)
+#define us_to_stk(n) ((n) * STKCLK / 1000000)
 
 static inline void delay_ms(uint32_t ms) {
   uint32_t ticks = ms_to_stk(ms);
