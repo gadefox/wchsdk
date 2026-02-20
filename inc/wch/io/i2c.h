@@ -51,16 +51,16 @@ bool i2c_get(uint8_t* out);
 
 static inline uint16_t i2c_scl_to_ccr(uint32_t freq_scl) {
   if (freq_scl <= 100000)  // 100 kHz
-    return (PCLK1 / 2 / freq_scl) & I2C_CKCFGR_CCR;
-  return ((PCLK1 / 3 / freq_scl) & I2C_CKCFGR_CCR) | I2C_CKCFGR_FS; }
+    return (PCLK1 / 2 / freq_scl) & I2C_CCR;
+  return ((PCLK1 / 3 / freq_scl) & I2C_CCR) | I2C_FS; }
 
 //------------------------------------------------------------------------------
 
 static inline void i2c_enable(void) {
-  I2C1->CTLR1 |= CTLR1_PE_SET; }
+  I2C1->CTLR1 |= I2C_PEN; }
 
 static inline void i2c_disable(void) {
-  I2C1->CTLR1 &= CTLR1_PE_RESET; }
+  I2C1->CTLR1 &= ~I2C_PEN; }
 
 static inline void i2c_power_on(void) {
   RCC->APB1PCENR |= RCC_I2C1EN; }
@@ -69,12 +69,11 @@ static inline void i2c_power_off(void) {
   RCC->APB1PCENR &= ~RCC_I2C1EN; }
 
 static inline void i2c_reset(void) {
-  RCC->APB1PRSTR |= RCC_I2C2RST;
-  RCC->APB1PRSTR &= ~RCC_I2C2RST; }
+  RCC->APB1PRSTR |= RCC_I2C1RST;
+  RCC->APB1PRSTR &= ~RCC_I2C1RST; }
 
 static inline void i2c_remap(uint32_t pcfr) {
-  AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_I2C1_HIGH_BIT_REMAP |
-      AFIO_PCFR1_I2C1_REMAP);
+  AFIO->PCFR1 &= ~(AFIO_SWD_OFF | AFIO_I2C1_RM | AFIO_I2C1_HIGH_RM);
   AFIO->PCFR1 |= pcfr; }
 
 //------------------------------------------------------------------------------
@@ -113,7 +112,7 @@ static inline bool i2c_send_addr_write7(uint8_t addr) {
   return i2c_wait_master_transmitter_mode_selected(); }
 
 static inline bool i2c_send_addr_read7(uint8_t addr) {
-  I2C1->DATAR = (addr << 1) | OADDR1_ADD0_SET;      // LSB = 1 (read)
+  I2C1->DATAR = (addr << 1) | I2C_ADD0;
   return i2c_wait_master_receiver_mode_selected(); }
 
 //------------------------------------------------------------------------------
@@ -132,11 +131,11 @@ static inline bool i2c_wait_master_mode_select(void) {
       I2C_EVENT_MASTER_MODE_SELECT, true, IO_I2C_TIMEOUT); }
 
 static inline bool i2c_start(void) {
-  I2C1->CTLR1 |= I2C_CTLR1_START;
+  I2C1->CTLR1 |= I2C_START;
   return i2c_wait_master_mode_select(); }
 
 static inline void i2c_stop(void) {
-  I2C1->CTLR1 |= I2C_CTLR1_STOP; }
+  I2C1->CTLR1 |= I2C_STOP; }
 
 //------------------------------------------------------------------------------
 // PFIC

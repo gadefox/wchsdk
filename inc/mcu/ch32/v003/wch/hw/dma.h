@@ -70,13 +70,13 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /******************  Bit definition for DMA_INTFCR register  ******************/
-#define DMA_INTF_MSK1 0x0000000F  /* [3:0]   Channel 1 interrupt pending bit masks */
-#define DMA_INTF_MSK2 0x000000F0  /* [7:4]   Channel 2 interrupt pending bit masks */
-#define DMA_INTF_MSK3 0x00000F00  /* [11:8]  Channel 3 interrupt pending bit masks */
-#define DMA_INTF_MSK4 0x0000F000  /* [15:12] Channel 4 interrupt pending bit masks */
-#define DMA_INTF_MSK5 0x000F0000  /* [19:16] Channel 5 interrupt pending bit masks */
-#define DMA_INTF_MSK6 0x00F00000  /* [23:20] Channel 6 interrupt pending bit masks */
-#define DMA_INTF_MSK7 0x0F000000  /* [27:24] Channel 7 interrupt pending bit masks */
+#define DMA_INTF1 0x0000000F  /* [3:0]   Channel 1 interrupt pending bit masks */
+#define DMA_INTF2 0x000000F0  /* [7:4]   Channel 2 interrupt pending bit masks */
+#define DMA_INTF3 0x00000F00  /* [11:8]  Channel 3 interrupt pending bit masks */
+#define DMA_INTF4 0x0000F000  /* [15:12] Channel 4 interrupt pending bit masks */
+#define DMA_INTF5 0x000F0000  /* [19:16] Channel 5 interrupt pending bit masks */
+#define DMA_INTF6 0x00F00000  /* [23:20] Channel 6 interrupt pending bit masks */
+#define DMA_INTF7 0x0F000000  /* [27:24] Channel 7 interrupt pending bit masks */
 
 #define DMA_INTF_POS1 0
 #define DMA_INTF_POS2 4
@@ -97,19 +97,19 @@ typedef struct {
 #define DMA_MINC 0x00000080 /* Memory increment mode */
 
 /* Peripheral size */
-#define DMA_PSIZE_MSK      0x00000300 /* PSIZE[9:8] bits */
+#define DMA_PSIZE          0x00000300 /* PSIZE[9:8] bits */
 #define DMA_PSIZE_BYTE     0x00000000
 #define DMA_PSIZE_HALFWORD 0x00000100
 #define DMA_PSIZE_WORD     0x00000200
 
 /* Memory size */
-#define DMA_MSIZE_MSK      0x00000C00 /* MSIZE[11:10] bits */
+#define DMA_MSIZE          0x00000C00 /* MSIZE[11:10] bits */
 #define DMA_MSIZE_BYTE     0x00000000
 #define DMA_MSIZE_HALFWORD 0x00000400
 #define DMA_MSIZE_WORD     0x00000800
 
 /* Channel Priority level */
-#define DMA_PRIOR_MSK    0x00003000 /* PL[13:12] bits */
+#define DMA_PRIOR        0x00003000 /* PL[13:12] bits */
 #define DMA_PRIOR_LOW    0x00000000
 #define DMA_PRIOR_MEDIUM 0x00001000
 #define DMA_PRIOR_HIGH   0x00002000

@@ -103,29 +103,29 @@ void isr_awu(void)        __attribute__((section(ISR_SECTION))) __attribute((wea
 
 //------------------------------------------------------------------------------
 // DMA handlers
-void isr_dma1_channel1(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel2(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel3(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel4(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel5(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel6(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel7(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel8(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel9(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel10(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma1_channel11(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch1(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch2(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch3(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch4(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch5(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch6(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch7(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch8(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch9(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch10(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma1_ch11(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
 
-void isr_dma2_channel1(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel2(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel3(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel4(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel5(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel6(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel7(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel8(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel9(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel10(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
-void isr_dma2_channel11(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch1(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch2(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch3(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch4(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch5(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch6(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch7(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch8(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch9(void)   __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch10(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
+void isr_dma2_ch11(void)  __attribute__((section(ISR_SECTION))) __attribute((weak, alias("isr_default"))) __attribute__((used));
 
 //------------------------------------------------------------------------------
 // ADC handlers

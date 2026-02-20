@@ -65,8 +65,8 @@ typedef enum {
 
 typedef struct {
   __IO uint32_t STATR;          /* ADC Status Register                         */
-  __IO uint32_t CTL1R;          /* ADC Control Register 1                      */
-  __IO uint32_t CTL2R;          /* ADC Control Register 2                      */
+  __IO uint32_t CTLR1;          /* ADC Control Register 1                      */
+  __IO uint32_t CTLR2;          /* ADC Control Register 2                      */
   __IO uint32_t SAMPTR[2];      /* ADC Sample Time Register x                  */
   __IO uint32_t IOFR[4];        /* ADC Injected Channel Data Offset Register x */
   __IO uint32_t WDHTR;          /* ADC Watchdog High Threshold Register        */
@@ -96,8 +96,8 @@ typedef struct {
 #define ADC_JSTRT 0x00000008 /* Injected channel Start flag */
 #define ADC_STRT  0x00000010 /* Regular channel Start flag */
 
-/*******************  Bit definition for ADC_CTL1R register *********************/
-#define ADC_AWDCH_MSK 0x0000001F /* AWDCH[4:0] bits (Analog watchdog channel select bits) */
+/*******************  Bit definition for ADC_CTLR1 register *********************/
+#define ADC_AWDCH 0x0000001F /* AWDCH[4:0] bits (Analog watchdog channel select bits) */
 
 #define ADC_EOCIE   0x00000020 /* Interrupt enable for EOC */
 #define ADC_AWDIE   0x00000040 /* Analog Watchdog interrupt enable */
@@ -109,18 +109,18 @@ typedef struct {
 #define ADC_JDISCEN 0x00001000 /* Discontinuous mode on injected channels */
 
 /* Discontinuous mode channel count */
-#define ADC_DISCNUM_MSK 0x0000E000 /* DISCNUM[[15:13]] bits */
+#define ADC_DISCNUM 0x0000E000 /* DISCNUM[[15:13]] bits */
 
 #define ADC_JAWDEN 0x00400000 /* Analog watchdog enable on injected channels */
 #define ADC_AWDEN  0x00800000 /* Analog watchdog enable on regular channels */
 
 /* ADC_calibration_voltage_definition [26:25] bits */
-#define ADC_CAL_MSK    0x06000000
-#define ADC_CAL_50AVDD 0x02000000  /* 2/4 AVDD */
-#define ADC_CAL_75AVDD 0x04000000  /* 3/4 AVDD */
+#define ADC_CALVOL   0x06000000
+#define ADC_CALVOL50 0x02000000  /* 2/4 AVDD */
+#define ADC_CALVOL75 0x04000000  /* 3/4 AVDD */
 
-/*******************  Bit definition for ADC_CTL2R register *********************/
-#define ADC_ADON   0x00000001 /* A/D Converter ON / OFF */
+/*******************  Bit definition for ADC_CTLR2 register *********************/
+#define ADC_ADEN   0x00000001 /* A/D Converter ON / OFF */
 #define ADC_CONT   0x00000002 /* Continuous Conversion */
 #define ADC_CAL    0x00000004 /* A/D Calibration */
 #define ADC_RSTCAL 0x00000008 /* Reset Calibration */
@@ -128,7 +128,7 @@ typedef struct {
 #define ADC_ALIGN  0x00000800 /* Data Alignment */
 
 /* External event select for injected group */
-#define ADC_JEXT_MSK      0x00007000 /* JEXTSEL[14:12] bits */
+#define ADC_JEXT          0x00007000 /* JEXTSEL[14:12] bits */
 #define ADC_JEXT_TIM1_CC3 0x00000000
 #define ADC_JEXT_TIM1_CC4 0x00001000
 #define ADC_JEXT_TIM2_CC3 0x00002000
@@ -139,7 +139,7 @@ typedef struct {
 #define ADC_JEXTTRIG 0x00008000 /* External Trigger Conversion mode for injected channels */
 
 /* External Event Select for regular group */
-#define ADC_EXT_MSK         0x000E0000 /* EXTSEL[2:0] bits */
+#define ADC_EXT             0x000E0000 /* EXTSEL[2:0] bits */
 #define ADC_EXT_TIM1_TRGO   0x00000000
 #define ADC_EXT_TIM1_CC1    0x00020000
 #define ADC_EXT_TIM1_CC2    0x00040000
@@ -155,16 +155,17 @@ typedef struct {
 #define ADC_TSVREFE  0x00800000 /* Temperature Sensor and VREFINT Enable */
 
 /******************  Bit definition for ADC_SAMPTRx register ********************/
-#define ADC_SMP0_MSK 0x00000007 /* SMP10[2:0] bits (Channel 10 Sample time selection) */
-#define ADC_SMP1_MSK 0x00000038 /* SMP11[5:3] bits (Channel 11 Sample time selection) */
-#define ADC_SMP2_MSK 0x000001C0 /* SMP12[8:6] bits (Channel 12 Sample time selection) */
-#define ADC_SMP3_MSK 0x00000E00 /* SMP13[11:9] bits (Channel 13 Sample time selection) */
-#define ADC_SMP4_MSK 0x00007000 /* SMP14[14:12] bits (Channel 14 Sample time selection) */
-#define ADC_SMP5_MSK 0x00038000 /* SMP15[17:15] bits (Channel 15 Sample time selection) */
-#define ADC_SMP6_MSK 0x001C0000 /* SMP16[20:18] bits (Channel 16 Sample time selection) */
-#define ADC_SMP7_MSK 0x00E00000 /* SMP17[23:21] bits (Channel 17 Sample time selection) */
-#define ADC_SMP8_MSK 0x07000000 /* SMP8[26:24] bits (Channel 8 Sample time selection) */
-#define ADC_SMP9_MSK 0x38000000 /* SMP9[29:27] bits (Channel 9 Sample time selection) */
+#define ADC_SMP  0x3FFFFFFF
+#define ADC_SMP0 0x00000007 /* SMP0[2:0]   bits (Channel 0/10 Sample time selection) */
+#define ADC_SMP1 0x00000038 /* SMP1[5:3]   bits (Channel 1/11 Sample time selection) */
+#define ADC_SMP2 0x000001C0 /* SMP2[8:6]   bits (Channel 2/12 Sample time selection) */
+#define ADC_SMP3 0x00000E00 /* SMP3[11:9]  bits (Channel 3/13 Sample time selection) */
+#define ADC_SMP4 0x00007000 /* SMP4[14:12] bits (Channel 4/14 Sample time selection) */
+#define ADC_SMP5 0x00038000 /* SMP5[17:15] bits (Channel 5/15 Sample time selection) */
+#define ADC_SMP6 0x001C0000 /* SMP6[20:18] bits (Channel 6 Sample time selection) */
+#define ADC_SMP7 0x00E00000 /* SMP7[23:21] bits (Channel 7 Sample time selection) */
+#define ADC_SMP8 0x07000000 /* SMP8[26:24] bits (Channel 8 Sample time selection) */
+#define ADC_SMP9 0x38000000 /* SMP9[29:27] bits (Channel 9 Sample time selection) */
 
 #define ADC_SMP0_POS 0
 #define ADC_SMP1_POS 3
@@ -178,21 +179,21 @@ typedef struct {
 #define ADC_SMP9_POS 27
 
 /******************  Bit definition for ADC_IOFRx register  *******************/
-#define ADC_JOFFSET_MSK 0x000002FF /* Data offset for injected channel x */
+#define ADC_JOFFSET 0x000002FF /* Data offset for injected channel x */
 
 /*******************  Bit definition for ADC_WDHTR register *********************/
-#define ADC_HT_MSK 0x000002FF /* Analog watchdog high threshold */
+#define ADC_HT 0x000002FF /* Analog watchdog high threshold */
 
 /*******************  Bit definition for ADC_WDLTR register *********************/
-#define ADC_LT_MSK 0x000002FF /* Analog watchdog low threshold */
+#define ADC_LT 0x000002FF /* Analog watchdog low threshold */
 
 /*******************  Bit definition for ADC_RSQRx register *******************/
-#define ADC_SQ1_MSK 0x0000001F /* SQ1[4:0] bits (1st conversion in regular sequence) */
-#define ADC_SQ2_MSK 0x000003E0 /* SQ2[9:5] bits (2nd conversion in regular sequence) */
-#define ADC_SQ3_MSK 0x00007C00 /* SQ3[14:10] bits (3rd conversion in regular sequence) */
-#define ADC_SQ4_MSK 0x000F8000 /* SQ4[19:15] bits (4th conversion in regular sequence) */
-#define ADC_SQ5_MSK 0x01F00000 /* SQ5[24:20] bits (5th conversion in regular sequence) */
-#define ADC_SQ6_MSK 0x3E000000 /* SQ6[29:25] bits (6th conversion in regular sequence) */
+#define ADC_SQ1 0x0000001F /* SQ1[4:0] bits (1st conversion in regular sequence) */
+#define ADC_SQ2 0x000003E0 /* SQ2[9:5] bits (2nd conversion in regular sequence) */
+#define ADC_SQ3 0x00007C00 /* SQ3[14:10] bits (3rd conversion in regular sequence) */
+#define ADC_SQ4 0x000F8000 /* SQ4[19:15] bits (4th conversion in regular sequence) */
+#define ADC_SQ5 0x01F00000 /* SQ5[24:20] bits (5th conversion in regular sequence) */
+#define ADC_SQ6 0x3E000000 /* SQ6[29:25] bits (6th conversion in regular sequence) */
 
 #define ADC_SQ1_POS 0
 #define ADC_SQ2_POS 5
@@ -202,12 +203,12 @@ typedef struct {
 #define ADC_SQ6_POS 25
 
 /*******************  Bit definition for ADC_ISQR register  *******************/
-#define ADC_JSQ1_MSK 0x0000001F /* JSQ1[4:0] bits (1st conversion in injected sequence) */
-#define ADC_JSQ2_MSK 0x000003E0 /* JSQ2[9:5] bits (2nd conversion in injected sequence) */
-#define ADC_JSQ3_MSK 0x00007C00 /* JSQ3[14:10] bits (3rd conversion in injected sequence) */
-#define ADC_JSQ4_MSK 0x000F8000 /* JSQ4[19:15] bits (4th conversion in injected sequence) */
-#define ADC_L_MSK    0x00F00000 /* L[23:20] bits (Regular channel sequence length) */
-#define ADC_JL_MSK   0x00300000 /* JL[25:24] bits (Injected Sequence length) */
+#define ADC_JSQ1 0x0000001F /* JSQ1[4:0] bits (1st conversion in injected sequence) */
+#define ADC_JSQ2 0x000003E0 /* JSQ2[9:5] bits (2nd conversion in injected sequence) */
+#define ADC_JSQ3 0x00007C00 /* JSQ3[14:10] bits (3rd conversion in injected sequence) */
+#define ADC_JSQ4 0x000F8000 /* JSQ4[19:15] bits (4th conversion in injected sequence) */
+#define ADC_L    0x00F00000 /* L[23:20] bits (Regular channel sequence length) */
+#define ADC_JL   0x00300000 /* JL[25:24] bits (Injected Sequence length) */
 
 #define ADC_JSQ1_POS 0
 #define ADC_JSQ2_POS 5
@@ -217,15 +218,14 @@ typedef struct {
 #define ADC_JL_POS   24
 
 /********************  Bit definition for ADC_RDATAR register *********************/
-#define ADC_RDATA_MSK     0x0000FFFF /* Regular data */
-#define ADC_RDATA_ADC2MSK 0xFFFF0000 /* ADC2 data */
+#define ADC_RDATA      0x0000FFFF /* Regular data */
+#define ADC_RDATA_ADC2 0xFFFF0000 /* ADC2 data */
 
 #define ADC_RDATA_POS 16
 
 /********************  Bit definition for ADC_DLYR register *********************/
 #define ADC_DLY_SRC 0x00000200
-
-#define ADC_DLY_VLU_MSK 0x000001FF
+#define ADC_DLY_VLU 0x000001FF
 
 //------------------------------------------------------------------------------
 

@@ -26,7 +26,7 @@ int main(void) {
   port_power_on(RCC_IOPCEN | RCC_IOPDEN);
 
   // Set pins to output mode
-  pin_set_mode(PIN_R, GPIO_CFGO_PP10);
+  pin_set_mode(PIN_R, GPIO_PP10);
 
   port_mask_cfg(GPIOA, PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
   port_set_cfg(GPIOA, PIN_PP10(PIN_G) | PIN_PP10(PIN_B));

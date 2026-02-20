@@ -4,6 +4,7 @@
 
 #include "wch/hw/afio.h"
 #include "wch/hw/exti.h"
+#include "wch/hw/gpio.h"
 #include "wch/hw/irq.h"
 #include "wch/hw/rcc.h"
 
@@ -57,12 +58,12 @@ static inline void exti_clear(uint32_t mask) {
 //------------------------------------------------------------------------------
 // Port mapping
 
-#define EXTI_CFG(line, port)  ((port) << ((line) << 1))
-#define EXTI_MASK(l)  EXTI_CFG(l, 0b11)
+#define EXTI_CFG(pin, port)  ((port) << ((pin) << 1))
+#define EXTI_MASK(p)  EXTI_CFG(p, 0b11)
 
-#define EXTI_PORTA(l)  EXTI_CFG(l, EXTI_GPIOA)
-#define EXTI_PORTC(l)  EXTI_CFG(l, EXTI_GPIOC)
-#define EXTI_PORTD(l)  EXTI_CFG(l, EXTI_GPIOD)
+#define EXTI_PORTA(p)  EXTI_CFG(p, GPIO_PORTA)
+#define EXTI_PORTC(p)  EXTI_CFG(p, GPIO_PORTC)
+#define EXTI_PORTD(p)  EXTI_CFG(p, GPIO_PORTD)
 
 static inline void exti_mask_map(uint32_t mask) {
   AFIO->EXTICR &= ~mask; }

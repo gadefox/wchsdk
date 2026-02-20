@@ -33,7 +33,11 @@ static inline void pfic_disable_irq(irq_t irq) {
 
 //------------------------------------------------------------------------------
 
-void pfic_disable_irqs_except(irq_t irq);
+static inline void pfic_disable_irqs_except(irq_t irq) {
+  uint8_t num = pfic_reg_num(irq);
+  PFIC->IRER[num] = ~pfic_irq_mask(irq);
+  PFIC->IRER[1 - num] = ~0;
+}
 
 //------------------------------------------------------------------------------
 // Get Interrupt Enable State, (by number)
@@ -104,14 +108,14 @@ static inline void pfic_restore_irqs(uint32_t isr) {
 // Initiate a system reset request
 
 static inline void pfic_system_reset(void) {
-  PFIC->CFGR = PFIC_CFGR_RESETSYS | PFIC_CFGR_KEY3; }
+  PFIC->CFGR = PFIC_RSTSYS | PFIC_KEY3; }
 
 //------------------------------------------------------------------------------
 // WFI - wait for interrupt (like a light sleep)
 
 __attribute__((always_inline))
 static inline void pfic_wait_for_irq(void) {
-  PFIC->SCTLR &= ~PFIC_SCTLR_WFITOWFE;
+  PFIC->SCTLR &= ~PFIC_WFITOWFE;
   asm volatile("wfi"); }
 
 //------------------------------------------------------------------------------
@@ -119,9 +123,9 @@ static inline void pfic_wait_for_irq(void) {
 
 __attribute__((always_inline))
 static inline void pfic_wait_for_events(void) {
-  uint32_t sctlr = PFIC->SCTLR & PFIC_SCTLR_SETEVENT;
-  PFIC->SCTLR |= PFIC_SCTLR_SETEVENT | PFIC_SCTLR_WFITOWFE;
-  PFIC->SCTLR &= ~PFIC_SCTLR_SETEVENT;
+  uint32_t sctlr = PFIC->SCTLR & PFIC_SETEVENT;
+  PFIC->SCTLR |= PFIC_SETEVENT | PFIC_WFITOWFE;
+  PFIC->SCTLR &= ~PFIC_SETEVENT;
   PFIC->SCTLR |= sctlr;
   asm volatile("wfi");
   asm volatile("wfi"); }
@@ -132,19 +136,11 @@ static inline void pfic_wait_for_events(void) {
 
 static inline void pfic_enable_vtf(irq_t irq, void *addr, uint8_t num) {
   PFIC->VTFIDR[num] = irq;
-  PFIC->VTFADDR[num] = (uint32_t)addr | PFIC_VTFADDR_EN; }
+  PFIC->VTFADDR[num] = (uint32_t)addr | PFIC_VTFADD; }
 
 static inline void pfic_disable_vtf(irq_t irq, uint8_t num) {
   PFIC->VTFIDR[num] = irq;
   PFIC->VTFADDR[num] = 0; }
-
-//------------------------------------------------------------------------------
-
-static inline void pfic_disable_irqs_except(irq_t irq) {
-  uint8_t num = pfic_reg_num(irq);
-  PFIC->IRER[num] = ~pfic_irq_mask(irq);
-  PFIC->IRER[1 - num] = ~0;
-}
 
 //------------------------------------------------------------------------------
 

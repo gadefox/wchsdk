@@ -45,15 +45,15 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /******************  Bit definition for AFIO_PCFR1 register  *******************/
-#define AFIO_SPI1_RM    0x00000001 /* SPI1 remapping */
-#define AFIO_I2C1_RM    0x00000002 /* I2C1 remapping */
-#define AFIO_UART1_RM   0x00000004 /* UART1 remapping */
+#define AFIO_SPI1_RM  0x00000001 /* SPI1 remapping */
+#define AFIO_I2C1_RM  0x00000002 /* I2C1 remapping */
+#define AFIO_UART1_RM 0x00000004 /* UART1 remapping */
 
 /* TIMx remapping */
-#define AFIO_TIM1_RM_MSK   0x000000C0 /* TIM1_REMAP[7:6] bits */
-#define AFIO_TIM2_RM_MSK   0x00000300 /* TIM2_REMAP[9:8] bits */
-#define AFIO_TIM1_RM_POS   6
-#define AFIO_TIM2_RM_POS   8
+#define AFIO_TIM1_RM 0x000000C0 /* TIM1_REMAP[7:6] bits */
+#define AFIO_TIM2_RM 0x00000300 /* TIM2_REMAP[9:8] bits */
+#define AFIO_TIM1_RM_POS 6
+#define AFIO_TIM2_RM_POS 8
 
 #define AFIO_PA12_RMP        0x00008000 /* Port D0/Port D1 mapping on OSC_IN/OSC_OUT */
 #define AFIO_ADC1_ETRGINJ_RM 0x00020000 /* ADC 1 External Trigger Injected Conversion remapping */
@@ -62,18 +62,18 @@ typedef struct {
 #define AFIO_I2C1_HIGH_RM    0x00400000
 #define AFIO_TIM1_IRM        0x00800000
 
-#define AFIO_SWCFG_MSK 0x07000000 /* SWCFG[26:24] bits (Serial Wire IO Debug configuration) */
-#define AFIO_SWCFG_OFF 0x04000000 /* SWD (SDI) disabled */
+#define AFIO_SWD 0x07000000 /* SWCFG[26:24] bits (Serial Wire IO Debug configuration) */
+#define AFIO_SWD_OFF 0x04000000 /* SWD (SDI) disabled */
 
 /*****************  Bit definition for AFIO_EXTICR register  *****************/
-#define AFIO_EXTI_MSK0 0x00000003 /* [1:0]   EXTI 0 configuration */
-#define AFIO_EXTI_MSK1 0x0000000C /* [3:2]   EXTI 1 configuration */
-#define AFIO_EXTI_MSK2 0x00000030 /* [5:4]   EXTI 2 configuration */
-#define AFIO_EXTI_MSK3 0x000000C0 /* [7:6]   EXTI 3 configuration */
-#define AFIO_EXTI_MSK4 0x00000300 /* [9:8]   EXTI 4 configuration */
-#define AFIO_EXTI_MSK5 0x00000C00 /* [11:10] EXTI 5 configuration */
-#define AFIO_EXTI_MSK6 0x00003000 /* [13:12] EXTI 6 configuration */
-#define AFIO_EXTI_MSK7 0x0000C000 /* [15:14] EXTI 7 configuration */
+#define AFIO_EXTI0 0x00000003 /* [1:0]   EXTI 0 configuration */
+#define AFIO_EXTI1 0x0000000C /* [3:2]   EXTI 1 configuration */
+#define AFIO_EXTI2 0x00000030 /* [5:4]   EXTI 2 configuration */
+#define AFIO_EXTI3 0x000000C0 /* [7:6]   EXTI 3 configuration */
+#define AFIO_EXTI4 0x00000300 /* [9:8]   EXTI 4 configuration */
+#define AFIO_EXTI5 0x00000C00 /* [11:10] EXTI 5 configuration */
+#define AFIO_EXTI6 0x00003000 /* [13:12] EXTI 6 configuration */
+#define AFIO_EXTI7 0x0000C000 /* [15:14] EXTI 7 configuration */
 
 #define AFIO_EXTI_POS0 0
 #define AFIO_EXTI_POS1 2

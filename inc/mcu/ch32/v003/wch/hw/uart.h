@@ -53,11 +53,11 @@ typedef struct {
 #define UART_CTS  0x0200 /* CTS Flag */
 
 /*******************  Bit definition for UART_DATAR register  *******************/
-#define UART_DR_MSK 0x01FF /* Data value */
+#define UART_DR 0x01FF /* Data value */
 
 /******************  Bit definition for UART_BRR register  *******************/
-#define UART_FRACTION_MSK 0x000F /* Fraction of UARTDIV */
-#define UART_MANTISSA_MSK 0xFFF0 /* Mantissa of UARTDIV */
+#define UART_FRACTION 0x000F /* Fraction of UARTDIV */
+#define UART_MANTISSA 0xFFF0 /* Mantissa of UARTDIV */
 
 /******************  Bit definition for UART_CTLR1 register  *******************/
 #define UART_SBK    0x0001 /* Send Break */
@@ -66,30 +66,29 @@ typedef struct {
 #define UART_TXEN   0x0008 /* Transmitter Enable */
 #define UART_IDLEIE 0x0010 /* IDLE Interrupt Enable */
 #define UART_RXNEIE 0x0020 /* RXNE Interrupt Enable */
-#define UART_TCIEN  0x0040 /* Transmission Complete Interrupt Enable */
-#define UART_TXEIEN 0x0080 /* PE Interrupt Enable */
-#define UART_PEIEN  0x0100 /* PE Interrupt Enable */
+#define UART_TCIE   0x0040 /* Transmission Complete Interrupt Enable */
+#define UART_TXEIE  0x0080 /* PE Interrupt Enable */
+#define UART_PEIE   0x0100 /* PE Interrupt Enable */
 #define UART_WAKE   0x0800 /* Wakeup method */
 #define UART_LEN9B  0x1000 /* Word length */
 #define UART_UE     0x2000 /* UART Enable */
 #define UART_OVER8  0x8000 /* UART Oversmapling 8-bits */
 
-#define UART_PAR_MSK  0x0600
+#define UART_PAR      0x0600
 #define UART_PAR_NO   0x0000
 #define UART_PAR_EVEN 0x0400
 #define UART_PAR_ODD  0x0600
 
 /******************  Bit definition for UART_CTLR2 register  *******************/
-#define UART_ADD_MSK 0x000F /* Address of the UART node */
+#define UART_ADD   0x000F /* Address of the UART node */
+#define UART_LBDL  0x0020 /* LIN Break Detection Length */
+#define UART_LBDIE 0x0040 /* LIN Break Detection Interrupt Enable */
+#define UART_LBCL  0x0100 /* Last Bit Clock pulse */
+#define UART_CPHA  0x0200 /* Clock Phase */
+#define UART_CPOL  0x0400 /* Clock Polarity */
+#define UART_CLKEN 0x0800 /* Clock Enable */
 
-#define UART_LBDL    0x0020 /* LIN Break Detection Length */
-#define UART_LBDIE   0x0040 /* LIN Break Detection Interrupt Enable */
-#define UART_LBCL    0x0100 /* Last Bit Clock pulse */
-#define UART_CPHA    0x0200 /* Clock Phase */
-#define UART_CPOL    0x0400 /* Clock Polarity */
-#define UART_CLKEN   0x0800 /* Clock Enable */
-
-#define UART_STOP_MSK 0x3000 /* STOP[1:0] bits (STOP bits) */
+#define UART_STOP    0x3000 /* STOP[1:0] bits (STOP bits) */
 #define UART_STOP1   0x0000
 #define UART_STOP0_5 0x1000
 #define UART_STOP2   0x2000
@@ -112,8 +111,8 @@ typedef struct {
 #define UART_1BIT  0x0800 /* One Bit method */
 
 /******************  Bit definition for UART_GPR register  ******************/
-#define UART_PSC_MSK 0x00FF /* PSC[7:0] bits (Prescaler value) */
-#define UART_GT_MSK  0xFF00 /* GT[15:8] bits (Guard time value) */
+#define UART_PSC 0x00FF /* PSC[7:0] bits (Prescaler value) */
+#define UART_GT  0xFF00 /* GT[15:8] bits (Guard time value) */
 
 //------------------------------------------------------------------------------
 

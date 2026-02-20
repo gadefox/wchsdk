@@ -30,7 +30,7 @@ void irq_i2c1_ev(void) {
   uint16_t statr = I2C1->STAR1;
 
   /* RX: Data received */
-  if (statr & I2C_STAR1_RXNE) {
+  if (statr & I2C_RXNE) {
     uint8_t recv = (uint8_t)I2C1->DATAR;
 
 #if IO_I2C_RX_RING_OVERWRITE
@@ -43,16 +43,16 @@ void irq_i2c1_ev(void) {
   }
 
   /* TX: Transmit buffer empty */
-  if (statr & I2C_STAR1_TXE) {
+  if (statr & I2C_TXE) {
     uint8_t data;
     if (ring_get(&tx_ring, &data))
       I2C1->DATAR = data;
     else
-      I2C1->CTLR2 &= ~I2C_CTLR2_ITBUFEN;  // disable buffer interrupt
+      I2C1->CTLR2 &= ~I2C_ITBUFEN;  // Disable buffer interrupt
   }
 
   /* Error handling */
-  if (statr & (I2C_STAR1_BERR | I2C_STAR1_ARLO | I2C_STAR1_AF)) {
+  if (statr & (I2C_BERR | I2C_ARLO | I2C_AF)) {
     volatile uint8_t dummy;
     dummy = I2C1->DATAR;
     dummy = I2C1->STAR1;
@@ -88,7 +88,7 @@ bool i2c_put(uint8_t byte) {
   if (!ring_put(&tx_ring, byte))
       return false;
 
-  I2C1->CTLR2 |= I2C_CTLR2_ITBUFEN;  // enable buffer interrupt
+  I2C1->CTLR2 |= I2C_ITBUFEN;  // enable buffer interrupt
   return true;
 }
 
@@ -113,7 +113,7 @@ bool i2c_send_addr_write10(uint16_t addr) {
 
 bool i2c_send_addr_read10(uint16_t addr) {
   // First byte: 11110[A9][A8]1
-  I2C1->DATAR = 0xF0 | ((addr >> 7) & 0x06) | OADDR1_ADD0_SET;
+  I2C1->DATAR = 0xF0 | ((addr >> 7) & 0x06) | I2C_ADD0;
   if (!i2c_wait_master_mode_addr10())
     return false;
 

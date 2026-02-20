@@ -23,25 +23,24 @@ void adc_init(void) {
   RCC->CFGR0 |= IO_ADC_PREDIV;
 
   // Reset calibration
-  ADC1->CTLR2 = CTLR2_RSTCAL_SET;
-  while (ADC1->CTLR2 & CTLR2_RSTCAL_SET);
+  ADC1->CTLR2 = ADC_RSTCAL;
+  while (ADC1->CTLR2 & ADC_RSTCAL);
 
   // Calibrate
-  ADC1->CTLR2 = CTLR2_CAL_SET;
-  while (ADC1->CTLR2 & CTLR2_CAL_SET);
+  ADC1->CTLR2 = ADC_CAL;
+  while (ADC1->CTLR2 & ADC_CAL);
 
-  // Set sampling time for all channels to 15 (A good middleground) ADC_SMP0_1.
-  ADC1->SAMPTR1 = ADC_SMP10 | ADC_SMP11 | ADC_SMP12 | ADC_SMP13 |
-                  ADC_SMP14 | ADC_SMP15 | ADC_SMP16 | ADC_SMP17;
-  ADC1->SAMPTR2 = ADC_SMP0 | ADC_SMP1 | ADC_SMP2 | ADC_SMP3 | ADC_SMP4 |
-                  ADC_SMP5 | ADC_SMP6 | ADC_SMP7 | ADC_SMP8 | ADC_SMP9;
+  // Set sampling time for all channels to ADC_SMP_241CYCLES
+  ADC1->SAMPTR[0] = ADC_SMP;
+  ADC1->SAMPTR[1] = ADC_SMP;
+
   adc_enable();
 }
 
 //------------------------------------------------------------------------------
 
 uint32_t analog_read(uint8_t pin) {
-  ADC1->RSQR3 = pin;
+  ADC1->RSQR[2] = pin;
 
   // Start sw conversion (auto clears)
   ADC1->CTLR2 |= ADC_SWSTART;

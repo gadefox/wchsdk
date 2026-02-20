@@ -55,29 +55,29 @@ typedef enum {
 #define PIN_MASK(p)  PIN_CFG(p, 0xF)
 
 // Input modes
-#define PIN_IA(p)  PIN_CFG(p, GPIO_CFGI_ANALOG)
-#define PIN_IF(p)  PIN_CFG(p, GPIO_CFGI_FLOAT)
-#define PIN_IP(p)  PIN_CFG(p, GPIO_CFGI_PUPD)
+#define PIN_IA(p)  PIN_CFG(p, GPIO_ANALOG)
+#define PIN_IF(p)  PIN_CFG(p, GPIO_FLOAT)
+#define PIN_IP(p)  PIN_CFG(p, GPIO_PUPD)
 
 // Output push-pull
-#define PIN_PP2(p)   PIN_CFG(p, GPIO_CFGO_PP2)
-#define PIN_PP10(p)  PIN_CFG(p, GPIO_CFGO_PP10)
-#define PIN_PP30(p)  PIN_CFG(p, GPIO_CFGO_PP30)
+#define PIN_PP2(p)   PIN_CFG(p, GPIO_PP2)
+#define PIN_PP10(p)  PIN_CFG(p, GPIO_PP10)
+#define PIN_PP30(p)  PIN_CFG(p, GPIO_PP30)
 
 // Output open-drain
-#define PIN_OD2(p)   PIN_CFG(p, GPIO_CFGO_OD2)
-#define PIN_OD10(p)  PIN_CFG(p, GPIO_CFGO_OD10)
-#define PIN_OD30(p)  PIN_CFG(p, GPIO_CFGO_OD30)
+#define PIN_OD2(p)   PIN_CFG(p, GPIO_OD2)
+#define PIN_OD10(p)  PIN_CFG(p, GPIO_OD10)
+#define PIN_OD30(p)  PIN_CFG(p, GPIO_OD30)
 
 // Alternate function push-pull
-#define PIN_MP2(p)   PIN_CFG(p, GPIO_CFGO_MP2)
-#define PIN_MP10(p)  PIN_CFG(p, GPIO_CFGO_MP10)
-#define PIN_MP30(p)  PIN_CFG(p, GPIO_CFGO_MP30)
+#define PIN_AP2(p)   PIN_CFG(p, GPIO_APP2)
+#define PIN_AP10(p)  PIN_CFG(p, GPIO_APP10)
+#define PIN_AP30(p)  PIN_CFG(p, GPIO_APP30)
 
 // Alternate function open-drain
-#define PIN_MD2(p)   PIN_CFG(p, GPIO_CFGO_MD2)
-#define PIN_MD10(p)  PIN_CFG(p, GPIO_CFGO_MD10)
-#define PIN_MD30(p)  PIN_CFG(p, GPIO_CFGO_MD30)
+#define PIN_AD2(p)   PIN_CFG(p, GPIO_AOD2)
+#define PIN_AD10(p)  PIN_CFG(p, GPIO_AOD10)
+#define PIN_AwD30(p)  PIN_CFG(p, GPIO_AOD30)
 
 //------------------------------------------------------------------------------
 // Power

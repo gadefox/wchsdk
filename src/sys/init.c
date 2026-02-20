@@ -79,11 +79,11 @@ static inline void sys_init_pll(void) {
   while (!(RCC->CTLR & RCC_PLLRDY));
 
   // Select PLL as system clock source
-  RCC->CFGR0 &= ~RCC_SW_MSK;
+  RCC->CFGR0 &= ~RCC_SW;
   RCC->CFGR0 |= RCC_SW_PLL;
 
   // Wait till PLL is used as system clock source
-  while ((RCC->CFGR0 & RCC_SWS_MSK) != RCC_SWS_PLL);
+  while ((RCC->CFGR0 & RCC_SWS) != RCC_SWS_PLL);
 }
 
 #endif  /* SYS_PLL */

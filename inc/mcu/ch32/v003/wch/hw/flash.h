@@ -79,7 +79,7 @@ typedef enum {
 #define FLASH_IT_EOP  0x00001000 /* End of FLASH Operation Interrupt source */
 
 /*******************  Bit definition for FLASH_ACTLR register  ******************/
-#define FLASH_LATENCY_MSK 0x03 /* LATENCY[2:0] bits (Latency) */
+#define FLASH_LATENCY     0x03 /* LATENCY[2:0] bits (Latency) */
 #define FLASH_LATENCY0    0x00 /* Zero Latency cycle */
 #define FLASH_LATENCY1    0x01 /* One Latency cycle */
 
@@ -115,7 +115,7 @@ typedef enum {
 #define FLASH_STANDY_RST  0x00000010
 #define FLASH_BOOT_MODE   0x00000080
 
-#define FLASH_RST_MSK     0x00000060 /* 2 bits; RST_MODE */
+#define FLASH_RST         0x00000060 /* 2 bits; RST_MODE */
 #define FLASH_RST_DT128US 0x00000000 /* Reset IO enable (PD7) and  Ignore delay time 128us */
 #define FLASH_RST_DT1MS   0x00000020 /* Reset IO enable (PD7) and  Ignore delay time 1ms */
 #define FLASH_RST_DT12MS  0x00000040 /* Reset IO enable (PD7) and  Ignore delay time 12ms */

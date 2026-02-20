@@ -64,34 +64,27 @@ typedef struct {
 // Configuration Mode enumeration
 
 typedef enum {
-  GPIO_IN     = 0b00,
-  GPIO_OUT2   = 0b10,  // 2 MHz
-  GPIO_OUT10  = 0b01,  // 10 MHz
-  GPIO_OUT30  = 0b11   // 30 MHz
+  GPIO_IN     = 0,
+  GPIO_OUT2   = 2,  // 2 MHz
+  GPIO_OUT10  = 1,  // 10 MHz
+  GPIO_OUT30  = 3   // 30 MHz
 } gpio_dir_t;
 
-typedef enum {
-  GPIO_ANALOG = 0b00 << 2,
-  GPIO_FLOAT  = 0b01 << 2,
-  GPIO_PUPD   = 0b10 << 2      // With pull-up and pull-down mode
-} gpio_type_in_t;
-
-#define GPIO_PP   0            // Universal push-pull output mode
-#define GPIO_OD   (1 << 2)     // Universal open-drain output mode
-#define GPIO_MUX  (1 << 3)     // Multiplexed function
+#define GPIO_OD   0x4   // Universal open-drain output mode
+#define GPIO_MUX  0x8   // Multiplexed function
 
 //------------------------------------------------------------------------------
 
 typedef enum {
   // Input mode
-  GPIO_ANALOG = GPIO_IN | GPIO_ANALOG,
-  GPIO_FLOAT  = GPIO_IN | GPIO_FLOAT,
-  GPIO_PUPD   = GPIO_IN | GPIO_PUPD,
+  GPIO_ANALOG = GPIO_IN,
+  GPIO_FLOAT  = GPIO_IN | 0x04,
+  GPIO_PUPD   = GPIO_IN | 0x08,  // With pull-up and pull-down mode
 
   // Output mode: push-pull
-  GPIO_PP2  = GPIO_OUT2 | GPIO_PP,
-  GPIO_PP10 = GPIO_OUT10 | GPIO_PP,
-  GPIO_PP30 = GPIO_OUT30 | GPIO_PP,
+  GPIO_PP2  = GPIO_OUT2,
+  GPIO_PP10 = GPIO_OUT10,
+  GPIO_PP30 = GPIO_OUT30,
 
   // Output mode: open-drain
   GPIO_OD2  = GPIO_OUT2 | GPIO_OD,
@@ -99,9 +92,9 @@ typedef enum {
   GPIO_OD30 = GPIO_OUT30 | GPIO_OD,
 
   // Output mode: multiplexed function push-pull
-  GPIO_APP2  = GPIO_OUT2 |  GPIO_PP | GPIO_MUX,
-  GPIO_APP10 = GPIO_OUT10 | GPIO_PP | GPIO_MUX,
-  GPIO_APP30 = GPIO_OUT30 | GPIO_PP | GPIO_MUX,
+  GPIO_APP2  = GPIO_OUT2 |  GPIO_MUX,
+  GPIO_APP10 = GPIO_OUT10 | GPIO_MUX,
+  GPIO_APP30 = GPIO_OUT30 | GPIO_MUX,
   
   // Output mode: multiplexed function open-drain
   GPIO_AOD2  = GPIO_OUT2 | GPIO_OD | GPIO_MUX,

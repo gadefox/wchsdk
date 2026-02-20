@@ -43,7 +43,7 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /*******************  Bit definition for IWDG_PSCR register  ********************/
-#define IWDG_MSK    0x0007 /* PR[2:0] (Prescaler divider) */
+#define IWDG_DIV    0x0007 /* PR[2:0] (Prescaler divider) */
 #define IWDG_DIV4   0x0000
 #define IWDG_DIV8   0x0001
 #define IWDG_DIV16  0x0002
@@ -53,7 +53,7 @@ typedef struct {
 #define IWDG_DIV256 0x0006
 
 /*******************  Bit definition for IWDG_RLDR register  *******************/
-#define IWDG_RL_MSK 0x0FFF /* Watchdog counter reload value */
+#define IWDG_RL 0x0FFF /* Watchdog counter reload value */
 
 /*******************  Bit definition for IWDG_STATR register  ********************/
 #define IWDG_PVU 0x0001 /* Watchdog prescaler value update */

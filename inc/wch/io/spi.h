@@ -52,19 +52,19 @@ bool spi_get(uint8_t *out);
 // DFF length can only be set when SPI is disabled
 
 static inline void spi_begin_byte(void) {
-  SPI1->CTLR1 &= ~SPI_CTLR1_DFF;
-  SPI1->CTLR1 |= SPI_CTLR1_SPE; }
+  SPI1->CTLR1 &= ~SPI_DFF;
+  SPI1->CTLR1 |= SPI_SPE; }
 
 static inline void spi_begin_word(void) {
-  SPI1->CTLR1 |= SPI_CTLR1_DFF | SPI_CTLR1_SPE; }
+  SPI1->CTLR1 |= SPI_DFF | SPI_SPE; }
 
 //------------------------------------------------------------------------------
 
 static inline void spi_enable(void) {
-  SPI1->CTLR1 |= CTLR1_CRCEN_SET; }
+  SPI1->CTLR1 |= SPI_CRCEN; }
 
 static inline void spi_disable(void) {
-  SPI1->CTLR1 &= CTLR1_CRCEN_RESET; }
+  SPI1->CTLR1 &= ~SPI_CRCEN; }
 
 static inline void spi_power_on(void) {
   RCC->APB2PCENR |= RCC_SPI1EN; }
@@ -77,24 +77,24 @@ static inline void spi_reset(void) {
   RCC->APB2PRSTR &= ~RCC_SPI1RST; }
 
 static inline void spi_remap(uint32_t pcfr) {
-  AFIO->PCFR1 &= ~(AFIO_PCFR1_SWCFG_DISABLE | AFIO_PCFR1_SPI1_REMAP);
+  AFIO->PCFR1 &= ~(AFIO_SWD_OFF | AFIO_SPI1_RM);
   AFIO->PCFR1 |= pcfr; }
 
 //------------------------------------------------------------------------------
 
 static inline bool spi_is_rx_empty(void) {
-  return SPI1->STATR & SPI_STATR_RXNE; }
+  return SPI1->STATR & SPI_RXNE; }
 
 //------------------------------------------------------------------------------
 
 static inline bool spi_wait_tx_complete(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_TXE, true, IO_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_TXE, true, IO_SPI_TIMEOUT); }
 
 static inline bool spi_wait_rx_available(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_RXNE, true, IO_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_RXNE, true, IO_SPI_TIMEOUT); }
 
 static inline bool spi_wait_not_busy(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_STATR_BSY, false, IO_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_BSY, false, IO_SPI_TIMEOUT); }
 
 //------------------------------------------------------------------------------
 // PFIC

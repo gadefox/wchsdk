@@ -19,20 +19,20 @@ uint32_t adc_read(uint8_t pin);
 //------------------------------------------------------------------------------
  
 static inline void adc_enable(void) {
-  ADC1->CTLR1 |= ADC_ADON | ADC_EXTSEL; }
+  ADC1->CTLR2 |= ADC_ADEN; }
 
 static inline void adc_disable(void) {
-  ADC1->CTLR1 &= ~ADC_ADON; }
+  ADC1->CTLR2 &= ~ADC_ADEN; }
 
 static inline void adc_power_on(void) {
-  RCC->APB2PCENR |= RCC_ADC2EN; }
+  RCC->APB2PCENR |= RCC_ADC1EN; }
 
 static inline void adc_power_off(void) {
-  RCC->APB2PCENR &= ~RCC_ADC2EN; }
+  RCC->APB2PCENR &= ~RCC_ADC1EN; }
 
 static inline void adc_reset(void) { 
-  RCC->APB2PRSTR |= RCC_ADC2RST;
-  RCC->APB2PRSTR &= ~RCC_ADC2RST; }
+  RCC->APB2PRSTR |= RCC_ADC1RST;
+  RCC->APB2PRSTR &= ~RCC_ADC1RST; }
 
 //------------------------------------------------------------------------------
 

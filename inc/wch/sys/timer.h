@@ -87,14 +87,14 @@ static inline void tim_clear_update_flag(tim_t *tim) {
 //------------------------------------------------------------------------------
 // PWM
 
-static inline void tim_pwm_ch1_enable(tim_t *tim) {
-  tim->CCER |= TIM_CC1E; }
+static inline void tim_pwm_enable(tim_t *tim, uint8_t ch) {
+  tim->CCER |= BITS(ch << 2); }
 
-static inline void tim_pwm_ch1_disable(tim_t *tim) {
-  tim->CCER &= ~TIM_CC1E; }
+static inline void tim_pwm_disable(tim_t *tim, uint8_t ch) {
+  tim->CCER &= ~BITS(ch << 2); }
 
-static inline void tim_pwm_ch1_set_duty(tim_t *tim, uint16_t duty) {
-  tim->CH1CVR = duty; }
+static inline void tim_pwm_set_duty(tim_t *tim, uint8_t ch, uint16_t duty) {
+  tim->CHCVR[ch] = duty; }
 
 //------------------------------------------------------------------------------
 // PFIC: tim1

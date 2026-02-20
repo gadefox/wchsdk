@@ -23,7 +23,7 @@ void dma_init_mem2periph(dma_channel_t* ch, uint8_t irq, void* paddr) {
   pfic_enable_irq(irq);
 
   // Set dir to memory -> periph, memory increment, transfer compete interrupt
-  ch->CFGR = DMA_CFGR_DIR | DMA_CFGR_MINC | DMA_CFGR_TCIE;
+  ch->CFGR = DMA_DIR | DMA_MINC | DMA_TCIE;
   dma_enable(ch);
 }
 
@@ -36,7 +36,7 @@ void dma_init_periph2mem(dma_channel_t* ch, void* paddr, void* maddr, uint16_t c
   dma_set_count(ch, count);
 
   // Set dir to periph -> memory, memory increment, circular buf mode
-  ch->CFGR = DMA_CFGR_MINC | DMA_CFGR_CIRC;
+  ch->CFGR = DMA_MINC | DMA_CIRC;
   dma_enable(ch);
 }
 

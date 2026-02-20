@@ -41,7 +41,7 @@ typedef struct {
 #define PWR_PVDE  0x00000010 /* Power Voltage Detector Enable */
 
 /* PVD Level Selection */
-#define PWR_PLS_MSK  0x000000E0  /* PLS[7:5] bits */
+#define PWR_PLS      0x000000E0  /* PLS[7:5] bits */
 #define PWR_PLS_2V85 0x00000000  /* 2.85V rising / 2.7V falling */
 #define PWR_PLS_3V05 0x00000020  /* 3.05V rising / 2.9V falling */
 #define PWR_PLS_3V3  0x00000040  /* 3.3V rising  / 3.15V falling */
@@ -51,14 +51,14 @@ typedef struct {
 #define PWR_PLS_4V1  0x000000C0  /* 4.1V rising  / 3.9V falling */
 #define PWR_PLS_4V4  0x000000E0  /* 4.4V rising  / 4.2V falling */
 
-#defin/*******************  Bit definition for PWR_CSR register  ********************/
+/*******************  Bit definition for PWR_CSR register  ********************/
 #define PWR_PVDO 0x00000004 /* PVD Output */
 
 /*******************  Bit definition for PWR_AWUCSR register  ********************/
 #define PWR_AWUEN 0x00000002  /* Enable Automatic wake-up */
 
 /*******************  Bit definition for PWR_AWUPSC register  ********************/
-#define PWR_AWU_MSK      0x0000000F
+#define PWR_AWU          0x0000000F
 #define PWR_AWU_OFF      0x00000000
 #define PWR_AWU_DIV1     0x00000001
 #define PWR_AWU_DIV2     0x00000002

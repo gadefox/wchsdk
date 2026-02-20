@@ -130,7 +130,7 @@ typedef struct {
 #define TIM_DIR  0x0010 /* Count down ARR -> 0 */
 
 /* Center-aligned mode selection */
-#define TIM_CMS_MSK    0x0060  /* CMS[6:5] bits */
+#define TIM_CMS        0x0060  /* CMS[6:5] bits */
 #define TIM_CMS_EDGEA  0x0000  /* The counter counts up or down based on the direction bit */
 #define TIM_CMS_CENTA1 0x0020  /* OC IRQ flag set when counting down */
 #define TIM_CMS_CENTA2 0x0040  /* OC IRQ flag set when counting up */
@@ -139,7 +139,7 @@ typedef struct {
 #define TIM_ARPE 0x0080 /* Auto-reload preload enable */
 
 /* Clock division */ 
-#define TIM_CKD_MSK  0x0300 /* CKD[9:8] bits */
+#define TIM_CKD      0x0300 /* CKD[9:8] bits */
 #define TIM_CKD_OFF  0x0000
 #define TIM_CKD_MUL2 0x0100
 #define TIM_CKD_MUL4 0x0200
@@ -150,7 +150,7 @@ typedef struct {
 #define TIM_CCDS 0x0008 /* Capture/Compare DMA Selection */
 
 /* Master Mode Selection */
-#define TIM_MMS_MSK    0x0070 /* MMS[6:4] bits */
+#define TIM_MMS        0x0070 /* MMS[6:4] bits */
 #define TIM_MMS_RESET  0x0000
 #define TIM_MMS_CNTEN  0x0010
 #define TIM_MMS_UPDATE 0x0020
@@ -172,7 +172,7 @@ typedef struct {
 /*******************  Bit definition for TIM_SMCFGR register  *******************/
 
 /* Slave mode selection */
-#define TIM_SMS_MSK   0x0007  /* SMS[2:0] bits */
+#define TIM_SMS       0x0007  /* SMS[2:0] bits */
 #define TIM_SMS_CKINT 0x0000  /* Driven by the internal clock CK_INT */
 #define TIM_SMS_ENC1  0x0001  /* Encoder mode 1, where the core counter increments or decrements the count at the edge of TI2FP2 depending on the level of TI1FP1 */
 #define TIM_SMS_ENC2  0x0002  /* Encoder mode 2, where the core counter increments or decrements the count at the edge of TI1FP1, depending on the level of TI2FP2 */
@@ -183,7 +183,7 @@ typedef struct {
 #define TIM_SMS_EXT   0x0007  /* External clock mode 1, rising edge of the selected trigger input (TRGI) drives the counter */
 
 /* Trigger selection */
-#define TIM_TS_MSK     0x0070 /* TS[6:4] bits */
+#define TIM_TS         0x0070 /* TS[6:4] bits */
 #define TIM_TS_ITR0    0x0000
 #define TIM_TS_ITR1    0x0010
 #define TIM_TS_ITR2    0x0020
@@ -196,7 +196,7 @@ typedef struct {
 #define TIM_MSM 0x0080 /* Master/slave mode */
 
 /* Externally triggered filtering */
-#define TIM_ETF_MSK   0x0F00  /* ETF[11:8] bits */
+#define TIM_ETF       0x0F00  /* ETF[11:8] bits */
 #define TIM_ETF_D1N2  0x0100  /* Sampling frequency Fsampling=Fck_int, N=2 */
 #define TIM_ETF_D1N4  0x0200  /* Sampling frequency Fsampling=Fck_int, N=4 */
 #define TIM_ETF_D1N8  0x0300  /* Sampling frequency Fsampling=Fck_int, N=8 */
@@ -214,7 +214,7 @@ typedef struct {
 #define TIM_ETF_D32N8 0x0F00  /* Sampling frequency Fsampling = Fdts/32, N = 8 */
 
 /* External trigger prescaler */
-#define TIM_ETPS_MSK  0x3000 /* ETPS[13:12] bits */
+#define TIM_ETPS      0x3000 /* ETPS[13:12] bits */
 #define TIM_ETPS_DIV1 0x0000 /* Prescaler off */
 #define TIM_ETPS_DIV2 0x1000 /* ETRP frequency divided by 2 */
 #define TIM_ETPS_DIV4 0x2000 /* ETRP frequency divided by 4 */
@@ -267,14 +267,16 @@ typedef struct {
 /******************  Bit definition for TIM_CHCTLRx register  *******************/
 
 /* Output Compare x Mode */
-#define TIM_OC1M_MSK 0x0070 /* OC1M[6:4] bits */
-#define TIM_OC2M_MSK 0x7000 /* OC1M[14:12] bits */
+#define TIM_OC1M 0x0070 /* OC1M[6:4] bits */
+#define TIM_OC2M 0x7000 /* OC1M[14:12] bits */
+
 #define TIM_OC1M_POS 4
 #define TIM_OC2M_POS 12
 
 /* Capture/Compare x Selection */
-#define TIM_CC1S_MSK 0x0003 /* CC1S[1:0] bits */
-#define TIM_CC2S_MSK 0x0300 /* CC2S[9:8] bits */
+#define TIM_CC1S 0x0003 /* CC1S[1:0] bits */
+#define TIM_CC2S 0x0300 /* CC2S[9:8] bits */
+
 #define TIM_CC1S_POS 0
 #define TIM_CC2S_POS 8
 
@@ -287,51 +289,53 @@ typedef struct {
 #define TIM_OC2CE 0x8000 /* Output Compare 2 Clear Enable */
 
 /* Input Capture x Prescaler */
-#define TIM_IC1PSC_MSK 0x000C /* IC1PSC[3:2] bits */
-#define TIM_IC2PSC_MSK 0x0C00 /* IC2PSC[11:10] bits */
+#define TIM_IC1PSC 0x000C /* IC1PSC[3:2] bits */
+#define TIM_IC2PSC 0x0C00 /* IC2PSC[11:10] bits */
+
 #define TIM_IC1PSC_POS 2
 #define TIM_IC2PSC_POS 10
 
 /* Input Capture x Filter */
-#define TIM_IC1F_MSK 0x00F0 /* IC1F[7:4] bits */
-#define TIM_IC2F_MSK 0xF000 /* IC2F[15:12] bits */
+#define TIM_IC1F 0x00F0 /* IC1F[7:4] bits */
+#define TIM_IC2F 0xF000 /* IC2F[15:12] bits */
+
 #define TIM_IC1F_POS 4
 #define TIM_IC2F_POS 12
 
 /*******************  Bit definition for TIM_CCER register  *******************/
-#define TIM_CC1E  0x0001 /* Capture/Compare 1 output enable */
-#define TIM_CC1P  0x0002 /* Capture/Compare 1 output Polarity (falling) */
+#define TIM_CC1_EN  0x0001      /* Capture/Compare 1 output enable */
+#define TIM_CC1_POL 0x0002      /* Capture/Compare 1 output Polarity (falling) */
 
-#define TIM_CC2E  0x0010 /* Capture/Compare 2 output enable */
-#define TIM_CC2P  0x0020 /* Capture/Compare 2 output Polarity (falling) */
+#define TIM_CC2_EN  0x0010      /* Capture/Compare 2 output enable */
+#define TIM_CC2_POL 0x0020      /* Capture/Compare 2 output Polarity (falling) */
 
-#define TIM_CC3E  0x0100 /* Capture/Compare 3 output enable */
-#define TIM_CC3P  0x0200 /* Capture/Compare 3 output Polarity (falling) */
+#define TIM_CC3_EN  0x0100      /* Capture/Compare 3 output enable */
+#define TIM_CC3_POL 0x0200      /* Capture/Compare 3 output Polarity (falling) */
 
-#define TIM_CC4E  0x1000 /* Capture/Compare 4 output enable */
-#define TIM_CC4P  0x2000 /* Capture/Compare 4 output Polarity (falling) */
+#define TIM_CC4_EN  0x1000      /* Capture/Compare 4 output enable */
+#define TIM_CC4_POL 0x2000      /* Capture/Compare 4 output Polarity (falling) */
 
 /*******************  Bit definition for TIM_CNT register  ********************/
-#define TIM_CNT_MSK 0xFFFF /* Counter Value */
+#define TIM_CNT 0xFFFF /* Counter Value */
 
 /*******************  Bit definition for TIM_PSC register  ********************/
-#define TIM_PSC_MSK 0xFFFF /* Prescaler Value */
+#define TIM_PSC 0xFFFF /* Prescaler Value */
 
 /*******************  Bit definition for TIM_ATRLR register  ********************/
-#define TIM_ARR_MSK 0xFFFF /* actual auto-reload Value */
+#define TIM_ARR 0xFFFF /* actual auto-reload Value */
 
 /*******************  Bit definition for TIM_RPTCR register  ********************/
-#define TIM_REP_MSK 0xFF /* Repetition Counter Value */
+#define TIM_REP 0xFF /* Repetition Counter Value */
 
 /*******************  Bit definition for TIM_CHxCVR register  *******************/
-#define TIM_CCR_MSK 0x0000FFFF /* Capture/Compare x Value */
+#define TIM_CCR 0x0000FFFF /* Capture/Compare x Value */
 
 #define TIM_LEVEL 0x00010000 /* The level indication bit corresponding to the captured value */
 
 /*******************  Bit definition for TIM_BDTR register  *******************/
-#define TIM_DTG_MSK  0x00FF /* DTG[0:7] bits (Dead-Time Generator set-up) */
+#define TIM_DTG  0x00FF /* DTG[0:7] bits (Dead-Time Generator set-up) */
 
-#define TIM_LOCK_MSK 0x0300 /* LOCK[9:8] bits (Lock Configuration) */
+#define TIM_LOCK     0x0300 /* LOCK[9:8] bits (Lock Configuration) */
 #define TIM_LOCK_L0  0x0000
 #define TIM_LOCK_L1  0x0100
 #define TIM_LOCK_L2  0x0200
@@ -347,7 +351,7 @@ typedef struct {
 /*******************  Bit definition for TIM_DMACFGR register  ********************/
 
 /* DMA Base Address */
-#define TIM_DMA_MSK   0x001F /* DBA[4:0] bits */
+#define TIM_DMA       0x001F /* DBA[4:0] bits */
 #define TIM_DMA_CR1   0x0000
 #define TIM_DMA_CR2   0x0001
 #define TIM_DMA_SMCR  0x0002
@@ -369,7 +373,7 @@ typedef struct {
 #define TIM_DMA_DCR   0x0012
 
 /* DMA Burst Length */
-#define TIM_DBL_MSK 0x1F00 /* DBL[12:8] bits */
+#define TIM_DBL     0x1F00 /* DBL[12:8] bits */
 #define TIM_DBL_1T  0x0000
 #define TIM_DBL_2T  0x0100
 #define TIM_DBL_3T  0x0200

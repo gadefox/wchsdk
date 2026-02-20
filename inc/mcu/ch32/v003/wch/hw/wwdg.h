@@ -37,16 +37,16 @@ typedef struct {
 
 /******************* Bit definition for WWDG_CTLR register ********************/
 /* 7-Bit counter (MSB to LSB) */
-#define WWDG_TCNT_MSK 0x7F /* T[6:0] bits */
+#define WWDG_TCNT 0x7F /* T[6:0] bits */
 
-#define WWDG_ACTIVE  0x80 /* Activation bit */
+#define WWDG_ACTIVE 0x80 /* Activation bit */
 
 /******************* Bit definition for WWDG_CFGR register *******************/
 /* 7-bit window value */
-#define WWDG_WIN_MSK 0x007F  /* W[6:0] bits */
+#define WWDG_WIN 0x007F  /* W[6:0] bits */
 
 /* Timer Base */
-#define WWDG_TIM_MSK  0x0180  /* WDGTB[8:7] bits */
+#define WWDG_TIM      0x0180  /* WDGTB[8:7] bits */
 #define WWDG_TIM_DIV1 0x0000  /* counting time base = HCLK/4096   */
 #define WWDG_TIM_DIV2 0x0080  /* counting time base = HCLK/4096/2 */
 #define WWDG_TIM_DIV4 0x0100  /* counting time base = HCLK/4096/4 */

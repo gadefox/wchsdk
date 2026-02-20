@@ -46,42 +46,36 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 /********************  Bit definition for RCC_CTLR register  ********************/
-
 #define RCC_HSION   0x00000001 /* Internal High Speed clock enable */
 #define RCC_HSIRDY  0x00000002 /* Internal High Speed clock ready flag */
-
-#define RCC_HSITRIM_MSK 0xF8  /* Internal High Speed clock trimming */
-#define RCC_HSITRIM_POS 3
-#define RCC_HSITRIM(x)  (((x) & RCC_HSITRIM_MSK) >> RCC_HSITRIM_POS)
-
-#define RCC_HSICAL_MSK 0x0000FF00 /* Internal High Speed clock Calibration */
-#define RCC_HSICAL_POS 8
-#define RCC_HSICAL(x)  (((x) & RCC_HSICAL_MSK) >> RCC_HSICAL_POS)
-
+#define RCC_HSITRIM 0x000000F8 /* Internal High Speed clock trimming */
+#define RCC_HSICAL  0x0000FF00 /* Internal High Speed clock Calibration */
 #define RCC_HSEON   0x00010000 /* External High Speed clock enable */
 #define RCC_HSERDY  0x00020000 /* External High Speed clock ready flag */
 #define RCC_HSEBYP  0x00040000 /* External High Speed clock Bypass */
 #define RCC_CSSON   0x00080000 /* Clock Security System monitoring function of HSE */
-
 #define RCC_PLLON   0x01000000 /* PLL enable */
 #define RCC_PLLRDY  0x02000000 /* PLL clock ready flag */
+
+#define RCC_HSITRIM_POS 3
+#define RCC_HSICAL_POS  8
 
 /*******************  Bit definition for RCC_CFGR0 register  *******************/
 #define RCC_PLLSRC 0x00010000 /* HSE as PLL entry clock source */
 
 // System clock Switch
-#define RCC_SW_MSK 0x00000003 /* SW[1:0] bits */
+#define RCC_SW     0x00000003 /* SW[1:0] bits */
 #define RCC_SW_HSI 0x00000000 /* HSI selected as system clock */
 #define RCC_SW_HSE 0x00000001 /* HSE selected as system clock */
 #define RCC_SW_PLL 0x00000002 /* PLL selected as system clock */
 
 // System Clock Switch Status
-#define RCC_SWS_MSK 0x0000000C /* SWS[3:2] bits */
+#define RCC_SWS     0x0000000C /* SWS[3:2] bits */
 #define RCC_SWS_HSI 0x00000000 /* HSI oscillator used as system clock */
 #define RCC_SWS_HSE 0x00000004 /* HSE oscillator used as system clock */
 #define RCC_SWS_PLL 0x00000008 /* PLL used as system clock */
 
-#define RCC_HPRE_MSK    0x000000F0 /* HPRE[3:0] bits (AHB prescaler) */
+#define RCC_HPRE        0x000000F0 /* HPRE[3:0] bits (AHB prescaler) */
 #define RCC_HPRE_DIV1   0x00000000 /* SYSCLK not divided */
 #define RCC_HPRE_DIV2   0x00000010 /* SYSCLK divided by 2 */
 #define RCC_HPRE_DIV3   0x00000020 /* SYSCLK divided by 3 */
@@ -96,7 +90,7 @@ typedef struct {
 #define RCC_HPRE_DIV128 0x000000E0 /* SYSCLK divided by 128 */
 #define RCC_HPRE_DIV256 0x000000F0 /* SYSCLK divided by 256 */
 
-#define RCC_ADCPRE_MSK    0x0000F800 /* ADCPRE[4:0] bits (ADC prescaler) */
+#define RCC_ADCPRE        0x0000F800 /* ADCPRE[4:0] bits (ADC prescaler) */
 #define RCC_ADCPRE_DIV2   0x00000000 /* HBCLK divided by 2 */
 #define RCC_ADCPRE_DIV4   0x00004000 /* HBCLK divided by 4 */
 #define RCC_ADCPRE_DIV6   0x00008000 /* HBCLK divided by 6 */
@@ -110,7 +104,7 @@ typedef struct {
 #define RCC_ADCPRE_DIV96  0x0000B800 /* HBCLK divided by 96 */
 #define RCC_ADCPRE_DIV128 0x0000F800 /* HBCLK divided by 128 */
 
-#define RCC_MCO_MSK 0x07000000 /* MCO[2:0] bits (Microcontroller Clock Output) */
+#define RCC_MCO     0x07000000 /* MCO[2:0] bits (Microcontroller Clock Output) */
 #define RCC_MCO_NO  0x00000000 /* No clock */
 #define RCC_MCO_SYS 0x04000000 /* System clock selected as MCO source */
 #define RCC_MCO_HSI 0x05000000 /* HSI clock selected as MCO source */

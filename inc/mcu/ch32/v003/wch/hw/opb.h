@@ -55,7 +55,7 @@ typedef struct {
 #define OB_STDBY_NORST 0x04 /* No reset generated when entering in STANDBY */
 
 /* Reset IO (PD7) */
-#define OB_RST_MSK     0x18 /* [4:3] */
+#define OB_RST         0x18 /* [4:3] */
 #define OB_RST_DT128US 0x00 /* Reset IO enable (PD7) and ignore delay time 128us */
 #define OB_RST_DT1MS   0x08 /* Reset IO enable (PD7) and ignore delay time 1ms */
 #define OB_RST_DT12MS  0x10 /* Reset IO enable (PD7) and ignore delay time 12ms */

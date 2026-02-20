@@ -58,7 +58,7 @@ typedef struct {
 #define SPI_MSTR 0x0004 /* Master Selection */
 
 /* Baud Rate Control */
-#define SPI_BR_MSK    0x0038 /* BR[5:3] bits */
+#define SPI_BR        0x0038 /* BR[5:3] bits */
 #define SPI_BR_DIV2   0x0000
 #define SPI_BR_DIV4   0x0008
 #define SPI_BR_DIV8   0x0010
@@ -72,7 +72,7 @@ typedef struct {
 #define SPI_LSBFIRST 0x0080
 #define SPI_SSI      0x0100 /* Internal slave select */
 #define SPI_SSM      0x0200 /* Software slave management */
-#define SPI_16B      0x0800 /* Data Frame Format */
+#define SPI_DFF      0x0800 /* Data Frame Format */
 #define SPI_CRCNEXT  0x1000 /* Transmit CRC next */
 #define SPI_CRCEN    0x2000 /* Hardware CRC calculation enable */
 
@@ -101,16 +101,16 @@ typedef struct {
 #define SPI_BSY    0x0080 /* Busy flag */
 
 /********************  Bit definition for SPI_DATAR register  ********************/
-#define SPI_DR_MSK 0xFFFF /* Data Register */
+#define SPI_DR 0xFFFF /* Data Register */
 
 /*******************  Bit definition for SPI_CRCR register  ******************/
-#define SPI_CRCPOLY_MSK 0xFFFF /* CRC polynomial register */
+#define SPI_CRCPOLY 0xFFFF /* CRC polynomial register */
 
 /******************  Bit definition for SPI_RCRCR register  ******************/
-#define SPI_RXCRC_MSK 0xFFFF /* Rx CRC Register */
+#define SPI_RXCRC 0xFFFF /* Rx CRC Register */
 
 /******************  Bit definition for SPI_TCRCR register  ******************/
-#define SPI_TXCRC_MSK 0xFFFF /* Tx CRC Register */
+#define SPI_TXCRC 0xFFFF /* Tx CRC Register */
 
 /******************  Bit definition for SPI_HSCR register  ******************/
 #define SPI_HSRXEN 0x0001

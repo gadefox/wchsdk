@@ -154,10 +154,9 @@ void uart_init(uart_config_t* c) {
   dma_init_periph2mem(DMA1_CHANNEL7, (void*)&UART1->DATAR, rx_ring.buf, rx_ring.size);
 
   // Set CTLR registers
-  UART1->CTLR1 = UART_WORDLENGTH_8B | UART_PARITY_NO | UART_MODE_TX |
-                 UART_MODE_RX;                     // 8bit, no parity, rx/tx uart
-  UART1->CTLR2 = UART_STOPBITS1;                   // 1 stop bit
-  UART1->CTLR3 = UART_DMAREQ_TX | UART_DMAREQ_RX; // enable dma requests both ways
+  UART1->CTLR1 = UART_TXEN | UART_RXEN;    // 8 bit, no parity, RX/TX
+  UART1->CTLR2 = UART_STOP1;               // 1 stop bit
+  UART1->CTLR3 = UART_DMATX | UART_DMARX;  // Enable DMA requests both ways
 
   // Set the Baudrate, assuming 48KHz
   uart_set_baud(c->baud);

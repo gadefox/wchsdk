@@ -130,13 +130,13 @@ typedef struct {
 #define PFIC_GACTSTA  0x00000100 /* Bit 8  : Any interrupt active */
 #define PFIC_GPENDSTA 0x00000200 /* Bit 9  : Any interrupt pending */
 
-#define PFIC_NEST_MSK    0x000000FF /* Bits 7:0 */
+#define PFIC_NEST        0x000000FF /* Bits 7:0 */
 #define PFIC_NEST_NOIRQ  0x00000000 /* No interrupt in progress */
 #define PFIC_NEST_LEVEL1 0x00000001 /* Level 1 interrupt in progress */
 #define PFIC_NEST_LEVEL2 0x00000003 /* Level 2 interrupt in progress */
 
 /*******************  Bit definition for PFIC_VTFADDRx register  ***********/
-#define PFIC_VTFADD_EN 0x00000001 /* Bit 0 : Enable VTFx interrupt */
+#define PFIC_VTFADD 0x00000001 /* Bit 0 : Enable VTFx interrupt */
 
 //------------------------------------------------------------------------------
 

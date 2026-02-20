@@ -51,19 +51,19 @@ typedef struct {
 //------------------------------------------------------------------------------
 
 //*******************  Bit definition for I2C_CTLR1 register  ********************/
-#define I2C_PE        0x0001 /* Peripheral Enable */
-#define I2C_ENPEC     0x0020 /* PEC Enable */
-#define I2C_ENGC      0x0040 /* General Call Enable */
+#define I2C_PEN       0x0001 /* Peripheral Enable */
+#define I2C_PECEN     0x0020 /* PEC Enable */
+#define I2C_GCEN      0x0040 /* General Call Enable */
 #define I2C_NOSTRETCH 0x0080 /* Clock Stretching Disable (Slave mode) */
 #define I2C_START     0x0100 /* Start Generation */
 #define I2C_STOP      0x0200 /* Stop Generation */
-#define I2C_ACK       0x0400 /* Acknowledge Enable */
+#define I2C_ACKEN     0x0400 /* Acknowledge Enable */
 #define I2C_POS       0x0800 /* Acknowledge/PEC Position (for data reception) */
-#define I2C_PEC       0x1000 /* Packet Error Checking */
+#define I2C_PERREN    0x1000 /* Packet Error Checking */
 #define I2C_SWRST     0x8000 /* Software Reset */
 
 /*******************  Bit definition for I2C_CTLR2 register  ********************/
-#define I2C_FREQ_MSK  0x003F /* FREQ[5:0] bits (Peripheral Clock Frequency) */
+#define I2C_FREQ  0x003F /* FREQ[5:0] bits (Peripheral Clock Frequency) */
 
 #define I2C_ITERREN 0x0100 /* Error Interrupt Enable */
 #define I2C_ITEVTEN 0x0200 /* Event Interrupt Enable */
@@ -72,32 +72,33 @@ typedef struct {
 #define I2C_LAST    0x1000 /* DMA Last Transfer */
 
 /*******************  Bit definition for I2C_OADDR1 register  *******************/
-#define I2C_7BIT_MSK  0x00FE /* 7-bit Interface Address */
-#define I2C_10BIT_MSK 0x03FF /* 10-bit Interface Address */
+#define I2C_ADD0  0x0001
+#define I2C_7BIT  0x00FE /* 7-bit Interface Address */
+#define I2C_10BIT 0x03FF /* 10-bit Interface Address */
 
 #define I2C_ADD_MODE 0x8000 /* Addressing Mode (Slave mode) */
 
 /*******************  Bit definition for I2C_OADDR2 register  *******************/
 #define I2C_ENDUAL 0x0001 /* Dual addressing mode enable */
 
-#define I2C_ADD2_MSK 0x00FE /* Interface address */
+#define I2C_ADD2 0x00FE /* Interface address */
 
 /********************  Bit definition for I2C_DATAR register  ********************/
-#define I2C_DR_MSK 0xFF /* 8-bit Data Register */
+#define I2C_DR 0xFF /* 8-bit Data Register */
 
 /*******************  Bit definition for I2C_STAR1 register  ********************/
-#define I2C_SB     0x0001 /* Start Bit (Master mode) */
-#define I2C_ADDR   0x0002 /* Address sent (master mode)/matched (slave mode) */
-#define I2C_BTF    0x0004 /* Byte Transfer Finished */
-#define I2C_ADD10  0x0008 /* 10-bit header sent (Master mode) */
-#define I2C_STOPF  0x0010 /* Stop detection (Slave mode) */
-#define I2C_RXNE   0x0040 /* Data Register not Empty (receivers) */
-#define I2C_TXE    0x0080 /* Data Register Empty (transmitters) */
-#define I2C_BERR   0x0100 /* Bus Error */
-#define I2C_ARLO   0x0200 /* Arbitration Lost (master mode) */
-#define I2C_AF     0x0400 /* Acknowledge Failure */
-#define I2C_OVR    0x0800 /* Overrun/Underrun */
-#define I2C_PECERR 0x1000 /* PEC Error in reception */
+#define I2C_SB    0x0001 /* Start Bit (Master mode) */
+#define I2C_ADDR  0x0002 /* Address sent (master mode)/matched (slave mode) */
+#define I2C_BTF   0x0004 /* Byte Transfer Finished */
+#define I2C_ADD10 0x0008 /* 10-bit header sent (Master mode) */
+#define I2C_STOPF 0x0010 /* Stop detection (Slave mode) */
+#define I2C_RXNE  0x0040 /* Data Register not Empty (receivers) */
+#define I2C_TXE   0x0080 /* Data Register Empty (transmitters) */
+#define I2C_BERR  0x0100 /* Bus Error */
+#define I2C_ARLO  0x0200 /* Arbitration Lost (master mode) */
+#define I2C_AF    0x0400 /* Acknowledge Failure */
+#define I2C_OVR   0x0800 /* Overrun/Underrun */
+#define I2C_PERR  0x1000 /* PEC Error in reception */
 
 /*******************  Bit definition for I2C_STAR2 register  ********************/
 #define I2C_MSL     0x0001 /* Master/Slave */
@@ -106,11 +107,11 @@ typedef struct {
 #define I2C_GENCALL 0x0010 /* General Call Address (Slave mode) */
 #define I2C_DUALF   0x0080 /* Dual Flag (Slave mode) */
 
-#define I2C_PEC_MSK 0xFF00 /* Packet Error Checking Register */
+#define I2C_PEC 0xFF00 /* Packet Error Checking Register */
 #define I2C_PEC_POS 8
 
 /*******************  Bit definition for I2C_CKCFGR register  ********************/
-#define I2C_CCR_MSK 0x0FFF /* Clock Control Register in Fast/Standard mode (Master mode) */
+#define I2C_CCR 0x0FFF /* Clock Control Register in Fast/Standard mode (Master mode) */
 
 #define I2C_DUTY 0x4000 /* Fast Mode Duty Cycle: 16/9 */
 #define I2C_FS   0x8000 /* I2C Master Mode Selection */

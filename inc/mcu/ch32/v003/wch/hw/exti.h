@@ -25,15 +25,15 @@
 
 /* EXTI mode enumeration */
 typedef enum {
-  EXTI_MODE_INTERRUPT = 0x00,
-  EXTI_MODE_EVENT     = 0x04
+  EXTI_IRQ   = 0x00,
+  EXTI_EVENT = 0x04
 } exti_mode_t;
 
 /* EXTI Trigger enumeration */
 typedef enum {
-  EXTI_TRIGGER_RISING         = 0x08,
-  EXTI_TRIGGER_FALLING        = 0x0C,
-  EXTI_TRIGGER_RISING_FALLING = 0x10
+  EXTI_TRIG_RISING  = 0x08,
+  EXTI_TRIG_FALLING = 0x0C,
+  EXTI_TRIG_BOTH    = 0x10
 } exti_trigger_t;
 
 typedef struct {
@@ -51,18 +51,17 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-/* EXTI_Lines */
-#define EXTI_LINENO 0x0000 /* No interrupt selected */
-#define EXTI_LINE0  0x0001 /* External interrupt line 0 */
-#define EXTI_LINE1  0x0002 /* External interrupt line 1 */
-#define EXTI_LINE2  0x0004 /* External interrupt line 2 */
-#define EXTI_LINE3  0x0008 /* External interrupt line 3 */
-#define EXTI_LINE4  0x0010 /* External interrupt line 4 */
-#define EXTI_LINE5  0x0020 /* External interrupt line 5 */
-#define EXTI_LINE6  0x0040 /* External interrupt line 6 */
-#define EXTI_LINE7  0x0080 /* External interrupt line 7 */
-#define EXTI_LINE8  0x0100 /* External interrupt line 8 Connected to the PVD Output */
-#define EXTI_LINE9  0x0200 /* External interrupt line 9 Connected to the PWR Auto Wake-up event*/
+#define EXTI_NOPIN 0x0000 /* No interrupt selected */
+#define EXTI_PIN0  0x0001 /* External interrupt line 0 */
+#define EXTI_PIN1  0x0002 /* External interrupt line 1 */
+#define EXTI_PIN2  0x0004 /* External interrupt line 2 */
+#define EXTI_PIN3  0x0008 /* External interrupt line 3 */
+#define EXTI_PIN4  0x0010 /* External interrupt line 4 */
+#define EXTI_PIN5  0x0020 /* External interrupt line 5 */
+#define EXTI_PIN6  0x0040 /* External interrupt line 6 */
+#define EXTI_PIN7  0x0080 /* External interrupt line 7 */
+#define EXTI_PIN8  0x0100 /* External interrupt line 8 connected to the PVD Output */
+#define EXTI_PIN9  0x0200 /* External interrupt line 9 connected to the PWR Auto Wake-up event*/
 
 //------------------------------------------------------------------------------
 
