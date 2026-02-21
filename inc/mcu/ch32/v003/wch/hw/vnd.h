@@ -28,6 +28,13 @@
 
 //------------------------------------------------------------------------------
 
+typedef enum {
+  DEV_TSSOP20,  // 0
+  DEV_QFN20,    // 1
+  DEV_SOP16,    // 2
+  DEV_SOP8,     // 3
+} dev_package_t;
+
 typedef struct {
   __I uint16_t REVID;  /* Lower 16 bits of CHIPID */
   __I uint16_t DEVID;  /* Upper 16 bits of CHIPID */
@@ -49,6 +56,12 @@ typedef struct {
 #define ESIG  ((esig_t *)ESIG_BASE)
 
 #endif  /* __ASSEMBLER__ */
+
+//------------------------------------------------------------------------------
+
+#define CHIP_PACKAGE  0xF000
+
+#define CHIP_PACKAGE_POS  12
 
 //------------------------------------------------------------------------------
 

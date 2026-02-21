@@ -7,14 +7,20 @@
 #define PIN_G  PA0
 #define PIN_B  PA1
 
-void pins_on(void) {
+void pins_on(int state) {
   pin_set(PIN_R);
-  port_set(GPIOA, PIN_BIT(PIN_G) | PIN_BIT(PIN_B));
+  if (state % 2)
+    pin_set(PIN_G);
+  if (state % 4)
+    pin_set(PIN_B);
 }
 
-void pins_off(void) {
+void pins_off(int state) {
   pin_reset(PIN_R);
-  port_reset(GPIOA, PIN_BIT(PIN_G) | PIN_BIT(PIN_B));
+  if (state % 2)
+    pin_reset(PIN_G);
+  if (state % 4)
+    pin_reset(PIN_B);
 }
 
 int main(void) {
@@ -28,10 +34,12 @@ int main(void) {
   port_mask_cfg(GPIOA, PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
   port_set_cfg(GPIOA, PIN_PP10(PIN_G) | PIN_PP10(PIN_B));
 
+  uint32_t state = 0;
   while (true) {
-    pins_on();
-    delay_ms(1000);
-    pins_off();
-    delay_ms(1000);
+    pins_on(state);
+    delay_ms(250);
+    pins_off(state);
+    delay_ms(250);
+    state++;
   }
 }

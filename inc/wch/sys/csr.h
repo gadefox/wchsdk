@@ -12,6 +12,7 @@
 // Get Status register (0x300)
 
 #define MSTATUS_MPP_POS  11
+
 typedef enum {
   MSTATUS_MIE   = 1 << 3,                   // Machine Interrupt Enable
   MSTATUS_MPIE  = 1 << 7,                   // Machine Previous Interrupt Enable
@@ -76,11 +77,8 @@ static inline uint32_t csr_get_misa(void) {
 // NOTE: Address bits [31:2] (no shift, 1KB aligned required)
 
 typedef enum {
-  MTVEC_UNI = 0 << 0,       // 0 = uniform entry address
-  MTVEC_IVT = 1 << 0,       // 1 = offset = IVT[interrupt number]
-
-  MTVEC_JUMP = 0 << 1,      // 0 = identification by jump instruction
-  MTVEC_ABS  = 1 << 1       // 1 = identification by absolute address
+  MTVEC_IVT = 1 << 0,       // offset = IVT[interrupt number]
+  MTVEC_ABS  = 1 << 1       // identification by absolute address
 } mtvec_t;
 
 static inline uint32_t csr_get_mtvec(void) {
@@ -125,6 +123,8 @@ static inline void csr_write_mepc(uint32_t value) {
 //------------------------------------------------------------------------------
 // Get Exception cause register (0x342)
 
+#define MCAUSE_IRQ  (1 << 31)
+
 static inline uint32_t csr_get_mcause(void) {
   uint32_t result;
   asm volatile(ZICSR "csrr %0, mcause" : "=r"(result));
@@ -137,28 +137,36 @@ static inline void csr_write_mcause(uint32_t value) {
   asm volatile(ZICSR "csrw mcause, %0" ::"r"(value) : "memory"); }
 
 //------------------------------------------------------------------------------
+// Get Architecture number register (0xF11)
+
+#define MVID_JEDEC_ID   0x0000007F
+#define MVID_JEDEC_BANK 0xFFFFFF80
+
+#define MCHID_JEDEC_ID_POS   0
+#define MCHID_JEDEC_BANK_POS 7
+
+static inline uint32_t csr_get_mvendorid(void) {
+  uint32_t result;
+  asm volatile(ZICSR "csrr %0, mvendorid" : "=r"(result));
+  return result; }
+
+
+//------------------------------------------------------------------------------
 // Get Architecture number register (0xF12)
 
-#define MCHID_VENDOR_MASK 0b11111
-#define MCHID_VENDOR0_POS 26
-#define MCHID_VENDOR0(x)  (((x) >> MCHID_VENDOR0_POS) & MCHID_VENDOR_MASK)
+#define MCHID_VENDOR0 0x7C000000
+#define MCHID_VENDOR1 0x03E00000
+#define MCHID_VENDOR2 0x001F0000
+#define MCHID_ARCH    0x00007C00
+#define MCHID_SERIAL  0x000003E0
+#define MCHID_VERSION 0x0000001F
 
-#define MCHID_VENDOR1_POS 21
-#define MCHID_VENDOR1(x)  (((x) >> MCHID_VENDOR1_POS) & MCHID_VENDOR_MASK)
-
-#define MCHID_VENDOR2_POS 16
-#define MCHID_VENDOR2(x)  (((x) >> MCHID_VENDOR2_POS) & MCHID_VENDOR_MASK)
-
-#define MCHID_ARCH_MASK 0b11111
-#define MCHID_ARCH_POS  10
-#define MCHID_ARCH(x)   (((x) >> MCHID_ARCH_POS) & MCHID_ARCH_MASK)
-
-#define MCHID_SERIAL_MASK 0b11111
+#define MCHID_VERSION_POS 0
 #define MCHID_SERIAL_POS  5
-#define MCHID_SERIAL(x)   (((x) >> MCHID_SERIAL_POS) & MCHID_SERIAL_MASK)
-
-#define MCHID_VER_MASK 0b11111
-#define MCHID_VER(x)  ((x) & MCHID_VER_MASK)
+#define MCHID_ARCH_POS    10
+#define MCHID_VENDOR2_POS 16
+#define MCHID_VENDOR1_POS 21
+#define MCHID_VENDOR0_POS 26
 
 static inline uint32_t csr_get_marchid(void) {
   uint32_t result;
@@ -168,15 +176,13 @@ static inline uint32_t csr_get_marchid(void) {
 //------------------------------------------------------------------------------
 // Get Hardware implementation numbering register (0xF13)
 
-#define MPID_VENDOR_MASK 0b11111
-#define MPID_VENDOR0_POS 26
-#define MPID_VENDOR0(x)  (((x) >> MCHID_VENDOR0_POS) & MCHID_VENDOR_MASK)
-
-#define MPID_VENDOR1_POS 21
-#define MPID_VENDOR1(x)  (((x) >> MCHID_VENDOR1_POS) & MCHID_VENDOR_MASK)
+#define MPID_VENDOR0 0x7C000000
+#define MPID_VENDOR1 0x03E00000
+#define MPID_VENDOR2 0x001F0000
 
 #define MPID_VENDOR2_POS 16
-#define MPID_VENDOR2(x)  (((x) >> MCHID_VENDOR2_POS) & MCHID_VENDOR_MASK)
+#define MPID_VENDOR1_POS 21
+#define MPID_VENDOR0_POS 26
 
 static inline uint32_t csr_get_mimpid(void) {
   uint32_t result;
