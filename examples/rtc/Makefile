@@ -28,8 +28,7 @@ $(OUTDIR)/%_s.o: %.S | $(OUTDIR)
 $(OUTDIR)/$(TARGET).bin: $(OBJS) | $(OUTDIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(OUTDIR)/$(TARGET).elf
 	$(OBJCOPY) -O binary $(OUTDIR)/$(TARGET).elf $(OUTDIR)/$(TARGET).bin
-	$(OBJCOPY) -O ihex $(OUTDIR)/$(TARGET).elf $(OUTDIR)/$(TARGET).hex
-	$(OBJDUMP) -S $(OUTDIR)/$(TARGET).elf > $(OUTDIR)/$(TARGET).lst
+	$(OBJDUMP) -S $(OUTDIR)/$(TARGET).elf > $(OUTDIR)/$(TARGET).asm
 
 $(OUTDIR):
 	mkdir -p $(OUTDIR)

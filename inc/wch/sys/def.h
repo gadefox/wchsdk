@@ -27,7 +27,7 @@
 #endif  /* SYS_HSI_FREQ */
 
 #ifndef SYS_HSI_TRIM
-#define SYS_HSI_TRIM  0x10      // Default (Chip default)
+#define SYS_HSI_TRIM  0xF      // Default (Chip default)
 #endif  /* SYS_HSI_TRIM */
 
 #ifndef SYS_PLL

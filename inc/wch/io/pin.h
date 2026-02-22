@@ -52,32 +52,32 @@ typedef enum {
 //------------------------------------------------------------------------------
 
 #define PIN_CFG(pin, cfg)  ((cfg) << (PIN_NUM(pin) << 2))
-#define PIN_MASK(p)  PIN_CFG(p, 0xF)
+#define PIN_MASK(p)   PIN_CFG(p, 0xF)
 
 // Input modes
-#define PIN_IA(p)  PIN_CFG(p, GPIO_ANALOG)
-#define PIN_IF(p)  PIN_CFG(p, GPIO_FLOAT)
-#define PIN_IP(p)  PIN_CFG(p, GPIO_PUPD)
+#define PIN_IA(p)     PIN_CFG(p, GPIO_ANALOG)
+#define PIN_IF(p)     PIN_CFG(p, GPIO_FLOAT)
+#define PIN_IP(p)     PIN_CFG(p, GPIO_PUPD)
 
 // Output push-pull
-#define PIN_PP2(p)   PIN_CFG(p, GPIO_PP2)
-#define PIN_PP10(p)  PIN_CFG(p, GPIO_PP10)
-#define PIN_PP30(p)  PIN_CFG(p, GPIO_PP30)
+#define PIN_PP2(p)    PIN_CFG(p, GPIO_PP2)
+#define PIN_PP10(p)   PIN_CFG(p, GPIO_PP10)
+#define PIN_PP30(p)   PIN_CFG(p, GPIO_PP30)
 
 // Output open-drain
-#define PIN_OD2(p)   PIN_CFG(p, GPIO_OD2)
-#define PIN_OD10(p)  PIN_CFG(p, GPIO_OD10)
-#define PIN_OD30(p)  PIN_CFG(p, GPIO_OD30)
+#define PIN_OD2(p)    PIN_CFG(p, GPIO_OD2)
+#define PIN_OD10(p)   PIN_CFG(p, GPIO_OD10)
+#define PIN_OD30(p)   PIN_CFG(p, GPIO_OD30)
 
 // Alternate function push-pull
-#define PIN_AP2(p)   PIN_CFG(p, GPIO_APP2)
-#define PIN_AP10(p)  PIN_CFG(p, GPIO_APP10)
-#define PIN_AP30(p)  PIN_CFG(p, GPIO_APP30)
+#define PIN_AOP2(p)   PIN_CFG(p, GPIO_APP2)
+#define PIN_AOP10(p)  PIN_CFG(p, GPIO_APP10)
+#define PIN_AOP30(p)  PIN_CFG(p, GPIO_APP30)
 
 // Alternate function open-drain
-#define PIN_AD2(p)   PIN_CFG(p, GPIO_AOD2)
-#define PIN_AD10(p)  PIN_CFG(p, GPIO_AOD10)
-#define PIN_AwD30(p)  PIN_CFG(p, GPIO_AOD30)
+#define PIN_AOD2(p)   PIN_CFG(p, GPIO_AOD2)
+#define PIN_AOD10(p)  PIN_CFG(p, GPIO_AOD10)
+#define PIN_AOD30(p)  PIN_CFG(p, GPIO_AOD30)
 
 //------------------------------------------------------------------------------
 // Power
@@ -93,23 +93,25 @@ static inline void port_power_off(uint32_t mask) {
 static inline void port_mask_cfg(gpio_port_t* port, uint32_t mask) {
   port->CFGLR &= ~mask; }
 
+static inline void port_write_cfg(gpio_port_t* port, uint32_t cfg) {
+  port->CFGLR = cfg; }
+
 static inline void port_set_cfg(gpio_port_t* port, uint32_t cfg) {
   port->CFGLR |= cfg; }
 
-static inline void pin_set_mode(gpio_pin_t pin, gpio_cfg_t cfg) {
+static inline void pin_mode(gpio_pin_t pin, gpio_cfg_t cfg) {
   gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
   port_mask_cfg(port, PIN_MASK(pin));
   port_set_cfg(port, PIN_CFG(pin, cfg)); }
 
 //------------------------------------------------------------------------------
 
-static inline uint32_t port_get(gpio_port_t* port) {
+static inline uint32_t port_read(gpio_port_t* port) {
   return port->INDR; }
 
-static inline uint32_t pin_get(gpio_pin_t pin) {
+static inline uint32_t pin_read(gpio_pin_t pin) {
   gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
-  uint32_t indr = port_get(port);
-  return indr & PIN_BIT(pin); }
+  return port_read(port) & PIN_BIT(pin); }
 
 //------------------------------------------------------------------------------
 
@@ -128,6 +130,12 @@ static inline void port_reset(gpio_port_t* port, uint32_t mask) {
 static inline void pin_reset(gpio_pin_t pin) {
   gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
   port_reset(port, PIN_BIT(pin)); }
+
+//------------------------------------------------------------------------------
+
+static inline void pin_write(gpio_pin_t pin, bool reset) {
+  gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
+  port_set(port, PIN_BIT(pin) << (reset << 4)); }
 
 //------------------------------------------------------------------------------
 

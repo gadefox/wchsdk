@@ -89,8 +89,8 @@ static inline uint32_t csr_get_mtvec(void) {
 //------------------------------------------------------------------------------
 // Set Exception base address register (0x305)
 
-static inline void csr_write_mtvec(uint32_t value) {
-  asm volatile(ZICSR "csrw mtvec, %0" ::"r"(value) : "memory"); }
+static inline void csr_write_mtvec(void* func, uint32_t value) {
+  asm volatile(ZICSR "csrw mtvec, %0" ::"r"((uint32_t)func | value) : "memory"); }
 
 //------------------------------------------------------------------------------
 // Get temporary data storage register (0x340)
@@ -117,8 +117,8 @@ static inline uintptr_t csr_get_mepc(void) {
 //------------------------------------------------------------------------------
 // Set Exception program pointer register (0x341)
 
-static inline void csr_write_mepc(uint32_t value) {
-  asm volatile(ZICSR "csrw mepc, %0" : : "r"(value) : "memory"); }
+static inline void csr_write_mepc(void *func) {
+  asm volatile(ZICSR "csrw mepc, %0" : : "r"(func) : "memory"); }
 
 //------------------------------------------------------------------------------
 // Get Exception cause register (0x342)

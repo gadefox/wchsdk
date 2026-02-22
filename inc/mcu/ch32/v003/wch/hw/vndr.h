@@ -6,23 +6,20 @@
 /*                            Vendor Registers                                */
 /******************************************************************************/
 
+#define VNDR_BASE  0x1FFFF7C0
+#define VNDR_SIZE  64
+
+//------------------------------------------------------------------------------
+
+
 #ifdef __ASSEMBLER__
 
-#define CHIPID_BASE  0x1FFFF704
-#define CFG0_BASE    0x1FFFF7D4
-#define ESIG_BASE    0x1FFFF7E0
-
-//------------------------------------------------------------------------------
-
-#define CHIPID_REVID  0
-#define CHIPID_DEVID  2
-
-//------------------------------------------------------------------------------
-
-#define ESIG_FLACAP  0
-#define ESIG_UNIID1  8
-#define ESIG_UNIID2  12
-#define ESIG_UNIID3  16
+#define VNDR_CHIPID   0x04
+#define VNDR_PLLTRIM  0x14
+#define VNDR_FLACAP   0x20
+#define VNDR_UNIID1   0x28
+#define VNDR_UNIID2   0x2C
+#define VNDR_UNIID3   0x30
 
 #else
 
@@ -33,35 +30,39 @@ typedef enum {
   DEV_QFN20,    // 1
   DEV_SOP16,    // 2
   DEV_SOP8,     // 3
-} dev_package_t;
+} chip_package_t;
 
 typedef struct {
-  __I uint16_t REVID;  /* Lower 16 bits of CHIPID */
-  __I uint16_t DEVID;  /* Upper 16 bits of CHIPID */
-} chipid_t;
-
-#define CHIPID  ((chipid_t *)CHIPID_BASE)
-
-//------------------------------------------------------------------------------
-
-typedef struct {
+      uint32_t RESERVED0;
+  __I uint32_t CHIPID;
+      uint32_t RESERVED1[3];
+  __I uint32_t PLLTRIM;
+      uint32_t RESERVED2[2];
   __I uint16_t FLACAP;      /* Flash capacity register */
-      uint16_t RESERVED0;
-      uint32_t RESERVED1;
+      uint16_t RESERVED3;
+      uint32_t RESERVED4;
   __I uint32_t UNIID1;      /* UID register 1 */
   __I uint32_t UNIID2;      /* UID register 2 */
   __I uint32_t UNIID3;      /* UID register 3 */
-} esig_t;
+      uint32_t RESERVED5[3];
+} vendor_t;
 
-#define ESIG  ((esig_t *)ESIG_BASE)
+#define VNDR  ((chipid_t *)VNDR_BASE)
 
 #endif  /* __ASSEMBLER__ */
 
 //------------------------------------------------------------------------------
+// NOTE: If REVID's LSB is non-zero, bootloader calls the interrupt controller
+// init function (e.g. sets thresholds, clears pending IRQs, enables global
+// interrupts).
 
-#define CHIP_PACKAGE  0xF000
+#define CHIP_REVID    0x0000FFFF        /* 0x0510 */
+#define CHIP_PACKAGE  0x000F0000        /* 0x0 */
+#define CHIP_DEVID    0xFFF00000        /* 0x003 */
 
-#define CHIP_PACKAGE_POS  12
+#define CHIP_REVID_POS    0
+#define CHIP_PACKAGE_POS  16
+#define CHIP_DEVID_POS    20
 
 //------------------------------------------------------------------------------
 

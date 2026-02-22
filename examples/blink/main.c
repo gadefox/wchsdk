@@ -7,22 +7,6 @@
 #define PIN_G  PA0
 #define PIN_B  PA1
 
-void pins_on(int state) {
-  pin_set(PIN_R);
-  if (state % 2)
-    pin_set(PIN_G);
-  if (state % 4)
-    pin_set(PIN_B);
-}
-
-void pins_off(int state) {
-  pin_reset(PIN_R);
-  if (state % 2)
-    pin_reset(PIN_G);
-  if (state % 4)
-    pin_reset(PIN_B);
-}
-
 int main(void) {
   sys_init();
 
@@ -30,16 +14,16 @@ int main(void) {
   port_power_on(RCC_IOPAEN | RCC_IOPDEN);
 
   // Set pins to output mode
-  pin_set_mode(PIN_R, GPIO_PP10);
+  pin_mode(PIN_R, GPIO_PP10);
   port_mask_cfg(GPIOA, PIN_MASK(PIN_G) | PIN_MASK(PIN_B));
-  port_set_cfg(GPIOA, PIN_PP10(PIN_G) | PIN_PP10(PIN_B));
+  port_write_cfg(GPIOA, PIN_PP10(PIN_G) | PIN_PP10(PIN_B));
 
   uint32_t state = 0;
   while (true) {
-    pins_on(state);
-    delay_ms(250);
-    pins_off(state);
-    delay_ms(250);
+    pin_write(PIN_R, state % 4);
+    pin_write(PIN_G, state % 5);
+    pin_write(PIN_B, state % 6);
+    delay_ms(500);
     state++;
   }
 }

@@ -242,6 +242,7 @@ typedef union {
 //------------------------------------------------------------------------------
 
 /* GPIO_pins_define */
+#define GPIO_SET  0x000000FF /* All pins selected */
 #define GPIO_PIN0 0x00000001 /* Pin 0 selected */
 #define GPIO_PIN1 0x00000002 /* Pin 1 selected */
 #define GPIO_PIN2 0x00000004 /* Pin 2 selected */
@@ -251,9 +252,9 @@ typedef union {
 #define GPIO_PIN6 0x00000040 /* Pin 6 selected */
 #define GPIO_PIN7 0x00000080 /* Pin 7 selected */
 
-#define GPIO_PIN_ALL 0x000000FF /* All pins selected */
 
 /******************  Bit definition for GPIO_BSHR register  *******************/
+#define GPIO_RST  0x00FF0000 /* All pins reset */
 #define GPIO_RST0 0x00010000 /* Port x Reset bit 0 */
 #define GPIO_RST1 0x00020000 /* Port x Reset bit 1 */
 #define GPIO_RST2 0x00040000 /* Port x Reset bit 2 */
@@ -262,8 +263,6 @@ typedef union {
 #define GPIO_RST5 0x00200000 /* Port x Reset bit 5 */
 #define GPIO_RST6 0x00400000 /* Port x Reset bit 6 */
 #define GPIO_RST7 0x00800000 /* Port x Reset bit 7 */
-
-#define GPIO_RST_ALL 0x00FF0000 /* All pins reset */
 
 /******************  Bit definition for GPIO_LCKR register  *******************/
 #define GPIO_LCKK 0x00010000 /* Lock key */

@@ -1,6 +1,8 @@
 #!/bin/rc
 
 dev = `(ls /dev/ttyACM*)
+fuser $dev > /dev/null >[2=1]
+~ $status 0 && { echo $dev: device busy; exit 1 }
 
 fn exec {
   tio $dev --mute --script 'write('''$1''');expect(''console'');exit()'

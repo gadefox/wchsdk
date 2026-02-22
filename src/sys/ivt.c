@@ -37,17 +37,13 @@ void reset_handler(void) {
   gpr_init_sp();
 
   // Setup processor status and INTSYSCR.
-#if SYS_HPE
   csr_write_mstatus(MSTATUS_MIE | MSTATUS_MPIE | MSTATUS_MPP_M);
-#else
-  csr_write_mstatus(MSTATUS_MPIE | MSTATUS_MPP_M);
-#endif  /* SYS_HPE */
 
   // Enabled nested and hw stack.
   csr_write_intsyscr(INTSYSCR_INEST | INTSYSCR_HWSTK);
 
   // Setup the interrupt vector
-  csr_write_mtvec((uint32_t)ivt_entry | MTVEC_IVT | MTVEC_ABS);
+  csr_write_mtvec(ivt_entry, MTVEC_IVT | MTVEC_ABS);
 
   // Clear global variables; Copy .data from flash to RAM
   MEMSET(&_sbss, 0, _ebss - _sbss);
@@ -57,7 +53,7 @@ void reset_handler(void) {
   stk_init();
 
   // Set mepc to be main as the root app.
-  csr_write_mepc((uint32_t)main);
+  csr_write_mepc(main);
   irq_ret();
 }
 
