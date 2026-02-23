@@ -1,20 +1,19 @@
 #!/bin/rc
 
-dev = `(ls /dev/ttyACM*)
-fuser $dev > /dev/null >[2=1]
-~ $status 0 && { echo $dev: device busy; exit 1 }
+fn error { echo $1; exit 1 }
 
-fn exec {
-  tio $dev --mute --script 'write('''$1''');expect(''console'');exit()'
-  echo
-}
+dev = `{ ls /dev/ttyACM* >[2] /dev/null }
+~ $dev () && error 'no device found'
 
-fn info { exec 'i ve\n' }
-fn unlock { exec 'fl un\n' }
-fn upload {
-  tio $dev --mute --script 'write(string.char(0x16));send('''$1''', XMODEM_CRC)'
-}
+fuser -s $dev
+~ $status 0 && error $dev': device busy'
 
-info
-unlock
-upload out/blink.bin
+lua = 'write(''fl un\n'')
+       expect(''console: command took'')
+       write(''i fl\n'')
+       expect(''console: command took'')
+       write(string.char(0x16))
+       send(''out/blink.bin'', XMODEM_CRC)
+       exit()'
+
+tio $dev --script $lua

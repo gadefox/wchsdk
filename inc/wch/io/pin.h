@@ -11,7 +11,7 @@
 
 //------------------------------------------------------------------------------
 
-#define GPIO_PIN(port, pin) ((uint8_t)(((port) << 4) | ((pin) & 0xF)))
+#define GPIO_PIN(port, pin) (((port) << 3) | (pin))
 
 typedef enum {
   /* port A */
@@ -25,28 +25,28 @@ typedef enum {
   PA7 = GPIO_PIN(GPIO_PORTA, 7),  /* 7 */
 
   /* port C */
-  PC0 = GPIO_PIN(GPIO_PORTC, 0),  /* 32 */
-  PC1 = GPIO_PIN(GPIO_PORTC, 1),  /* 33 */
-  PC2 = GPIO_PIN(GPIO_PORTC, 2),  /* 34 */
-  PC3 = GPIO_PIN(GPIO_PORTC, 3),  /* 35 */
-  PC4 = GPIO_PIN(GPIO_PORTC, 4),  /* 36 */
-  PC5 = GPIO_PIN(GPIO_PORTC, 5),  /* 37 */
-  PC6 = GPIO_PIN(GPIO_PORTC, 6),  /* 38 */
-  PC7 = GPIO_PIN(GPIO_PORTC, 7),  /* 39 */
+  PC0 = GPIO_PIN(GPIO_PORTC, 0),  /* 16 */
+  PC1 = GPIO_PIN(GPIO_PORTC, 1),  /* 17 */
+  PC2 = GPIO_PIN(GPIO_PORTC, 2),  /* 18 */
+  PC3 = GPIO_PIN(GPIO_PORTC, 3),  /* 19 */
+  PC4 = GPIO_PIN(GPIO_PORTC, 4),  /* 20 */
+  PC5 = GPIO_PIN(GPIO_PORTC, 5),  /* 21 */
+  PC6 = GPIO_PIN(GPIO_PORTC, 6),  /* 22 */
+  PC7 = GPIO_PIN(GPIO_PORTC, 7),  /* 23 */
 
   /* port D */
-  PD0 = GPIO_PIN(GPIO_PORTD, 0),  /* 48 */
-  PD1 = GPIO_PIN(GPIO_PORTD, 1),  /* 49 */
-  PD2 = GPIO_PIN(GPIO_PORTD, 2),  /* 50 */
-  PD3 = GPIO_PIN(GPIO_PORTD, 3),  /* 51 */
-  PD4 = GPIO_PIN(GPIO_PORTD, 4),  /* 52 */
-  PD5 = GPIO_PIN(GPIO_PORTD, 5),  /* 53 */
-  PD6 = GPIO_PIN(GPIO_PORTD, 6),  /* 54 */
-  PD7 = GPIO_PIN(GPIO_PORTD, 7)   /* 55 */
+  PD0 = GPIO_PIN(GPIO_PORTD, 0),  /* 24 */
+  PD1 = GPIO_PIN(GPIO_PORTD, 1),  /* 25 */
+  PD2 = GPIO_PIN(GPIO_PORTD, 2),  /* 26 */
+  PD3 = GPIO_PIN(GPIO_PORTD, 3),  /* 27 */
+  PD4 = GPIO_PIN(GPIO_PORTD, 4),  /* 28 */
+  PD5 = GPIO_PIN(GPIO_PORTD, 5),  /* 29 */
+  PD6 = GPIO_PIN(GPIO_PORTD, 6),  /* 30 */
+  PD7 = GPIO_PIN(GPIO_PORTD, 7)   /* 31 */
 } gpio_pin_t;
 
-#define PIN_PORT(p)  ((gpio_port_id_t)((p) >> 4))
-#define PIN_NUM(p)   ((p) & 0xF)
+#define PIN_PORT(p)  ((p) >> 3)
+#define PIN_NUM(p)   ((p) & 0b111)
 #define PIN_BIT(p)   BITS(PIN_NUM(p))
 
 //------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ static inline uint32_t pin_read(gpio_pin_t pin) {
 //------------------------------------------------------------------------------
 
 static inline void port_set(gpio_port_t* port, uint32_t mask) {
-  port->BSHR = mask; }
+  port->BSHR |= mask; }
 
 static inline void pin_set(gpio_pin_t pin) {
   gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
@@ -125,7 +125,7 @@ static inline void pin_set(gpio_pin_t pin) {
 //------------------------------------------------------------------------------
 
 static inline void port_reset(gpio_port_t* port, uint32_t mask) {
-  port->BCR = mask; }
+  port->BCR |= mask; }
 
 static inline void pin_reset(gpio_pin_t pin) {
   gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
@@ -133,9 +133,9 @@ static inline void pin_reset(gpio_pin_t pin) {
 
 //------------------------------------------------------------------------------
 
-static inline void pin_write(gpio_pin_t pin, bool reset) {
+static inline void pin_write(gpio_pin_t pin, bool set) {
   gpio_port_t* port = &GPIO->ports[PIN_PORT(pin)];
-  port_set(port, PIN_BIT(pin) << (reset << 4)); }
+  port_set(port, PIN_BIT(pin) << ((!set) << 4)); }
 
 //------------------------------------------------------------------------------
 
