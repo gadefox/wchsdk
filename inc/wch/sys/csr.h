@@ -14,11 +14,11 @@
 #define MSTATUS_MPP_POS  11
 
 typedef enum {
-  MSTATUS_MIE   = 1 << 3,                   // Machine Interrupt Enable
-  MSTATUS_MPIE  = 1 << 7,                   // Machine Previous Interrupt Enable
-  MSTATUS_MPP_M = 0b11 << MSTATUS_MPP_POS,  // Machine Previous Privilege = Machine
-  MSTATUS_MPOP  = 1 << 23,                  // Whether the current active interrupt needs to come out of the stack
-  MSTATUS_MPPOP = 1 << 24                   // Whether the current subactive interrupt needs to come out of the stack
+  MSTATUS_MIE   = 1u << 3,                   // Machine Interrupt Enable
+  MSTATUS_MPIE  = 1u << 7,                   // Machine Previous Interrupt Enable
+  MSTATUS_MPP_M = 3u << MSTATUS_MPP_POS,  // Machine Previous Privilege = Machine
+  MSTATUS_MPOP  = 1u << 23,                  // Whether the current active interrupt needs to come out of the stack
+  MSTATUS_MPPOP = 1u << 24                   // Whether the current subactive interrupt needs to come out of the stack
 } mstatus_t;
 
 static inline mstatus_t csr_get_mstatus(void) {
@@ -51,20 +51,20 @@ typedef enum {
 } misa_mxl_t;
 
 typedef enum {
-  MISA_EXT_A = 1 << 0,   // Atomic extension
-  MISA_EXT_C = 1 << 2,   // Compressed instructions
-  MISA_EXT_D = 1 << 3,   // Double-precision FPU
-  MISA_EXT_E = 1 << 4,   // RV32E base ISA (reduced registers)
-  MISA_EXT_F = 1 << 5,   // Single-precision FPU
-  MISA_EXT_G = 1 << 6,   // Additional standard extensions
-  MISA_EXT_H = 1 << 7,   // Hypervisor extension
-  MISA_EXT_I = 1 << 8,   // Base integer ISA (RV32I/RV64I/RV128I)
-  MISA_EXT_M = 1 << 12,  // Multiply/Divide extension
-  MISA_EXT_N = 1 << 13,  // User-level interrupts
-  MISA_EXT_Q = 1 << 16,  // Quad-precision FPU
-  MISA_EXT_S = 1 << 18,  // Supervisor mode implemented
-  MISA_EXT_U = 1 << 20,  // User mode implemented
-  MISA_EXT_X = 1 << 23   // Non-standard extensions present
+  MISA_EXT_A = 1u << 0,   // Atomic extension
+  MISA_EXT_C = 1u << 2,   // Compressed instructions
+  MISA_EXT_D = 1u << 3,   // Double-precision FPU
+  MISA_EXT_E = 1u << 4,   // RV32E base ISA (reduced registers)
+  MISA_EXT_F = 1u << 5,   // Single-precision FPU
+  MISA_EXT_G = 1u << 6,   // Additional standard extensions
+  MISA_EXT_H = 1u << 7,   // Hypervisor extension
+  MISA_EXT_I = 1u << 8,   // Base integer ISA (RV32I/RV64I/RV128I)
+  MISA_EXT_M = 1u << 12,  // Multiply/Divide extension
+  MISA_EXT_N = 1u << 13,  // User-level interrupts
+  MISA_EXT_Q = 1u << 16,  // Quad-precision FPU
+  MISA_EXT_S = 1u << 18,  // Supervisor mode implemented
+  MISA_EXT_U = 1u << 20,  // User mode implemented
+  MISA_EXT_X = 1u << 23   // Non-standard extensions present
 } misa_ext_t;
 
 static inline uint32_t csr_get_misa(void) {
@@ -77,8 +77,8 @@ static inline uint32_t csr_get_misa(void) {
 // NOTE: Address bits [31:2] (no shift, 1KB aligned required)
 
 typedef enum {
-  MTVEC_IVT = 1 << 0,       // offset = IVT[interrupt number]
-  MTVEC_ABS  = 1 << 1       // identification by absolute address
+  MTVEC_IVT = 1u << 0,       // offset = IVT[interrupt number]
+  MTVEC_ABS = 1u << 1        // identification by absolute address
 } mtvec_t;
 
 static inline uint32_t csr_get_mtvec(void) {
@@ -123,7 +123,7 @@ static inline void csr_write_mepc(void *func) {
 //------------------------------------------------------------------------------
 // Get Exception cause register (0x342)
 
-#define MCAUSE_IRQ  (1 << 31)
+#define MCAUSE_IRQ  (1u << 31)
 
 static inline uint32_t csr_get_mcause(void) {
   uint32_t result;
@@ -269,9 +269,9 @@ static inline void csr_write_dbgmcu_cr(uint32_t value) {
 // Get INTSYSCR register (0x804)
 
 typedef enum {
-  INTSYSCR_HWSTK = 1 << 0,      // Hardware Stack Enable
-  INTSYSCR_INEST = 1 << 1,      // Interrupt Nesting Enable
-  INTSYSCR_EABI  = 1 << 2       // EABI Enable
+  INTSYSCR_HWSTK = 1u << 0,      // Hardware Stack Enable
+  INTSYSCR_INEST = 1u << 1,      // Interrupt Nesting Enable
+  INTSYSCR_EABI  = 1u << 2       // EABI Enable
 } intsyscr_t;
 
 static inline intsyscr_t csr_get_intsyscr(void) {

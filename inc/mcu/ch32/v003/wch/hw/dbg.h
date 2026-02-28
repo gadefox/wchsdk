@@ -6,29 +6,37 @@
 /*                         MCU Debug Support                                   */
 /******************************************************************************/
 
-#define DBG_BASE  (CORE_PERIPH_BASE + 0xF4)
+#define DBG_BASE  (CORE_PERIPH_BASE + 0xD000)
 
 //------------------------------------------------------------------------------
 
 #ifdef __ASSEMBLER__
 
-#define DBG_DMDATA0   0
-#define DBG_DMDATA1   4
-#define DBG_DMSTATUS  8
+#define DBG_CFGR0  0
+#define DBG_CFGR1  4
 
 #else
 
 //------------------------------------------------------------------------------
 
 typedef struct {
-  __IO uint32_t DMDATA0;
-  __IO uint32_t DMDATA1;
-  __IO uint32_t DMSTATUS;
+  __IO uint32_t CFGR0;
+  __IO uint32_t CFGR1;
 } dbg_t;
 
 #define DBG  ((dbg_t *)DBG_BASE)
 
 #endif  /* __ASSEMBLER__ */
+
+//------------------------------------------------------------------------------
+
+/*********************  Bit definition for DBG_CFGR0 register  ******************/
+
+// This register allows the MCU to be configured in the debug state
+#define DBG_IWDG_STOP  0x00000001  /* Bit 0 : IWDG stops working when the core enters the debug state */
+#define DBG_WWDG_STOP  0x00000002  /* Bit 1 : WWDG stops working when the core enters the debug state */
+#define DBG_TIM1_STOP  0x00000010  /* Bit 4 : Timer 1 stops when the core enters the debug state */
+#define DBG_TIM2_STOP  0x00000020  /* Bit 5 : Timer 2 stops when the core enters the debug state */
 
 //------------------------------------------------------------------------------
 

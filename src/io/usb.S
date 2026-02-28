@@ -31,7 +31,7 @@
 // Packet Type + 8 + CRC + Buffer
 #define USB_BUFFER_SIZE  12
 
-#define USB_DMASK         ((1 << IO_USB_PIN_DP) | (1 << IO_USB_PIN_DM))
+#define USB_DMASK         ((1u << IO_USB_PIN_DP) | (1u << IO_USB_PIN_DM))
 #define IO_USB_GPIO_BASE  EXP_BASE(GPIO, IO_USB_PORT)
 
 // A little weird, but this way, the USB packet is always aligned.
@@ -457,12 +457,12 @@ ret_from_se0:
 
 interrupt_complete:
   // Acknowledge interrupt.
-  // EXTI->INTFR = 1 << 4
+  // EXTI->INTFR = 1u << 4
   c.j    1f; 1: // Extra little bit of delay to make sure we don't accidentally false fire.
 
   la     a5, EXTI_BASE + 20
 #if IO_USB_ADD_EXTI_MASK
-  li     a0, (IO_USB_ADD_EXTI_MASK | (1 << USB_PIN_DM))
+  li     a0, (IO_USB_ADD_EXTI_MASK | (1u << USB_PIN_DM))
 #else
   li     a0, (1<<USB_PIN_DM)
 #endif  /* IO_USB_ADD_EXTI_MASK */
@@ -598,18 +598,18 @@ usb_bb_send_data:
 
   // ASAP: Turn the bus around and send our preamble + token.
   c.lw   a4, GPIO_CFGLR(a5)
-  li     s1, ~((0b1111 << (IO_USB_PIN_DP * 4)) | (0b1111 << (IO_USB_PIN_DM * 4)))
+  li     s1, ~((0b1111u << (IO_USB_PIN_DP * 4)) | (0b1111u << (IO_USB_PIN_DM * 4)))
   and    a4, s1, a4
 
   // Convert D+/D- into 2MHz outputs
-  li     s1, ((0b0010 << (IO_USB_PIN_DP * 4)) | (0b0010 << (IO_USB_PIN_DM * 4)))
+  li     s1, ((0b0010u << (IO_USB_PIN_DP * 4)) | (0b0010u << (IO_USB_PIN_DM * 4)))
   or     a4, s1, a4
-  li     s1, (1 << IO_USB_PIN_DP) | (1 << (IO_USB_PIN_DM + 16))
+  li     s1, (1u << IO_USB_PIN_DP) | (1u << (IO_USB_PIN_DM + 16))
   c.sw   s1, GPIO_BSHR(a5)
 
   // 00: Universal push-pull output mode
   c.sw   a4, GPIO_CFGLR(a5)
-  li     t1, (1 << IO_USB_PIN_DP) | (1 << (IO_USB_PIN_DM + 16)) | (1 << IO_USB_PIN_DM) | (1 << (IO_USB_PIN_DP + 16));
+  li     t1, (1u << IO_USB_PIN_DP) | (1u << (IO_USB_PIN_DM + 16)) | (1u << IO_USB_PIN_DM) | (1u << (IO_USB_PIN_DP + 16));
   SAVE_DEBUG_MARKER(8)
 
   // Save off our preamble and token.
@@ -790,20 +790,20 @@ no_really_done_sending_data:
   nx6p3delay(2, a3);
 
   // Need to perform an SE0.
-  li     s1, (1 << (USB_PIN_DM + 16)) | (1 << (IO_USB_PIN_DP + 16))
+  li     s1, (1u << (USB_PIN_DM + 16)) | (1u << (IO_USB_PIN_DP + 16))
   c.sw   s1, GPIO_BSHR(a5)
 
   nx6p3delay(7, a3);
 
-  li     s1, (1 << USB_PIN_DM) | (1 << (IO_USB_PIN_DP + 16)
+  li     s1, (1u << USB_PIN_DM) | (1u << (IO_USB_PIN_DP + 16)
   c.sw   s1, GPIO_BSHR(a5)
 
   lw     s1, GPIO_CFGLR(a5)
   // Convert D+/D- into inputs.
-  li     a3, ~((0b11 << (IO_USB_PIN_DP * 4)) | (0b11 << (IO_USB_PIN_DM * 4)))
+  li     a3, ~((0b11u << (IO_USB_PIN_DP * 4)) | (0b11u << (IO_USB_PIN_DM * 4)))
   and    s1, a3, s1
   // 01: Floating input mode.
-  li     a3, ((0b01 << (IO_USB_PIN_DP * 4 + 2)) | (0b01 << (IO_USB_PIN_DM * 4 + 2)))
+  li     a3, ((0b01u << (IO_USB_PIN_DP * 4 + 2)) | (0b01u << (IO_USB_PIN_DM * 4 + 2)))
   or     s1, a3, s1
   sw     s1, GPIO_CFGLR(a5)
 

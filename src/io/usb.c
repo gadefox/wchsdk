@@ -92,12 +92,12 @@ void usb_ini(void) {
 
   // Configure USB_PIN_DM (D-) as an interrupt on falling edge.
   AFIO->EXTICR = EXP(GPIO_PORTSOURCEGPIO, USB_PORT) << (USB_PIN_DM * 2);  // Configure EXTI interrupt for USB_PIN_DM
-  EXTI->INTENR = 1 << USB_PIN_DM;                                            // Enable EXTI interrupt
-  EXTI->FTENR = 1 << USB_PIN_DM;                                             // Enable falling edge trigger for USB_PIN_DM (D-)
+  EXTI->INTENR = 1u << USB_PIN_DM;                                            // Enable EXTI interrupt
+  EXTI->FTENR = 1u << USB_PIN_DM;                                             // Enable falling edge trigger for USB_PIN_DM (D-)
 
 #ifdef USB_PIN_DPU
   // This drives USB_PIN_DPU (D- Pull-Up) high, which will tell the host that we are going on-bus.
-  USB_GPIO->BSHR = 1 << USB_PIN_DPU;
+  USB_GPIO->BSHR = 1u << USB_PIN_DPU;
 #endif  /* USB_PIN_DPU */
 
   // enable interrupt
