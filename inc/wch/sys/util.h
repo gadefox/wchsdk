@@ -16,9 +16,9 @@ static inline void delay_tiny(uint32_t n) {
 //------------------------------------------------------------------------------
 // Register utility functions
 
-bool wait_mask(__IO uint32_t *statr, uint32_t mask, bool want_set, uint32_t timeout);
+bool wait_mask(__IO uint32_t *statr, uint32_t mask, uint32_t value, uint16_t delay);
 bool wait_mask2(__IO uint16_t *statr1, __IO uint16_t *statr2, uint32_t mask,
-                bool want_set, uint32_t timeout);
+                uint32_t value, uint16_t delay);
 
 //------------------------------------------------------------------------------
 

@@ -14,9 +14,9 @@
 
 //------------------------------------------------------------------------------
 
-static inline void sys_init_flash(void) {
+static inline void init_flash(void) {
   // Flash latency settings.
-#if SYSCLK > 25000000
+#if SYSCLK > 24000000
   FLASH->ACTLR = FLASH_LATENCY1; // +1 Cycle Latency
 #endif  /* SYSCLK */
 }
@@ -43,7 +43,7 @@ static inline bool sys_init_xtal(void) {
   RCC->CTLR = RCC_HSEON | CLKSEC | BYPASS;
 
   // Wait for HSE ready with timeout (~50ms @ 24MHz)
-  if (!wait_mask(&RCC->CTLR, RCC_HSERDY, true, ms_to_stk(50)))
+  if (!wait_mask(&RCC->CTLR, RCC_HSERDY, RCC_HSERDY, 250))
     return false;
 
 #if SYS_PLL
@@ -58,7 +58,7 @@ static inline bool sys_init_xtal(void) {
 //------------------------------------------------------------------------------
 // Internal clock
 
-static inline void sys_init_rc(void) {
+static inline void init_rc(void) {
   // Enable HSI with trim
   RCC->CTLR = RCC_HSION | (SYS_HSI_TRIM << RCC_HSITRIM_POS);
 
@@ -72,7 +72,7 @@ static inline void sys_init_rc(void) {
 
 #if SYS_PLL
 
-static inline void sys_init_pll(void) {
+static inline void init_pll(void) {
   RCC->CTLR |= RCC_PLLON;
 
   // Wait till PLL is ready
@@ -90,20 +90,20 @@ static inline void sys_init_pll(void) {
 
 //------------------------------------------------------------------------------
 
-void sys_init(void) {
-  sys_init_flash();
+void init(void) {
+  init_flash();
 
 #if SYS_HSE_FREQ
   // Try HSE first
-  if (!sys_init_xtal())
-    sys_init_rc();     // HSE failed, fallback to HSI
+  if (!init_xtal())
+    init_rc();     // HSE failed, fallback to HSI
 #else
   // Use HSI directly
-  sys_init_rc();
+  init_rc();
 #endif  /* SYS_HSI_FREQ || SYS_HSE_FREQ */
 
 #if SYS_PLL
-  sys_init_pll();
+  init_pll();
 #endif  /* SYS_PLL */
 }
 

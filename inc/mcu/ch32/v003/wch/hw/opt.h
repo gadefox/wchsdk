@@ -17,7 +17,7 @@
 #define OB_WRPR0  8
 #define OB_WRPR1  10
 #define OB_DATA   12
-#define OB_SIZE   64    /* sizoof (User option bytes) = 64 bytes */
+#define OB_SIZE   64         /* sizeof (User option bytes) = 64 bytes */
 
 #else
 

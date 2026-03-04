@@ -16,15 +16,19 @@ void blink(int pin) {
   }
 }
 
-void blink_port(int port) {
-  for (int i = 0; i < 8; i++) {
-    int pin = GPIO_PIN(port, i);
-    blink(pin);
-  }
+void blink_port() {
+  GPIOA_BSHR->raw = 0xFF;
+  GPIOC_BSHR->raw = 0xFF;
+  GPIOD_BSHR->raw = 0xFF;
+  delay_ms(150);
+  GPIOA_BCR->raw = 0xFF;
+  GPIOA_BCR->raw = 0xFF;
+  GPIOA_BCR->raw = 0xFF;
+  delay_ms(150);
 }
 
 int main(void) {
-  sys_init();
+  init();
 
   // Enable GPIOs
   port_power_on(RCC_IOPAEN | RCC_IOPCEN | RCC_IOPDEN);
@@ -37,9 +41,7 @@ int main(void) {
 
 //  uint32_t state = 0;
   while (true) {
-    blink_port(GPIO_PORTA);
-    blink_port(GPIO_PORTC);
-    blink_port(GPIO_PORTD);
+    blink_port();
 /*    pin_write(PIN_R, state == 0);
     pin_write(PIN_G, state == 1);
     pin_write(PIN_B, state == 2);

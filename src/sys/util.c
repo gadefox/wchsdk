@@ -8,35 +8,28 @@
 //==============================================================================
 // Register functions
 
-bool wait_mask(__IO uint32_t *statr, uint32_t mask, bool want_set, uint32_t timeout) {
-  uint32_t deadline = stk_get_count() + timeout;
-
-  while (true) {
-    bool is_set = (*statr & mask) != 0;
-    if (is_set == want_set)
+bool wait_mask(__IO uint32_t *statr, uint32_t mask, uint32_t value, uint16_t delay) {
+  for (int i = 0; i < 200; i++) {
+    if ((*statr & mask) == value)
       return true;
 
-    if (stk_elapsed(deadline))
-      return false;
+    delay_us(delay);
   }
+  return false;
 }
 
 //------------------------------------------------------------------------------
 
 bool wait_mask2(__IO uint16_t *statr1, __IO uint16_t *statr2, uint32_t mask,
-                bool want_set, uint32_t timeout) {
-  uint32_t deadline = stk_get_count() + timeout;
-
-  while (true) {
+                uint32_t value, uint16_t delay) {
+  for (int i = 0; i < 200; i++) {
     uint32_t state = PACK32(*statr1, *statr2);
-    bool is_set = (state & mask) != 0;
-
-    if (is_set == want_set)
+    if ((state & mask) == value)
       return true;
 
-    if (stk_elapsed(deadline))
-      return false;
+    delay_us(delay);
   }
+  return false;
 }
 
 //------------------------------------------------------------------------------

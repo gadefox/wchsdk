@@ -101,11 +101,13 @@ static inline void i2c_remap(uint32_t pcfr) {
 
 static inline bool i2c_wait_master_transmitter_mode_selected(void) {
   return wait_mask2(&I2C1->STAR1, &I2C1->STAR2,
-      I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, true, IO_I2C_TIMEOUT); }
+      I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED,
+      I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED, 50); }
 
 static inline bool i2c_wait_master_receiver_mode_selected(void) {
   return wait_mask2(&I2C1->STAR1, &I2C1->STAR2,
-      I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED, true, IO_I2C_TIMEOUT); }
+      I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED,
+      I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED, 50); }
 
 static inline bool i2c_send_addr_write7(uint8_t addr) {
   I2C1->DATAR = addr << 1;  // LSB = 0 (write)
@@ -118,8 +120,8 @@ static inline bool i2c_send_addr_read7(uint8_t addr) {
 //------------------------------------------------------------------------------
 
 static inline bool i2c_wait_master_mode_addr10(void) {
-  return wait_mask2(&I2C1->STAR1, &I2C1->STAR2,
-      I2C_EVENT_MASTER_MODE_ADDRESS10, true, IO_I2C_TIMEOUT); }
+  return wait_mask2(&I2C1->STAR1, &I2C1->STAR2, I2C_EVENT_MASTER_MODE_ADDRESS10,
+                    I2C_EVENT_MASTER_MODE_ADDRESS10, 50); }
 
 bool i2c_send_addr_write10(uint16_t addr);
 bool i2c_send_addr_read10(uint16_t addr);
@@ -127,8 +129,8 @@ bool i2c_send_addr_read10(uint16_t addr);
 //------------------------------------------------------------------------------
 
 static inline bool i2c_wait_master_mode_select(void) {
-  return wait_mask2(&I2C1->STAR1, &I2C1->STAR2,
-      I2C_EVENT_MASTER_MODE_SELECT, true, IO_I2C_TIMEOUT); }
+  return wait_mask2(&I2C1->STAR1, &I2C1->STAR2, I2C_EVENT_MASTER_MODE_SELECT,
+                    I2C_EVENT_MASTER_MODE_SELECT, 50); }
 
 static inline bool i2c_start(void) {
   I2C1->CTLR1 |= I2C_START;

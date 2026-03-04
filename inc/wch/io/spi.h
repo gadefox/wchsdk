@@ -25,12 +25,6 @@
 
 //------------------------------------------------------------------------------
 
-#if !IO_SPI_TIMEOUT
-#define IO_SPI_TIMEOUT  500
-#endif  /* IO_SPI_TIMEOUT */
-
-//------------------------------------------------------------------------------
-
 typedef struct {
   uint32_t freq;
   uint8_t  direction;
@@ -88,13 +82,13 @@ static inline bool spi_is_rx_empty(void) {
 //------------------------------------------------------------------------------
 
 static inline bool spi_wait_tx_complete(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_TXE, true, IO_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_TXE, SPI_TXE, 50); }
 
 static inline bool spi_wait_rx_available(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_RXNE, true, IO_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_RXNE, SPI_RXNE, 50); }
 
 static inline bool spi_wait_not_busy(void) {
-  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_BSY, false, IO_SPI_TIMEOUT); }
+  return wait_mask((__IO uint32_t*)&SPI1->STATR, SPI_BSY, 0, 50); }
 
 //------------------------------------------------------------------------------
 // PFIC

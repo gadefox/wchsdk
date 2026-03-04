@@ -70,42 +70,42 @@ typedef enum {
   GPIO_OUT30  = 3   // 30 MHz
 } gpio_dir_t;
 
-#define GPIO_OD   0x4   // Universal open-drain output mode
-#define GPIO_MUX  0x8   // Multiplexed function
+#define GPIO_OD   0x4  // Universal open-drain output mode
+#define GPIO_MUX  0x8  // Multiplexed function
 
 //------------------------------------------------------------------------------
 
 typedef enum {
   // Input mode
-  GPIO_ANALOG = GPIO_IN,
-  GPIO_FLOAT  = GPIO_IN | 0x04,
-  GPIO_PUPD   = GPIO_IN | 0x08,  // With pull-up and pull-down mode
+  GPIO_ANALOG = GPIO_IN,                            // 0
+  GPIO_FLOAT  = GPIO_IN | 0x4,                      // 4
+  GPIO_PUPD   = GPIO_IN | 0x8,                      // 8; With pull-up and pull-down mode
 
   // Output mode: push-pull
-  GPIO_PP2  = GPIO_OUT2,
-  GPIO_PP10 = GPIO_OUT10,
-  GPIO_PP30 = GPIO_OUT30,
+  GPIO_PP2  = GPIO_OUT2,                            // 2
+  GPIO_PP10 = GPIO_OUT10,                           // 1
+  GPIO_PP30 = GPIO_OUT30,                           // 3
 
   // Output mode: open-drain
-  GPIO_OD2  = GPIO_OUT2 | GPIO_OD,
-  GPIO_OD10 = GPIO_OUT10 | GPIO_OD,
-  GPIO_OD30 = GPIO_OUT30 | GPIO_OD,
+  GPIO_OD2  = GPIO_OUT2 | GPIO_OD,                  // 6
+  GPIO_OD10 = GPIO_OUT10 | GPIO_OD,                 // 5
+  GPIO_OD30 = GPIO_OUT30 | GPIO_OD,                 // 7
 
   // Output mode: multiplexed function push-pull
-  GPIO_APP2  = GPIO_OUT2 |  GPIO_MUX,
-  GPIO_APP10 = GPIO_OUT10 | GPIO_MUX,
-  GPIO_APP30 = GPIO_OUT30 | GPIO_MUX,
-  
+  GPIO_APP2  = GPIO_OUT2 |  GPIO_MUX,               // 10
+  GPIO_APP10 = GPIO_OUT10 | GPIO_MUX,               // 9
+  GPIO_APP30 = GPIO_OUT30 | GPIO_MUX,               // 11
+
   // Output mode: multiplexed function open-drain
-  GPIO_AOD2  = GPIO_OUT2 | GPIO_OD | GPIO_MUX,
-  GPIO_AOD10 = GPIO_OUT10 | GPIO_OD | GPIO_MUX,
-  GPIO_AOD30 = GPIO_OUT30 | GPIO_OD | GPIO_MUX
+  GPIO_AOD2  = GPIO_OUT2 | GPIO_OD | GPIO_MUX,      // 14
+  GPIO_AOD10 = GPIO_OUT10 | GPIO_OD | GPIO_MUX,     // 13
+  GPIO_AOD30 = GPIO_OUT30 | GPIO_OD | GPIO_MUX      // 15
 } gpio_cfg_t;
 
 //------------------------------------------------------------------------------
 
 typedef union {
-  uint32_t __FULL;
+  uint32_t raw;
   struct {
     gpio_cfg_t PIN0 : 4;
     gpio_cfg_t PIN1 : 4;
@@ -125,7 +125,7 @@ typedef union {
 //------------------------------------------------------------------------------
 
 typedef union {
-  uint32_t __FULL;
+  uint32_t raw;
   const struct {
     uint32_t IDR0 : 1;
     uint32_t IDR1 : 1;
@@ -146,7 +146,7 @@ typedef union {
 //------------------------------------------------------------------------------
 
 typedef union {
-  uint32_t __FULL;
+  uint32_t raw;
   struct {
     uint32_t ODR0 : 1;
     uint32_t ODR1 : 1;
@@ -167,7 +167,7 @@ typedef union {
 //------------------------------------------------------------------------------
 
 typedef union {
-  uint32_t __FULL;
+  uint32_t raw;
   struct {
     uint32_t BS0 : 1;
     uint32_t BS1 : 1;
@@ -197,7 +197,7 @@ typedef union {
 //------------------------------------------------------------------------------
 
 typedef union {
-  uint32_t __FULL;
+  uint32_t raw;
   struct {
     uint32_t BR0 : 1;
     uint32_t BR1 : 1;
@@ -211,14 +211,14 @@ typedef union {
   };
 } gpio_bcr_t;
 
-#define GPIOA_BCR  ((__IO gpio_bc_t *)&GPIOA->BCR)
-#define GPIOC_BCR  ((__IO gpio_bc_t *)&GPIOC->BCR)
-#define GPIOD_BCR  ((__IO gpio_bc_t *)&GPIOD->BCR)
+#define GPIOA_BCR  ((__IO gpio_bcr_t *)&GPIOA->BCR)
+#define GPIOC_BCR  ((__IO gpio_bcr_t *)&GPIOC->BCR)
+#define GPIOD_BCR  ((__IO gpio_bcr_t *)&GPIOD->BCR)
 
 //------------------------------------------------------------------------------
 
 typedef union {
-  uint32_t __FULL;
+  uint32_t raw;
   struct {
     uint32_t LCK0 : 1;
     uint32_t LCK1 : 1;
