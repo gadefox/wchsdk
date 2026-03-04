@@ -30,7 +30,7 @@ typedef struct {
   __IO uint16_t DATA1;
   __IO uint16_t WRPR0;
   __IO uint16_t WRPR1;
-  __IO uint32_t DATA[13];
+  __IO uint16_t DATA[26];
 } ob_t;
 
 #define OB  ((ob_t *)OB_BASE)

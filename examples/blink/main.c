@@ -3,6 +3,8 @@
 #include "wch/sys/stk.h"
 #include "wch/io/pin.h"
 
+#include "wch/hw/optb.h"
+
 #define PIN_R  PD0
 #define PIN_G  PD1
 #define PIN_B  PD2
@@ -27,8 +29,14 @@ void blink_port() {
   delay_ms(150);
 }
 
+void f(void) {
+
+  OB->DATA0 = 0xABCD;
+}
+
 int main(void) {
   init();
+  f();
 
   // Enable GPIOs
   port_power_on(RCC_IOPAEN | RCC_IOPCEN | RCC_IOPDEN);
