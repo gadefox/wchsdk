@@ -8,9 +8,13 @@ dev = `{ ls /dev/ttyACM* >[2] /dev/null }
 fuser -s $dev
 ~ $status 0 && error $dev': device busy'
 
-lua = 'write(''fl un\n'')
+lua = 'write(''h\n'')
        expect(''console: command took'')
-       write(''i fl\n'')
+       write(''d h\n'')
+       expect(''console: command took'')
+       write(''fl un\n'')
+       expect(''console: command took'')
+       write(''fl i\n'')
        expect(''console: command took'')
        write(string.char(0x16))
        send(''out/blink.bin'', XMODEM_CRC)

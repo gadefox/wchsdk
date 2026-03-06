@@ -29,14 +29,8 @@ void blink_port() {
   delay_ms(150);
 }
 
-void f(void) {
-
-  OB->DATA0 = 0xABCD;
-}
-
 int main(void) {
   init();
-  f();
 
   // Enable GPIOs
   port_power_on(RCC_IOPAEN | RCC_IOPCEN | RCC_IOPDEN);
