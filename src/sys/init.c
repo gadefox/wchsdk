@@ -1,0 +1,112 @@
+#include "wchsdk_cfg.h"
+
+#if SYS_CORE
+
+#include <stdbool.h>
+
+#include "wch/hw/flash.h"
+#include "wch/hw/rcc.h"
+
+#include "wch/sys/def.h"
+#include "wch/sys/init.h"
+#include "wch/sys/stk.h"
+#include "wch/sys/util.h"
+
+//------------------------------------------------------------------------------
+
+static inline void init_flash(void) {
+  // Flash latency settings.
+#if SYSCLK > 24000000
+  FLASH->ACTLR = FLASH_LATENCY1; // +1 Cycle Latency
+#endif  /* SYSCLK */
+}
+
+//------------------------------------------------------------------------------
+// External crystal definitions
+
+#if SYS_HSE_BYPASS
+#define BYPASS  RCC_HSEBYP
+#else
+#define BYPASS  0
+#endif  /* SYS_HSE_BYPASS */
+
+#if SYS_HSE_CSS
+#define CLKSEC  RCC_CSSON  // Enable clock security system
+#else
+#define CLKSEC  0
+#endif  /* SYS_HSE_CSS */
+
+//------------------------------------------------------------------------------
+// External crystal initialization
+
+static inline bool sys_init_xtal(void) {
+  RCC->CTLR = RCC_HSEON | CLKSEC | BYPASS;
+
+  // Wait for HSE ready with timeout (~50ms @ 24MHz)
+  if (!wait_mask(&RCC->CTLR, RCC_HSERDY, RCC_HSERDY, 250))
+    return false;
+
+#if SYS_PLL
+  RCC->CFGR0 = RCC_PLLSRC | RCC_SW_HSE;
+#else
+  RCC->CFGR0 = RCC_SW_HSE;
+#endif  /* SYS_PLL */
+
+  return true;
+}
+
+//------------------------------------------------------------------------------
+// Internal clock
+
+static inline void init_rc(void) {
+  // Enable HSI with trim
+  RCC->CTLR = RCC_HSION | (SYS_HSI_TRIM << RCC_HSITRIM_POS);
+
+  // Wait for HSI ready (typically 1-2 µs, but safety first)
+  while (!(RCC->CTLR & RCC_HSIRDY));
+
+  RCC->CFGR0 = RCC_HPRE_DIV1;   // PLLCLK = HCLK = SYSCLK = APB1
+}
+
+//------------------------------------------------------------------------------
+
+#if SYS_PLL
+
+static inline void init_pll(void) {
+  RCC->CTLR |= RCC_PLLON;
+
+  // Wait till PLL is ready
+  while (!(RCC->CTLR & RCC_PLLRDY));
+
+  // Select PLL as system clock source
+  RCC->CFGR0 &= ~RCC_SW;
+  RCC->CFGR0 |= RCC_SW_PLL;
+
+  // Wait till PLL is used as system clock source
+  while ((RCC->CFGR0 & RCC_SWS) != RCC_SWS_PLL);
+}
+
+#endif  /* SYS_PLL */
+
+//------------------------------------------------------------------------------
+
+void init(void) {
+  init_flash();
+
+#if SYS_HSE_FREQ
+  // Try HSE first
+  if (!init_xtal())
+    init_rc();     // HSE failed, fallback to HSI
+#else
+  // Use HSI directly
+  init_rc();
+#endif  /* SYS_HSI_FREQ || SYS_HSE_FREQ */
+
+#if SYS_PLL
+  init_pll();
+#endif  /* SYS_PLL */
+}
+
+//------------------------------------------------------------------------------
+
+#endif  /* SYS_CORE */

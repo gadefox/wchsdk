@@ -1,0 +1,23 @@
+#!/bin/rc
+
+fn error { echo $1; exit 1 }
+
+dev = `{ ls /dev/ttyACM* >[2] /dev/null }
+~ $dev () && error 'no device found'
+
+fuser -s $dev
+~ $status 0 && error $dev': device busy'
+
+lua = 'write(''h\n'')
+       expect(''console: command took'')
+       write(''d h\n'')
+       expect(''console: command took'')
+       write(''fl un\n'')
+       expect(''console: command took'')
+       write(''fl i\n'')
+       expect(''console: command took'')
+       write(string.char(0x16))
+       send(''out/blink.bin'', XMODEM_CRC)
+       exit()'
+
+tio $dev --script $lua
